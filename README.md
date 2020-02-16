@@ -1,4 +1,4 @@
 # team11
 
-# To get start
-## npm start
+## To get start
+* npm start
