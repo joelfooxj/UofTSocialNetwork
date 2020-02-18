@@ -2,17 +2,15 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 
 import InputField from "./../InputField";
-import { Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
 
 import "./style.css"
+import PasswordInputField from "./../PasswordInputField";
 
 class LogInForm extends React.Component{
-    
 
     render(){
         const {username, password, onInputChange} = this.props;
-
+       
         return (
             <div className="LogInForm">
                 <h1 className="SignInHeader">
@@ -24,14 +22,15 @@ class LogInForm extends React.Component{
                         label="Username"
                         value={username}
                         onChange={onInputChange}
+                        type="text"
                     />
-                    <InputField
+                    <PasswordInputField
                         name="passwordInput"
                         label="Password"
                         value={password}
                         onChange={onInputChange}
                     />
-                    <Button className="LogInButton"> Log In</Button>
+                        
 
                 </Grid>
                 

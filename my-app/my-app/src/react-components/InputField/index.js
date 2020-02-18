@@ -5,12 +5,13 @@ import "./style.css"
 
 class InputField extends React.Component{
     render(){
-        const { label, value, onInputChange, name } = this.props;
+        const { label, value, onInputChange, name, type } = this.props;
 
         return (
             <Grid className="LogInInputGrid" container direction="column">
                 <TextField
                     name={name}
+                    type={type}
                     label={label}
                     id="margin-normal"
                     defaultValue={value || ""}
