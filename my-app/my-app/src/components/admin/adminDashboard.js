@@ -1,15 +1,15 @@
 import React from 'react';
 
-const adminDashboard = props => {
+const AdminDashboard = props => {
     // destructure props here 
     
     return(
         <div> 
-            <h1>this is the admin dashboard  </h1>
+            <h1> this is the admin dashboard with </h1>
         </div>
     );
 }
 
-export default adminDashboard
+export default AdminDashboard
 
 

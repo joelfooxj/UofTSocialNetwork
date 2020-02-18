@@ -1,6 +1,6 @@
 import React from 'react';
 
-const clubDashboard = props => {
+const ClubDashboard = props => {
     // destructure props here 
     
     return(
@@ -10,4 +10,4 @@ const clubDashboard = props => {
     );
 }
 
-export default clubDashboard
+export default ClubDashboard
