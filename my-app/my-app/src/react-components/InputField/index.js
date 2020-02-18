@@ -17,6 +17,7 @@ class InputField extends React.Component{
                     className="input"
                     margin="normal"
                     onChange={onInputChange}
+                    
                 />
             </Grid>
         )

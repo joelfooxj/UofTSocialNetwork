@@ -11,20 +11,26 @@ class LogInForm extends React.Component{
         const {username, password, onInputChange} = this.props;
 
         return (
-            <Grid className="LogInForm" container spacing={2}>
-                <InputField
-                    name="usernameInput"
-                    label="Username"
-                    value={username}
-                    onChange={onInputChange}
-                />
-                <InputField
-                    name="passwordInput"
-                    label="Password"
-                    value={password}
-                    onChange={onInputChange}
-                />
-            </Grid>
+            <div className="LogInForm">
+                <h1 className="SignInHeader">
+                    Welcome!
+                </h1>
+                <Grid className="LogInFormGrid" container spacing={2}>
+                    <InputField
+                        name="usernameInput"
+                        label="Username"
+                        value={username}
+                        onChange={onInputChange}
+                    />
+                    <InputField
+                        name="passwordInput"
+                        label="Password"
+                        value={password}
+                        onChange={onInputChange}
+                    />
+                </Grid>
+            </div>
+           
         )
         
     }

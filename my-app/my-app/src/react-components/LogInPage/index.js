@@ -1,6 +1,7 @@
 import React from "react";
 
 import LogInForm from "./../LogInForm"
+import LogInPageBanner from "./../LogInPageBanner"
 
 class LogInPage extends React.Component{
 
@@ -18,6 +19,7 @@ class LogInPage extends React.Component{
     render(){
         return (
             <div className="LogInPage">
+                <LogInPageBanner/>
                 <LogInForm
                     username={this.state.usernameInput}
                     password={this.state.passwordInput}

@@ -1,3 +1,11 @@
+.LogInHeader{
+}
+
+.LogInFormGrid{
+    position: relative;
+    
+}
+
 .LogInForm{
     position: absolute;
     left: 50%;
