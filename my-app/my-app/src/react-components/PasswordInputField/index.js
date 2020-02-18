@@ -5,11 +5,12 @@ import InputField from "./../InputField";
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
+
 import "./style.css"
 
 class PasswordInputField extends React.Component{
     state = {
-        showPassword: false
+        showPassword: true
     }
 
     togglePasswordVisibility(){
