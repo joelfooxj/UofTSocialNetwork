@@ -1,5 +1,7 @@
 .SignInHeader{
     text-align: center;
+    position: relative;
+    top: 15px;
 }
 
 .LogInFormGrid{
