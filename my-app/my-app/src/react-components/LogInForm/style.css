@@ -1,9 +1,9 @@
-.LogInHeader{
+.SignInHeader{
+    text-align: center;
 }
 
 .LogInFormGrid{
     position: relative;
-    
 }
 
 .LogInForm{
@@ -11,4 +11,8 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+}
+
+.LogInButton{
+    top: 20px;
 }

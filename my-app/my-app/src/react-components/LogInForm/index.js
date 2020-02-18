@@ -2,6 +2,9 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 
 import InputField from "./../InputField";
+import { Link } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+
 import "./style.css"
 
 class LogInForm extends React.Component{
@@ -15,7 +18,7 @@ class LogInForm extends React.Component{
                 <h1 className="SignInHeader">
                     Welcome!
                 </h1>
-                <Grid className="LogInFormGrid" container spacing={2}>
+                <Grid className="LogInFormGrid" container spacing={2} direction="column">
                     <InputField
                         name="usernameInput"
                         label="Username"
@@ -28,7 +31,10 @@ class LogInForm extends React.Component{
                         value={password}
                         onChange={onInputChange}
                     />
+                    <Button className="LogInButton"> Log In</Button>
+
                 </Grid>
+                
             </div>
            
         )
