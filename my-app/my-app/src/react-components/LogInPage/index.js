@@ -24,19 +24,24 @@ class LogInPage extends React.Component{
         return false
     }
 
+    //set usernameInput and passwordInput when text input is entered
     onInputChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value
         })
     }
 
+    //set signed in status based on whether sign in succeeded or not
     onAttemptSignIn = () => {
         if(this.checkCredentials()){
-            console.log("Signed In")
+            console.log("Signed In") //TODO: REMOVE
             this.props.changeSignInStatus(true)
+            this.setState({
+                signInFailed: false,
+            })
         }
         else{
-            console.log("Sign In Failed")
+            console.log("Sign In Failed")//TODO: REMOVE
             this.setState({
                 signInFailed: true,
             })

@@ -7,6 +7,7 @@ import InputField from "./../InputField";
 import "./style.css"
 import PasswordInputField from "./../PasswordInputField";
 
+//Input form for log in credentials (should be part of a LogInPage)
 class LogInForm extends React.Component{
 
     render(){

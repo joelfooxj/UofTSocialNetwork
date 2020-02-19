@@ -8,20 +8,23 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 import "./style.css"
 
+//custom password field input
 class PasswordInputField extends React.Component{
     state = {
         showPassword: true
     }
 
+    //change visibility of password text, should be attached to a button
     togglePasswordVisibility(){
         this.setState({
             showPassword: !this.state.showPassword
         })
     }
 
+    //prevent default action of password field
     handleMouseDownPassword = event => {
         event.preventDefault();
-      };
+    };
 
     render(){
         const { label, value, onInputChange, name} = this.props;
