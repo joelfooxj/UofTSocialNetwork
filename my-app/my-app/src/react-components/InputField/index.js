@@ -6,7 +6,6 @@ import "./style.css"
 class InputField extends React.Component{
     render(){
         const { label, value, onInputChange, name, type } = this.props;
-
         return (
             <Grid className="LogInInputGrid" container direction="column">
                 <TextField

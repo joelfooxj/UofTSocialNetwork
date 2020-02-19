@@ -1,5 +1,6 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 
 import InputField from "./../InputField";
 
@@ -9,8 +10,7 @@ import PasswordInputField from "./../PasswordInputField";
 class LogInForm extends React.Component{
 
     render(){
-        const {username, password, onInputChange} = this.props;
-       
+        const {username, password, onInputChange, onAttemptSignIn} = this.props;
         return (
             <div className="LogInForm">
                 <h1 className="SignInHeader">
@@ -21,16 +21,21 @@ class LogInForm extends React.Component{
                         name="usernameInput"
                         label="Username"
                         value={username}
-                        onChange={onInputChange}
+                        onInputChange={onInputChange}
                         type="text"
                     />
                     <PasswordInputField
                         name="passwordInput"
                         label="Password"
                         value={password}
-                        onChange={onInputChange}
+                        onInputChange={onInputChange}
                     />
-                        
+                    
+                    <Button className="SignInButton"
+                        onClick={onAttemptSignIn}
+                    >
+                         Sign In 
+                    </Button>
 
                 </Grid>
                 

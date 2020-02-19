@@ -25,14 +25,13 @@ class PasswordInputField extends React.Component{
 
     render(){
         const { label, value, onInputChange, name} = this.props;
-
         return (
             <div>
                 <InputField
                     name={name}
                     label={label}
                     value={value}
-                    onChange={onInputChange}
+                    onInputChange={onInputChange}
                     type={this.state.showPassword ? "password" : "text"}
                 />
                 <IconButton className="ShowHidePassButton"
