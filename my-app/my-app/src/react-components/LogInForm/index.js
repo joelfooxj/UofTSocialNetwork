@@ -33,6 +33,8 @@ class LogInForm extends React.Component{
                     
                     <Button className="SignInButton"
                         onClick={onAttemptSignIn}
+                        variant={"outlined"}
+                        disableElevation={false}
                     >
                          Sign In 
                     </Button>

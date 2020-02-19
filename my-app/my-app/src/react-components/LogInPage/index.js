@@ -8,7 +8,6 @@ class LogInPage extends React.Component{
     state = {
         usernameInput: "",
         passwordInput: "",
-        signedIn: false,
         signInFailed: false
     }
 
@@ -34,11 +33,12 @@ class LogInPage extends React.Component{
     onAttemptSignIn = () => {
         if(this.checkCredentials()){
             console.log("Signed In")
+            this.props.changeSignInStatus(true)
         }
         else{
             console.log("Sign In Failed")
             this.setState({
-                signInFailed: true
+                signInFailed: true,
             })
         }
     }
