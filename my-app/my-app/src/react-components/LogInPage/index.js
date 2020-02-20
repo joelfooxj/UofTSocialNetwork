@@ -11,17 +11,41 @@ class LogInPage extends React.Component{
         signInFailed: false
     }
 
+
+    //TODO: THESE ARE TEMPORARY HARDCODED VALUES
+    Account = function(username, permission, clubsExecOf, accID, password){
+        this.username = username
+        this.permission = permission
+        this.clubsExecOf = clubsExecOf
+        this.id = accID
+        this.password = password
+    }
+    accs = [
+        new this.Account("user", 0, ["UofT PTSD Support Group"], 1, "user"),
+        new this.Account("mike1995", 0, ["UofT Students Anonymous"], 2, "password"),
+        new this.Account("admin", 1, [], 3, "admin")
+    ]
+
     /*NOTE: THIS FUNCTION WILL QUERY OUR DATABASE RECORDS TO DETERMINE IF THE USER
-     HAS AN ACCOUNT WITH OUR SERVICE.
-     
-     For now it just contains some placeholder code to make sure the app works
-     */
+     HAS AN ACCOUNT WITH OUR SERVICE. FOR NOW IT IS USING A HARDCODED ARRAY OF OBJECTS
+     THAT REPRESENT ACCOUNTS. THIS FUNCTION WILL ALSO UPDATE VARIOUS INTERNAL ACCOUNT
+     ATTRIBUTES REQUIRED FOR THE CORRECT FUNCTIONING OF THE APP. IT MAY OR MAY NOT
+     USE HELPERS TO QUERY THE DATABASE.
+    */
     checkCredentials(){
-        if(this.state.usernameInput === "user" && this.state.passwordInput === "user"){
-            return true
+        let acc = null
+        for(let i = 0; i < this.accs.length; i++){
+            if(this.accs[i].username === this.state.usernameInput && this.accs[i].password === this.state.passwordInput){
+                acc = this.accs[i]
+            }
         }
 
-        return false
+        if(acc === null){
+            return false
+        }
+
+        this.props.changeSignInStatus(true, acc.id, acc.permission, acc.clubsExecOf)
+        return true
     }
 
     //set usernameInput and passwordInput when text input is entered
@@ -35,7 +59,6 @@ class LogInPage extends React.Component{
     onAttemptSignIn = () => {
         if(this.checkCredentials()){
             console.log("Signed In") //TODO: REMOVE
-            this.props.changeSignInStatus(true)
             this.setState({
                 signInFailed: false,
             })
