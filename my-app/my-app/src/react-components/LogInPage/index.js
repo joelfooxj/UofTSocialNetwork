@@ -2,13 +2,15 @@ import React from "react";
 
 import LogInForm from "./../LogInForm"
 import LogInPageBanner from "./../LogInPageBanner"
+import "./style.css"
 
 class LogInPage extends React.Component{
 
     state = {
         usernameInput: "",
         passwordInput: "",
-        signInFailed: false
+        signInFailed: false,
+        changeButtonColor: false
     }
 
 
@@ -67,20 +69,29 @@ class LogInPage extends React.Component{
             console.log("Sign In Failed")//TODO: REMOVE
             this.setState({
                 signInFailed: true,
+                changeButtonColor: true
             })
         }
+    }
+
+    onButtonAnimationEnd = () => {
+        this.setState({
+            changeButtonColor: false
+        })
     }
 
     render(){
         return (
             <div className="LogInPage">
                 <LogInPageBanner/>
-                <LogInForm
+                <LogInForm id="logInPage_logInForm"
                     username={this.state.usernameInput}
                     password={this.state.passwordInput}
                     onInputChange={this.onInputChange}
                     onAttemptSignIn={this.onAttemptSignIn}
                     signInFailed={this.state.signInFailed}
+                    changeButtonColor={this.state.changeButtonColor}
+                    onButtonAnimationEnd={this.onButtonAnimationEnd}
                 />
 
             </div>

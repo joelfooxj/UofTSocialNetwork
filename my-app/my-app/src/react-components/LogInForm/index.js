@@ -12,7 +12,9 @@ import { Link } from "react-router-dom";
 class LogInForm extends React.Component{
 
     render(){
-        const {username, password, onInputChange, onAttemptSignIn} = this.props;
+        const {username, password, onInputChange, onAttemptSignIn, signInFailed, changeButtonColor,
+            onButtonAnimationEnd} = this.props;
+
         return (
             <div className="logInForm">
                 <h1 className="logInForm_signInHeader">
@@ -34,13 +36,16 @@ class LogInForm extends React.Component{
                     />
                     <Button className="logInForm_signInButton"
                         onClick={onAttemptSignIn}
+                        onAnimationEnd={onButtonAnimationEnd}
                         variant={"outlined"}
+                        color={changeButtonColor ? "secondary" : "primary"}
                         disableElevation={false}
                     >
                          Sign In 
                     </Button>
-
+                    {signInFailed ? <span id="logInForm_incorrectCredPrompt">Incorrect Credentials</span> : null}
                 </Grid>
+                
                 <Link className="logInForm_CreateAccLink" to={"./../CreateAccPage"}>CreateAccount</Link>
                 
             </div>
