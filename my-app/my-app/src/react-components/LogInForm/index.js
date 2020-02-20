@@ -6,6 +6,7 @@ import InputField from "./../InputField";
 
 import "./style.css"
 import PasswordInputField from "./../PasswordInputField";
+import { Link } from "react-router-dom";
 
 //Input form for log in credentials (should be part of a LogInPage)
 class LogInForm extends React.Component{
@@ -40,6 +41,7 @@ class LogInForm extends React.Component{
                     </Button>
 
                 </Grid>
+                <Link className="logInForm_CreateAccLink" to={"./../CreateAccPage"}>CreateAccount</Link>
                 
             </div>
            

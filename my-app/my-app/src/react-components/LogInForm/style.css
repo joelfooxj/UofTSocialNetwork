@@ -15,3 +15,10 @@
     transform: translate(-50%, -50%);
 }
 
+.logInForm_CreateAccLink{
+    position: relative;
+    top: -75px;
+    left: -6px;
+    font-size: small;
+}
+
