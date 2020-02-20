@@ -37,7 +37,7 @@ class PasswordInputField extends React.Component{
                     onInputChange={onInputChange}
                     type={this.state.showPassword ? "password" : "text"}
                 />
-                <IconButton className="ShowHidePassButton"
+                <IconButton className="showHidePassButton"
                   aria-label="toggle password visibility"
                   onClick={this.togglePasswordVisibility.bind(this)}
                   onMouseDown={this.handleMouseDownPassword}

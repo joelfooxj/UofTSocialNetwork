@@ -13,11 +13,11 @@ class LogInForm extends React.Component{
     render(){
         const {username, password, onInputChange, onAttemptSignIn} = this.props;
         return (
-            <div className="LogInForm">
-                <h1 className="SignInHeader">
+            <div className="logInForm">
+                <h1 className="logInForm_signInHeader">
                     Welcome!
                 </h1>
-                <Grid className="LogInFormGrid" container spacing={2} direction="column">
+                <Grid className="logInForm_logInFormGrid" container spacing={2} direction="column">
                     <InputField
                         name="usernameInput"
                         label="Username"
@@ -31,8 +31,7 @@ class LogInForm extends React.Component{
                         value={password}
                         onInputChange={onInputChange}
                     />
-                    
-                    <Button className="SignInButton"
+                    <Button className="logInForm_signInButton"
                         onClick={onAttemptSignIn}
                         variant={"outlined"}
                         disableElevation={false}

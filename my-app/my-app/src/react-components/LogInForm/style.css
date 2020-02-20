@@ -1,14 +1,14 @@
-.SignInHeader{
+.logInForm_signInHeader{
     text-align: center;
     position: relative;
     top: 30px;
 }
 
-.LogInFormGrid{
+.logInForm_logInFormGrid{
     position: relative;
 }
 
-.LogInForm{
+.logInForm{
     position: absolute;
     left: 50%;
     top: 50%;

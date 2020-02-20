@@ -8,7 +8,7 @@ class InputField extends React.Component{
     render(){
         const { label, value, onInputChange, name, type } = this.props;
         return (
-            <Grid className="LogInInputGrid" container direction="column">
+            <Grid className="logInGrid" container direction="column">
                 <TextField
                     name={name}
                     type={type}
@@ -18,7 +18,6 @@ class InputField extends React.Component{
                     className="input"
                     margin="normal"
                     onChange={onInputChange}
-                    
                 />
             </Grid>
         )
