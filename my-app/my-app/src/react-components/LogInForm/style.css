@@ -9,17 +9,14 @@
 }
 
 .logInForm{
-    position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -45%);
 }
 
 .logInForm_buttonDiv{
     position: static;
-    left: 50%;
-    top: 50%;
     display: block;
+    align-self: center;
 }
 
 .logInForm_buttonDiv_signInButton{
@@ -30,6 +27,10 @@
 .logInForm_buttonDiv_CreateAccLink{
     font-size: small;
     top: 10px;
+}
+
+#logInForm_crrAccLink{
+    text-decoration: none;
 }
 
 #logInForm_incorrectCredPrompt{

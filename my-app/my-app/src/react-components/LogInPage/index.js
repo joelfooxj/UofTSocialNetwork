@@ -83,7 +83,7 @@ class LogInPage extends React.Component{
     render(){
         return (
             <div className="LogInPage">
-                <LogInPageBanner/>
+                <LogInPageBanner id="logInPage_banner"/>
                 <LogInForm id="logInPage_logInForm"
                     username={this.state.usernameInput}
                     password={this.state.passwordInput}

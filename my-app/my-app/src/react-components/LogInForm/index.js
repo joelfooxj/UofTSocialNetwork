@@ -44,7 +44,7 @@ class LogInForm extends React.Component{
                         >
                             Sign In 
                         </Button> <br></br>
-                        <Link  to={"./../CreateAccPage"}>
+                        <Link id="logInForm_crrAccLink" to={"./../CreateAccPage"}>
                             <Button className="logInForm_buttonDiv_CreateAccLink"
                                 variant={"outlined"}
                                 color={"primary"}

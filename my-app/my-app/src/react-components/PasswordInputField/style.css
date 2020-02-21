@@ -1,5 +1,8 @@
-.showHidePassButton{
-    position: absolute;
-    left: 163px;
+#passField{
+    align-self: center;
+}
+.passField_showHidePassButton{
+    position: relative;
     top: -45px;
+    left: 185px;
 }

@@ -29,7 +29,7 @@ class PasswordInputField extends React.Component{
     render(){
         const { label, value, onInputChange, name} = this.props;
         return (
-            <div>
+            <div id="passField">
                 <InputField
                     name={name}
                     label={label}
@@ -37,12 +37,12 @@ class PasswordInputField extends React.Component{
                     onInputChange={onInputChange}
                     type={this.state.showPassword ? "password" : "text"}
                 />
-                <IconButton className="showHidePassButton"
+                <IconButton className="passField_showHidePassButton"
                   aria-label="toggle password visibility"
                   onClick={this.togglePasswordVisibility.bind(this)}
                   onMouseDown={this.handleMouseDownPassword}
                 >
-                    {this.state.showPassword ?  <VisibilityOff /> : <Visibility />}
+                    {this.state.showPassword ?  <VisibilityOff/> : <Visibility />}
                 </IconButton>
             </div>
         )
