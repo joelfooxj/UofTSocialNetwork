@@ -1,6 +1,6 @@
 import React from "react";
 import './style.css';
-import ClubInfo from "../ClubInfo/index.js"
+import ClubInfo from "../ClubInfo"
 
 class ClubProfileBanner extends React.Component {
     render() {
