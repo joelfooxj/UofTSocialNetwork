@@ -34,19 +34,31 @@ class LogInForm extends React.Component{
                         value={password}
                         onInputChange={onInputChange}
                     />
-                    <Button className="logInForm_signInButton"
-                        onClick={onAttemptSignIn}
-                        onAnimationEnd={onButtonAnimationEnd}
-                        variant={"outlined"}
-                        color={changeButtonColor ? "secondary" : "primary"}
-                        disableElevation={false}
-                    >
-                         Sign In 
-                    </Button>
+                    <div className="logInForm_buttonDiv">
+                        <Button className="logInForm_buttonDiv_signInButton"
+                            onClick={onAttemptSignIn}
+                            onAnimationEnd={onButtonAnimationEnd}
+                            variant={"outlined"}
+                            color={changeButtonColor ? "secondary" : "primary"}
+                            disableElevation={false}
+                        >
+                            Sign In 
+                        </Button> <br></br>
+                        <Link  to={"./../CreateAccPage"}>
+                            <Button className="logInForm_buttonDiv_CreateAccLink"
+                                variant={"outlined"}
+                                color={"primary"}
+                                disableElevation={"false"}
+                            >
+                                Create Account
+                            </Button>
+                        </Link>
+                    </div>
+                    
                     {signInFailed ? <span id="logInForm_incorrectCredPrompt">Incorrect Credentials</span> : null}
                 </Grid>
                 
-                <Link className="logInForm_CreateAccLink" to={"./../CreateAccPage"}>CreateAccount</Link>
+                
                 
             </div>
            

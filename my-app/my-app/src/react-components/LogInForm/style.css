@@ -15,17 +15,27 @@
     transform: translate(-50%, -45%);
 }
 
-.logInForm_CreateAccLink{
-    position: relative;
-    top: -75px;
-    left: -6px;
+.logInForm_buttonDiv{
+    position: static;
+    left: 50%;
+    top: 50%;
+    display: block;
+}
+
+.logInForm_buttonDiv_signInButton{
     font-size: small;
+    width: 166px;
+}
+
+.logInForm_buttonDiv_CreateAccLink{
+    font-size: small;
+    top: 10px;
 }
 
 #logInForm_incorrectCredPrompt{
     color: red;
     align-self: center;
     position: absolute;
-    top: 230px;
+    top: 150px;
 }
 
