@@ -14,8 +14,8 @@ class LogInForm extends React.Component{
     render(){
         const {username, password, onInputChange, onAttemptSignIn, signInFailed, changeButtonColor,
             onButtonAnimationEnd} = this.props;
-
         return (
+            
             <div className="logInForm">
                 <h1 className="logInForm_signInHeader">
                     Welcome!
@@ -34,7 +34,7 @@ class LogInForm extends React.Component{
                         value={password}
                         onInputChange={onInputChange}
                     />
-                    <div className="logInForm_buttonDiv" to={"./../UserProfilePage"}>
+                    <div className="logInForm_buttonDiv">
                         <Button className="logInForm_buttonDiv_signInButton"
                             onClick={onAttemptSignIn}
                             onAnimationEnd={onButtonAnimationEnd}

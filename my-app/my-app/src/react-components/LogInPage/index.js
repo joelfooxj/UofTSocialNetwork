@@ -3,7 +3,7 @@ import React from "react";
 import LogInForm from "./../LogInForm"
 import LogInPageBanner from "./../LogInPageBanner"
 import "./style.css"
-import { Redirect } from 'react-router'
+import { withRouter } from 'react-router-dom';
 
 class LogInPage extends React.Component{
 
@@ -11,8 +11,8 @@ class LogInPage extends React.Component{
         usernameInput: "",
         passwordInput: "",
         signInFailed: false,
-        goToProfile: false,
-        changeButtonColor: false
+        changeButtonColor: false,
+        account: {}
     }
 
 
@@ -33,13 +33,14 @@ class LogInPage extends React.Component{
         new this.Account("admin", 1, [], 3, "admin", "admin", "admin", "admin@admin.com")
     ]
 
+
     /*NOTE: THIS FUNCTION WILL QUERY OUR DATABASE RECORDS TO DETERMINE IF THE USER
      HAS AN ACCOUNT WITH OUR SERVICE. FOR NOW IT IS USING A HARDCODED ARRAY OF OBJECTS
      THAT REPRESENT ACCOUNTS. THIS FUNCTION WILL ALSO UPDATE VARIOUS INTERNAL ACCOUNT
      ATTRIBUTES REQUIRED FOR THE CORRECT FUNCTIONING OF THE APP. IT MAY OR MAY NOT
      USE HELPERS TO QUERY THE DATABASE.
     */
-    checkCredentials(){
+    checkCredentials = () => {
         let acc = null
         for(let i = 0; i < this.accs.length; i++){
             if(this.accs[i].username === this.state.usernameInput && this.accs[i].password === this.state.passwordInput){
@@ -49,9 +50,14 @@ class LogInPage extends React.Component{
 
         if(acc === null){
             return false
-        }
+        }  
 
-        this.props.changeSignInStatus(true, acc.id, acc.permission, acc.clubsExecOf)
+        this.setState({
+            account: new this.Account(acc.username, acc.permission, acc.clubsExecOf, acc.id, acc.password, acc.firstName, acc.lastName, acc.email)
+        }, () => {
+            this.props.changeSignInStatus(true, acc.id, acc.permission, acc.clubsExecOf)
+        })
+        
         return true
     }
 
@@ -68,14 +74,18 @@ class LogInPage extends React.Component{
             console.log("Signed In") //TODO: REMOVE
             this.setState({
                 signInFailed: false,
-                goToProfile: true
+            }, () => {
+                const {history} = this.props;
+                if(history){
+                    history.push('/UserProfilePage', this.state)
+                }
             })
+            
         }
         else{
             console.log("Sign In Failed")//TODO: REMOVE
             this.setState({
                 signInFailed: true,
-                goToProfile: false,
                 changeButtonColor: true
             })
         }
@@ -83,15 +93,11 @@ class LogInPage extends React.Component{
 
     onButtonAnimationEnd = () => {
         this.setState({
-            changeButtonColor: false
+            changeButtonColor: false,
         })
     }
 
     render(){
-        if(this.state.goToProfile){
-            return <Redirect to="/UserProfilePage"/>
-        }
-
         return (
             <div className="LogInPage">
                 <LogInPageBanner id="logInPage_banner"/>
@@ -110,4 +116,4 @@ class LogInPage extends React.Component{
     }
 }
 
-export default LogInPage;
+export default withRouter(LogInPage);

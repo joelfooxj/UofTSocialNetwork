@@ -12,8 +12,7 @@ class UserProfileField extends React.Component{
 
     render(){
         const {label, name, type, defaultValue, disabled} = this.props
-
-        let field = <TextField className="infoField"
+        let field = <TextField 
                 name={name}
                 type={type}
                 label={label}
