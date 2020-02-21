@@ -1,0 +1,10 @@
+.logInPageBanner{
+    display: block;
+    width: 100%;
+    height: auto;
+    min-height: 100px;
+    max-height: 230px;
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+}
