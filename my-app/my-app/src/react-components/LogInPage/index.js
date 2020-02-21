@@ -17,17 +17,20 @@ class LogInPage extends React.Component{
 
 
     //TODO: THESE ARE TEMPORARY HARDCODED VALUES
-    Account = function(username, permission, clubsExecOf, accID, password){
+    Account = function(username, permission, clubsExecOf, accID, password, firstName, lastName, email){
         this.username = username
         this.permission = permission
         this.clubsExecOf = clubsExecOf
         this.id = accID
         this.password = password
+        this.firstName = firstName
+        this.lastName = lastName
+        this.email = email
     }
     accs = [
-        new this.Account("user", 0, ["UofT PTSD Support Group"], 1, "user"),
-        new this.Account("mike1995", 0, ["UofT Students Anonymous"], 2, "password"),
-        new this.Account("admin", 1, [], 3, "admin")
+        new this.Account("user", 0, ["UofT PTSD Support Group"], 1, "user", "user", "user", "user@user.com"),
+        new this.Account("mike1995", 0, ["UofT Students Anonymous"], 2, "password", "mike", "johnson", "mike@gmail.com"),
+        new this.Account("admin", 1, [], 3, "admin", "admin", "admin", "admin@admin.com")
     ]
 
     /*NOTE: THIS FUNCTION WILL QUERY OUR DATABASE RECORDS TO DETERMINE IF THE USER

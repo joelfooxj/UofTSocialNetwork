@@ -36,7 +36,9 @@ class App extends React.Component{
             <Route exact path='/CreateAccPage' render={() => 
                             (<CreateAccPage/>)}/>
             <Route exact path='/UserProfilePage' render={() =>
-                            (<UserProfilePage/>)}/>
+                            (<UserProfilePage 
+                              userAccId={this.state.accountId}
+                            />)}/>
           </Switch>
         </BrowserRouter>
     );

@@ -35,23 +35,21 @@ class LogInForm extends React.Component{
                         onInputChange={onInputChange}
                     />
                     <div className="logInForm_buttonDiv" to={"./../UserProfilePage"}>
-                        <Link className="logInForm_link">
-                            <Button className="logInForm_buttonDiv_signInButton"
-                                onClick={onAttemptSignIn}
-                                onAnimationEnd={onButtonAnimationEnd}
-                                variant={"outlined"}
-                                color={changeButtonColor ? "secondary" : "primary"}
-                                disableElevation={false}
-                            >
-                                Sign In 
-                            </Button>
-                        </Link>
+                        <Button className="logInForm_buttonDiv_signInButton"
+                            onClick={onAttemptSignIn}
+                            onAnimationEnd={onButtonAnimationEnd}
+                            variant={"outlined"}
+                            color={changeButtonColor ? "secondary" : "primary"}
+                            disableElevation={false}
+                        >
+                            Sign In 
+                        </Button>
                         <br></br>
                         <Link className="logInForm_link" to={"./../CreateAccPage"}>
                             <Button className="logInForm_buttonDiv_CreateAccLink"
                                 variant={"outlined"}
                                 color={"primary"}
-                                disableElevation={"false"}
+                                disableElevation={false}
                             >
                                 Create Account
                             </Button>
