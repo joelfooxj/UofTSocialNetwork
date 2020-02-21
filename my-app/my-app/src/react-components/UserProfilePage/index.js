@@ -30,7 +30,11 @@ class UserProfilePage extends React.Component{
     ]
 
     /*THIS FUNCTION OR SOME SIMILAR ONE WILL COMMUNICATE WITH OUR DATABASE
-    TO RETRIEVE USER DATA, FOR NOW IT IS HARD CODED TO SIMULATE THE DATABASE.*/
+    TO RETRIEVE USER DATA, FOR NOW IT IS HARD CODED TO SIMULATE THE DATABASE.
+    
+    REFRESHING THIS PAGE WILL LOG YOU OUT UNTIL THE BACK END IS PROPERLY IMPLEMENTED
+    WITH LOG IN EXPIRATION
+    */
     pullUserInfo(){
         let userAcc = null
         for(let i = 0; i < this.accs.length; i++){
@@ -43,7 +47,7 @@ class UserProfilePage extends React.Component{
             password: userAcc.password,
             email: userAcc.email,
             firstName: userAcc.firstName,
-            lastName: userAcc.lastName
+            lastName: userAcc.lastName,
         })
     }
 
@@ -51,40 +55,39 @@ class UserProfilePage extends React.Component{
         this.pullUserInfo()
     }
 
+   
     render(){
-        
-
         return (
-        <div id="userProfilePage">
-            <UserProfileField className="infoField"
-                label={"Username"}
-                name={"usernameField"}
-                type={"text"}
-                defaultValue={this.state.username}
-                disabled={true}
-            />
-            <UserProfileField className="infoField"
-                label={"Password"}
-                name={"passwordField"}
-                type={"password"}
-                defaultValue={this.state.password}
-                disabled={true}
-            />
-            <UserProfileField className="infoField"
-                label={"Name"}
-                name={"nameField"}
-                type={"text"}
-                defaultValue={this.state.firstName + " " + this.state.lastName}
-                disabled={true}
-            />
-            <UserProfileField className="infoField"
-                label={"Email"}
-                name={"emailField"}
-                type={"text"}
-                defaultValue={this.state.email}
-                disabled={true}
-            />
-        </div>
+            <div id="userProfilePage">
+                <UserProfileField className="infoField"
+                    label={"Username"}
+                    name={"usernameField"}
+                    type={"text"}
+                    defaultValue={this.state.username}
+                    disabled={true}
+                />
+                <UserProfileField className="infoField"
+                    label={"Password"}
+                    name={"passwordField"}
+                    type={"password"}
+                    defaultValue={this.state.password}
+                    disabled={true}
+                />
+                <UserProfileField className="infoField"
+                    label={"Name"}
+                    name={"nameField"}
+                    type={"text"}
+                    defaultValue={this.state.firstName + " " + this.state.lastName}
+                    disabled={true}
+                />
+                <UserProfileField className="infoField"
+                    label={"Email"}
+                    name={"emailField"}
+                    type={"text"}
+                    defaultValue={this.state.email}
+                    disabled={true}
+                />
+            </div>
         );
     }
 }
