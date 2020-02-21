@@ -3,6 +3,7 @@ import React from "react";
 import LogInForm from "./../LogInForm"
 import LogInPageBanner from "./../LogInPageBanner"
 import "./style.css"
+import { Redirect } from 'react-router'
 
 class LogInPage extends React.Component{
 
@@ -10,6 +11,7 @@ class LogInPage extends React.Component{
         usernameInput: "",
         passwordInput: "",
         signInFailed: false,
+        goToProfile: false,
         changeButtonColor: false
     }
 
@@ -63,12 +65,14 @@ class LogInPage extends React.Component{
             console.log("Signed In") //TODO: REMOVE
             this.setState({
                 signInFailed: false,
+                goToProfile: true
             })
         }
         else{
             console.log("Sign In Failed")//TODO: REMOVE
             this.setState({
                 signInFailed: true,
+                goToProfile: false,
                 changeButtonColor: true
             })
         }
@@ -81,6 +85,10 @@ class LogInPage extends React.Component{
     }
 
     render(){
+        if(this.state.goToProfile){
+            return <Redirect to="/UserProfilePage"/>
+        }
+
         return (
             <div className="LogInPage">
                 <LogInPageBanner id="logInPage_banner"/>
