@@ -7,12 +7,24 @@ import { withRouter } from 'react-router-dom';
 class UserProfilePage extends React.Component{
 
     /*THIS FUNCTION WILL UPDATE THE DATABASE WITH NEW ACCOUNT INFO, FOR NOW IT DOES NOTHING*/
-    changeAccountInfo = () => {
-        console.log("NOT IMPLEMENTED")
+
+
+    getAccount(){
+        let accs = this.props.location.state.accounts
+        let id = this.props.location.state.accountId
+
+        for(let i = 0; i < accs.length; i++){
+            if(accs[i].id === id){
+                return accs[i]
+            }
+        }
+
+        return null
     }
 
     render(){
-        const account = this.props.location.state.account
+        const account = this.getAccount()
+        console.log(this.props.userInfo.changeAccInfo)
         return (
             <div id="userProfilePage">
                 <UserProfileField
@@ -21,7 +33,7 @@ class UserProfilePage extends React.Component{
                     type={"text"}
                     defaultValue={account.username}
                     disabled={true}
-                    onChange={this.changeAccountInfo}
+                    onChange={this.props.changeAccInfo}
                 />
                 <UserProfileField
                     label={"Password"}
@@ -29,7 +41,7 @@ class UserProfilePage extends React.Component{
                     type={"password"}
                     defaultValue={account.password}
                     disabled={true}
-                    onChange={this.changeAccountInfo}
+                    onChange={this.props.changeAccInfo}
                 />
                 <UserProfileField
                     label={"First Name"}
@@ -37,7 +49,7 @@ class UserProfilePage extends React.Component{
                     type={"text"}
                     defaultValue={account.firstName}
                     disabled={true}
-                    onChange={this.changeAccountInfo}
+                    onChange={this.props.changeAccInfo}
                 />
                 <UserProfileField
                     label={"Last Name"}
@@ -45,7 +57,7 @@ class UserProfilePage extends React.Component{
                     type={"text"}
                     defaultValue={account.lastName}
                     disabled={true}
-                    onChange={this.changeAccountInfo}
+                    onChange={this.props.changeAccInfo}
                 />
                 <UserProfileField
                     label={"Email"}
@@ -53,7 +65,7 @@ class UserProfilePage extends React.Component{
                     type={"text"}
                     defaultValue={account.email}
                     disabled={true}
-                    onChange={this.changeAccountInfo}
+                    onChange={this.props.changeAccInfo}
                 />
             </div>
         );

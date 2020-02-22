@@ -14,6 +14,7 @@ class LogInForm extends React.Component{
     render(){
         const {username, password, onInputChange, onAttemptSignIn, signInFailed, changeButtonColor,
             onButtonAnimationEnd} = this.props;
+
         return (
             
             <div className="logInForm">

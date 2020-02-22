@@ -7,30 +7,14 @@ import { withRouter } from 'react-router-dom';
 
 class LogInPage extends React.Component{
 
-    //TODO: THESE ARE TEMPORARY HARDCODED VALUES
-    Account = function(username, permission, clubsExecOf, accID, password, firstName, lastName, email){
-        this.username = username
-        this.permission = permission
-        this.clubsExecOf = clubsExecOf
-        this.id = accID
-        this.password = password
-        this.firstName = firstName
-        this.lastName = lastName
-        this.email = email
-    }
-    accs = [
-        new this.Account("user", 0, ["UofT PTSD Support Group"], 1, "user", "user", "user", "user@user.com"),
-        new this.Account("mike1995", 0, ["UofT Students Anonymous"], 2, "password", "mike", "johnson", "mike@gmail.com"),
-        new this.Account("admin", 1, [], 3, "admin", "admin", "admin", "admin@admin.com")
-    ]
-
     state = {
         usernameInput: "",
         passwordInput: "",
         signInFailed: false,
+        singedIn: false,
         changeButtonColor: false,
-        account: {},
-        accounts: this.accs,
+        accounts: [],
+        accountId: -1
     }
 
     /*NOTE: THIS FUNCTION WILL QUERY OUR DATABASE RECORDS TO DETERMINE IF THE USER
@@ -41,9 +25,10 @@ class LogInPage extends React.Component{
     */
     checkCredentials = () => {
         let acc = null
-        for(let i = 0; i < this.accs.length; i++){
-            if(this.accs[i].username === this.state.usernameInput && this.accs[i].password === this.state.passwordInput){
-                acc = this.accs[i]
+        let accs = this.props.accounts
+        for(let i = 0; i < accs.length; i++){
+            if(accs[i].username === this.state.usernameInput && accs[i].password === this.state.passwordInput){
+                acc = accs[i]
             }
         }
 
@@ -52,7 +37,7 @@ class LogInPage extends React.Component{
         }  
 
         this.setState({
-            account: new this.Account(acc.username, acc.permission, acc.clubsExecOf, acc.id, acc.password, acc.firstName, acc.lastName, acc.email)
+            accountId: acc.id
         }, () => {
             this.props.changeSignInStatus(true, acc.id, acc.permission, acc.clubsExecOf)
         })
@@ -73,6 +58,7 @@ class LogInPage extends React.Component{
             console.log("Signed In") //TODO: REMOVE
             this.setState({
                 signInFailed: false,
+                accounts: this.props.accounts
             }, () => {
                 const {history} = this.props;
                 if(history){
@@ -108,6 +94,7 @@ class LogInPage extends React.Component{
                     signInFailed={this.state.signInFailed}
                     changeButtonColor={this.state.changeButtonColor}
                     onButtonAnimationEnd={this.onButtonAnimationEnd}
+                    signedIn={this.state.signedIn}
                 />
 
             </div>
