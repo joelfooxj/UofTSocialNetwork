@@ -1,25 +1,33 @@
 import React from 'react'; 
-import { Grid, List, ListItem, ListItemText } from '@material-ui/core';
+import { Grid, List, ListItem, ListItemText, IconButton, ListItemSecondaryAction, Paper } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete'; 
 
 const UserList = props => {
-		// props should contain list of user info + function/buttons for each item
 		
         const users = props.usersArr;
-        console.log(users);
+				console.log(users);
+				
     return (
         <div className="userList">
             <h2> Users </h2>
             <Grid container spacing={2}>
-                    <Grid item xs={12} md={6}>                    
-                        {/* Possible styling components for later */}
-												{
-                          // <div> name </div> 
-													users.map(user => 
-														<div>
-															Name: {user.name}
-														</div> 															
-													)
-												}
+                    <Grid item xs={12} md={6}> 
+											<List dense={true}> 
+													{users.map(user => 
+														<Paper elevation={0} variant='outlined' key={user.userID} >
+															<ListItem button onClick={() => props.onClick('user', user.userID)}> 
+																	<ListItemText
+																		primary={user.name}
+																	/>
+																	<ListItemSecondaryAction>
+																		<IconButton edge="end" aria-label="delete" onClick={() => props.onDelete('user', user.userID)}>
+																			<DeleteIcon />
+																		</IconButton>
+																	</ListItemSecondaryAction>
+															</ListItem> 
+														</Paper>
+														)}
+											</List> 
                     </Grid> 
             </Grid>
         </div> 

@@ -12,22 +12,25 @@ import ClubList from './clubList/index.js';
 
 
 class AdminDashboard extends React.Component {
-    // destructure props here 
-
-    state={
+    constructor(props){
+			super(props); 
+			this.state={
         currentStats: {},
 				userList:[], 
 				clubList:[]
-		}	
+			}	
+		}
+
+    
 		
 		componentDidMount(){
 			this.fetchData(); 
 		}
 
 		fetchData(){ 
-			//fetch data from the DB here 
+			//TODO: fetch data from the DB here 
+
 			const [Users, Clubs] = tempData;
-			// post-processing + write to state
 			this.setState({
 				userList: Users, 
 				clubList: Clubs, 
@@ -37,6 +40,19 @@ class AdminDashboard extends React.Component {
 					numPosts: Clubs.map(club => club.posts.length).reduce((sum, val) => sum + val)
 				},
 			})
+		}
+
+		deleteObject = (inType, inID)  => {
+			//TODO: delete object from database
+
+			this.setState(inType === 'user' ? 
+			{userList: this.state.userList.filter(user => user.userID != inID)} : 
+			{clubList: this.state.clubList.filter(club => club.clubID != inID)});
+		}
+
+		goToObject = (inType, inID) => {
+			// TODO: route to the relevant object page
+			alert('going to ' + inType + inID); 
 		}
 
     render(){
@@ -50,9 +66,13 @@ class AdminDashboard extends React.Component {
                 />
                 <UserList
 								usersArr={this.state.userList}
+								onClick={this.goToObject}
+								onDelete={this.deleteObject}
 								/>
                 <ClubList
 								clubsArr={this.state.clubList}
+								onClick={this.goToObject}
+								onDelete={this.deleteObject}
 								/> 
             </div>
         );

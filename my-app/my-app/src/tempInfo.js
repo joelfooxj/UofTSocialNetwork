@@ -10,20 +10,18 @@ const Posts = [
 ]
 
 const Users = [
-  {name: 'joel', memberOf:['csc309', 'uoft', 'team11']},
-  {name: 'victor', memberOf:['csc309', 'uoft']},
-  {name: 'zhan', memberOf:['csc309','team11']},
-  {name: 'nikita', memberOf:['csc309', 'team11']},
+  {userID: 1, name: 'joel', memberOf:['csc309', 'uoft', 'team11']},
+  {userID: 2, name: 'victor', memberOf:['csc309', 'uoft']},
+  {userID: 3, name: 'zhan', memberOf:['csc309','team11']},
+  {userID: 4, name: 'nikita', memberOf:['csc309', 'team11']},
 ]
 
 
 // See that clubs hold a list of users who have exec permissions
 const Clubs = [
-  {name: 'csc309', execs:['joel', 'nikita'], posts:[Posts[0]]},
-  {name: 'uoft', execs:['zhan'], posts:[Posts[1]]},
-  {name: 'team11', execs:['joel', 'victor'], posts:[Posts[2]]}
+  {clubID: 1, name: 'csc309', execs:['joel', 'nikita'], posts:[Posts[0]]},
+  {clubID: 2, name: 'uoft', execs:['zhan'], posts:[Posts[1]]},
+  {clubID: 3, name: 'team11', execs:['joel', 'victor'], posts:[Posts[2]]}
 ]
-// const tempData = [Users, Clubs]; 
-// export default tempData;
 
 export default [Users, Clubs]; 
