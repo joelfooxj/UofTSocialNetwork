@@ -1,10 +1,6 @@
 #userProfilePage{
     position: relative;
     margin: 2px;
-    /*THE BORDER IS TEMPORARY*/
-    border: solid;
-    border-width: 1px;
-    border-color: red;
     width: fit-content;
     display: flex;
     flex-direction: column;

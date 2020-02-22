@@ -1,7 +1,7 @@
 import React from 'react';
 import TextField from "@material-ui/core/TextField";
 import "./style.css"
-
+import CustomButton from "./../CustomButton"
 
 class UserProfileField extends React.Component{
 
@@ -18,15 +18,34 @@ class UserProfileField extends React.Component{
                 label={label}
                 id="margin-normal"
                 defaultValue={defaultValue || ""}
-                className="infoField"
+                className="infoFieldText"
                 margin="normal"
                 disabled={disabled}
                 onChange={() => {console.log("hello there")}}
             />
         
 
+
         return (
-            field
+            <div className="infoField">
+                {field}
+                <CustomButton id="editButton"
+                    color={"primary"}
+                    variant={"outlined"}
+                    disableElevation={false}
+                    buttonText={"Edit"}
+                    textColor={"#3F51B5"}
+                    borderColor={"#3F51B5"}
+                    width={"10px"}
+                    height={"15px"}
+                    padding={"0px"}
+                    top={"42px"}
+                    left={"10px"}
+                    fontSize={"10px"}
+                >
+                </CustomButton>
+                
+            </div>
         );
     }
 }
