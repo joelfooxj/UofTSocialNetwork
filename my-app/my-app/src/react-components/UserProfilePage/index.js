@@ -6,7 +6,10 @@ import { withRouter } from 'react-router-dom';
 
 class UserProfilePage extends React.Component{
 
-    
+    /*THIS FUNCTION WILL UPDATE THE DATABASE WITH NEW ACCOUNT INFO, FOR NOW IT DOES NOTHING*/
+    changeAccountInfo = () => {
+        console.log("NOT IMPLEMENTED")
+    }
 
     render(){
         const account = this.props.location.state.account
@@ -18,6 +21,7 @@ class UserProfilePage extends React.Component{
                     type={"text"}
                     defaultValue={account.username}
                     disabled={true}
+                    onChange={this.changeAccountInfo}
                 />
                 <UserProfileField
                     label={"Password"}
@@ -25,6 +29,7 @@ class UserProfilePage extends React.Component{
                     type={"password"}
                     defaultValue={account.password}
                     disabled={true}
+                    onChange={this.changeAccountInfo}
                 />
                 <UserProfileField
                     label={"First Name"}
@@ -32,6 +37,7 @@ class UserProfilePage extends React.Component{
                     type={"text"}
                     defaultValue={account.firstName}
                     disabled={true}
+                    onChange={this.changeAccountInfo}
                 />
                 <UserProfileField
                     label={"Last Name"}
@@ -39,6 +45,7 @@ class UserProfilePage extends React.Component{
                     type={"text"}
                     defaultValue={account.lastName}
                     disabled={true}
+                    onChange={this.changeAccountInfo}
                 />
                 <UserProfileField
                     label={"Email"}
@@ -46,6 +53,7 @@ class UserProfilePage extends React.Component{
                     type={"text"}
                     defaultValue={account.email}
                     disabled={true}
+                    onChange={this.changeAccountInfo}
                 />
             </div>
         );
