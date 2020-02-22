@@ -7,15 +7,6 @@ import { withRouter } from 'react-router-dom';
 
 class LogInPage extends React.Component{
 
-    state = {
-        usernameInput: "",
-        passwordInput: "",
-        signInFailed: false,
-        changeButtonColor: false,
-        account: {}
-    }
-
-
     //TODO: THESE ARE TEMPORARY HARDCODED VALUES
     Account = function(username, permission, clubsExecOf, accID, password, firstName, lastName, email){
         this.username = username
@@ -33,6 +24,14 @@ class LogInPage extends React.Component{
         new this.Account("admin", 1, [], 3, "admin", "admin", "admin", "admin@admin.com")
     ]
 
+    state = {
+        usernameInput: "",
+        passwordInput: "",
+        signInFailed: false,
+        changeButtonColor: false,
+        account: {},
+        accounts: this.accs,
+    }
 
     /*NOTE: THIS FUNCTION WILL QUERY OUR DATABASE RECORDS TO DETERMINE IF THE USER
      HAS AN ACCOUNT WITH OUR SERVICE. FOR NOW IT IS USING A HARDCODED ARRAY OF OBJECTS
@@ -60,7 +59,7 @@ class LogInPage extends React.Component{
         
         return true
     }
-
+    
     //set usernameInput and passwordInput when text input is entered
     onInputChange = (event) => {
         this.setState({
