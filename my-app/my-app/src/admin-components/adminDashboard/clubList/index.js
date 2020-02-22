@@ -1,6 +1,5 @@
 import React from 'react'; 
 import { Grid, List, ListItem, ListItemText } from '@material-ui/core';
-import './index.css'
 
 const ClubList = props => {
 		// props should contain list of club info + function/buttons for each item
@@ -13,11 +12,11 @@ const ClubList = props => {
                     <Grid item xs={12} md={6}>                    
                         {/* Possible styling components for later */}
 												{
-													clubs.map(club => {
+													clubs.map(club => 
 														<div>
 															Name: {club.name}
 														</div> 		
-													})
+													)
 												}
                     </Grid> 
             </Grid>

@@ -1,11 +1,11 @@
 import React from 'react'; 
 import { Grid, List, ListItem, ListItemText } from '@material-ui/core';
-import './index.css'
 
 const UserList = props => {
 		// props should contain list of user info + function/buttons for each item
 		
-		const users = props.userArr;
+        const users = props.usersArr;
+        console.log(users);
     return (
         <div className="userList">
             <h2> Users </h2>
@@ -13,11 +13,12 @@ const UserList = props => {
                     <Grid item xs={12} md={6}>                    
                         {/* Possible styling components for later */}
 												{
-													users.map(user => {
+                          // <div> name </div> 
+													users.map(user => 
 														<div>
 															Name: {user.name}
-														</div> 		
-													})
+														</div> 															
+													)
 												}
                     </Grid> 
             </Grid>

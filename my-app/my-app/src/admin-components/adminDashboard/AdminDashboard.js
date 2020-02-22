@@ -5,8 +5,8 @@ import AdminStats from './adminStats/index.js';
 //TODO: REMOVE AFTER DB ESTABLISHED
 import tempData from '../../tempInfo.js';
 
-// import UserList from './userList/index.js'; 
-// import ClubList from './clubList/index.js';
+import UserList from './userList/index.js';
+import ClubList from './clubList/index.js';
 
 
 
@@ -18,7 +18,7 @@ class AdminDashboard extends React.Component {
         currentStats: {},
 				userList:[], 
 				clubList:[]
-		}
+		}	
 		
 		componentDidMount(){
 			this.fetchData(); 
@@ -34,7 +34,7 @@ class AdminDashboard extends React.Component {
 				currentStats: {
 					numUsers: Users.length,
 					numClubs: Clubs.length, 
-					numPosts: 3
+					numPosts: Clubs.map(club => club.posts.length).reduce((sum, val) => sum + val)
 				},
 			})
 		}
@@ -48,12 +48,12 @@ class AdminDashboard extends React.Component {
                     numClubs={this.state.currentStats.numClubs}
                     numPosts={this.state.currentStats.numPosts}
                 />
-                {/* <UserList
+                <UserList
 								usersArr={this.state.userList}
-								/> */}
-                {/* <ClubList
+								/>
+                <ClubList
 								clubsArr={this.state.clubList}
-								/>  */}
+								/> 
             </div>
         );
     }
