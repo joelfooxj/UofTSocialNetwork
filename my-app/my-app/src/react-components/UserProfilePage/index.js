@@ -4,7 +4,7 @@ import "./style.css"
 import Checkbox from '@material-ui/core/Checkbox';
 import { withRouter } from 'react-router-dom';
 import CustomButton from "./../CustomButton"
-
+import UserProfileImage from "./../UserProfileImage"
 
 class UserProfilePage extends React.Component{
 
@@ -116,6 +116,7 @@ class UserProfilePage extends React.Component{
                 >
                     
                 </CustomButton>
+                <UserProfileImage/>
             </div>
             
         );
