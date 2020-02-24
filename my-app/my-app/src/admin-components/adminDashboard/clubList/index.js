@@ -19,7 +19,7 @@ const ClubList = props => {
                                 />
                                 <ListItemSecondaryAction>
                                   <IconButton edge="end" aria-label="delete" onClick={() => props.onDelete('club', club.clubID)}>
-                                    <DeleteIcon />
+                                    <DeleteIcon fontSize="small" color="primary"/>
                                   </IconButton>
                                 </ListItemSecondaryAction>
                             </ListItem> 

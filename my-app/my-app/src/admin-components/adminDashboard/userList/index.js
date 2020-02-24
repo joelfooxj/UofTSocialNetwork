@@ -21,7 +21,7 @@ const UserList = props => {
 																	/>
 																	<ListItemSecondaryAction>
 																		<IconButton edge="end" aria-label="delete" onClick={() => props.onDelete('user', user.userID)}>
-																			<DeleteIcon />
+																			<DeleteIcon fontSize="small" color="primary"/>
 																		</IconButton>
 																	</ListItemSecondaryAction>
 															</ListItem> 
