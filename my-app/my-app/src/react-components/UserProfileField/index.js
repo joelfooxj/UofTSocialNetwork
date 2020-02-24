@@ -43,7 +43,7 @@ class UserProfileField extends React.Component{
                             className="infoFieldText"
                             margin="normal"
                             disabled={false}
-                            onChange={onChange}
+                            onChange={(e) => {onChange(e.target.value)}}
                         />
         let editButton = <CustomButton id="editButton"
                         color={"primary"}

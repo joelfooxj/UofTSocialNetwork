@@ -24,7 +24,6 @@ class UserProfilePage extends React.Component{
 
     render(){
         const account = this.getAccount()
-        console.log(this.props.userInfo.changeAccInfo)
         return (
             <div id="userProfilePage">
                 <UserProfileField
@@ -33,7 +32,7 @@ class UserProfilePage extends React.Component{
                     type={"text"}
                     defaultValue={account.username}
                     disabled={true}
-                    onChange={this.props.changeAccInfo}
+                    onChange={(attrVal) => {this.props.changeAccInfo(account.id, "username", attrVal)}}
                 />
                 <UserProfileField
                     label={"Password"}
@@ -41,7 +40,7 @@ class UserProfilePage extends React.Component{
                     type={"password"}
                     defaultValue={account.password}
                     disabled={true}
-                    onChange={this.props.changeAccInfo}
+                    onChange={(attrVal) => {this.props.changeAccInfo(account.id, "password", attrVal)}}
                 />
                 <UserProfileField
                     label={"First Name"}
@@ -49,7 +48,7 @@ class UserProfilePage extends React.Component{
                     type={"text"}
                     defaultValue={account.firstName}
                     disabled={true}
-                    onChange={this.props.changeAccInfo}
+                    onChange={(attrVal) => {this.props.changeAccInfo(account.id, "firstName", attrVal)}}
                 />
                 <UserProfileField
                     label={"Last Name"}
@@ -57,7 +56,7 @@ class UserProfilePage extends React.Component{
                     type={"text"}
                     defaultValue={account.lastName}
                     disabled={true}
-                    onChange={this.props.changeAccInfo}
+                    onChange={(attrVal) => {this.props.changeAccInfo(account.id, "lastName", attrVal)}}
                 />
                 <UserProfileField
                     label={"Email"}
@@ -65,7 +64,7 @@ class UserProfilePage extends React.Component{
                     type={"text"}
                     defaultValue={account.email}
                     disabled={true}
-                    onChange={this.props.changeAccInfo}
+                    onChange={(attrVal) => {this.props.changeAccInfo(account.id, "email", attrVal)}}
                 />
             </div>
         );

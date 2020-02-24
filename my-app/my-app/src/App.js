@@ -43,8 +43,13 @@ class App extends React.Component{
     })
   }
 
-  changeAccInfo = () => {
-    this.accs[0].password = "hi"
+  changeAccInfo = (accId, attrName, attrVal) => {
+    for(let i = 0; i < this.accs.length; i++){
+      if(this.accs[i].id === accId){
+        this.accs[i][attrName] = attrVal
+      }
+    }
+
     this.setState({
       accounts: this.accs
     })
