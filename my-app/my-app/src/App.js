@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import { Route, Switch, BrowserRouter} from 'react-router-dom';
 
 
 import LogInPage from './react-components/LogInPage';
@@ -47,6 +47,7 @@ class App extends React.Component{
     })
   }
 
+  //THE FOLLOWING FUNCTIONS WILL INTERFACE WITH THE DATABASE TO UPDATE THE CORRECT VALUES
   changeAccInfo = (accId, attrName, attrVal) => {
     for(let i = 0; i < this.accs.length; i++){
       if(this.accs[i].id === accId){
@@ -71,6 +72,21 @@ class App extends React.Component{
     })
   }
 
+
+
+  deleteAccount = (accId) => {
+      let newAccounts = []
+      for(let i = 0; i < this.state.accounts.length; i++){
+        if(!(this.state.accounts[i].id === accId)){
+          newAccounts.push(this.state.accounts[i])
+        }
+      }
+      console.log(newAccounts)
+      this.setState({
+        accounts: newAccounts
+      })
+  }
+
   render(){
     return (
       <BrowserRouter>
@@ -91,6 +107,7 @@ class App extends React.Component{
                                        }
                               changeAccInfo={this.changeAccInfo}
                               changeAccTimelineOpts={this.changeAccTimelineOpts}
+                              deleteAcc={this.deleteAccount}
                             />)}/>
           </Switch>
         </BrowserRouter>

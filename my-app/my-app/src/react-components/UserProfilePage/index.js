@@ -8,6 +8,7 @@ import CustomButton from "./../CustomButton"
 
 class UserProfilePage extends React.Component{
 
+    //THIS FUNCTION WILL QUERY THE DATABASE FOR THE CORRECT ACCOUNT INFORMATION
     getAccount(){
         let accs = this.props.location.state.accounts
         let id = this.props.location.state.accountId
@@ -109,7 +110,7 @@ class UserProfilePage extends React.Component{
                     top={"10px"}
                     left={"510px"}
                     fontSize={"10px"}
-                    onClick={console.log("Not implemented")}
+                    onClick={() => {this.props.history.push("/"); this.props.deleteAcc(account.id)}}
                 >
                     
                 </CustomButton>
