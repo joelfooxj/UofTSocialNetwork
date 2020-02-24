@@ -73,6 +73,8 @@ class UserProfilePage extends React.Component{
                     <Checkbox 
                             color={"primary"}
                             label={"Clubs I am a part of"}
+                            checked={account.timelineOpts[0]}
+                            onChange={() => {this.props.changeAccTimelineOpts(account.id, 0)}}
                             >
                     </Checkbox>
                     <span>Clubs I follow</span>
@@ -81,12 +83,16 @@ class UserProfilePage extends React.Component{
                     <Checkbox 
                             color={"primary"}
                             label={"Clubs I follow"}
+                            checked={account.timelineOpts[1]}
+                            onChange={() => {this.props.changeAccTimelineOpts(account.id, 1)}}
                             >
                     </Checkbox>
                     <span>Clubs I am a part of</span>
                     <br></br>
                     <Checkbox 
                             color={"primary"}
+                            checked={account.timelineOpts[2]}
+                            onChange={() => {this.props.changeAccTimelineOpts(account.id, 2)}}
                             >
                     </Checkbox>
                     <span>Clubs I am an executive of</span>

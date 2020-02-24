@@ -19,6 +19,10 @@ class App extends React.Component{
     this.firstName = firstName
     this.lastName = lastName
     this.email = email
+    this.timelineOpts = [false, false, false] /*0 - timeline updates for clubs this user is a part of
+                                                1 - timeline updates for clubs this user follows
+                                                2 - timeline updates for clubs this user is an executive of
+                                              */
   }
   accs = [
     new this.Account("user", 0, ["UofT PTSD Support Group"], 1, "user", "user", "user", "user@user.com"),
@@ -55,6 +59,18 @@ class App extends React.Component{
     })
   }
 
+  changeAccTimelineOpts = (accId, optionIndex) =>{
+    for(let i = 0; i < this.accs.length; i++){
+      if(this.accs[i].id === accId){
+        this.accs[i].timelineOpts[optionIndex] = !this.accs[i].timelineOpts[optionIndex]
+      }
+    }
+
+    this.setState({
+      accounts: this.accs
+    })
+  }
+
   render(){
     return (
       <BrowserRouter>
@@ -74,6 +90,7 @@ class App extends React.Component{
                                           }
                                        }
                               changeAccInfo={this.changeAccInfo}
+                              changeAccTimelineOpts={this.changeAccTimelineOpts}
                             />)}/>
           </Switch>
         </BrowserRouter>
