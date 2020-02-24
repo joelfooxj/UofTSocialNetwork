@@ -1,13 +1,12 @@
 import React from 'react';
 import UserProfileField from "./../UserProfileField"
 import "./style.css"
+import Checkbox from '@material-ui/core/Checkbox';
 import { withRouter } from 'react-router-dom';
+import CustomButton from "./../CustomButton"
 
 
 class UserProfilePage extends React.Component{
-
-    /*THIS FUNCTION WILL UPDATE THE DATABASE WITH NEW ACCOUNT INFO, FOR NOW IT DOES NOTHING*/
-
 
     getAccount(){
         let accs = this.props.location.state.accounts
@@ -25,48 +24,91 @@ class UserProfilePage extends React.Component{
     render(){
         const account = this.getAccount()
         return (
-            <div id="userProfilePage">
-                <UserProfileField
-                    label={"Username"}
-                    name={"username"}
-                    type={"text"}
-                    defaultValue={account.username}
-                    disabled={true}
-                    onChange={(attrVal) => {this.props.changeAccInfo(account.id, "username", attrVal)}}
-                />
-                <UserProfileField
-                    label={"Password"}
-                    name={"password"}
-                    type={"password"}
-                    defaultValue={account.password}
-                    disabled={true}
-                    onChange={(attrVal) => {this.props.changeAccInfo(account.id, "password", attrVal)}}
-                />
-                <UserProfileField
-                    label={"First Name"}
-                    name={"firstName"}
-                    type={"text"}
-                    defaultValue={account.firstName}
-                    disabled={true}
-                    onChange={(attrVal) => {this.props.changeAccInfo(account.id, "firstName", attrVal)}}
-                />
-                <UserProfileField
-                    label={"Last Name"}
-                    name={"lastName"}
-                    type={"text"}
-                    defaultValue={account.lastName}
-                    disabled={true}
-                    onChange={(attrVal) => {this.props.changeAccInfo(account.id, "lastName", attrVal)}}
-                />
-                <UserProfileField
-                    label={"Email"}
-                    name={"email"}
-                    type={"text"}
-                    defaultValue={account.email}
-                    disabled={true}
-                    onChange={(attrVal) => {this.props.changeAccInfo(account.id, "email", attrVal)}}
-                />
+            <div id="mainDiv">
+                <h1>Profile Info</h1>
+
+                <div id="userProfilePageInfo">
+                    <UserProfileField
+                        label={"Username"}
+                        name={"username"}
+                        type={"text"}
+                        defaultValue={account.username}
+                        disabled={true}
+                        onChange={(attrVal) => {this.props.changeAccInfo(account.id, "username", attrVal)}}
+                    />
+                    <UserProfileField
+                        label={"Password"}
+                        name={"password"}
+                        type={"password"}
+                        defaultValue={account.password}
+                        disabled={true}
+                        onChange={(attrVal) => {this.props.changeAccInfo(account.id, "password", attrVal)}}
+                    />
+                    <UserProfileField
+                        label={"First Name"}
+                        name={"firstName"}
+                        type={"text"}
+                        defaultValue={account.firstName}
+                        disabled={true}
+                        onChange={(attrVal) => {this.props.changeAccInfo(account.id, "firstName", attrVal)}}
+                    />
+                    <UserProfileField
+                        label={"Last Name"}
+                        name={"lastName"}
+                        type={"text"}
+                        defaultValue={account.lastName}
+                        disabled={true}
+                        onChange={(attrVal) => {this.props.changeAccInfo(account.id, "lastName", attrVal)}}
+                    />
+                    <UserProfileField
+                        label={"Email"}
+                        name={"email"}
+                        type={"text"}
+                        defaultValue={account.email}
+                        disabled={true}
+                        onChange={(attrVal) => {this.props.changeAccInfo(account.id, "email", attrVal)}}
+                    />
+                </div>
+                <div id="checkboxDiv">
+                    <Checkbox 
+                            color={"primary"}
+                            label={"Clubs I am a part of"}
+                            >
+                    </Checkbox>
+                    <span>Clubs I follow</span>
+                    
+                    <br></br>
+                    <Checkbox 
+                            color={"primary"}
+                            label={"Clubs I follow"}
+                            >
+                    </Checkbox>
+                    <span>Clubs I am a part of</span>
+                    <br></br>
+                    <Checkbox 
+                            color={"primary"}
+                            >
+                    </Checkbox>
+                    <span>Clubs I am an executive of</span>
+                </div>
+                <CustomButton
+                    variant={"outlined"}
+                    disableElevation={false}
+                    buttonText={"Delete Account"}
+                    textColor={"#ff0000"}
+                    borderColor={"#ff0000"}
+                    width={"150px"}
+                    height={"30px"}
+                    padding={"0px"}
+                    top={"10px"}
+                    left={"510px"}
+                    fontSize={"10px"}
+                    onClick={console.log("Not implemented")}
+                >
+                    
+                </CustomButton>
             </div>
+            
         );
     }
 }

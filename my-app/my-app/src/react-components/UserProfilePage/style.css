@@ -1,4 +1,4 @@
-#userProfilePage{
+#userProfilePageInfo{
     position: relative;
     margin: 2px;
     width: fit-content;
@@ -7,3 +7,12 @@
     left: 50px;
     top: 50px;
 }
+
+#checkboxDiv{
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+    left: 500px;
+    top: 160px;
+}
+
