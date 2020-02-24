@@ -72,8 +72,6 @@ class App extends React.Component{
     })
   }
 
-
-
   deleteAccount = (accId) => {
       let newAccounts = []
       for(let i = 0; i < this.state.accounts.length; i++){

@@ -16,3 +16,7 @@
     top: 160px;
 }
 
+#timelineOptsHeader{
+    position: relative;
+    top: -25px;
+}

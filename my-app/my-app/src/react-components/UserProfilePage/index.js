@@ -29,6 +29,7 @@ class UserProfilePage extends React.Component{
                 <h1>Profile Info</h1>
 
                 <div id="userProfilePageInfo">
+                    <h1>General Info</h1>
                     <UserProfileField
                         label={"Username"}
                         name={"username"}
@@ -71,6 +72,7 @@ class UserProfilePage extends React.Component{
                     />
                 </div>
                 <div id="checkboxDiv">
+                    <h1 id="timelineOptsHeader">Receive timeline updates from:</h1>
                     <Checkbox 
                             color={"primary"}
                             label={"Clubs I am a part of"}
