@@ -1,16 +1,15 @@
 import React from "react";
 import './style.css';
-import ClubInfo from "../ClubInfo"
 
 class ClubProfileBanner extends React.Component {
+    text = ""
+
     render() {
         return(
             <div class="ClubBannerContainer">
-                <img class="ClubProfilePicture" src={this.props.profileImage}/>
                 <div class="ClubProfileBannerImageContainer">
-                    <img class="ClassProfileBannerImage" src={this.props.bannerImage}/>
+                    <img class="ClubProfileBannerImage" src={this.props.bannerImage} alt="Failed to Load"/>
                 </div>
-                <ClubInfo infoText={"This is placeholder text."}/>
             </div>
         );
     }

@@ -5,8 +5,16 @@ class ClubInfo extends React.Component {
     render() {
         return(
             <div id="ClubInfoContainer">
-                <div id="ClubInfoText">
-                    {this.props.infoText}
+                <div id="InfoContents">
+                    <div id="ClubNameText">
+                        <strong>Allan Borodin Hater Club</strong>
+                    </div>
+                    <span id="ClubButtons">
+                        buttons here
+                    </span>
+                    <div id="ClubInfoText">
+                        {this.props.infoText}
+                    </div>
                 </div>
             </div>
         )
