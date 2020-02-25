@@ -1,0 +1,28 @@
+.postIconContainer {
+	/* Add properties below */
+	width: 80px;
+	float: left
+}
+
+.postIcon {
+	/* Add properties below */
+	border-radius: 50%;
+	max-width: 60px;
+	max-height: 60px;
+	margin-top: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+.postContent {
+	/* Add properties below */
+	width: 95%;
+    float: right;
+}
+
+.post {
+    min-height: 100px;
+    overflow: auto;
+    border-bottom: 1px black solid; 
+}

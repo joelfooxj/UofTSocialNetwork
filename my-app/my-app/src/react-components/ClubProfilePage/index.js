@@ -22,9 +22,9 @@ class ClubProfilePage extends React.Component {
         return(
             <div id="profilePage">
                 <ClubProfilePicture profilePic={this.state.profilePic} />
-                <ClubProfileBanner profilePic={this.state.profilePic} bannerImage={this.state.bannerImage}/>
+                <ClubProfileBanner bannerImage={this.state.bannerImage}/>
                 <ClubInfo infoText={this.text}/>
-                <ClubTimeline />
+                <ClubTimeline profilePic={this.state.profilePic} clubName="Allan Borodin Hater Club"/>
             </div>
         )
     }

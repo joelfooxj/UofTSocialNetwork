@@ -1,0 +1,11 @@
+.ClubProfilePicture{
+    border-style: solid;
+    border-width: 5px;
+    border-color: white;
+    border-radius: 50%;
+    height: 250px;
+    width: 250px;
+    position: absolute;
+    left: 43%;
+    top: 200px;
+}

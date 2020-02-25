@@ -2,6 +2,7 @@
     border: 2px solid grey;
     height: 250px;
     background-color: lightgray;
+    margin: 5px;
 }
 
 #ClubInfoText {
@@ -15,7 +16,7 @@
 #ClubNameText {
     font-size: 35px;
     padding-top: 10px;
-    padding-left: 5px;
+    padding-left: 10px;
     display: inline-block;
     width: 40%
 }
