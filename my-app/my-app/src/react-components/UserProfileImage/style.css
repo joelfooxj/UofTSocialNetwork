@@ -1,5 +1,4 @@
 #image{
-    transform: scale(1,1);
     border-radius: 50%;
     border: solid;
     border-color: black;
@@ -7,4 +6,8 @@
     position: absolute;
     top: 65px;
     left: 50px;
+    min-width: 100px;
+    min-height: 100px;
+    max-width: 100px;
+    max-height: 100px;
 }
