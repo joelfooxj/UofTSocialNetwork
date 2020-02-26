@@ -8,15 +8,12 @@ class UserProfileImage extends React.Component{
         profileImageFile: null
     }
 
+    //THIS FUNCTION WILL INTERFACE WITH OUR DATABASE TO EITHER UPLOAD OR PULL AN IMAGE
     fileSelectHandler = event => {
         this.setState({
             profileImageFile: event.target.files[0]
         }, () => {console.log(this.state.profileImageFile)})
     }
-
-
-
-
 
     render(){
         return (
