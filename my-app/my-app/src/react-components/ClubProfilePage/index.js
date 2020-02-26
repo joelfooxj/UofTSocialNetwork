@@ -18,13 +18,15 @@ class ClubProfilePage extends React.Component {
 
     Donec risus erat, tempus et velit id, molestie consectetur mauris. Fusce vitae leo nec risus rhoncus fringilla in vel neque. Cras sed odio interdum, varius risus non, pulvinar nunc. Morbi fermentum dolor lectus, commodo blandit diam eleifend eget. Etiam sed porta orci. Fusce posuere malesuada lectus, a dignissim risus placerat a. Proin quis purus nec erat viverra rutrum id sed nisl. Ut ut arcu laoreet, porttitor diam bibendum, molestie metus. Mauris nec ornare elit, non laoreet nisl. Maecenas in ultrices elit. `
 
+    clubName = "Lorem Ipsum Club";
+
     render() {
         return(
             <div id="profilePage">
                 <ClubProfilePicture profilePic={this.state.profilePic} />
                 <ClubProfileBanner bannerImage={this.state.bannerImage}/>
-                <ClubInfo infoText={this.text}/>
-                <ClubTimeline profilePic={this.state.profilePic} clubName="Allan Borodin Hater Club"/>
+                <ClubInfo infoText={this.text} clubName={this.clubName}/>
+                <ClubTimeline profilePic={this.state.profilePic} clubName={this.clubName}/>
             </div>
         )
     }

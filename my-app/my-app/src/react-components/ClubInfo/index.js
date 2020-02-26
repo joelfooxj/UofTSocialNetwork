@@ -7,7 +7,7 @@ class ClubInfo extends React.Component {
             <div id="ClubInfoContainer">
                 <div id="InfoContents">
                     <div id="ClubNameText">
-                        <strong>Allan Borodin Hater Club</strong>
+                        <strong>{this.props.clubName}</strong>
                     </div>
                     <span id="ClubButtons">
                         buttons here
