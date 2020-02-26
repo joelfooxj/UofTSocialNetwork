@@ -26,7 +26,7 @@ class UserProfilePage extends React.Component{
         const account = this.getAccount()
         return (
             <div id="mainDiv">
-                <h1>Profile Info</h1>
+                <h1 id="mainHeader">Profile Info</h1>
 
                 <div id="userProfilePageInfo">
                     <h1>General Info</h1>
@@ -101,6 +101,7 @@ class UserProfilePage extends React.Component{
                     <span>Clubs I am an executive of</span>
                 </div>
                 <CustomButton
+                    id={"delAccButton"}
                     variant={"outlined"}
                     disableElevation={false}
                     buttonText={"Delete Account"}
@@ -109,7 +110,7 @@ class UserProfilePage extends React.Component{
                     width={"150px"}
                     height={"30px"}
                     padding={"0px"}
-                    top={"10px"}
+                    top={"110px"}
                     left={"510px"}
                     fontSize={"10px"}
                     onClick={() => {this.props.history.push("/"); this.props.deleteAcc(account.id)}}
