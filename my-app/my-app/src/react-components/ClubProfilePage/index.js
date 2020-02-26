@@ -1,7 +1,7 @@
 import React from "react";
 import './style.css';
 import ClubProfileBanner from "../ClubBanner";
-import ClubTimeline from "../ClubTimeLine";
+import ClubTimeline from "../ClubTimeline";
 import ClubProfilePicture from "../ClubProfilePicture";
 import ClubInfo from "../ClubInfo";
 
