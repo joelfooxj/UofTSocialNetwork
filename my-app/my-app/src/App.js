@@ -5,6 +5,7 @@ import { Route, Switch, BrowserRouter } from 'react-router-dom';
 
 import LogInPage from './react-components/LogInPage';
 import CreateAccPage from './react-components/CreateAccPage';
+import ClubProfilePage from './react-components/ClubProfilePage';
 
 class App extends React.Component{
 
@@ -34,6 +35,7 @@ class App extends React.Component{
                             (<LogInPage changeSignInStatus={this.changeSignInStatus.bind(this)}/>)}/>
             <Route exact path='/CreateAccPage' render={() => 
                             (<CreateAccPage/>)}/>
+            <Route exact path='/ClubProfilePage' render={()=>(<ClubProfilePage/>)}/>
           </Switch>
         </BrowserRouter>
     );
