@@ -3,8 +3,8 @@ import { Grid, List, ListItem, ListItemText, IconButton, ListItemSecondaryAction
 import DeleteIcon from '@material-ui/icons/Delete'; 
 import './index.css';
 
-const MemberList = props => {
-	// props should contain users associated with this club
+const userList = props => {
+		const users = props.users;
     return (
         <div className="itemListContainer">
             <h2> Members </h2>
@@ -32,4 +32,4 @@ const MemberList = props => {
     )
 }
 
-export default MemberList;
+export default userList;
