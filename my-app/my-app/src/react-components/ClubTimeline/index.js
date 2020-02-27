@@ -1,34 +1,14 @@
 import React from "react";
 import './style.css';
-import ClubPost from "../ClubPost";
 
-class ClubTimeline extends React.Component {
+class ClubProfileTimeline extends React.Component {
     render() {
         return(
-            <div id="timeline">
-                <ClubPost 
-                    profilePic={this.props.profilePic}
-                    clubName={this.props.clubName}
-                    postContent="placeholder post!"
-                />
-                <ClubPost 
-                    profilePic={this.props.profilePic}
-                    clubName={this.props.clubName}
-                    postContent="placeholder post!"
-                />
-                <ClubPost 
-                    profilePic={this.props.profilePic}
-                    clubName={this.props.clubName}
-                    postContent="placeholder post!"
-                />
-                <ClubPost 
-                    profilePic={this.props.profilePic}
-                    clubName={this.props.clubName}
-                    postContent="placeholder post!"
-                />
+            <div>
+                Posts will go here.
             </div>
         )
     }
 }
 
-export default ClubTimeline;
+export default ClubProfileTimeline;
