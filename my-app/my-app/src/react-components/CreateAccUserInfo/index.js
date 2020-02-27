@@ -4,7 +4,30 @@ import "./style.css"
 
 class CreateAccUserInfo extends React.Component{
 
-    
+    state = {
+        errorUsername: false,
+        errorPassword: false,
+        errorFirstName: false,
+        errorLastName: false,
+        errorEmail: false,
+        flags: [0, 0, 0, 0, 0]
+    }
+
+    changeErrorState = (e, name, i) => {
+        if(e.target.value === "" && this.state.flags[i] === 1){
+            this.setState({
+                [name]: true
+            })
+        }
+        else{
+            const flags = this.state.flags
+            flags[i] = 1
+            this.setState({
+                [name]: false,
+                flags: flags
+            })
+        }
+    }
 
     render(){
         const {onInputChange} = this.props
@@ -20,7 +43,9 @@ class CreateAccUserInfo extends React.Component{
                             id="margin-normal"
                             className="usernameInput"
                             margin="normal"
-                            onChange={onInputChange}
+                            onChange={(e) => {this.changeErrorState(e, "errorUsername"); onInputChange(e);}}
+                            error={this.state.errorUsername}
+                            helperText={this.state.errorUsername ? "Field Must Not Be Empty" : ""}
                         />
                     </div>
                     <div className={"inputField"}>
@@ -32,7 +57,9 @@ class CreateAccUserInfo extends React.Component{
                             id="margin-normal"
                             className="passwordInput"
                             margin="normal"
-                            onChange={onInputChange}
+                            onChange={(e) => {this.changeErrorState(e, "errorPassword"); onInputChange(e);}}
+                            error={this.state.errorPassword}
+                            helperText={this.state.errorPassword ? "Field Must Not Be Empty" : ""}
                         />
                     </div>
 
@@ -45,7 +72,9 @@ class CreateAccUserInfo extends React.Component{
                             id="margin-normal"
                             className="firstNameInput"
                             margin="normal"
-                            onChange={onInputChange}
+                            onChange={(e) => {this.changeErrorState(e, "errorFirstName"); onInputChange(e);}}
+                            error={this.state.errorFirstName}
+                            helperText={this.state.errorFirstName ? "Field Must Not Be Empty" : ""}
                         />
                     </div>
 
@@ -58,7 +87,9 @@ class CreateAccUserInfo extends React.Component{
                             id="margin-normal"
                             className="lastNameInput"
                             margin="normal"
-                            onChange={onInputChange}
+                            onChange={(e) => {this.changeErrorState(e, "errorLastName"); onInputChange(e);}}
+                            error={this.state.errorLastName}
+                            helperText={this.state.errorLastName ? "Field Must Not Be Empty" : ""}
                         />
                     </div>
 
@@ -71,7 +102,9 @@ class CreateAccUserInfo extends React.Component{
                             id="margin-normal"
                             className="emailInput"
                             margin="normal"
-                            onChange={onInputChange}
+                            onChange={(e) => {this.changeErrorState(e, "errorEmail"); onInputChange(e);}}
+                            error={this.state.errorEmail}
+                            helperText={this.state.errorEmail ? "Field Must Not Be Empty" : ""}
                         />
                     </div>
                 </div>
