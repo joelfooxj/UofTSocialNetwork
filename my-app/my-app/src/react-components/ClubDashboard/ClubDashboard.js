@@ -14,9 +14,9 @@ class ClubDashboard extends React.Component {
 			this.state={
 				clubID: props.clubID,
         currentStats: {},
-				memberList:[], 
-				postList:[], 
-				requestList:[]
+				members:[], 
+				posts:[], 
+				requests:[]
 			}	
 		}
 		
@@ -28,15 +28,15 @@ class ClubDashboard extends React.Component {
 			//TODO: fetch data from the DB here 
 
 			const [Users, Clubs] = tempData; 
-			const thisClub = Clubs.filter(club => club.clubID == this.props.clubID)[0];
+			const thisClub = Clubs.filter(club => club.clubID == this.state.clubID)[0];			
 			this.setState({
-				memberList: thisClub.memberList, 
-				postList: thisClub.postList, 
-				requestList: thisClub.requestList,
+				members: thisClub.members, 
+				posts: thisClub.posts, 
+				requests: thisClub.requests,
 				currentStats: {	
-					numMembers: thisClub.memberList.length,
-					numRequests: thisClub.requestList.length, 
-					numPosts: thisClub.postList.length
+					numMembers: thisClub.members.length,
+					numRequests: thisClub.requests.length, 
+					numPosts: thisClub.posts.length
 				},
 			});
 		}
@@ -44,9 +44,9 @@ class ClubDashboard extends React.Component {
 		deleteObject = (inType, inID)  => {
 			//TODO: delete object from database
 
-			this.setState(inType === 'member' ? 
-			{userList: this.state.userList.filter(user => user.userID != inID)} : 
-			{clubList: this.state.clubList.filter(club => club.clubID != inID)});
+			// this.setState(inType === 'member' ? 
+			// {userList: this.state.userList.filter(user => user.userID != inID)} : 
+			// {clubList: this.state.clubList.filter(club => club.clubID != inID)});
 		}
 
 		goToObject = (inType, inID) => {
@@ -59,8 +59,8 @@ class ClubDashboard extends React.Component {
             <div className="clubDashboardContainer"> 
                 <ClubStats 
                     statsList={[
-											"No. of Members: " + this.state.currentStats.numUsers,
-											"No. of Requests: " + this.state.currentStats.numClubs, 
+											"No. of Members: " + this.state.currentStats.numMembers,
+											"No. of Requests: " + this.state.currentStats.numRequests, 
 											"No. of Posts: " + this.state.currentStats.numPosts
 										]}
                 />

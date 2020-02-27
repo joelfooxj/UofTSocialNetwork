@@ -19,15 +19,9 @@ const Users = [
 
 // See that clubs hold a list of users who have exec permissions
 const Clubs = [
-<<<<<<< HEAD
-  {clubID: 1, name: 'csc309', execs:['joel', 'nikita'], posts:[Posts[0]], requestIDs:[3,2], members:[1,4]},
-  {clubID: 2, name: 'uoft', execs:['zhan'], posts:[Posts[1]], requestIDs:[2,4], members:[1,3]},
-  {clubID: 3, name: 'team11', execs:['joel', 'victor'], posts:[Posts[2]], requestIDs:[3], members:[1,2,4]}
-=======
-  {clubID: 1, name: 'csc309', execs:['joel', 'nikita'], posts:[Posts[0]]},
-  {clubID: 2, name: 'uoft', execs:['zhan'], posts:[Posts[1]]},
-  {clubID: 3, name: 'team11', execs:['joel', 'victor'], posts:[Posts[2]]}
->>>>>>> Development
+  {clubID: 1, name: 'csc309', execs:['joel', 'nikita'], posts:[Posts[0]], requests:[3,2], members:[1,4]},
+  {clubID: 2, name: 'uoft', execs:['zhan'], posts:[Posts[1]], requests:[2,4], members:[1,3]},
+  {clubID: 3, name: 'team11', execs:['joel', 'victor'], posts:[Posts[2]], requests:[3], members:[1,2,4]}
 ]
 
 export default [Users, Clubs]; 
