@@ -1,0 +1,29 @@
+#userProfilePageInfo{
+    position: relative;
+    margin: 2px;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    left: 50px;
+    top: 150px;
+}
+
+#checkboxDiv{
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+    left: 500px;
+    top: 175px;
+}
+
+#timelineOptsHeader{
+    position: relative;
+    top: -25px;
+}
+
+#mainHeader{
+    left: 35px;
+    top: -15px;
+    position: absolute;
+}
+
