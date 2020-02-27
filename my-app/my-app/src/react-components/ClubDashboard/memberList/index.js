@@ -18,6 +18,7 @@ const userList = props => {
 																	/>
 																	<ListItemSecondaryAction>
 																	<Button 
+																		size="small"
 																		edge="end" 
 																		aria-label="delete" 
 																		variant="outlined"

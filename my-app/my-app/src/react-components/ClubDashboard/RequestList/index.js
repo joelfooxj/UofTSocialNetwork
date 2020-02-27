@@ -18,6 +18,7 @@ const RequestList = props => {
 																	/>
 																	<ListItemSecondaryAction>
 																		<Button 
+																			size="small"
 																			edge="end" 
 																			aria-label="delete" 
 																			variant="outlined"
@@ -26,6 +27,7 @@ const RequestList = props => {
 																			Approve
 																		</Button>
 																		<Button 
+																			size="small"
 																			edge="end" 
 																			aria-label="delete" 
 																			variant="outlined"

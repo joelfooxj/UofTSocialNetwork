@@ -19,6 +19,7 @@ const ExecList = props => {
 												/>
 												<ListItemSecondaryAction>
 													<Button 
+														size="small"
 														edge="end" 
 														aria-label="delete" 
 														variant="outlined"

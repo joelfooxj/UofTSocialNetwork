@@ -4,10 +4,11 @@ import ClubStats from './ClubStats/index';
 import MemberList from './MemberList/index';
 import ExecList from './ExecList/index';
 import RequestList from './RequestList/index';
+import PostList from './PostList/index';
 
 class ClubDashboard extends React.Component {
     constructor(props){
-			super(props); 
+			super(props);
 			this.state={
 				tempData: props.tempData,
 				members: props.thisClub.members, 
@@ -19,7 +20,7 @@ class ClubDashboard extends React.Component {
 		}
 		
 		componentDidMount(){
-			// this.fetchData(); 
+			// this.fetchData();
 		}
 
 		fetchData(){ 
@@ -39,6 +40,8 @@ class ClubDashboard extends React.Component {
 					break;
 				case 'request': 
 					this.props.thisClub.requests = this.state.requests.filter(request => request != inID);
+				case 'post': 
+					this.props.thisClub.posts = this.state.posts.filter(post => post != inID)
 				default: 
 					break;
 			}
@@ -47,6 +50,7 @@ class ClubDashboard extends React.Component {
 				members: this.props.thisClub.members, 
 				execs: this.props.thisClub.execs, 
 				requests: this.props.thisClub.requests, 
+				posts: this.props.thisClub.posts
 			});
 		}
 
@@ -56,8 +60,6 @@ class ClubDashboard extends React.Component {
 		}
 
 		onRequestApprove = (inUserID) => {
-			// console.log("approving " + inUserID);
-			// console.log(this.props.thisClub);
 			this.props.thisClub.requests = this.state.requests.filter(request => request != inUserID);
 			this.props.thisClub.members.push(inUserID);
 			this.setState({
@@ -89,6 +91,11 @@ class ClubDashboard extends React.Component {
 								onDelete={this.deleteObject}
 								onClick={this.goToObject}
 								onApprove={this.onRequestApprove}/>
+								<PostList
+								posts={this.state.tempData.Posts.filter(post => this.state.posts.includes(post.postID))}
+								onDelete={this.deleteObject}
+								onClick={this.goToObject}
+								/>
             </div>
         );
     }
