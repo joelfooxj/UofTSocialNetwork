@@ -3,25 +3,27 @@ import './ClubDashboard.css';
 import ClubStats from './ClubStats/index';
 import MemberList from './MemberList/index';
 import ExecList from './ExecList/index';
+import RequestList from './RequestList/index';
 
 class ClubDashboard extends React.Component {
     constructor(props){
 			super(props); 
-			const thisClub = props.tempData.Clubs.filter(club => club.clubID == props.clubID)[0];
 			this.state={
-				tempData: props.tempData, // TODO: REMOVE AFTER DB SETUP
-				thisClub: thisClub, 
-				clubID: props.clubID,
+				tempData: props.tempData,
+				members: props.thisClub.members, 
+				execs: props.thisClub.execs, 
+				posts: props.thisClub.posts, 
+				requests: props.thisClub.requests, 
+				clubID: props.thisClub.clubID,
 			}	
 		}
 		
 		componentDidMount(){
-			this.fetchData(); 
+			// this.fetchData(); 
 		}
 
 		fetchData(){ 
 			//TODO: fetch data from the DB here 
-			console.log('fetching data now'); 
 		}
 
 		deleteObject = (inType, inID)  => {
@@ -29,21 +31,23 @@ class ClubDashboard extends React.Component {
 			
 			switch(inType){
 				case 'member': 
-					this.state.thisClub.members = this.state.thisClub.members.filter(member => member != inID);
-					this.state.thisClub.execs = this.state.thisClub.execs.filter(exec => exec != inID);
+					this.props.thisClub.members = this.state.members.filter(member => member != inID);
+					this.props.thisClub.execs = this.state.execs.filter(exec => exec != inID);
 					break; 
 				case 'exec': 
-					this.state.thisClub.execs = this.state.thisClub.execs.filter(exec => exec != inID);
+					this.props.thisClub.execs = this.state.execs.filter(exec => exec != inID);
 					break;
+				case 'request': 
+					this.props.thisClub.requests = this.state.requests.filter(request => request != inID);
 				default: 
 					break;
 			}
 
-			console.log(this.state.thisClub); 
-
 			this.setState({
-				thisClub: this.state.thisClub
-			})
+				members: this.props.thisClub.members, 
+				execs: this.props.thisClub.execs, 
+				requests: this.props.thisClub.requests, 
+			});
 		}
 
 		goToObject = (inType, inID) => {
@@ -51,28 +55,43 @@ class ClubDashboard extends React.Component {
 			alert('going to ' + inType + inID); 
 		}
 
+		onRequestApprove = (inUserID) => {
+			// console.log("approving " + inUserID);
+			// console.log(this.props.thisClub);
+			this.props.thisClub.requests = this.state.requests.filter(request => request != inUserID);
+			this.props.thisClub.members.push(inUserID);
+			this.setState({
+				requests: this.props.thisClub.requests, 
+				members: this.props.thisClub.members, 
+			}); 
+		}
+
     render(){
         return(
             <div className="clubDashboardContainer"> 
                 <ClubStats 
-                    statsList={[
-											"No. of Members: " + this.state.thisClub.members.length,
-											"No. of Requests: " + this.state.thisClub.requests.length,
-											"No. of Posts: " + this.state.thisClub.posts.length,
-										]}
+									statsList={[
+										"No. of Members: " + this.state.members.length,
+										"No. of Requests: " + this.state.requests.length,
+										"No. of Posts: " + this.state.posts.length,
+									]}
                 />
 								<MemberList 
-								users={this.state.tempData.Users.filter(user => this.state.thisClub.members.includes(user.userID))}
+								users={this.state.tempData.Users.filter(user => this.state.members.includes(user.userID))}
 								onDelete={this.deleteObject}
 								onClick={this.goToObject}/>
 								<ExecList 
-								users={this.state.tempData.Users.filter(user => this.state.thisClub.execs.includes(user.userID))}
+								users={this.state.tempData.Users.filter(user => this.state.execs.includes(user.userID))}
 								onDelete={this.deleteObject}
 								onClick={this.goToObject}/>
+								<RequestList 
+								users={this.state.tempData.Users.filter(user => this.state.requests.includes(user.userID))}
+								onDelete={this.deleteObject}
+								onClick={this.goToObject}
+								onApprove={this.onRequestApprove}/>
             </div>
         );
     }
-    
 }
 
 export default ClubDashboard;

@@ -3,17 +3,15 @@ import { Grid } from '../../../../node_modules/@material-ui/core'
 import './index.css'
 
 const ClubStats = props => {
-    console.log(props); 
     return (
         <div className="statsContainer">
             <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
                     <h2> Club Statistics </h2>
-                    {/* <div> {props.statsList[0]} </div>  */}
                     <div>
                         <ul>
                         {
-                            props.statsList.map(stat => <li> { stat } </li>)
+                            props.statsList.map((stat, index) => <li key={index}> { stat } </li>)
                             
                         }
                         </ul>

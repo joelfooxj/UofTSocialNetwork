@@ -1,6 +1,5 @@
 import React from '../../../../node_modules/react'; 
 import { Grid, List, ListItem, ListItemText, Button, ListItemSecondaryAction, Paper } from '../../../../node_modules/@material-ui/core'
-import DeleteIcon from '../../../../node_modules/@material-ui/icons/Delete'; 
 import './index.css';
 
 const ExecList = props => {
