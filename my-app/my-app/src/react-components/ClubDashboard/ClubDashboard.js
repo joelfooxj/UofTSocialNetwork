@@ -1,7 +1,8 @@
 import React from 'react';
 import './ClubDashboard.css';
-import ClubStats from './clubStats/index';
-import MemberList from './memberList/index';
+import ClubStats from './ClubStats/index';
+import MemberList from './MemberList/index';
+import ExecList from './ExecList/index';
 
 class ClubDashboard extends React.Component {
     constructor(props){
@@ -26,12 +27,23 @@ class ClubDashboard extends React.Component {
 		deleteObject = (inType, inID)  => {
 			//TODO: delete object from database		
 			
-			if (inType === 'user'){
-				this.state.thisClub.members = this.state.thisClub.members.filter(member => member != inID);
-				this.setState({
-					thisClub: this.state.thisClub
-				})
+			switch(inType){
+				case 'member': 
+					this.state.thisClub.members = this.state.thisClub.members.filter(member => member != inID);
+					this.state.thisClub.execs = this.state.thisClub.execs.filter(exec => exec != inID);
+					break; 
+				case 'exec': 
+					this.state.thisClub.execs = this.state.thisClub.execs.filter(exec => exec != inID);
+					break;
+				default: 
+					break;
 			}
+
+			console.log(this.state.thisClub); 
+
+			this.setState({
+				thisClub: this.state.thisClub
+			})
 		}
 
 		goToObject = (inType, inID) => {
@@ -51,6 +63,10 @@ class ClubDashboard extends React.Component {
                 />
 								<MemberList 
 								users={this.state.tempData.Users.filter(user => this.state.thisClub.members.includes(user.userID))}
+								onDelete={this.deleteObject}
+								onClick={this.goToObject}/>
+								<ExecList 
+								users={this.state.tempData.Users.filter(user => this.state.thisClub.execs.includes(user.userID))}
 								onDelete={this.deleteObject}
 								onClick={this.goToObject}/>
             </div>

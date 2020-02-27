@@ -1,6 +1,5 @@
-import React from 'react'; 
-import { Grid, List, ListItem, ListItemText, IconButton, ListItemSecondaryAction, Paper } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete'; 
+import React from '../../../../node_modules/react'; 
+import { Grid, List, ListItem, ListItemText, Button, ListItemSecondaryAction, Paper} from '../../../../node_modules/@material-ui/core'
 import './index.css';
 
 const userList = props => {
@@ -18,9 +17,14 @@ const userList = props => {
 																		primary={user.name}
 																	/>
 																	<ListItemSecondaryAction>
-																		<IconButton edge="end" aria-label="delete" onClick={() => props.onDelete('user', user.userID)}>
-																			<DeleteIcon fontSize="small" color="primary"/>
-																		</IconButton>
+																	<Button 
+																		edge="end" 
+																		aria-label="delete" 
+																		variant="outlined"
+																		color="primary"
+																		onClick={() => props.onDelete('member', user.userID)}>
+																		Remove
+																	</Button>
 																	</ListItemSecondaryAction>
 															</ListItem> 
 														</Paper>
