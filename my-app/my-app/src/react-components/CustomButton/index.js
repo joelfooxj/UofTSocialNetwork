@@ -24,7 +24,7 @@ class CustomButton extends React.Component{
             top: top,
             left: left,
             fontSize: fontSize,
-            position: position
+            position: position,
         })
         return (
             <CustomButton
