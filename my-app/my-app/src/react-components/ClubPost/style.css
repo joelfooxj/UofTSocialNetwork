@@ -1,7 +1,8 @@
 .postIconContainer {
 	/* Add properties below */
 	width: 80px;
-	float: left
+	height: 100px;
+	float: left;
 }
 
 .postIcon {
@@ -23,5 +24,5 @@
 .post {
     min-height: 100px;
     overflow: auto;
-    border-bottom: 1px black solid; 
+	border-bottom: 1px gray solid; 
 }

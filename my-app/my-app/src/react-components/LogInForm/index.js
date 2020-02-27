@@ -16,6 +16,7 @@ class LogInForm extends React.Component{
             onButtonAnimationEnd} = this.props;
 
         return (
+            
             <div className="logInForm">
                 <h1 className="logInForm_signInHeader">
                     Welcome!
@@ -43,12 +44,13 @@ class LogInForm extends React.Component{
                             disableElevation={false}
                         >
                             Sign In 
-                        </Button> <br></br>
-                        <Link id="logInForm_crrAccLink" to={"./../CreateAccPage"}>
+                        </Button>
+                        <br></br>
+                        <Link className="logInForm_link" to={"./../CreateAccPage"}>
                             <Button className="logInForm_buttonDiv_CreateAccLink"
                                 variant={"outlined"}
                                 color={"primary"}
-                                disableElevation={"false"}
+                                disableElevation={false}
                             >
                                 Create Account
                             </Button>
