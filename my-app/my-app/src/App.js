@@ -7,11 +7,12 @@ import LogInPage from './react-components/LogInPage';
 import CreateAccPage from './react-components/CreateAccPage';
 import UserProfilePage from './react-components/UserProfilePage';
 import ClubProfilePage from './react-components/ClubProfilePage';
+import ClubPost from './react-components/ClubPost';
 
 class App extends React.Component{
 
   //TODO: THESE ARE TEMPORARY HARDCODED VALUES
-  Account = function(username, permission, accID, password, firstName, lastName, email, clubsFollowing, clubsMemberOf, clubsExecOf){
+  Account = function(username, permission, clubsExecOf, accID, password, firstName, lastName, email, clubsFollowing, clubsMemberOf){
     this.username = username
     this.permission = permission
     this.clubsExecOf = clubsExecOf
@@ -20,17 +21,17 @@ class App extends React.Component{
     this.firstName = firstName
     this.lastName = lastName
     this.email = email
-    this.clubsFollowing = clubsFollowing
-    this.clubsMemberOf = clubsMemberOf
     this.timelineOpts = [false, false, false] /*0 - timeline updates for clubs this user is a part of
                                                 1 - timeline updates for clubs this user follows
                                                 2 - timeline updates for clubs this user is an executive of
                                               */
+    this.clubsMemberOf = clubsMemberOf
+    this.clubsFollowing = clubsFollowing
   }
   accs = [
-    new this.Account("user", 0, ["UofT PTSD Support Group"], 1, "user", "user", "user", "user@user.com", []),
-    new this.Account("mike1995", 0, ["UofT Students Anonymous"], 2, "password", "mike", "johnson", "mike@gmail.com", []),
-    new this.Account("admin", 1, [], 3, "admin", "admin", "admin", "admin@admin.com", [])
+    new this.Account("user", 0, ["UofT PTSD Support Group"], 1, "user", "user", "user", "user@user.com", [], []),
+    new this.Account("mike1995", 0, ["UofT Students Anonymous"], 2, "password", "mike", "johnson", "mike@gmail.com", [], []),
+    new this.Account("admin", 1, [], 3, "admin", "admin", "admin", "admin@admin.com", [], [])
   ]
 
   state = {
@@ -88,6 +89,73 @@ class App extends React.Component{
       })
   }
 
+  followClub(inf, clubID) {
+    let newCurrUserInfo = inf.state.currUserInfo;
+    let newUserInfo = inf.state.userInfo;
+    let target = -1;
+    for (let i = 0; i < newCurrUserInfo.accs.length; i++) {
+      if (newCurrUserInfo.accs[i].id === newCurrUserInfo.id) {
+        target = i;
+        break;
+      }
+    }
+
+    if ((target >= 0) && !newCurrUserInfo.accs[target].clubsFollowing.includes(clubID)) {
+      newCurrUserInfo.accs[target].clubsFollowing.push(clubID);
+    }
+
+    inf.setState({
+      currUserInfo: newCurrUserInfo,
+      userInfo: newUserInfo
+    });
+
+  }
+
+  unfollowClub(inf, clubID) {
+    let newCurrUserInfo = inf.state.currUserInfo;
+    let newUserInfo = inf.state.userInfo;
+    let target = -1;
+    for (let i = 0; i < newCurrUserInfo.accs.length; i++) {
+      if (newCurrUserInfo.accs[i].id === newCurrUserInfo.id) {
+        target = i;
+        break;
+      }
+    }
+
+    console.log(newCurrUserInfo.accs[target].clubsFollowing)
+    if ((target >= 0) && newCurrUserInfo.accs[target].clubsFollowing.includes(clubID)) {
+      let index = newCurrUserInfo.accs[target].clubsFollowing.indexOf(clubID)
+      newCurrUserInfo.accs[target].clubsFollowing.splice(index, 1)
+    }
+    console.log(newCurrUserInfo.accs[target].clubsFollowing)
+
+    inf.setState({
+      currUserInfo: newCurrUserInfo,
+      userInfo: newUserInfo
+    });
+  }
+
+  makePost(timeline, postContent) {
+    let newPost = <ClubPost
+                    clubName={timeline.props.userInfo.profileName}
+                    profilePic={timeline.props.userInfo.profilePic}
+                    postContent={postContent}
+                  />
+    let newPosts = timeline.state.posts;
+    newPosts.push(newPost)
+    timeline.setState({
+      posts: newPosts
+    })
+  }
+
+  joinClub(clubID) {
+    ;
+  }
+
+  leaveClub(clubID) {
+    ;
+  }
+
   render(){
     return (
       <BrowserRouter>
@@ -140,7 +208,12 @@ class App extends React.Component{
                                         }}
                                 currUserInfo={{id: this.state.accountId,
                                                accs: this.state.accounts}}
-                                  />)}/>
+                                addPost={this.makePost}
+                                getClubPosts={this.getClubPosts}
+                                followClub={this.followClub}
+                                unfollowClub={this.unfollowClub}
+                              />)}
+              />
           </Switch>
         </BrowserRouter>
     );
