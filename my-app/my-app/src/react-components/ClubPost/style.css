@@ -23,6 +23,7 @@
 
 .post {
     min-height: 100px;
-    overflow: auto;
-	border-bottom: 1px gray solid; 
+	overflow: auto;
+	border-bottom: 1px lightgray solid;
+	position: relative;
 }

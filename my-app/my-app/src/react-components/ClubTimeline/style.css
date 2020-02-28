@@ -1,9 +1,14 @@
 #timeline {
     max-width: 100%;
-    max-height: 100vh;
     margin-top: 30px;
     margin-left: 5px;
     margin-right: 5px;
     border: 1px gray solid;
     background-color: white;
+    border-radius: 5px;
+    height:100%
+}
+
+#makePostButton {
+    border-bottom: 1px lightgray solid;
 }
