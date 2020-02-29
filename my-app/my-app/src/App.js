@@ -142,7 +142,7 @@ class App extends React.Component{
                     postContent={postContent}
                   />
     let newPosts = timeline.state.posts;
-    newPosts.push(newPost)
+    newPosts.unshift(newPost)
     timeline.setState({
       posts: newPosts
     })
