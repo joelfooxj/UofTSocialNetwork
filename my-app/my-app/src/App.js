@@ -6,11 +6,13 @@ import { Route, Switch, BrowserRouter} from 'react-router-dom';
 import LogInPage from './react-components/LogInPage';
 import CreateAccPage from './react-components/CreateAccPage';
 import UserProfilePage from './react-components/UserProfilePage';
+import ClubProfilePage from './react-components/ClubProfilePage';
+import ClubPost from './react-components/ClubPost';
 
 class App extends React.Component{
 
   //TODO: THESE ARE TEMPORARY HARDCODED VALUES
-  Account = function(username, permission, clubsExecOf, accID, password, firstName, lastName, email){
+  Account = function(username, permission, clubsExecOf, accID, password, firstName, lastName, email, clubsFollowing, clubsMemberOf){
     this.username = username
     this.permission = permission
     this.clubsExecOf = clubsExecOf
@@ -23,11 +25,13 @@ class App extends React.Component{
                                                 1 - timeline updates for clubs this user follows
                                                 2 - timeline updates for clubs this user is an executive of
                                               */
+    this.clubsMemberOf = clubsMemberOf
+    this.clubsFollowing = clubsFollowing
   }
   accs = [
-    new this.Account("user", 0, ["UofT PTSD Support Group"], 1, "user", "user", "user", "user@user.com"),
-    new this.Account("mike1995", 0, ["UofT Students Anonymous"], 2, "password", "mike", "johnson", "mike@gmail.com"),
-    new this.Account("admin", 1, [], 3, "admin", "admin", "admin", "admin@admin.com")
+    new this.Account("user", 0, ["UofT PTSD Support Group"], 1, "user", "user", "user", "user@user.com", [], []),
+    new this.Account("mike1995", 0, ["UofT Students Anonymous"], 2, "password", "mike", "johnson", "mike@gmail.com", [], []),
+    new this.Account("admin", 1, [], 3, "admin", "admin", "admin", "admin@admin.com", [], [])
   ]
 
   state = {
@@ -85,6 +89,99 @@ class App extends React.Component{
       })
   }
 
+  followClub(inf, clubID) {
+    let newCurrUserInfo = inf.state.currUserInfo;
+    let newUserInfo = inf.state.userInfo;
+    let target = -1;
+    for (let i = 0; i < newCurrUserInfo.accs.length; i++) {
+      if (newCurrUserInfo.accs[i].id === newCurrUserInfo.id) {
+        target = i;
+        break;
+      }
+    }
+
+    if ((target >= 0) && !newCurrUserInfo.accs[target].clubsFollowing.includes(clubID)) {
+      newCurrUserInfo.accs[target].clubsFollowing.push(clubID);
+    }
+
+    inf.setState({
+      currUserInfo: newCurrUserInfo,
+      userInfo: newUserInfo
+    });
+
+  }
+
+  unfollowClub(inf, clubID) {
+    let newCurrUserInfo = inf.state.currUserInfo;
+    let newUserInfo = inf.state.userInfo;
+    let target = -1;
+    for (let i = 0; i < newCurrUserInfo.accs.length; i++) {
+      if (newCurrUserInfo.accs[i].id === newCurrUserInfo.id) {
+        target = i;
+        break;
+      }
+    }
+
+    console.log(newCurrUserInfo.accs[target].clubsFollowing)
+    if ((target >= 0) && newCurrUserInfo.accs[target].clubsFollowing.includes(clubID)) {
+      let index = newCurrUserInfo.accs[target].clubsFollowing.indexOf(clubID)
+      newCurrUserInfo.accs[target].clubsFollowing.splice(index, 1)
+    }
+    console.log(newCurrUserInfo.accs[target].clubsFollowing)
+
+    inf.setState({
+      currUserInfo: newCurrUserInfo,
+      userInfo: newUserInfo
+    });
+  }
+
+  makePost(timeline, postContent) {
+    let newPost = <ClubPost
+                    id={timeline.lastID + 1}
+                    clubName={timeline.props.userInfo.profileName}
+                    profilePic={timeline.props.userInfo.profilePic}
+                    postContent={postContent}
+                    timeline={timeline}
+                    removePost={this.removePost}
+                    isExec={timeline.isExec(timeline.props.userInfo.id)}
+                  />
+    timeline.lastID += 1;
+    let newPosts = timeline.state.posts;
+    newPosts.unshift(newPost)
+    timeline.setState({
+      posts: newPosts
+    })
+  }
+
+  removePost(timeline, post) {
+    let newPosts = timeline.state.posts;
+    let target = -1;
+
+    for (let i = 0; i < newPosts.length; i++) {
+      if (newPosts[i].props.id === post.props.id) {
+        target = i;
+        break;
+      }
+    }
+
+    if (target >= 0) {
+      newPosts.splice(target, 1);
+    }
+
+    timeline.setState({
+      posts: newPosts
+    })
+  }
+
+  joinClub(clubID) {
+    ;
+  }
+
+  leaveClub(clubID) {
+    ;
+  }
+
+
   createAccount = (username, permissions, password, firstName, lastName, email) => {
     const newAcc = new this.Account(username, permissions, [], this.state.accounts[this.state.accounts.length - 1].id + 1, password, firstName, lastName, email)
     const accs = this.state.accounts
@@ -116,6 +213,43 @@ class App extends React.Component{
                               changeAccTimelineOpts={this.changeAccTimelineOpts}
                               deleteAcc={this.deleteAccount}
                             />)}/>
+            <Route exact path='/ClubProfilePage' render={() => 
+                            (<ClubProfilePage 
+                                userInfo={{profileName: "Lorem Ipsum Club",
+                                          id: 0,
+                                          isClub: true,
+                                          bioText: `Lorem ipsum dolor sit amet, consectetur adipiscing 
+                                                    elit. Donec pharetra sodales nunc. Sed facilisis, orci 
+                                                    sed ornare vulputate, metus orci rutrum felis, viverra 
+                                                    hendrerit magna felis vitae mauris. Aliquam posuere fringilla
+                                                    dolor, id varius risus feugiat sit amet. Aliquam vitae lacus
+                                                    quis nisl vestibulum scelerisque. Nunc rhoncus mauris 
+                                                    eu quam faucibus tempus. Maecenas blandit magna quis 
+                                                    odio scelerisque, a convallis urna porta. Class aptent 
+                                                    taciti sociosqu ad litora torquent per conubia nostra, 
+                                                    per inceptos himenaeos. Mauris placerat leo ac tellus 
+                                                    pretium, ac tincidunt tellus feugiat. Donec risus erat, 
+                                                    tempus et velit id, molestie consectetur mauris. Fusce 
+                                                    vitae leo nec risus rhoncus fringilla in vel neque. Cra
+                                                    sed odio interdum, varius risus non, pulvinar nunc. Morbi
+                                                    fermentum dolor lectus, commodo blandit diam eleifend 
+                                                    eget. Etiam sed porta orci. Fusce posuere malesuada lectus,
+                                                    a dignissim risus placerat a. Proin quis purus nec erat
+                                                    viverra rutrum id sed nisl. Ut ut arcu laoreet, 
+                                                    porttitor diam bibendum, molestie metus. Mauris nec 
+                                                    ornare elit, non laoreet nisl. Maecenas in ultrices elit.`,
+                                         profilePic: require("./react-components/ClubProfilePage/static/profilepic.png"),
+                                         bannerImage: require("./react-components/ClubProfilePage/static/bannerimage.jpg"),
+                                        }}
+                                currUserInfo={{id: this.state.accountId,
+                                               accs: this.state.accounts}}
+                                addPost={this.makePost}
+                                getClubPosts={this.getClubPosts}
+                                followClub={this.followClub}
+                                unfollowClub={this.unfollowClub}
+                                removePost={this.removePost}
+                              />)}
+              />
           </Switch>
         </BrowserRouter>
     );

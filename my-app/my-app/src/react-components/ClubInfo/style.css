@@ -1,0 +1,32 @@
+#ClubInfoContainer{
+    border: 2px solid grey;
+    background-color: white;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+#ClubInfoText {
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    max-height: 150px;
+    overflow-y: scroll;
+    height: fit-content;
+    border-top: 1px solid gray;
+    padding-top: 10px;
+}
+
+#ClubNameText {
+    font-size: 35px;
+    padding-top: 10px;
+    padding-left: 10px;
+    display: inline-block;
+    width: 40%
+}
+
+#ClubButtons {
+    float: right;
+    margin-top: 10px;
+    margin-right: 10px;
+}

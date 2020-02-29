@@ -8,7 +8,7 @@ class CustomButton extends React.Component{
     render(){
         const {buttonText, borderColor, width, height, padding, boxShadow, background,
                border, borderRadius, textColor, backgroundColor, variant,
-               disableElevation, top, left, fontSize, onClick, position, disabled} = this.props
+               disableElevation, top, left, fontSize, onClick, position, disabled, margin} = this.props
 
         const CustomButton = styled(Button)({
             background: background,
@@ -25,6 +25,7 @@ class CustomButton extends React.Component{
             left: left,
             fontSize: fontSize,
             position: position,
+            margin: margin
         })
         return (
             <CustomButton
