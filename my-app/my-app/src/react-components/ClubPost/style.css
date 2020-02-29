@@ -18,12 +18,20 @@
 
 .postContent {
 	/* Add properties below */
-	width: 95%;
+	max-width: inherit;
+	width: 85%;
+	display: inline-block;
+	overflow-x: hidden;
 }
 
 .post {
     min-height: 100px;
 	overflow: auto;
 	border-bottom: 1px lightgray solid;
-	position: relative;
+}
+
+#removePost {
+	width: fit-content;
+	height: fit-content;
+	float: right;
 }

@@ -26,6 +26,7 @@ class ClubProfilePage extends React.Component {
 
                 <ClubTimeline 
                     addPost={this.props.addPost}
+                    removePost={this.props.removePost}
                     userInfo={this.props.userInfo}
                     currUserInfo={this.props.currUserInfo}
                 />

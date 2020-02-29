@@ -137,12 +137,37 @@ class App extends React.Component{
 
   makePost(timeline, postContent) {
     let newPost = <ClubPost
+                    id={timeline.lastID + 1}
                     clubName={timeline.props.userInfo.profileName}
                     profilePic={timeline.props.userInfo.profilePic}
                     postContent={postContent}
+                    timeline={timeline}
+                    removePost={this.removePost}
+                    isExec={timeline.isExec(timeline.props.userInfo.id)}
                   />
+    timeline.lastID += 1;
     let newPosts = timeline.state.posts;
     newPosts.unshift(newPost)
+    timeline.setState({
+      posts: newPosts
+    })
+  }
+
+  removePost(timeline, post) {
+    let newPosts = timeline.state.posts;
+    let target = -1;
+
+    for (let i = 0; i < newPosts.length; i++) {
+      if (newPosts[i].props.id === post.props.id) {
+        target = i;
+        break;
+      }
+    }
+
+    if (target >= 0) {
+      newPosts.splice(target, 1);
+    }
+
     timeline.setState({
       posts: newPosts
     })
@@ -212,6 +237,7 @@ class App extends React.Component{
                                 getClubPosts={this.getClubPosts}
                                 followClub={this.followClub}
                                 unfollowClub={this.unfollowClub}
+                                removePost={this.removePost}
                               />)}
               />
           </Switch>

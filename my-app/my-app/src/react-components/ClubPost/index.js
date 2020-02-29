@@ -1,5 +1,6 @@
 import React from "react";
 import './style.css';
+import CustomButton from "../CustomButton";
 
 class ClubPost extends React.Component {
     render() {
@@ -13,6 +14,21 @@ class ClubPost extends React.Component {
                     <p><strong>{this.props.clubName}</strong></p>
                     <p>{this.props.postContent}</p>
                 </div>
+
+                {this.props.isExec && 
+                    <div id="removePost">
+                        <CustomButton
+                            height="50px"
+                            width="60px"
+                            variant="outline"
+                            buttonText="Remove"
+                            backgroundColor="lightgray"
+                            border="1px gray solid"
+                            margin="10px"
+                            onClick={() => this.props.removePost(this.props.timeline, this)}
+                        />
+                    </div>
+                }
             </div>
         )
     }

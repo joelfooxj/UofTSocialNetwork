@@ -9,18 +9,28 @@ class ClubTimeline extends React.Component {
         this.state = {
             posts: [
                         <ClubPost 
+                            id={0}
                             clubName={this.props.userInfo.profileName} 
                             profilePic={this.props.userInfo.profilePic}
-                            postContent="Placeholder post my friend"
+                            postContent="Placeholder post"
+                            timeline={this}
+                            removePost={this.props.removePost}
+                            isExec={this.isExec(this.props.userInfo.id)}
                         />,
                         <ClubPost 
+                            id={1}
                             clubName={this.props.userInfo.profileName} 
                             profilePic={this.props.userInfo.profilePic}
-                            postContent="Placeholder post my friend"
+                            postContent="Placeholder post"
+                            timeline={this}
+                            removePost={this.props.removePost}
+                            isExec={this.isExec(this.props.userInfo.id)}
                         />
                     ]
         }
     }
+
+    lastID = 1;
 
     isExec = function(clubId) {
         let target = -1;
@@ -36,6 +46,27 @@ class ClubTimeline extends React.Component {
         }
         return false;
     }
+
+    // handleClick = function(e) {
+    //     e.preventDefault();
+    //     let form = e.target;
+    //     while (form && form.id != "makePost") {
+    //         form = form.parentNode;
+    //     }
+
+    //     if (!form) {
+    //         alert("Something went wrong.");
+    //         return;
+    //     }
+        
+    //     form = form.children[1].children[0]
+
+    //     if (form.value.length == 0) {
+    //         alert("Please enter post text");
+    //         return;
+    //     }
+    //     this.props.addPost(this, form.value)
+    // }
 
     render() {
         return(
