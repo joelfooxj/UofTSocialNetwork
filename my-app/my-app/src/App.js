@@ -8,38 +8,20 @@ import CreateAccPage from './react-components/CreateAccPage';
 import UserProfilePage from './react-components/UserProfilePage';
 import ClubProfilePage from './react-components/ClubProfilePage';
 import ClubPost from './react-components/ClubPost';
+import Accs from './tempInfo';
+import Account from './tempInfo';
 
 class App extends React.Component{
 
   //TODO: THESE ARE TEMPORARY HARDCODED VALUES
-  Account = function(username, permission, clubsExecOf, accID, password, firstName, lastName, email, clubsFollowing, clubsMemberOf){
-    this.username = username
-    this.permission = permission
-    this.clubsExecOf = clubsExecOf
-    this.id = accID
-    this.password = password
-    this.firstName = firstName
-    this.lastName = lastName
-    this.email = email
-    this.timelineOpts = [false, false, false] /*0 - timeline updates for clubs this user is a part of
-                                                1 - timeline updates for clubs this user follows
-                                                2 - timeline updates for clubs this user is an executive of
-                                              */
-    this.clubsMemberOf = clubsMemberOf
-    this.clubsFollowing = clubsFollowing
-  }
-  accs = [
-    new this.Account("user", 0, ["UofT PTSD Support Group"], 1, "user", "user", "user", "user@user.com", [], []),
-    new this.Account("mike1995", 0, ["UofT Students Anonymous"], 2, "password", "mike", "johnson", "mike@gmail.com", [], []),
-    new this.Account("admin", 1, [], 3, "admin", "admin", "admin", "admin@admin.com", [], [])
-  ]
+  
 
   state = {
     signedIn: false,
     permission: 0, // 0 - reg user, 1 - admin
     execOf: [],
     accountId: -1,
-    accounts: this.accs
+    accounts: Accs
   }
 
   changeSignInStatus(val, id, perm, clubs){
@@ -53,26 +35,26 @@ class App extends React.Component{
 
   //THE FOLLOWING FUNCTIONS WILL INTERFACE WITH THE DATABASE TO UPDATE THE CORRECT VALUES
   changeAccInfo = (accId, attrName, attrVal) => {
-    for(let i = 0; i < this.accs.length; i++){
-      if(this.accs[i].id === accId){
-        this.accs[i][attrName] = attrVal
+    for(let i = 0; i < Accs.length; i++){
+      if(Accs[i].id === accId){
+        Accs[i][attrName] = attrVal
       }
     }
 
     this.setState({
-      accounts: this.accs
+      accounts: Accs
     })
   }
 
   changeAccTimelineOpts = (accId, optionIndex) =>{
-    for(let i = 0; i < this.accs.length; i++){
-      if(this.accs[i].id === accId){
-        this.accs[i].timelineOpts[optionIndex] = !this.accs[i].timelineOpts[optionIndex]
+    for(let i = 0; i < Accs.length; i++){
+      if(Accs[i].id === accId){
+        Accs[i].timelineOpts[optionIndex] = !Accs[i].timelineOpts[optionIndex]
       }
     }
 
     this.setState({
-      accounts: this.accs
+      accounts: Accs
     })
   }
 
@@ -83,7 +65,6 @@ class App extends React.Component{
           newAccounts.push(this.state.accounts[i])
         }
       }
-      console.log(newAccounts)
       this.setState({
         accounts: newAccounts
       })
@@ -183,7 +164,7 @@ class App extends React.Component{
 
 
   createAccount = (username, permissions, password, firstName, lastName, email) => {
-    const newAcc = new this.Account(username, permissions, [], this.state.accounts[this.state.accounts.length - 1].id + 1, password, firstName, lastName, email)
+    const newAcc = new Account(username, permissions, [], this.state.accounts[this.state.accounts.length - 1].id + 1, password, firstName, lastName, email)
     const accs = this.state.accounts
     accs.push(newAcc)
     this.setState({
