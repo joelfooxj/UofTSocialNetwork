@@ -26,8 +26,10 @@ class UserProfilePage extends React.Component{
         const account = this.getAccount()
         return (
             <div id="mainDiv">
-                <h1 id="mainHeader">Profile Info</h1>
-
+                <div id="bannerImgDiv">
+                    <img src={require("./static/headingBanner.png")} alt="Heading Banner"/>
+                </div>
+                <UserProfileImage id={"profileImg"}/>
                 <div id="userProfilePageInfo">
                     <h1>General Info</h1>
                     <UserProfileField
@@ -70,36 +72,38 @@ class UserProfilePage extends React.Component{
                         disabled={true}
                         onChange={(attrVal) => {this.props.changeAccInfo(account.id, "email", attrVal)}}
                     />
+                
+                    <div id="checkboxDiv">
+                        <h1 id="timelineOptsHeader">Receive timeline updates from:</h1>
+                        <Checkbox 
+                                color={"primary"}
+                                label={"Clubs I am a part of"}
+                                checked={account.timelineOpts[0]}
+                                onChange={() => {this.props.changeAccTimelineOpts(account.id, 0)}}
+                                >
+                        </Checkbox>
+                        <span>Clubs I follow</span>
+                        
+                        <br></br>
+                        <Checkbox 
+                                color={"primary"}
+                                label={"Clubs I follow"}
+                                checked={account.timelineOpts[1]}
+                                onChange={() => {this.props.changeAccTimelineOpts(account.id, 1)}}
+                                >
+                        </Checkbox>
+                        <span>Clubs I am a part of</span>
+                        <br></br>
+                        <Checkbox 
+                                color={"primary"}
+                                checked={account.timelineOpts[2]}
+                                onChange={() => {this.props.changeAccTimelineOpts(account.id, 2)}}
+                                >
+                        </Checkbox>
+                        <span>Clubs I am an executive of</span>
+                    </div>
                 </div>
-                <div id="checkboxDiv">
-                    <h1 id="timelineOptsHeader">Receive timeline updates from:</h1>
-                    <Checkbox 
-                            color={"primary"}
-                            label={"Clubs I am a part of"}
-                            checked={account.timelineOpts[0]}
-                            onChange={() => {this.props.changeAccTimelineOpts(account.id, 0)}}
-                            >
-                    </Checkbox>
-                    <span>Clubs I follow</span>
-                    
-                    <br></br>
-                    <Checkbox 
-                            color={"primary"}
-                            label={"Clubs I follow"}
-                            checked={account.timelineOpts[1]}
-                            onChange={() => {this.props.changeAccTimelineOpts(account.id, 1)}}
-                            >
-                    </Checkbox>
-                    <span>Clubs I am a part of</span>
-                    <br></br>
-                    <Checkbox 
-                            color={"primary"}
-                            checked={account.timelineOpts[2]}
-                            onChange={() => {this.props.changeAccTimelineOpts(account.id, 2)}}
-                            >
-                    </Checkbox>
-                    <span>Clubs I am an executive of</span>
-                </div>
+                
                 <CustomButton
                     id={"delAccButton"}
                     variant={"outlined"}
@@ -110,14 +114,13 @@ class UserProfilePage extends React.Component{
                     width={"150px"}
                     height={"30px"}
                     padding={"0px"}
-                    top={"110px"}
-                    left={"510px"}
+                    top={"-100px"}
+                    left={"555px"}
                     fontSize={"10px"}
                     onClick={() => {this.props.history.push("/"); this.props.deleteAcc(account.id)}}
                 >
                     
                 </CustomButton>
-                <UserProfileImage/>
             </div>
             
         );
