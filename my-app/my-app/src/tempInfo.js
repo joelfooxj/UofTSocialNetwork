@@ -47,4 +47,4 @@ const Clubs = [
   {clubID: 3, name: 'team11', execs:[2,3], posts:[5,6], requests:[1], members:[2,3]}
 ]
 
-export default {Accs, Clubs, Posts}; 
+export default {Accs, Clubs, Posts, Account}; 

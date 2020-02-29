@@ -8,8 +8,7 @@ import CreateAccPage from './react-components/CreateAccPage';
 import UserProfilePage from './react-components/UserProfilePage';
 import ClubProfilePage from './react-components/ClubProfilePage';
 import ClubPost from './react-components/ClubPost';
-import Accs from './tempInfo';
-import Account from './tempInfo';
+import info from "./tempInfo";
 
 class App extends React.Component{
 
@@ -21,7 +20,7 @@ class App extends React.Component{
     permission: 0, // 0 - reg user, 1 - admin
     execOf: [],
     accountId: -1,
-    accounts: Accs
+    accounts: info.Accs
   }
 
   changeSignInStatus(val, id, perm, clubs){
@@ -35,26 +34,26 @@ class App extends React.Component{
 
   //THE FOLLOWING FUNCTIONS WILL INTERFACE WITH THE DATABASE TO UPDATE THE CORRECT VALUES
   changeAccInfo = (accId, attrName, attrVal) => {
-    for(let i = 0; i < Accs.length; i++){
-      if(Accs[i].id === accId){
-        Accs[i][attrName] = attrVal
+    for(let i = 0; i < info.Accs.length; i++){
+      if(info.Accs[i].id === accId){
+        info.Accs[i][attrName] = attrVal
       }
     }
 
     this.setState({
-      accounts: Accs
+      accounts: info.Accs
     })
   }
 
   changeAccTimelineOpts = (accId, optionIndex) =>{
-    for(let i = 0; i < Accs.length; i++){
-      if(Accs[i].id === accId){
-        Accs[i].timelineOpts[optionIndex] = !Accs[i].timelineOpts[optionIndex]
+    for(let i = 0; i < info.Accs.length; i++){
+      if(info.Accs[i].id === accId){
+        info.Accs[i].timelineOpts[optionIndex] = !info.Accs[i].timelineOpts[optionIndex]
       }
     }
 
     this.setState({
-      accounts: Accs
+      accounts: info.Accs
     })
   }
 
@@ -164,7 +163,7 @@ class App extends React.Component{
 
 
   createAccount = (username, permissions, password, firstName, lastName, email) => {
-    const newAcc = new Account(username, permissions, [], this.state.accounts[this.state.accounts.length - 1].id + 1, password, firstName, lastName, email)
+    const newAcc = new info.Account(username, permissions, [], this.state.accounts[this.state.accounts.length - 1].id + 1, password, firstName, lastName, email)
     const accs = this.state.accounts
     accs.push(newAcc)
     this.setState({
@@ -173,6 +172,7 @@ class App extends React.Component{
   }
 
   render(){
+    console.log(info)
     return (
       <BrowserRouter>
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
