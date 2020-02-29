@@ -1,3 +1,9 @@
+
+#mainDiv #bannerImgDiv{
+    width: fit-content;
+    
+}
+
 #userProfilePageInfo{
     position: relative;
     margin: 2px;
@@ -9,11 +15,11 @@
 }
 
 #checkboxDiv{
-    position: absolute;
+    position: relative;
     width: fit-content;
     height: fit-content;
     left: 500px;
-    top: 175px;
+    top: -420px;
 }
 
 #timelineOptsHeader{
@@ -24,6 +30,13 @@
 #mainHeader{
     left: 35px;
     top: -15px;
-    position: absolute;
+    position: relative;
+}
+
+#mainDiv #profileImg{
+    position: relative;
+    display: inline-block;
+    left: 43.8%;
+    top: -10%;
 }
 

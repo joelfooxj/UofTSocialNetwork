@@ -16,8 +16,10 @@ class UserProfileImage extends React.Component{
     }
 
     render(){
+
+        const {id} = this.props
         return (
-            <div id="imageDiv">
+            <div id={id}>
                 <input 
                     style={{display: "none"}}
                     type="file"
@@ -29,8 +31,8 @@ class UserProfileImage extends React.Component{
                     id="imageUploadButton"
                     onClick={() => {this.fileInput.click()}}
                     buttonText={"Choose Image"}
-                    top={"140px"}
-                    left={"160px"}
+                    top={"170px"}
+                    left={"200px"}
                     width={"100px"}
                     fontSize={"8px"}
                     position={"absolute"}
@@ -38,7 +40,7 @@ class UserProfileImage extends React.Component{
                     borderColor={"#3F51B5"}
                     textColor={"#3F51B5"}
                 ></CustomButton>
-                <img id="image" src={this.state.profileImageFile ? URL.createObjectURL(this.state.profileImageFile)  : ""} alt="ProfileImage"></img>
+                <img id="image" src={this.state.profileImageFile ? URL.createObjectURL(this.state.profileImageFile)  : require("./static/defaultProfileImg.png")} alt="ProfileImage"></img>
             </div>
         )
     }
