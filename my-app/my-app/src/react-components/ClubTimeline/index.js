@@ -41,17 +41,41 @@ class ClubTimeline extends React.Component {
         return(
             <div id="timeline">
                     {this.isExec(this.props.userInfo.id) && 
-                        <div id="makePostButton">
-                            <CustomButton
-                                width="125px"
-                                height="35px"
-                                variant="outline"
-                                buttonText="New Post"
-                                backgroundColor="lightgray"
-                                border="1px gray solid"
-                                margin="5px"
-                                onClick={() => (this.props.addPost(this, "testing"))}
-                            />
+                        <div id="makePost">
+                            <div id="postButton">
+                                <CustomButton
+                                    width="125px"
+                                    height="75px"
+                                    variant="outline"
+                                    buttonText="Make Post"
+                                    backgroundColor="lightgray"
+                                    border="1px gray solid"
+                                    margin="10px"
+                                    onClick={(function(e) {
+                                        e.preventDefault();
+                                        let form = e.target;
+                                        while (form && form.id != "makePost") {
+                                            form = form.parentNode;
+                                        }
+
+                                        if (!form) {
+                                            alert("Something went wrong.");
+                                            return;
+                                        }
+                                        
+                                        form = form.children[1].children[0]
+
+                                        if (form.value.length == 0) {
+                                            alert("Please enter post text");
+                                            return;
+                                        }
+                                        this.props.addPost(this, form.value)
+                                    }).bind(this)}
+                                />
+                            </div>
+                            <div id="makePostTextArea">
+                                <textarea id="makePostText" placeholder="What's on your mind?"/>
+                            </div>
                         </div>
                     }
                 {this.state.posts.map(post => (

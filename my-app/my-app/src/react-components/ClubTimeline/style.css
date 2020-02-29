@@ -9,6 +9,35 @@
     height:100%
 }
 
-#makePostButton {
+#postButton {
+    overflow: hidden;
+    display: inline-block;
+    height: 100px;
+    width: 10%;
+}
+
+#makePost {
     border-bottom: 1px lightgray solid;
+    min-width: inherit;
+    height: 100px;
+}
+
+
+#makePostText {
+    margin-left: 1%;
+    margin-top: 10px;
+    border-radius: 5px;
+    height: 70px;
+    width: 95%;
+    padding-top:5px;
+    padding-left: 5px;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+#makePostTextArea {
+    min-height: inherit;
+    float: right;
+    width: 90%;
+    height: 100px;
 }
