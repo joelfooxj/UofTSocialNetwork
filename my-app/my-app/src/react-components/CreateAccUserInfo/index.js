@@ -14,7 +14,7 @@ class CreateAccUserInfo extends React.Component{
     }
 
     changeErrorState = (e, name, i) => {
-        if(e.target.value === "" && this.state.flags[i] === 1){
+        if(e.target.value === ""){
             this.setState({
                 [name]: true
             })
@@ -44,6 +44,7 @@ class CreateAccUserInfo extends React.Component{
                             className="usernameInput"
                             margin="normal"
                             onChange={(e) => {this.changeErrorState(e, "errorUsername"); onInputChange(e);}}
+                            onClick={(e) => {this.changeErrorState(e, "errorUsername"); onInputChange(e);}}
                             error={this.state.errorUsername}
                             helperText={this.state.errorUsername ? "Field Must Not Be Empty" : ""}
                         />
@@ -58,6 +59,7 @@ class CreateAccUserInfo extends React.Component{
                             className="passwordInput"
                             margin="normal"
                             onChange={(e) => {this.changeErrorState(e, "errorPassword"); onInputChange(e);}}
+                            onClick={(e) => {this.changeErrorState(e, "errorPassword"); onInputChange(e);}}
                             error={this.state.errorPassword}
                             helperText={this.state.errorPassword ? "Field Must Not Be Empty" : ""}
                         />
@@ -73,6 +75,7 @@ class CreateAccUserInfo extends React.Component{
                             className="firstNameInput"
                             margin="normal"
                             onChange={(e) => {this.changeErrorState(e, "errorFirstName"); onInputChange(e);}}
+                            onClick={(e) => {this.changeErrorState(e, "errorFirstName"); onInputChange(e);}}
                             error={this.state.errorFirstName}
                             helperText={this.state.errorFirstName ? "Field Must Not Be Empty" : ""}
                         />
@@ -88,6 +91,7 @@ class CreateAccUserInfo extends React.Component{
                             className="lastNameInput"
                             margin="normal"
                             onChange={(e) => {this.changeErrorState(e, "errorLastName"); onInputChange(e);}}
+                            onClick={(e) => {this.changeErrorState(e, "errorLastName"); onInputChange(e);}}
                             error={this.state.errorLastName}
                             helperText={this.state.errorLastName ? "Field Must Not Be Empty" : ""}
                         />
@@ -103,6 +107,7 @@ class CreateAccUserInfo extends React.Component{
                             className="emailInput"
                             margin="normal"
                             onChange={(e) => {this.changeErrorState(e, "errorEmail"); onInputChange(e);}}
+                            onClick={(e) => {this.changeErrorState(e, "errorEmail"); onInputChange(e);}}
                             error={this.state.errorEmail}
                             helperText={this.state.errorEmail ? "Field Must Not Be Empty" : ""}
                         />

@@ -13,7 +13,8 @@ class CreateAccPage extends React.Component{
     firstNameInput: "",
     lastNameInput: "",
     emailInput: "",
-    permissions: 0
+    permissions: 0,
+    allowCreation: false
   }
 
   inputHandler = (e) => {
@@ -39,6 +40,7 @@ class CreateAccPage extends React.Component{
           top={"700px"}
           left={"48%"}
           onClick={() => {createAccAction(this.state.usernameInput, this.state.permissions, this.state.passwordInput, this.state.firstNameInput, this.state.lastNameInput, this.state.emailInput); this.props.history.push("/"); }}
+          disabled={this.state.usernameInput==="" || this.state.passwordInput==="" || this.state.firstNameInput==="" || this.state.lastNameInput==="" || this.state.emailInput===""}
         ></CustomButton>
       </div>
     );
