@@ -85,6 +85,15 @@ class App extends React.Component{
       })
   }
 
+  createAccount = (username, permissions, password, firstName, lastName, email) => {
+    const newAcc = new this.Account(username, permissions, [], this.state.accounts[this.state.accounts.length - 1].id + 1, password, firstName, lastName, email)
+    const accs = this.state.accounts
+    accs.push(newAcc)
+    this.setState({
+      accounts: accs
+    })
+  }
+
   render(){
     return (
       <BrowserRouter>
@@ -96,7 +105,7 @@ class App extends React.Component{
                               accounts={this.state.accounts}
                             />)}/>
             <Route exact path='/CreateAccPage' render={() => 
-                            (<CreateAccPage/>)}/>
+                            (<CreateAccPage createAccAction={this.createAccount}/>)}/>
             <Route exact path='/UserProfilePage' render={() =>
                             (<UserProfilePage 
                               userInfo={{accs: this.state.accounts,
