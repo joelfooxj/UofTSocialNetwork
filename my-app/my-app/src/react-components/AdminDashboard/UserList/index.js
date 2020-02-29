@@ -18,8 +18,11 @@ class UserList extends React.Component {
 	}
 
 	onDelete = (userID) => {
+		const getUser = this.props.usersArr.find(user => user.id == userID); 
+		const getUserIndex = this.props.usersArr.indexOf(getUser); 
+		this.props.usersArr.splice(getUserIndex, 1); 
 		this.setState({
-			users: this.state.users.filter(user => user.id != userID)
+			users: this.props.usersArr
 		});
 	}
 

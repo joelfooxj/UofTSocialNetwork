@@ -24,7 +24,6 @@ class AdminDashboard extends React.Component {
 
 		deleteObject = (inType, inID)  => {
 			//TODO: delete object from database
-			console.log(inType + ' ' + inID);
 			this.setState(inType === 'user' ? 
 			{accounts: this.state.accounts.filter(user => user.id != inID)} : 
 			{clubs: this.state.clubs.filter(club => club.clubID != inID)});
