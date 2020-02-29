@@ -22,9 +22,9 @@ const Users = [
 
 // See that clubs hold a list of users who have exec permissions
 const Clubs = [
-  {clubID: 1, name: 'csc309', execs:[1,4], posts:[1,2], requests:[3,2], members:[1,4]},
+  {clubID: 1, name: 'csc309', execs:[1,4], posts:[1,2], requests:[2], members:[1,3]},
   {clubID: 2, name: 'uoft', execs:[3], posts:[3,4], requests:[2,4], members:[1,3]},
-  {clubID: 3, name: 'team11', execs:[2,3], posts:[5,6], requests:[3], members:[1,2,4]}
+  {clubID: 3, name: 'team11', execs:[2,3], posts:[5,6], requests:[1], members:[2,3]}
 ]
 
 export default {Users, Clubs, Posts}; 
