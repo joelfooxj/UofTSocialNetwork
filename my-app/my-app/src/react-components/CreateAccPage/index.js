@@ -2,8 +2,8 @@ import React from 'react';
 import './style.css';
 import CreateAccUserInfo from "./../CreateAccUserInfo"
 import CustomButton from "./../CustomButton"
+import LogInPageBanner from "./../LogInPageBanner"
 import { withRouter } from 'react-router-dom';
-
 
 class CreateAccPage extends React.Component{
 
@@ -27,8 +27,11 @@ class CreateAccPage extends React.Component{
     const {createAccAction} = this.props
     return (
       <div id="mainDiv">
+        <LogInPageBanner id="banner"/>
         <h1 id="mainHeader">Create Account</h1>
-        <CreateAccUserInfo onInputChange={this.inputHandler}></CreateAccUserInfo>
+        <div id="infoDiv">
+          <CreateAccUserInfo className="info" onInputChange={this.inputHandler}></CreateAccUserInfo>
+        </div>
         <CustomButton
           id={"doneButton"}
           width={"fit-content"}
@@ -37,7 +40,7 @@ class CreateAccPage extends React.Component{
           textColor={"#3F51B5"}
           buttonText={"Done"}
           variant={"outlined"}
-          top={"700px"}
+          top={"20px"}
           left={"48%"}
           onClick={() => {createAccAction(this.state.usernameInput, this.state.permissions, this.state.passwordInput, this.state.firstNameInput, this.state.lastNameInput, this.state.emailInput); this.props.history.push("/"); }}
           disabled={this.state.usernameInput==="" || this.state.passwordInput==="" || this.state.firstNameInput==="" || this.state.lastNameInput==="" || this.state.emailInput===""}
