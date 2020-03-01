@@ -8,6 +8,7 @@ import CreateAccPage from './react-components/CreateAccPage';
 import UserProfilePage from './react-components/UserProfilePage';
 import ClubProfilePage from './react-components/ClubProfilePage';
 import info from "./tempInfo";
+import BrowseAllClubs from "./react-components/BrowseAllClubs/index";
 
 class App extends React.Component{
 
@@ -214,7 +215,8 @@ class App extends React.Component{
   }
 
   render(){
-    console.log(info)
+    // console.log(info)
+    console.log(this.state)
     return (
       <BrowserRouter>
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
@@ -286,6 +288,15 @@ class App extends React.Component{
                            /> : 
                            <Redirect to='/'/>)}
             />
+            {/* <Route exact path='/browseAllClubs' render={() => 
+            (this.state.signedIn ? 
+              <BrowseAllClubs allClubs={info.Clubs} currentUserID={this.state.accountId}/> : 
+              <Redirect to='/'/>) }/> */}
+            <Route exact path='/browseAllClubs' render={() => 
+            (
+              <BrowseAllClubs allClubs={info.Clubs} currentUserID={this.state.accountId}/> 
+              ) }/>           
+              
           </Switch>
         </BrowserRouter>
     );
