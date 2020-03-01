@@ -20,15 +20,17 @@ class App extends React.Component{
     permission: 0, // 0 - reg user, 1 - admin
     execOf: [],
     accountId: -1,
-    accounts: info.Accs
+    accounts: info.Accs, 
+    isAdmin: false, 
   }
 
-  changeSignInStatus(val, id, perm, clubs){
+  changeSignInStatus(val, id, perm, clubs, admin){
     this.setState({
       signedIn: val,
       accountId: id,
       permission: perm,
-      execOf: clubs
+      execOf: clubs,
+      isAdmin: admin
     })
   }
 
@@ -228,7 +230,7 @@ class App extends React.Component{
             <Route exact path='/CreateAccPage' render={() => 
                             (<CreateAccPage createAccAction={this.createAccount}/>)}/>
             <Route exact path='/UserProfilePage' render={() =>
-                            (this.state.signedIn ?
+                            (this.state.signedIn && !this.state.isAdmin?
                               <UserProfilePage 
                                 userInfo={{accs: this.state.accounts,
                                             id: this.state.accountId,
@@ -287,7 +289,8 @@ class App extends React.Component{
                            /> : 
                            <Redirect to='/'/>)}
             />
-            <Route exact path='/AdminDashboard' render={ () => (<AdminDashboard accounts={info.Accs} clubs={info.Clubs}/>) }/>
+            <Route exact path='/AdminDashboard' render={() => 
+              (this.state.signedIn && this.state.isAdmin ? <AdminDashboard accounts={info.Accs} clubs={info.Clubs}/> : <Redirect to='/'/>) }/>
           </Switch>
         </BrowserRouter>
     );
