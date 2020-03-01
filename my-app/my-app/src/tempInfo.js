@@ -24,9 +24,9 @@ class Account {
 }
 
 const Accs = [
-  new Account("user", 0, ["UofT PTSD Support Group"], 1, "user", "user", "user", "user@user.com", [], []),
-  new Account("mike1995", 0, ["UofT Students Anonymous"], 2, "password", "mike", "johnson", "mike@gmail.com", [], []),
-  new Account("admin", 1, [], 3, "admin", "admin", "admin", "admin@admin.com", [], [])
+  new Account("user", 0, [1], 1, "user", "user", "user", "user@user.com", [2, 3], []),
+  new Account("mike1995", 0, [2], 2, "password", "mike", "johnson", "mike@gmail.com", [3], [2]),
+  new Account("admin", 1, [1, 2, 3], 3, "admin", "admin", "admin", "admin@admin.com", [], [])
 ]
 
 
@@ -35,16 +35,16 @@ const Posts = [
   {postID: 2, title: "second!", content:"it, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nes", authorID:2, date:'20-03-2020'},
   {postID: 3, title: "third!", content:"odi consequatur? Quis autem vel eu", authorID:1, date:'20-04-2020'}, 
   {postID: 4, title: "fourth!", content:"odi consequafasdfastfur? Qfaduis autem vel eu", authorID:3, date:'20-04-2020'}, 
-  {postID: 5, title: "fifth!", content:"odi efa aeraberbaaconsequatur? Quis autem vel eu", authorID:4, date:'20-04-2020'}, 
-  {postID: 6, title: "sixth!", content:"odi consequavaetrasur? Qsruis aaabrawrutem vel eu", authorID:4, date:'20-04-2020'}
+  {postID: 5, title: "fifth!", content:"odi efa aeraberbaaconsequatur? Quis autem vel eu", authorID:2, date:'20-04-2020'}, 
+  {postID: 6, title: "sixth!", content:"odi consequavaetrasur? Qsruis aaabrawrutem vel eu", authorID:2, date:'20-04-2020'}
 ]
 
 
 // See that clubs hold a list of users who have exec permissions
 const Clubs = [
   {
-    clubID: 1, name: 'CSC309', execs:[1,4],
-    posts:[1,2], requests:[2], members:[1,3], 
+    clubID: 1, name: 'CSC309', execs:[4],
+    posts:[1,2], requests:[], members:[], 
     link: '/csc309', profilePic: require('./images/csc309pp.png'),
     bannerImage: require('./images/csc309bi.jpg'), 
     bioText: `This course provides an introduction to the technologies 

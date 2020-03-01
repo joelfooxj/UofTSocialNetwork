@@ -11,16 +11,23 @@ class ClubInfo extends React.Component {
         }
     }
 
-    isExec = function(clubId) {
-        for (let i = 0; i < this.state.currUserInfo.accs.length; i++) {
-            if (this.state.currUserInfo.accs[i].clubsExecOf.includes(clubId)) {
-                return true;
-            }
-        }
-        return false;;
+    isExec = function() {
+        let val = this.state.clubInfo.execs.includes(this.state.currUserInfo.id);
+        return val;
+    }
+    
+    isMember = function() {
+        let val = this.state.clubInfo.members.includes(this.state.currUserInfo.id) ||
+                  this.state.clubInfo.execs.includes(this.state.currUserInfo.id);
+        return val;
     }
 
-    isFollowing = function(clubId) {
+    didRequest = function() {
+        let val = this.state.clubInfo.requests.includes(this.state.currUserInfo.id) 
+        return val;
+    }
+
+    isFollowing = function() {
         let target = -1;
         for (let i = 0; i < this.state.currUserInfo.accs.length; i++) {
             if (this.state.currUserInfo.accs[i].id === this.state.currUserInfo.id) {
@@ -29,27 +36,12 @@ class ClubInfo extends React.Component {
             }
         }
 
-        if ((target >= 0) && (this.state.currUserInfo.accs[target].clubsFollowing.includes(clubId) ||
-            this.state.currUserInfo.accs[target].clubsExecOf.includes(clubId) ||
-            this.state.currUserInfo.accs[target].clubsMemberOf.includes(clubId))) {
-                return true;
+        if ((target >= 0) && 
+            (this.isExec() || this.isMember() || 
+            this.state.currUserInfo.accs[target].clubsFollowing.includes(this.state.clubInfo.clubID))) {
+            return true;
         }
-        return false;
-    }
-
-    isMember = function(clubId) {
-        let target = -1;
-        for (let i = 0; i < this.state.currUserInfo.accs.length; i++) {
-            if (this.state.currUserInfo.accs[i].id === this.state.currUserInfo.id) {
-                target = i;
-                break;
-            }
-        }
-
-        if ((target >= 0) && (this.state.currUserInfo.accs[target].clubsExecOf.includes(clubId) ||
-            this.state.currUserInfo.accs[target].clubsMemberOf.includes(clubId))) {
-                return true;
-        }
+        
         return false;
     }
 
@@ -61,7 +53,7 @@ class ClubInfo extends React.Component {
                         <strong>{this.state.clubInfo.name}</strong>
                     </div>
                     <span id="ClubButtons">
-                        {!this.isFollowing(this.state.clubInfo.clubID) &&
+                        {!this.isFollowing() &&
                             <CustomButton
                                 width="100px"
                                 height="35px"
@@ -74,19 +66,20 @@ class ClubInfo extends React.Component {
                             />
                         }
 
-                        {this.isFollowing(this.props.clubInfo.clubID) &&<CustomButton
-                            width="110px"
-                            height="35px"
-                            variant="outline"
-                            buttonText="Unfollow"
-                            backgroundColor="lightgray"
-                            border="1px gray solid"
-                            margin="5px"
-                            onClick={() => this.props.unfollowClub(this, this.props.clubInfo.clubID)}
-                        />
+                        {this.isFollowing() &&
+                            <CustomButton
+                                width="110px"
+                                height="35px"
+                                variant="outline"
+                                buttonText="Unfollow"
+                                backgroundColor="lightgray"
+                                border="1px gray solid"
+                                margin="5px"
+                                onClick={() => this.props.unfollowClub(this, this.props.clubInfo.clubID)}
+                            />
                         }
 
-                        {!this.isMember(this.props.clubInfo.clubID) &&
+                        {(!this.isMember() && !this.didRequest()) &&
                             <CustomButton
                                 width="100px"
                                 height="35px"
@@ -95,10 +88,11 @@ class ClubInfo extends React.Component {
                                 backgroundColor="lightgray"
                                 border="1px gray solid"
                                 margin="5px"
+                                onClick={() => this.props.joinClub(this, this.props.clubInfo.clubID)}
                             />
                         }
 
-                        {this.isMember(this.props.clubInfo.clubID) &&
+                        {this.isMember() &&
                             <CustomButton
                                 width="125px"
                                 height="35px"
@@ -107,8 +101,21 @@ class ClubInfo extends React.Component {
                                 backgroundColor="lightgray"
                                 border="1px gray solid"
                                 margin="5px"
+                                onClick={() => this.props.leaveClub(this, this.props.clubInfo.clubID)}
                             />
                         }
+
+                        {this.didRequest() &&
+                        <CustomButton
+                            width="125px"
+                            height="35px"
+                            variant="outline"
+                            buttonText="Requested"
+                            backgroundColor="lightgray"
+                            border="1px gray solid"
+                            margin="5px"
+                        />
+                    }
                     </span>
                     <div id="ClubInfoText">
                         {this.state.clubInfo.bioText}

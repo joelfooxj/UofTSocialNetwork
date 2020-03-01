@@ -16,10 +16,10 @@ class App extends React.Component{
   
 
   state = {
-    signedIn: false,
+    signedIn: true,
     permission: 0, // 0 - reg user, 1 - admin
     execOf: [],
-    accountId: -1,
+    accountId: 1,
     accounts: info.Accs
   }
 
@@ -71,7 +71,7 @@ class App extends React.Component{
 
   followClub(inf, clubID) {
     let newCurrUserInfo = inf.state.currUserInfo;
-    let newUserInfo = inf.state.userInfo;
+    let newClubInfo = inf.state.clubInfo;
     let target = -1;
     for (let i = 0; i < newCurrUserInfo.accs.length; i++) {
       if (newCurrUserInfo.accs[i].id === newCurrUserInfo.id) {
@@ -86,14 +86,14 @@ class App extends React.Component{
 
     inf.setState({
       currUserInfo: newCurrUserInfo,
-      userInfo: newUserInfo
+      clubInfo: newClubInfo
     });
 
   }
 
   unfollowClub(inf, clubID) {
     let newCurrUserInfo = inf.state.currUserInfo;
-    let newUserInfo = inf.state.userInfo;
+    let newClubInfo = inf.state.clubInfo;
     let target = -1;
     for (let i = 0; i < newCurrUserInfo.accs.length; i++) {
       if (newCurrUserInfo.accs[i].id === newCurrUserInfo.id) {
@@ -102,29 +102,33 @@ class App extends React.Component{
       }
     }
 
-    console.log(newCurrUserInfo.accs[target].clubsFollowing)
     if ((target >= 0) && newCurrUserInfo.accs[target].clubsFollowing.includes(clubID)) {
       let index = newCurrUserInfo.accs[target].clubsFollowing.indexOf(clubID)
       newCurrUserInfo.accs[target].clubsFollowing.splice(index, 1)
     }
-    console.log(newCurrUserInfo.accs[target].clubsFollowing)
 
     inf.setState({
       currUserInfo: newCurrUserInfo,
-      userInfo: newUserInfo
+      clubInfo: newClubInfo
     });
   }
 
   makePost(timeline, postContent) {
-    let newPost = <ClubPost
-                    id={timeline.lastID + 1}
-                    clubName={timeline.props.userInfo.profileName}
-                    profilePic={timeline.props.userInfo.profilePic}
-                    postContent={postContent}
-                    timeline={timeline}
-                    removePost={this.removePost}
-                    isExec={timeline.isExec(timeline.props.userInfo.id)}
-                  />
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
+    let yyyy = today.getFullYear();
+    today = dd + '-' + mm + '-' + yyyy;
+    console.log(today);
+
+    let newPost = {
+      postID: timeline.lastID + 1,
+      title: "post" + String(timeline.lastID + 1),
+      content: postContent,
+      authorID: timeline.props.clubInfo.clubID,
+      date: today
+    }
+
     timeline.lastID += 1;
     let newPosts = timeline.state.posts;
     newPosts.unshift(newPost)
@@ -138,7 +142,7 @@ class App extends React.Component{
     let target = -1;
 
     for (let i = 0; i < newPosts.length; i++) {
-      if (newPosts[i].props.id === post.props.id) {
+      if (newPosts[i].postID === post.props.id) {
         target = i;
         break;
       }
@@ -153,12 +157,47 @@ class App extends React.Component{
     })
   }
 
-  joinClub(clubID) {
-    ;
+  joinClub(inf, clubID) {
+    let newCurrUserInfo = inf.state.currUserInfo;
+    let newClubInfo = inf.state.clubInfo;
+    let target = -1;
+    console.log(newClubInfo)
+    for (let i = 0; i < newCurrUserInfo.accs.length; i++) {
+      if (newCurrUserInfo.accs[i].id === newCurrUserInfo.id) {
+        target = i;
+        break;
+      }
+    }
+    if ((target >= 0) && !newClubInfo.requests.includes(clubID)) {
+      newClubInfo.requests.push(clubID);
+    }
+
+    inf.setState({
+      currUserInfo: newCurrUserInfo,
+      clubInfo: newClubInfo
+    });
   }
 
-  leaveClub(clubID) {
-    ;
+  leaveClub(inf, clubID) {
+    let newCurrUserInfo = inf.state.currUserInfo;
+    let newClubInfo = inf.state.clubInfo;
+    let target = -1;
+    for (let i = 0; i < newCurrUserInfo.accs.length; i++) {
+      if (newCurrUserInfo.accs[i].id === newCurrUserInfo.id) {
+        target = i;
+        break;
+      }
+    }
+
+    if ((target >= 0) && newClubInfo.members.includes(clubID)) {
+      let val = newClubInfo.members.indexOf(clubID);
+      newClubInfo.members.splice(val, 1);
+    }
+
+    inf.setState({
+      currUserInfo: newCurrUserInfo,
+      clubInfo: newClubInfo
+    });
   }
 
 
@@ -197,8 +236,7 @@ class App extends React.Component{
                               /> : 
                               <Redirect to='/'/>)}/>
             <Route exact path='/csc309' render={() => 
-                            (//this.state.signedIn ?
-                              true ?
+                            (this.state.signedIn ?
                               <ClubProfilePage 
                                 clubInfo={info.Clubs[0]}
                                 currUserInfo={{id: this.state.accountId,
@@ -208,6 +246,8 @@ class App extends React.Component{
                                 followClub={this.followClub}
                                 unfollowClub={this.unfollowClub}
                                 removePost={this.removePost}
+                                joinClub={this.joinClub}
+                                leaveClub={this.leaveClub}
                               /> :
                               <Redirect to='/'/>)}
             />
@@ -222,6 +262,8 @@ class App extends React.Component{
                               followClub={this.followClub}
                               unfollowClub={this.unfollowClub}
                               removePost={this.removePost}
+                              joinClub={this.joinClub}
+                              leaveClub={this.leaveClub}
                             /> :
                             <Redirect to='/'/>)}
             />
@@ -236,6 +278,8 @@ class App extends React.Component{
                               followClub={this.followClub}
                               unfollowClub={this.unfollowClub}
                               removePost={this.removePost}
+                              joinClub={this.joinClub}
+                              leaveClub={this.leaveClub}
                            /> : 
                            <Redirect to='/'/>)}
             />

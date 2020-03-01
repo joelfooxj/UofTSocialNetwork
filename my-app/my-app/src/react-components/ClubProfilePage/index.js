@@ -23,6 +23,8 @@ class ClubProfilePage extends React.Component {
                     currUserInfo={this.props.currUserInfo}
                     followClub={this.props.followClub}
                     unfollowClub={this.props.unfollowClub}
+                    joinClub={this.props.joinClub}
+                    leaveClub={this.props.leaveClub}
                 />
 
                 <ClubTimeline 
