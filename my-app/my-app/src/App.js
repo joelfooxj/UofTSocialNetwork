@@ -161,15 +161,17 @@ class App extends React.Component{
     let newCurrUserInfo = inf.state.currUserInfo;
     let newClubInfo = inf.state.clubInfo;
     let target = -1;
-    console.log(newClubInfo)
+
     for (let i = 0; i < newCurrUserInfo.accs.length; i++) {
       if (newCurrUserInfo.accs[i].id === newCurrUserInfo.id) {
         target = i;
         break;
       }
     }
-    if ((target >= 0) && !newClubInfo.requests.includes(clubID)) {
-      newClubInfo.requests.push(clubID);
+
+    console.log(target)
+    if ((target >= 0) && !newClubInfo.requests.includes(newCurrUserInfo.id)) {
+      newClubInfo.requests.push(newCurrUserInfo.id);
     }
 
     inf.setState({
@@ -189,8 +191,10 @@ class App extends React.Component{
       }
     }
 
-    if ((target >= 0) && newClubInfo.members.includes(clubID)) {
-      let val = newClubInfo.members.indexOf(clubID);
+    console.log(target)
+    console.log(newClubInfo.members)
+    if ((target >= 0) && newClubInfo.members.includes(newCurrUserInfo.id)) {
+      let val = newClubInfo.members.indexOf(newCurrUserInfo.id);
       newClubInfo.members.splice(val, 1);
     }
 
