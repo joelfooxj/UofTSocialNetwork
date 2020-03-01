@@ -1,13 +1,12 @@
 import React from 'react';
 import './App.css';
-import { Route, Switch, BrowserRouter} from 'react-router-dom';
+import { Route, Switch, BrowserRouter, Redirect} from 'react-router-dom';
 
 
 import LogInPage from './react-components/LogInPage';
 import CreateAccPage from './react-components/CreateAccPage';
 import UserProfilePage from './react-components/UserProfilePage';
 import ClubProfilePage from './react-components/ClubProfilePage';
-import ClubPost from './react-components/ClubPost';
 import info from "./tempInfo";
 
 class App extends React.Component{
@@ -71,7 +70,7 @@ class App extends React.Component{
 
   followClub(inf, clubID) {
     let newCurrUserInfo = inf.state.currUserInfo;
-    let newUserInfo = inf.state.userInfo;
+    let newClubInfo = inf.state.clubInfo;
     let target = -1;
     for (let i = 0; i < newCurrUserInfo.accs.length; i++) {
       if (newCurrUserInfo.accs[i].id === newCurrUserInfo.id) {
@@ -86,14 +85,14 @@ class App extends React.Component{
 
     inf.setState({
       currUserInfo: newCurrUserInfo,
-      userInfo: newUserInfo
+      clubInfo: newClubInfo
     });
 
   }
 
   unfollowClub(inf, clubID) {
     let newCurrUserInfo = inf.state.currUserInfo;
-    let newUserInfo = inf.state.userInfo;
+    let newClubInfo = inf.state.clubInfo;
     let target = -1;
     for (let i = 0; i < newCurrUserInfo.accs.length; i++) {
       if (newCurrUserInfo.accs[i].id === newCurrUserInfo.id) {
@@ -102,29 +101,33 @@ class App extends React.Component{
       }
     }
 
-    console.log(newCurrUserInfo.accs[target].clubsFollowing)
     if ((target >= 0) && newCurrUserInfo.accs[target].clubsFollowing.includes(clubID)) {
       let index = newCurrUserInfo.accs[target].clubsFollowing.indexOf(clubID)
       newCurrUserInfo.accs[target].clubsFollowing.splice(index, 1)
     }
-    console.log(newCurrUserInfo.accs[target].clubsFollowing)
 
     inf.setState({
       currUserInfo: newCurrUserInfo,
-      userInfo: newUserInfo
+      clubInfo: newClubInfo
     });
   }
 
   makePost(timeline, postContent) {
-    let newPost = <ClubPost
-                    id={timeline.lastID + 1}
-                    clubName={timeline.props.userInfo.profileName}
-                    profilePic={timeline.props.userInfo.profilePic}
-                    postContent={postContent}
-                    timeline={timeline}
-                    removePost={this.removePost}
-                    isExec={timeline.isExec(timeline.props.userInfo.id)}
-                  />
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
+    let yyyy = today.getFullYear();
+    today = dd + '-' + mm + '-' + yyyy;
+    console.log(today);
+
+    let newPost = {
+      postID: timeline.lastID + 1,
+      title: "post" + String(timeline.lastID + 1),
+      content: postContent,
+      authorID: timeline.props.clubInfo.clubID,
+      date: today
+    }
+
     timeline.lastID += 1;
     let newPosts = timeline.state.posts;
     newPosts.unshift(newPost)
@@ -138,7 +141,7 @@ class App extends React.Component{
     let target = -1;
 
     for (let i = 0; i < newPosts.length; i++) {
-      if (newPosts[i].props.id === post.props.id) {
+      if (newPosts[i].postID === post.props.id) {
         target = i;
         break;
       }
@@ -153,12 +156,51 @@ class App extends React.Component{
     })
   }
 
-  joinClub(clubID) {
-    ;
+  joinClub(inf, clubID) {
+    let newCurrUserInfo = inf.state.currUserInfo;
+    let newClubInfo = inf.state.clubInfo;
+    let target = -1;
+
+    for (let i = 0; i < newCurrUserInfo.accs.length; i++) {
+      if (newCurrUserInfo.accs[i].id === newCurrUserInfo.id) {
+        target = i;
+        break;
+      }
+    }
+
+    console.log(target)
+    if ((target >= 0) && !newClubInfo.requests.includes(newCurrUserInfo.id)) {
+      newClubInfo.requests.push(newCurrUserInfo.id);
+    }
+
+    inf.setState({
+      currUserInfo: newCurrUserInfo,
+      clubInfo: newClubInfo
+    });
   }
 
-  leaveClub(clubID) {
-    ;
+  leaveClub(inf, clubID) {
+    let newCurrUserInfo = inf.state.currUserInfo;
+    let newClubInfo = inf.state.clubInfo;
+    let target = -1;
+    for (let i = 0; i < newCurrUserInfo.accs.length; i++) {
+      if (newCurrUserInfo.accs[i].id === newCurrUserInfo.id) {
+        target = i;
+        break;
+      }
+    }
+
+    console.log(target)
+    console.log(newClubInfo.members)
+    if ((target >= 0) && newClubInfo.members.includes(newCurrUserInfo.id)) {
+      let val = newClubInfo.members.indexOf(newCurrUserInfo.id);
+      newClubInfo.members.splice(val, 1);
+    }
+
+    inf.setState({
+      currUserInfo: newCurrUserInfo,
+      clubInfo: newClubInfo
+    });
   }
 
 
@@ -185,43 +227,21 @@ class App extends React.Component{
             <Route exact path='/CreateAccPage' render={() => 
                             (<CreateAccPage createAccAction={this.createAccount}/>)}/>
             <Route exact path='/UserProfilePage' render={() =>
-                            (<UserProfilePage 
-                              userInfo={{accs: this.state.accounts,
-                                           id: this.state.accountId,
-                                          }
-                                       }
-                              changeAccInfo={this.changeAccInfo}
-                              changeAccTimelineOpts={this.changeAccTimelineOpts}
-                              deleteAcc={this.deleteAccount}
-                            />)}/>
-            <Route exact path='/ClubProfilePage' render={() => 
-                            (<ClubProfilePage 
-                                userInfo={{profileName: "Lorem Ipsum Club",
-                                          id: 0,
-                                          isClub: true,
-                                          bioText: `Lorem ipsum dolor sit amet, consectetur adipiscing 
-                                                    elit. Donec pharetra sodales nunc. Sed facilisis, orci 
-                                                    sed ornare vulputate, metus orci rutrum felis, viverra 
-                                                    hendrerit magna felis vitae mauris. Aliquam posuere fringilla
-                                                    dolor, id varius risus feugiat sit amet. Aliquam vitae lacus
-                                                    quis nisl vestibulum scelerisque. Nunc rhoncus mauris 
-                                                    eu quam faucibus tempus. Maecenas blandit magna quis 
-                                                    odio scelerisque, a convallis urna porta. Class aptent 
-                                                    taciti sociosqu ad litora torquent per conubia nostra, 
-                                                    per inceptos himenaeos. Mauris placerat leo ac tellus 
-                                                    pretium, ac tincidunt tellus feugiat. Donec risus erat, 
-                                                    tempus et velit id, molestie consectetur mauris. Fusce 
-                                                    vitae leo nec risus rhoncus fringilla in vel neque. Cra
-                                                    sed odio interdum, varius risus non, pulvinar nunc. Morbi
-                                                    fermentum dolor lectus, commodo blandit diam eleifend 
-                                                    eget. Etiam sed porta orci. Fusce posuere malesuada lectus,
-                                                    a dignissim risus placerat a. Proin quis purus nec erat
-                                                    viverra rutrum id sed nisl. Ut ut arcu laoreet, 
-                                                    porttitor diam bibendum, molestie metus. Mauris nec 
-                                                    ornare elit, non laoreet nisl. Maecenas in ultrices elit.`,
-                                         profilePic: require("./react-components/ClubProfilePage/static/profilepic.png"),
-                                         bannerImage: require("./react-components/ClubProfilePage/static/bannerimage.jpg"),
-                                        }}
+                            (this.state.signedIn ?
+                              <UserProfilePage 
+                                userInfo={{accs: this.state.accounts,
+                                            id: this.state.accountId,
+                                            }
+                                        }
+                                changeAccInfo={this.changeAccInfo}
+                                changeAccTimelineOpts={this.changeAccTimelineOpts}
+                                deleteAcc={this.deleteAccount}
+                              /> : 
+                              <Redirect to='/'/>)}/>
+            <Route exact path='/csc309' render={() => 
+                            (this.state.signedIn ?
+                              <ClubProfilePage 
+                                clubInfo={info.Clubs[0]}
                                 currUserInfo={{id: this.state.accountId,
                                                accs: this.state.accounts}}
                                 addPost={this.makePost}
@@ -229,8 +249,43 @@ class App extends React.Component{
                                 followClub={this.followClub}
                                 unfollowClub={this.unfollowClub}
                                 removePost={this.removePost}
-                              />)}
-              />
+                                joinClub={this.joinClub}
+                                leaveClub={this.leaveClub}
+                              /> :
+                              <Redirect to='/'/>)}
+            />
+            <Route exact path='/uoft' render={() => 
+                          (this.state.signedIn ?
+                            <ClubProfilePage 
+                              clubInfo={info.Clubs[1]}
+                              currUserInfo={{id: this.state.accountId,
+                                             accs: this.state.accounts}}
+                              addPost={this.makePost}
+                              getClubPosts={this.getClubPosts}
+                              followClub={this.followClub}
+                              unfollowClub={this.unfollowClub}
+                              removePost={this.removePost}
+                              joinClub={this.joinClub}
+                              leaveClub={this.leaveClub}
+                            /> :
+                            <Redirect to='/'/>)}
+            />
+            <Route exact path='/team11' render={() => 
+                          (this.state.signedIn ? 
+                            <ClubProfilePage 
+                              clubInfo={info.Clubs[2]}
+                              currUserInfo={{id: this.state.accountId,
+                                             accs: this.state.accounts}}
+                              addPost={this.makePost}
+                              getClubPosts={this.getClubPosts}
+                              followClub={this.followClub}
+                              unfollowClub={this.unfollowClub}
+                              removePost={this.removePost}
+                              joinClub={this.joinClub}
+                              leaveClub={this.leaveClub}
+                           /> : 
+                           <Redirect to='/'/>)}
+            />
           </Switch>
         </BrowserRouter>
     );
