@@ -40,3 +40,10 @@
     top: 150px;
 }
 
+#logInForm_bannedPrompt{
+    color: red;
+    align-self: center;
+    position: absolute;
+    top: 150px;
+}
+

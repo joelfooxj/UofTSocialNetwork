@@ -14,7 +14,8 @@ class LogInPage extends React.Component{
         singedIn: false,
         changeButtonColor: false,
         accounts: [],
-        accountId: -1
+        accountId: -1,
+        banned: false
     }
 
     /*NOTE: THIS FUNCTION WILL QUERY OUR DATABASE RECORDS TO DETERMINE IF THE USER
@@ -33,15 +34,19 @@ class LogInPage extends React.Component{
         }
 
         if(acc === null){
+            this.setState({
+                banned: false
+            })
             return false
         }  
 
         this.setState({
-            accountId: acc.id
+            accountId: acc.id,
+            banned: acc.banned
         }, () => {
             this.props.changeSignInStatus(true, acc.id, acc.permission, acc.clubsExecOf)
+
         })
-        
         return true
     }
     
@@ -52,23 +57,23 @@ class LogInPage extends React.Component{
         })
     }
 
+
     //set signed in status based on whether sign in succeeded or not
     onAttemptSignIn = () => {
         if(this.checkCredentials()){
-            console.log("Signed In") //TODO: REMOVE
             this.setState({
                 signInFailed: false,
-                accounts: this.props.accounts
+                accounts: this.props.accounts,
             }, () => {
                 const {history} = this.props;
-                if(history){
+                if(history && !this.state.banned){
                     history.push('/UserProfilePage', this.state)
                 }
             })
             
+            
         }
         else{
-            console.log("Sign In Failed")//TODO: REMOVE
             this.setState({
                 signInFailed: true,
                 changeButtonColor: true
@@ -95,6 +100,7 @@ class LogInPage extends React.Component{
                     changeButtonColor={this.state.changeButtonColor}
                     onButtonAnimationEnd={this.onButtonAnimationEnd}
                     signedIn={this.state.signedIn}
+                    banned={this.state.banned}
                 />
 
             </div>
