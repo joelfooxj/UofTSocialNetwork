@@ -43,8 +43,8 @@ const Posts = [
 // See that clubs hold a list of users who have exec permissions
 const Clubs = [
   {
-    clubID: 1, name: 'CSC309', execs:[4],
-    posts:[1,2], requests:[], members:[], 
+    clubID: 1, name: 'CSC309', execs:[1],
+    posts:[1,2], requests:[3], members:[2], 
     link: '/csc309', profilePic: require('./images/csc309pp.png'),
     bannerImage: require('./images/csc309bi.jpg'), 
     bioText: `This course provides an introduction to the technologies 
