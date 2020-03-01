@@ -2,76 +2,42 @@ import React from "react";
 import './style.css';
 import ClubPost from "../ClubPost";
 import CustomButton from "../CustomButton";
+import info from '../../tempInfo';
 
 class ClubTimeline extends React.Component {
+    cPosts = info.Posts.filter((p) => p.authorID === this.props.clubInfo.clubID);
+    
     constructor(props) {
         super(props);
+        console.log(this.cPosts)
         this.state = {
-            posts: [
-                        <ClubPost 
-                            id={0}
-                            clubName={this.props.userInfo.profileName} 
-                            profilePic={this.props.userInfo.profilePic}
-                            postContent="Placeholder post"
-                            timeline={this}
-                            removePost={this.props.removePost}
-                            isExec={this.isExec(this.props.userInfo.id)}
-                        />,
-                        <ClubPost 
-                            id={1}
-                            clubName={this.props.userInfo.profileName} 
-                            profilePic={this.props.userInfo.profilePic}
-                            postContent="Placeholder post"
-                            timeline={this}
-                            removePost={this.props.removePost}
-                            isExec={this.isExec(this.props.userInfo.id)}
-                        />
-                    ]
+            posts: this.getPosts(props.clubInfo.clubID)
         }
+    }
+    
+    // hardcoded
+    getPosts(id) {
+        let posts = info.Posts.filter((p) => p.authorID === id)
+        posts.sort(function(a, b) {
+            let adate, bdate;
+            adate = a.date.split('-').reverse().join('');
+            bdate = b.date.split('-').reverse().join('');
+            return adate > bdate ? 1 : adate < bdate ? -1 : 0
+        }) 
+        return posts
     }
 
     lastID = 1;
 
-    isExec = function(clubId) {
-        let target = -1;
-        for (let i = 0; i < this.props.currUserInfo.accs.length; i++) {
-            if (this.props.currUserInfo.accs[i].id === this.props.currUserInfo.id) {
-                target = i;
-                break;
-            }
-        }
-
-        if ((target >= 0) && this.props.currUserInfo.accs[target].clubsExecOf.includes(clubId)) {
-                return true;
-        }
-        return false;
+    isExec = function() {
+        let val = this.props.clubInfo.execs.includes(this.props.currUserInfo.id);
+        return val;
     }
-
-    // handleClick = function(e) {
-    //     e.preventDefault();
-    //     let form = e.target;
-    //     while (form && form.id != "makePost") {
-    //         form = form.parentNode;
-    //     }
-
-    //     if (!form) {
-    //         alert("Something went wrong.");
-    //         return;
-    //     }
-        
-    //     form = form.children[1].children[0]
-
-    //     if (form.value.length == 0) {
-    //         alert("Please enter post text");
-    //         return;
-    //     }
-    //     this.props.addPost(this, form.value)
-    // }
 
     render() {
         return(
             <div id="timeline">
-                    {this.isExec(this.props.userInfo.id) && 
+                    {this.isExec() && 
                         <div id="makePost">
                             <div id="postButton">
                                 <CustomButton
@@ -85,7 +51,7 @@ class ClubTimeline extends React.Component {
                                     onClick={(function(e) {
                                         e.preventDefault();
                                         let form = e.target;
-                                        while (form && form.id != "makePost") {
+                                        while (form && form.id !== "makePost") {
                                             form = form.parentNode;
                                         }
 
@@ -96,7 +62,7 @@ class ClubTimeline extends React.Component {
                                         
                                         form = form.children[1].children[0]
 
-                                        if (form.value.length == 0) {
+                                        if (form.value.length === 0) {
                                             alert("Please enter post text");
                                             return;
                                         }
@@ -109,8 +75,16 @@ class ClubTimeline extends React.Component {
                             </div>
                         </div>
                     }
-                {this.state.posts.map(post => (
-                    post
+                {this.state.posts.map(p => (
+                    <ClubPost 
+                        id={p.postID}
+                        clubName={this.props.clubInfo.name} 
+                        profilePic={this.props.clubInfo.profilePic}
+                        postContent={p.content}
+                        timeline={this}
+                        removePost={this.props.removePost}
+                        isExec={this.isExec()}
+                    />
                 ))}
             </div>
         )

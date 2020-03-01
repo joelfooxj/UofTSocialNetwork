@@ -7,27 +7,30 @@ import ClubInfo from "../ClubInfo";
 
 class ClubProfilePage extends React.Component {
     render() {
+        console.log(this.props)
         return(
             <div id="profilePage">
                 <ClubProfilePicture 
-                    profilePic={this.props.userInfo.profilePic} 
+                    profilePic={this.props.clubInfo.profilePic} 
                 />
 
                 <ClubProfileBanner 
-                    bannerImage={this.props.userInfo.bannerImage}
+                    bannerImage={this.props.clubInfo.bannerImage}
                 />
 
                 <ClubInfo 
-                    userInfo={this.props.userInfo} 
+                    clubInfo={this.props.clubInfo} 
                     currUserInfo={this.props.currUserInfo}
                     followClub={this.props.followClub}
                     unfollowClub={this.props.unfollowClub}
+                    joinClub={this.props.joinClub}
+                    leaveClub={this.props.leaveClub}
                 />
 
                 <ClubTimeline 
                     addPost={this.props.addPost}
                     removePost={this.props.removePost}
-                    userInfo={this.props.userInfo}
+                    clubInfo={this.props.clubInfo}
                     currUserInfo={this.props.currUserInfo}
                 />
             </div>
