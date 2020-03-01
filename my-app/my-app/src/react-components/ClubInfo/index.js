@@ -17,8 +17,7 @@ class ClubInfo extends React.Component {
     }
     
     isMember = function() {
-        let val = this.state.clubInfo.members.includes(this.state.currUserInfo.id) ||
-                  this.state.clubInfo.execs.includes(this.state.currUserInfo.id);
+        let val = this.state.clubInfo.members.includes(this.state.currUserInfo.id);
         return val;
     }
 
@@ -37,8 +36,7 @@ class ClubInfo extends React.Component {
         }
 
         if ((target >= 0) && 
-            (this.isExec() || this.isMember() || 
-            this.state.currUserInfo.accs[target].clubsFollowing.includes(this.state.clubInfo.clubID))) {
+            this.state.currUserInfo.accs[target].clubsFollowing.includes(this.state.clubInfo.clubID)) {
             return true;
         }
         
@@ -79,7 +77,7 @@ class ClubInfo extends React.Component {
                             />
                         }
 
-                        {(!this.isMember() && !this.didRequest()) &&
+                        {!this.isMember() && !this.didRequest() && !this.isExec() &&
                             <CustomButton
                                 width="100px"
                                 height="35px"
@@ -92,7 +90,7 @@ class ClubInfo extends React.Component {
                             />
                         }
 
-                        {this.isMember() &&
+                        {this.isMember() && !this.isExec() &&
                             <CustomButton
                                 width="125px"
                                 height="35px"
