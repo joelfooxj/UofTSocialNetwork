@@ -13,7 +13,7 @@ class LogInForm extends React.Component{
 
     render(){
         const {username, password, onInputChange, onAttemptSignIn, signInFailed, changeButtonColor,
-            onButtonAnimationEnd} = this.props;
+            onButtonAnimationEnd, banned} = this.props;
 
         return (
             
@@ -57,7 +57,8 @@ class LogInForm extends React.Component{
                         </Link>
                     </div>
                     
-                    {signInFailed ? <span id="logInForm_incorrectCredPrompt">Incorrect Credentials</span> : null}
+                    {signInFailed && !banned ? <span id="logInForm_incorrectCredPrompt">Incorrect Credentials</span> : null}
+                    {banned ? <span id="logInForm_bannedPrompt">Account Banned</span> : null}
                 </Grid>
                 
                 
