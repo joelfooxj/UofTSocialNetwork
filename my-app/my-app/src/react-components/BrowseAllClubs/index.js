@@ -21,7 +21,20 @@ class BrowseAllClubs extends React.Component {
   }
 
   goToClub = clubID => {
-    alert("Going to profile page of: club " + clubID);
+    //alert("Going to profile page of: club " + clubID);
+    let target = false;
+    for (let i = 0; i < this.state.allClubs.length; i++) {
+      if (clubID === this.state.allClubs[i].clubID) {
+        target = this.state.allClubs[i];
+        break;
+      }
+    }
+
+    if (target) {
+      history.push(target.link);
+    } else {
+      alert("Something went wrong.")
+    }
   }
 
   joinRequest = e => {

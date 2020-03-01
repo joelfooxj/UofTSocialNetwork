@@ -7,7 +7,7 @@ class ClubPost extends React.Component {
         return(
             <div class="post">
                 <div class="postIconContainer">
-                    <img src={this.props.profilePic} class="postIcon"/>
+                    <img src={this.props.profilePic} class="postIcon" alt="Failed to load"/>
                 </div>
 
                 <div class="postContent">

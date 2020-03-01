@@ -7,7 +7,6 @@ import LogInPage from './react-components/LogInPage';
 import CreateAccPage from './react-components/CreateAccPage';
 import UserProfilePage from './react-components/UserProfilePage';
 import ClubProfilePage from './react-components/ClubProfilePage';
-import ClubPost from './react-components/ClubPost';
 import info from "./tempInfo";
 
 class App extends React.Component{

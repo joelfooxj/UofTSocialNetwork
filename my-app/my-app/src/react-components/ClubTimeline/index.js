@@ -51,7 +51,7 @@ class ClubTimeline extends React.Component {
                                     onClick={(function(e) {
                                         e.preventDefault();
                                         let form = e.target;
-                                        while (form && form.id != "makePost") {
+                                        while (form && form.id !== "makePost") {
                                             form = form.parentNode;
                                         }
 
@@ -62,7 +62,7 @@ class ClubTimeline extends React.Component {
                                         
                                         form = form.children[1].children[0]
 
-                                        if (form.value.length == 0) {
+                                        if (form.value.length === 0) {
                                             alert("Please enter post text");
                                             return;
                                         }
