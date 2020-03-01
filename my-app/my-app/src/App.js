@@ -214,7 +214,7 @@ class App extends React.Component{
   }
 
   render(){
-    console.log(info.Clubs)
+    console.log(info)
     return (
       <BrowserRouter>
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }

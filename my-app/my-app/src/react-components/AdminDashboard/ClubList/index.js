@@ -1,6 +1,6 @@
-import React from 'react'; 
-import { Grid, List, ListItem, ListItemText, IconButton, ListItemSecondaryAction, Paper } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete'; 
+import React from '../../../../node_modules/react'; 
+import { Grid, List, ListItem, ListItemText, IconButton, ListItemSecondaryAction, Paper } from '../../../../node_modules/@material-ui/core'
+import DeleteIcon from '../../../../node_modules/@material-ui/icons/Delete' 
 
 const ClubList = props => {
 		

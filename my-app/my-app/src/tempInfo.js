@@ -5,7 +5,7 @@
 
 
 class Account {
-  constructor(username, permission, clubsExecOf, accID, password, firstName, lastName, email, clubsFollowing, clubsMemberOf){
+  constructor(username, permission, clubsExecOf, accID, password, firstName, lastName, email, clubsFollowing, clubsMemberOf, banned){
     this.username = username
     this.permission = permission
     this.clubsExecOf = clubsExecOf
@@ -20,13 +20,14 @@ class Account {
                                               */
     this.clubsMemberOf = clubsMemberOf
     this.clubsFollowing = clubsFollowing
+    this.banned = banned
   }
 }
 
 const Accs = [
-  new Account("user", 0, [1], 1, "user", "user", "user", "user@user.com", [2, 3], []),
-  new Account("mike1995", 0, [2], 2, "password", "mike", "johnson", "mike@gmail.com", [3], [2]),
-  new Account("admin", 1, [1, 2, 3], 3, "admin", "admin", "admin", "admin@admin.com", [], [])
+  new Account("user", 0, ["UofT PTSD Support Group"], 1, "user", "user", "user", "user@user.com", [], [], false),
+  new Account("mike1995", 0, ["UofT Students Anonymous"], 2, "password", "mike", "johnson", "mike@gmail.com", [], [], false),
+  new Account("admin", 1, [], 3, "admin", "admin", "admin", "admin@admin.com", [], [], true)
 ]
 
 
@@ -71,4 +72,4 @@ const Clubs = [
   }
 ]
 
-export default {Accs, Clubs, Posts};
+export default {Accs, Clubs, Posts, Account}; 
