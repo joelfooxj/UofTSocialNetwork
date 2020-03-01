@@ -16,10 +16,10 @@ class App extends React.Component{
   
 
   state = {
-    signedIn: true,
+    signedIn: false,
     permission: 0, // 0 - reg user, 1 - admin
     execOf: [],
-    accountId: 1,
+    accountId: -1,
     accounts: info.Accs
   }
 
