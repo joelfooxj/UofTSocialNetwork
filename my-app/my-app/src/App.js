@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Route, Switch, BrowserRouter} from 'react-router-dom';
+import { Route, Switch, BrowserRouter, Redirect} from 'react-router-dom';
 
 
 import LogInPage from './react-components/LogInPage';
@@ -8,8 +8,7 @@ import CreateAccPage from './react-components/CreateAccPage';
 import UserProfilePage from './react-components/UserProfilePage';
 import ClubProfilePage from './react-components/ClubProfilePage';
 import ClubPost from './react-components/ClubPost';
-import Accs from './tempInfo';
-import Account from './tempInfo';
+import info from "./tempInfo";
 
 class App extends React.Component{
 
@@ -21,7 +20,7 @@ class App extends React.Component{
     permission: 0, // 0 - reg user, 1 - admin
     execOf: [],
     accountId: -1,
-    accounts: Accs
+    accounts: info.Accs
   }
 
   changeSignInStatus(val, id, perm, clubs){
@@ -35,26 +34,26 @@ class App extends React.Component{
 
   //THE FOLLOWING FUNCTIONS WILL INTERFACE WITH THE DATABASE TO UPDATE THE CORRECT VALUES
   changeAccInfo = (accId, attrName, attrVal) => {
-    for(let i = 0; i < Accs.length; i++){
-      if(Accs[i].id === accId){
-        Accs[i][attrName] = attrVal
+    for(let i = 0; i < info.Accs.length; i++){
+      if(info.Accs[i].id === accId){
+        info.Accs[i][attrName] = attrVal
       }
     }
 
     this.setState({
-      accounts: Accs
+      accounts: info.Accs
     })
   }
 
   changeAccTimelineOpts = (accId, optionIndex) =>{
-    for(let i = 0; i < Accs.length; i++){
-      if(Accs[i].id === accId){
-        Accs[i].timelineOpts[optionIndex] = !Accs[i].timelineOpts[optionIndex]
+    for(let i = 0; i < info.Accs.length; i++){
+      if(info.Accs[i].id === accId){
+        info.Accs[i].timelineOpts[optionIndex] = !info.Accs[i].timelineOpts[optionIndex]
       }
     }
 
     this.setState({
-      accounts: Accs
+      accounts: info.Accs
     })
   }
 
@@ -164,7 +163,7 @@ class App extends React.Component{
 
 
   createAccount = (username, permissions, password, firstName, lastName, email) => {
-    const newAcc = new Account(username, permissions, [], this.state.accounts[this.state.accounts.length - 1].id + 1, password, firstName, lastName, email)
+    const newAcc = new info.Account(username, permissions, [], this.state.accounts[this.state.accounts.length - 1].id + 1, password, firstName, lastName, email)
     const accs = this.state.accounts
     accs.push(newAcc)
     this.setState({
@@ -173,6 +172,7 @@ class App extends React.Component{
   }
 
   render(){
+    console.log(info.Clubs)
     return (
       <BrowserRouter>
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
@@ -185,43 +185,22 @@ class App extends React.Component{
             <Route exact path='/CreateAccPage' render={() => 
                             (<CreateAccPage createAccAction={this.createAccount}/>)}/>
             <Route exact path='/UserProfilePage' render={() =>
-                            (<UserProfilePage 
-                              userInfo={{accs: this.state.accounts,
-                                           id: this.state.accountId,
-                                          }
-                                       }
-                              changeAccInfo={this.changeAccInfo}
-                              changeAccTimelineOpts={this.changeAccTimelineOpts}
-                              deleteAcc={this.deleteAccount}
-                            />)}/>
-            <Route exact path='/ClubProfilePage' render={() => 
-                            (<ClubProfilePage 
-                                userInfo={{profileName: "Lorem Ipsum Club",
-                                          id: 0,
-                                          isClub: true,
-                                          bioText: `Lorem ipsum dolor sit amet, consectetur adipiscing 
-                                                    elit. Donec pharetra sodales nunc. Sed facilisis, orci 
-                                                    sed ornare vulputate, metus orci rutrum felis, viverra 
-                                                    hendrerit magna felis vitae mauris. Aliquam posuere fringilla
-                                                    dolor, id varius risus feugiat sit amet. Aliquam vitae lacus
-                                                    quis nisl vestibulum scelerisque. Nunc rhoncus mauris 
-                                                    eu quam faucibus tempus. Maecenas blandit magna quis 
-                                                    odio scelerisque, a convallis urna porta. Class aptent 
-                                                    taciti sociosqu ad litora torquent per conubia nostra, 
-                                                    per inceptos himenaeos. Mauris placerat leo ac tellus 
-                                                    pretium, ac tincidunt tellus feugiat. Donec risus erat, 
-                                                    tempus et velit id, molestie consectetur mauris. Fusce 
-                                                    vitae leo nec risus rhoncus fringilla in vel neque. Cra
-                                                    sed odio interdum, varius risus non, pulvinar nunc. Morbi
-                                                    fermentum dolor lectus, commodo blandit diam eleifend 
-                                                    eget. Etiam sed porta orci. Fusce posuere malesuada lectus,
-                                                    a dignissim risus placerat a. Proin quis purus nec erat
-                                                    viverra rutrum id sed nisl. Ut ut arcu laoreet, 
-                                                    porttitor diam bibendum, molestie metus. Mauris nec 
-                                                    ornare elit, non laoreet nisl. Maecenas in ultrices elit.`,
-                                         profilePic: require("./react-components/ClubProfilePage/static/profilepic.png"),
-                                         bannerImage: require("./react-components/ClubProfilePage/static/bannerimage.jpg"),
-                                        }}
+                            (this.state.signedIn ?
+                              <UserProfilePage 
+                                userInfo={{accs: this.state.accounts,
+                                            id: this.state.accountId,
+                                            }
+                                        }
+                                changeAccInfo={this.changeAccInfo}
+                                changeAccTimelineOpts={this.changeAccTimelineOpts}
+                                deleteAcc={this.deleteAccount}
+                              /> : 
+                              <Redirect to='/'/>)}/>
+            <Route exact path='/csc309' render={() => 
+                            (//this.state.signedIn ?
+                              true ?
+                              <ClubProfilePage 
+                                clubInfo={info.Clubs[0]}
                                 currUserInfo={{id: this.state.accountId,
                                                accs: this.state.accounts}}
                                 addPost={this.makePost}
@@ -229,8 +208,37 @@ class App extends React.Component{
                                 followClub={this.followClub}
                                 unfollowClub={this.unfollowClub}
                                 removePost={this.removePost}
-                              />)}
-              />
+                              /> :
+                              <Redirect to='/'/>)}
+            />
+            <Route exact path='/uoft' render={() => 
+                          (this.state.signedIn ?
+                            <ClubProfilePage 
+                              clubInfo={info.Clubs[1]}
+                              currUserInfo={{id: this.state.accountId,
+                                             accs: this.state.accounts}}
+                              addPost={this.makePost}
+                              getClubPosts={this.getClubPosts}
+                              followClub={this.followClub}
+                              unfollowClub={this.unfollowClub}
+                              removePost={this.removePost}
+                            /> :
+                            <Redirect to='/'/>)}
+            />
+            <Route exact path='/team11' render={() => 
+                          (this.state.signedIn ? 
+                            <ClubProfilePage 
+                              clubInfo={info.Clubs[2]}
+                              currUserInfo={{id: this.state.accountId,
+                                             accs: this.state.accounts}}
+                              addPost={this.makePost}
+                              getClubPosts={this.getClubPosts}
+                              followClub={this.followClub}
+                              unfollowClub={this.unfollowClub}
+                              removePost={this.removePost}
+                           /> : 
+                           <Redirect to='/'/>)}
+            />
           </Switch>
         </BrowserRouter>
     );

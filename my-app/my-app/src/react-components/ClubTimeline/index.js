@@ -10,21 +10,21 @@ class ClubTimeline extends React.Component {
             posts: [
                         <ClubPost 
                             id={0}
-                            clubName={this.props.userInfo.profileName} 
-                            profilePic={this.props.userInfo.profilePic}
+                            clubName={this.props.clubInfo.name} 
+                            profilePic={this.props.clubInfo.profilePic}
                             postContent="Placeholder post"
                             timeline={this}
                             removePost={this.props.removePost}
-                            isExec={this.isExec(this.props.userInfo.id)}
+                            isExec={this.isExec(this.props.clubInfo.id)}
                         />,
                         <ClubPost 
                             id={1}
-                            clubName={this.props.userInfo.profileName} 
-                            profilePic={this.props.userInfo.profilePic}
+                            clubName={this.props.clubInfo.name} 
+                            profilePic={this.props.clubInfo.profilePic}
                             postContent="Placeholder post"
                             timeline={this}
                             removePost={this.props.removePost}
-                            isExec={this.isExec(this.props.userInfo.id)}
+                            isExec={this.isExec(this.props.clubInfo.id)}
                         />
                     ]
         }
@@ -71,7 +71,7 @@ class ClubTimeline extends React.Component {
     render() {
         return(
             <div id="timeline">
-                    {this.isExec(this.props.userInfo.id) && 
+                    {this.isExec(this.props.clubInfo.clubID) && 
                         <div id="makePost">
                             <div id="postButton">
                                 <CustomButton

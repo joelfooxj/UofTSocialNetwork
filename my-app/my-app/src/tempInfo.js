@@ -42,9 +42,33 @@ const Posts = [
 
 // See that clubs hold a list of users who have exec permissions
 const Clubs = [
-  {clubID: 1, name: 'csc309', execs:[1,4], posts:[1,2], requests:[2], members:[1,3]},
-  {clubID: 2, name: 'uoft', execs:[3], posts:[3,4], requests:[2,4], members:[1,3]},
-  {clubID: 3, name: 'team11', execs:[2,3], posts:[5,6], requests:[1], members:[2,3]}
+  {
+    clubID: 1, name: 'CSC309', execs:[1,4],
+    posts:[1,2], requests:[2], members:[1,3], 
+    link: '/csc309', profilePic: require('./images/csc309pp.png'),
+    bannerImage: require('./images/csc309bi.jpg'), 
+    bioText: `This course provides an introduction to the technologies 
+    used for developing Web applications. We discuss technologies for 
+    static and dynamic content generation, including N-tier, MVC architectures, 
+    and mobile supported web development. We also cover general web design 
+    principles, security, and web performance.`
+  },
+
+  {
+    clubID: 2, name: 'U of T', execs:[3], 
+    posts:[3,4], requests:[2,4], members:[1,3], 
+    link: '/uoft', profilePic: require('./images/uoftpp.png'),
+    bannerImage: require('./images/uoftbi.png'),
+    bioText: `Connect with UofT, Canada's top university and one of the world’s strongest academic & research powerhouses.`
+  },
+
+  {
+    clubID: 3, name: 'Team 11', execs:[2,3], 
+    posts:[5,6], requests:[1], members:[2,3], 
+    link: '/team11', profilePic: require('./images/team11pp.png'), 
+    bannerImage: require('./images/team11bi.jpg'),
+    bioText: `We may quite possible be the best team to ever exist in the history of the universe. There is simply no competition.`
+  }
 ]
 
-export default {Accs, Clubs, Posts}; 
+export default {Accs, Clubs, Posts};

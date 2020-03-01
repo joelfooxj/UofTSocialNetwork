@@ -7,7 +7,7 @@ class ClubInfo extends React.Component {
         super(props);
         this.state = {
             currUserInfo: props.currUserInfo,
-            userInfo: props.userInfo
+            clubInfo: props.clubInfo
         }
     }
 
@@ -58,10 +58,10 @@ class ClubInfo extends React.Component {
             <div id="ClubInfoContainer">
                 <div id="InfoContents">
                     <div id="ClubNameText">
-                        <strong>{this.state.userInfo.profileName}</strong>
+                        <strong>{this.state.clubInfo.name}</strong>
                     </div>
                     <span id="ClubButtons">
-                        {!this.isFollowing(this.state.userInfo.id) &&
+                        {!this.isFollowing(this.state.clubInfo.clubID) &&
                             <CustomButton
                                 width="100px"
                                 height="35px"
@@ -70,11 +70,11 @@ class ClubInfo extends React.Component {
                                 backgroundColor="lightgray"
                                 border="1px gray solid"
                                 margin="5px"
-                                onClick={()=>(this.props.followClub(this, this.state.userInfo.id))}
+                                onClick={()=>(this.props.followClub(this, this.state.clubInfo.clubID))}
                             />
                         }
 
-                        {this.isFollowing(this.props.userInfo.id) &&<CustomButton
+                        {this.isFollowing(this.props.clubInfo.clubID) &&<CustomButton
                             width="110px"
                             height="35px"
                             variant="outline"
@@ -82,11 +82,11 @@ class ClubInfo extends React.Component {
                             backgroundColor="lightgray"
                             border="1px gray solid"
                             margin="5px"
-                            onClick={() => this.props.unfollowClub(this, this.props.userInfo.id)}
+                            onClick={() => this.props.unfollowClub(this, this.props.clubInfo.clubID)}
                         />
                         }
 
-                        {!this.isMember(this.props.userInfo.id) &&
+                        {!this.isMember(this.props.clubInfo.clubID) &&
                             <CustomButton
                                 width="100px"
                                 height="35px"
@@ -98,7 +98,7 @@ class ClubInfo extends React.Component {
                             />
                         }
 
-                        {this.isMember(this.props.userInfo.id) &&
+                        {this.isMember(this.props.clubInfo.clubID) &&
                             <CustomButton
                                 width="125px"
                                 height="35px"
@@ -111,7 +111,7 @@ class ClubInfo extends React.Component {
                         }
                     </span>
                     <div id="ClubInfoText">
-                        {this.state.userInfo.bioText}
+                        {this.state.clubInfo.bioText}
                     </div>
                 </div>
             </div>
