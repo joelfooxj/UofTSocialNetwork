@@ -40,36 +40,46 @@ class UserList extends React.Component {
 									{this.state.users.map(user =>
 										{
 											let banState = false;
-											let buttonColor = 'primary'; 
+											let buttonColor = 'secondary'; 
 											let buttonText = ''; 
 											if (user.banned) {
-												buttonColor = 'secondary' 
+												buttonColor = 'primary' 
 												buttonText = 'Unban'; 
 												banState = false;
 											} else {
-												buttonColor = 'primary';
+												buttonColor = 'secondary';
 												buttonText = 'Ban';
 												banState = true; 
 											}
 											return(
-												<Link 
-												to={{
-													pathname: "/UserProfilePage", 
-													state: {
-														accounts: this.state.users,
-														accountId: user.id
-													}
-												}}
-												style={{ textDecoration:'none' }}
-												key={user.id}												
-												> 
-													<Paper elevation={0} variant='outlined'>
-														<ListItem button> 
+													<Paper elevation={0} variant='outlined' key={user.id} style={{ margin:'10px'}}>
+														<ListItem> 
 																<ListItemText
 																	primary={user.firstName + ' ' + user.lastName}
 																/>
 																<ListItemSecondaryAction>
-																<Button 
+																	<Link 
+																		to={{
+																			pathname: "/UserProfilePage", 
+																			state: {
+																				accounts: this.state.users,
+																				accountId: user.id
+																			}
+																		}}
+																		style={{ textDecoration:'none' }}
+																		key={user.id}												
+																	>
+																		<Button 
+																			size="small"
+																			edge="end" 
+																			aria-label="join" 
+																			variant="outlined"
+																			color='primary'																			
+																			>																		
+																			view
+																		</Button>
+																	</Link> 
+																	<Button 
 																		id={user.id}
 																		size="small"
 																		edge="end" 
@@ -86,7 +96,6 @@ class UserList extends React.Component {
 																</ListItemSecondaryAction>
 														</ListItem> 
 													</Paper>
-												</Link>
 											)
 										}
 									)}

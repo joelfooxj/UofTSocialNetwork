@@ -8,6 +8,7 @@ import CreateAccPage from './react-components/CreateAccPage';
 import UserProfilePage from './react-components/UserProfilePage';
 import ClubProfilePage from './react-components/ClubProfilePage';
 import info from "./tempInfo";
+import AdminDashboard from './react-components/AdminDashboard/AdminDashboard';
 
 class App extends React.Component{
 
@@ -286,6 +287,7 @@ class App extends React.Component{
                            /> : 
                            <Redirect to='/'/>)}
             />
+            <Route exact path='/AdminDashboard' render={ () => (<AdminDashboard accounts={info.Accs} clubs={info.Clubs}/>) }/>
           </Switch>
         </BrowserRouter>
     );
