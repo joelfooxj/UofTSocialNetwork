@@ -1,6 +1,7 @@
 import React from '../../../../node_modules/react'; 
 import { Grid, List, ListItem, ListItemText, Button, ListItemSecondaryAction, Paper } from '../../../../node_modules/@material-ui/core'
 import './index.css';
+import { Link } from '../../../../node_modules/react-router-dom'
 
 const ExecList = props => {
 	const users = props.users;
@@ -12,19 +13,36 @@ const ExecList = props => {
 						<List dense={true}> 
 							{
 								users.map(user => 
-									<Paper elevation={0} variant='outlined' key={user.userID} >
-										<ListItem button onClick={() => props.onClick('user', user.userID)}> 
+									<Paper elevation={0} variant='outlined' key={user.id} >
+										<ListItem> 
 												<ListItemText
-													primary={user.name}
+													primary={user.firstName + ' ' + user.lastName}
 												/>
 												<ListItemSecondaryAction>
+													<Link to={{
+														pathname: "/UserProfilePage", 
+														state: {
+															accounts: users, 
+															accountId: user.id
+														}
+													}}
+													style={{ textDecoration:'none',  margin:'10px' }}>
+														<Button 
+															size="small"
+															edge="end" 
+															aria-label="view" 
+															variant="outlined"
+															color="primary">
+															view
+														</Button> 
+													</Link>
 													<Button 
 														size="small"
 														edge="end" 
 														aria-label="delete" 
 														variant="outlined"
 														color="primary"
-														onClick={() => props.onDelete('exec', user.userID)}>
+														onClick={() => props.onDelete('exec', user.id)}>
 														Remove
 													</Button>
 												</ListItemSecondaryAction>

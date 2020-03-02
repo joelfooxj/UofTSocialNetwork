@@ -74,12 +74,24 @@ class BrowseAllClubs extends React.Component {
                 }
                 return (
                 <Paper elevation={0} variant='outlined' key={club.clubID}> 
-                  <ListItem button onClick={() => this.goToClub(club.clubID)} variant="outlined">
+                  <ListItem variant="outlined">
                     <ListItemText
                     primary={club.name}/>
                       <ListItemSecondaryAction>
-                        {
-                          <Button 
+                        <Link
+                          to={{
+                            pathname:club.link, 
+                            state:{
+                              club:club
+                            }
+                          }}
+                          style={{textDecoration:'none', margin:'10px'}}
+                        > 
+                          <Button> 
+                            view
+                          </Button>
+                        </Link>
+                        <Button 
                             id={club.clubID}
                             size="small"
                             edge="end" 
@@ -88,10 +100,10 @@ class BrowseAllClubs extends React.Component {
                             color="primary"
                             disabled={disabledState}
                             onClick={this.joinRequest}
+                            style={{margin:'10px'}}
                             >
                             {buttonText}
-                          </Button>
-                        }
+                        </Button>
                       </ListItemSecondaryAction>
                   </ListItem>
                 </Paper>
