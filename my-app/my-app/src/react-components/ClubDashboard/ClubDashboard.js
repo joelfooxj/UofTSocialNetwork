@@ -1,7 +1,7 @@
 import React from 'react';
 import './ClubDashboard.css';
-import ClubStats from './ClubStats/index';
-import MemberList from './MemberList/index';
+import ClubStats from './clubStats/index';
+import MemberList from './memberList/index';
 import ExecList from './ExecList/index';
 import RequestList from './RequestList/index';
 import PostList from './PostList/index';
