@@ -9,6 +9,7 @@ import CreateAccPage from './react-components/CreateAccPage';
 import UserProfilePage from './react-components/UserProfilePage';
 import ClubProfilePage from './react-components/ClubProfilePage';
 import info from "./tempInfo";
+import ClubDashboard from './react-components/ClubDashboard/ClubDashboard';
 import AdminDashboard from './react-components/AdminDashboard/AdminDashboard';
 import BrowseAllClubs from "./react-components/BrowseAllClubs/index";
 
@@ -372,16 +373,14 @@ class App extends React.Component{
                            /> : 
                            <Redirect to='/'/>)}
             />
+            <Route exact path='/ClubDashboard' render={ () => 
+              (this.state.signedIn ? <ClubDashboard users={info.Accs} posts={info.Posts} currentUser={this.state}/> : <Redirect to='/'/>) }/>
             <Route exact path='/AdminDashboard' render={() => 
               (this.state.signedIn && this.state.isAdmin ? <AdminDashboard accounts={info.Accs} clubs={info.Clubs}/> : <Redirect to='/'/>) }/>
-            {/* <Route exact path='/browseAllClubs' render={() => 
-            (this.state.signedIn ? 
-              <BrowseAllClubs allClubs={info.Clubs} currentUserID={this.state.accountId}/> : 
-              <Redirect to='/'/>) }/> */}
             <Route exact path='/browseAllClubs' render={() => 
-            (
-              <BrowseAllClubs allClubs={info.Clubs} currentUserID={this.state.accountId}/> 
-              ) }/>           
+            (this.state.signedIn ? 
+              <BrowseAllClubs allClubs={info.Clubs} currentUserID={this.state.accountId} userIsAdmin={this.state.isAdmin}/> : 
+              <Redirect to='/'/>) }/>
           </Switch>
         </BrowserRouter>
     );

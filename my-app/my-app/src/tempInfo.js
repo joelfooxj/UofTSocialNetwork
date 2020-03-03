@@ -27,8 +27,8 @@ class Account {
 }
 
 const Accs = [
-  new Account("user", 0, ["UofT PTSD Support Group"], 1, "user", "user", "user", "user@user.com", [], [], true),
-  new Account("mike1995", 0, ["UofT Students Anonymous"], 2, "password", "mike", "johnson", "mike@gmail.com", [], [], false),
+  new Account("user", 0, ["UofT PTSD Support Group"], 1, "user", "user", "user", "user@user.com", [], [], false),
+  new Account("mike1995", 0, ["UofT Students Anonymous"], 2, "password", "mike", "johnson", "mike@gmail.com", [], [], true),
   new Account("admin", 1, [], 3, "admin", "admin", "admin", "admin@admin.com", [], [], false)
 ]
 
@@ -58,7 +58,7 @@ const Clubs = [
   },
 
   {
-    clubID: 2, name: 'U of T', execs:[3], 
+    clubID: 2, name: 'U of T', execs:[1,3], 
     posts:[3,4], requests:[2,4], members:[1,3], 
     link: '/uoft', profilePic: require('./images/uoftpp.png'),
     bannerImage: require('./images/uoftbi.png'),

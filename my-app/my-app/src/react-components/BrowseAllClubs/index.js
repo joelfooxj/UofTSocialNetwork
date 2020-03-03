@@ -1,7 +1,8 @@
 import React from 'react';
 import './index.css';
 import {Container, TextField, Button, List, ListItem, ListItemText, ListItemSecondaryAction, Paper } from '@material-ui/core';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
+
 
 
 class BrowseAllClubs extends React.Component {
@@ -70,12 +71,66 @@ class BrowseAllClubs extends React.Component {
                 }
                 return (
                 <Paper elevation={0} variant='outlined' key={club.clubID}> 
-                  <ListItem button onClick={() => this.goToClub(club.clubID)} variant="outlined">
+                  <ListItem variant="outlined">
                     <ListItemText
                     primary={club.name}/>
                       <ListItemSecondaryAction>
                         {
-                          <Button 
+                          club.execs.includes(this.props.currentUserID) || this.props.userIsAdmin ? 
+                            <Link
+                            to={{
+                              pathname:'/ClubDashboard', 
+                              state:{
+                                club:club
+                              }
+                            }}
+                            style={{textDecoration:'none'}}> 
+                              <Button
+                              size="small"
+                              edge="end" 
+                              variant="outlined"
+                              color="primary"
+                              style={{marginLeft:'10px'}}> 
+                                edit
+                              </Button>
+                            </Link>
+                          : null
+                        }
+                        <Link
+                        to={{
+                          pathname:club.link, 
+                          state:{
+                            club:club
+                          }
+                        }}
+                        style={{textDecoration:'none'}}> 
+                          <Button
+                          size="small"
+                          edge="end" 
+                          variant="outlined"
+                          color="primary"
+                          style={{marginLeft:'10px'}}> 
+                            view
+                          </Button>
+                        </Link>
+                        <Link
+                        to={{
+                          pathname:club.link, 
+                          state:{
+                            club:club
+                          }
+                        }}
+                        style={{textDecoration:'none'}}> 
+                          <Button
+                          size="small"
+                          edge="end" 
+                          variant="outlined"
+                          color="primary"
+                          style={{marginLeft:'10px'}}> 
+                            view
+                          </Button>
+                        </Link>
+                        <Button 
                             id={club.clubID}
                             size="small"
                             edge="end" 
@@ -84,10 +139,10 @@ class BrowseAllClubs extends React.Component {
                             color="primary"
                             disabled={disabledState}
                             onClick={this.joinRequest}
+                            style={{margin:'10px'}}
                             >
                             {buttonText}
-                          </Button>
-                        }
+                        </Button>
                       </ListItemSecondaryAction>
                   </ListItem>
                 </Paper>
