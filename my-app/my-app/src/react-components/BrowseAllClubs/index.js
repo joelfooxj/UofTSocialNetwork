@@ -76,7 +76,7 @@ class BrowseAllClubs extends React.Component {
                     primary={club.name}/>
                       <ListItemSecondaryAction>
                         {
-                          this.club.execs.includes(this.props.currentUserID) ? 
+                          club.execs.includes(this.props.currentUserID) || this.props.userIsAdmin ? 
                             <Link
                             to={{
                               pathname:'/ClubDashboard', 

@@ -325,7 +325,7 @@ class App extends React.Component{
               (this.state.signedIn && this.state.isAdmin ? <AdminDashboard accounts={info.Accs} clubs={info.Clubs}/> : <Redirect to='/'/>) }/>
             <Route exact path='/browseAllClubs' render={() => 
             (this.state.signedIn ? 
-              <BrowseAllClubs allClubs={info.Clubs} currentUserID={this.state.accountId}/> : 
+              <BrowseAllClubs allClubs={info.Clubs} currentUserID={this.state.accountId} userIsAdmin={this.state.isAdmin}/> : 
               <Redirect to='/'/>) }/>
           </Switch>
         </BrowserRouter>
