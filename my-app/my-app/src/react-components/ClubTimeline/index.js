@@ -9,16 +9,16 @@ class ClubTimeline extends React.Component {
     
     constructor(props) {
         super(props);
-        console.log(this.cPosts)
         this.state = {
             posts: this.getPosts(props.clubInfo.clubID)
         }
     }
     
-    // hardcoded
+    // This will be a database call later
     getPosts(id) {
         let posts = info.Posts.filter((p) => p.authorID === id)
         posts.sort(function(a, b) {
+            // sort posts by date
             let adate, bdate;
             adate = a.date.split('-').reverse().join('');
             bdate = b.date.split('-').reverse().join('');
@@ -27,17 +27,45 @@ class ClubTimeline extends React.Component {
         return posts
     }
 
+    // The last id used to create a post, used for ensuring new posts
+    // have a unique id for this club.
     lastID = 1;
 
+    // Returns true if the current user is a club executive
     isExec = function() {
         let val = this.props.clubInfo.execs.includes(this.props.currUserInfo.id);
         return val;
     }
 
+    // On Click function for adding a post
+    onClickAddPost = function(e) {
+        e.preventDefault();
+        let form = e.target;
+
+        // where button is clicked may change parents, use while loop
+        while (form && form.id !== "makePost") {
+            form = form.parentNode;
+        }
+
+        if (!form) {
+            alert("Something went wrong.");
+            return;
+        }
+
+        form = form.children[1].children[0]
+
+        if (form.value.length === 0) {
+            alert("Please enter post text.");
+            return;
+        }
+
+        this.props.addPost(this, form.value);
+    }
+
     render() {
         return(
             <div id="timeline">
-                    {this.isExec() && 
+                    {(this.isExec() || this.props.currUserInfo.isAdmin) && 
                         <div id="makePost">
                             <div id="postButton">
                                 <CustomButton
@@ -48,26 +76,7 @@ class ClubTimeline extends React.Component {
                                     backgroundColor="lightgray"
                                     border="1px gray solid"
                                     margin="10px"
-                                    onClick={(function(e) {
-                                        e.preventDefault();
-                                        let form = e.target;
-                                        while (form && form.id !== "makePost") {
-                                            form = form.parentNode;
-                                        }
-
-                                        if (!form) {
-                                            alert("Something went wrong.");
-                                            return;
-                                        }
-                                        
-                                        form = form.children[1].children[0]
-
-                                        if (form.value.length === 0) {
-                                            alert("Please enter post text");
-                                            return;
-                                        }
-                                        this.props.addPost(this, form.value)
-                                    }).bind(this)}
+                                    onClick={this.onClickAddPost.bind(this)}
                                 />
                             </div>
                             <div id="makePostTextArea">
