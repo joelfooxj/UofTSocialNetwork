@@ -58,7 +58,7 @@ class Navbar extends React.Component{
 			}else{
 				return (
 					<NavRB className="mr-auto" inline>
-						<NavRB.Link as='li' href='/browseAllClubs'>Explore</NavRB.Link>
+						<NavRB.Link href='/browseAllClubs'>Explore</NavRB.Link>
 						<NavRB.Link href='/FeedPage'>Feeds</NavRB.Link>
 						<NavRB.Link href='/Following'>Following</NavRB.Link>
 						<NavRB.Link href='/UserProfilePage'>UserCenter</NavRB.Link>
@@ -81,10 +81,6 @@ class Navbar extends React.Component{
 					<NavbarRB.Toggle aria-controls="basic-navbar-nav" />
 					<NavbarRB.Collapse id="basic-navbar-nav">
 						<Links />
-						<Form inline>
-							<FormControl type="text" placeholder="Search" className=" mr-sm-2" />
-							<Button  variant="outline-info" action='default:prevent'>GO</Button>
-						</Form>
 						<NavRB>
 							<NavRB.Link onclick={this.logout} href='/'>Logout</NavRB.Link>
 						</NavRB>
