@@ -5,6 +5,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { withRouter } from 'react-router-dom';
 import CustomButton from "./../CustomButton"
 import UserProfileImage from "./../UserProfileImage"
+import Navbar from './../Navbar'
 
 class UserProfilePage extends React.Component{
 
@@ -24,8 +25,13 @@ class UserProfilePage extends React.Component{
 
     render(){
         const account = this.getAccount()
+        const { userInfo, changeSignInStatus, changeAccInfo, changeAccTimelineOpts, deleteAcc } = this.props;
+        const user = userInfo.accs[userInfo.id-1];
         return (
             <div id="mainDiv">
+                <Navbar changeSignInStatus={changeSignInStatus} logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
+                  status={true} user={user}>
+                </Navbar>
                 <img id="bannerImgDiv" src={require("./static/headingBanner.png")} alt="Heading Banner"/>
                 <UserProfileImage id={"profileImg"}/>
                 <div id="userProfilePageInfo">

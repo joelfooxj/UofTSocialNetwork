@@ -287,6 +287,7 @@ class App extends React.Component{
                                             id: this.state.accountId,
                                             }
                                         }
+                                changeSignInStatus={this.changeSignInStatus.bind(this)}
                                 changeAccInfo={(accId, attrName, attrVal) => {changeAccInfo(this, info.Accs, accId, attrName, attrVal)}}
                                 changeAccTimelineOpts={(accId, optionIndex) => {changeAccTimelineOpts(this, info.Accs, optionIndex, accId)}}
                                 deleteAcc={(accId) => {deleteAccount(this, accId, info.Accs)}}
@@ -347,10 +348,13 @@ class App extends React.Component{
             <Route exact path='/ClubDashboard' render={ () => 
               (this.state.signedIn ? <ClubDashboard users={info.Accs} posts={info.Posts} currentUser={this.state}/> : <Redirect to='/'/>) }/>
             <Route exact path='/AdminDashboard' render={() => 
-              (this.state.signedIn && this.state.permission === 1 ? <AdminDashboard accounts={info.Accs} clubs={info.Clubs}/> : <Redirect to='/'/>) }/>
+              (this.state.signedIn && this.state.permission === 1 ? <AdminDashboard changeSignInStatus={this.changeSignInStatus.bind(this)} 
+                user={ this.state.accounts[this.state.accountId-1]} 
+                accounts={info.Accs} clubs={info.Clubs}/> : <Redirect to='/'/>) }/>
             <Route exact path='/browseAllClubs' render={() => 
             (this.state.signedIn ? 
-              <BrowseAllClubs allClubs={info.Clubs} currentUserID={this.state.accountId} userIsAdmin={this.state.permission === 1}/> : 
+              <BrowseAllClubs allClubs={info.Clubs} currentUserID={this.state.accountId} 
+              userIsAdmin={this.state.permission === 1} changeSignInStatus={this.changeSignInStatus.bind(this)} user={ this.state.accounts[this.state.accountId-1]}/> : 
               <Redirect to='/'/>) }/>
           </Switch>
         </BrowserRouter>
