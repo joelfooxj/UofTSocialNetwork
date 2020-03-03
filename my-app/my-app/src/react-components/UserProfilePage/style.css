@@ -1,7 +1,12 @@
 
 #mainDiv #bannerImgDiv{
-    width: fit-content;
-    
+    width: 100vw;
+    height: 30vh;
+    max-width: 100%;
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+    display: block;
 }
 
 #userProfilePageInfo{
@@ -19,7 +24,7 @@
     width: fit-content;
     height: fit-content;
     left: 500px;
-    top: -420px;
+    top: -390px;
 }
 
 #timelineOptsHeader{
@@ -27,16 +32,10 @@
     top: -25px;
 }
 
-#mainHeader{
-    left: 35px;
-    top: -15px;
-    position: relative;
-}
-
 #mainDiv #profileImg{
-    position: relative;
+    position: absolute;
     display: inline-block;
-    left: 43.8%;
-    top: -10%;
+    left: 43.75%;
+    top: 22%;
 }
 
