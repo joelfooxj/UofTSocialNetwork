@@ -61,10 +61,15 @@ class App extends React.Component{
   //THE FOLLOWING FUNCTIONS WILL INTERFACE WITH THE DATABASE TO UPDATE THE CORRECT VALUES
 
   
-
+ /*
+   * Adds the current user to the club signified by the club id's following list.
+   *
+   * Note: This function will interface with the database once the backend has been implemented. 
+  */
   followClub(inf, clubID) {
+    // Find correct user
     let newCurrUserInfo = inf.state.currUserInfo;
-    let newUserInfo = inf.state.userInfo;
+    let newClubInfo = inf.state.clubInfo;
     let target = -1;
     for (let i = 0; i < newCurrUserInfo.accs.length; i++) {
       if (newCurrUserInfo.accs[i].id === newCurrUserInfo.id) {
@@ -77,16 +82,23 @@ class App extends React.Component{
       newCurrUserInfo.accs[target].clubsFollowing.push(clubID);
     }
 
+    // set info state to change button
     inf.setState({
       currUserInfo: newCurrUserInfo,
-      userInfo: newUserInfo
+      clubInfo: newClubInfo
     });
 
   }
 
+
+  /*
+   * Removes the current user from the club signified by the club id's following list.
+   *
+   * Note: This function will interface with the database once the backend has been implemented. 
+   */
   unfollowClub(inf, clubID) {
     let newCurrUserInfo = inf.state.currUserInfo;
-    let newUserInfo = inf.state.userInfo;
+    let newClubInfo = inf.state.clubInfo; 
     let target = -1;
     for (let i = 0; i < newCurrUserInfo.accs.length; i++) {
       if (newCurrUserInfo.accs[i].id === newCurrUserInfo.id) {
@@ -102,20 +114,31 @@ class App extends React.Component{
 
     inf.setState({
       currUserInfo: newCurrUserInfo,
-      userInfo: newUserInfo
+      clubInfo: newClubInfo 
     });
   }
 
+
+  /*
+   * Makes a new post on the given timeline.
+   *
+   * Note: This function will interface with the database once the backend has been implemented. 
+   */
   makePost(timeline, postContent) {
-    let newPost = <ClubPost
-                    id={timeline.lastID + 1}
-                    clubName={timeline.props.userInfo.profileName}
-                    profilePic={timeline.props.userInfo.profilePic}
-                    postContent={postContent}
-                    timeline={timeline}
-                    removePost={this.removePost}
-                    isExec={timeline.isExec(timeline.props.userInfo.id)}
-                  />
+    let today = new Date(); 
+    let dd = String(today.getDate()).padStart(2, '0'); 
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); 
+    let yyyy = today.getFullYear(); 
+    today = dd + '-' + mm + '-' + yyyy; 
+
+    let newPost = { 
+      postID: timeline.lastID + 1,
+      title: "post" + String(timeline.lastID + 1),  
+      content: postContent, 
+      authorID: timeline.props.clubInfo.clubID, 
+      date: today 
+    }
+
     timeline.lastID += 1;
     let newPosts = timeline.state.posts;
     newPosts.unshift(newPost)
@@ -124,12 +147,18 @@ class App extends React.Component{
     })
   }
 
+
+  /*
+   * Deletes a given post from the given timeline.
+   *
+   * Note: This function will interface with the database once the backend has been implemented. 
+   */
   removePost(timeline, post) {
     let newPosts = timeline.state.posts;
     let target = -1;
 
     for (let i = 0; i < newPosts.length; i++) {
-      if (newPosts[i].props.id === post.props.id) {
+      if (newPosts[i].postID === post.props.id) { 
         target = i;
         break;
       }
@@ -144,13 +173,61 @@ class App extends React.Component{
     })
   }
 
-  joinClub(clubID) {
-    ;
-  }
+  /*
+   * Requests a join to the club signified by the club id. This request must be granted or denied
+   * by an admin level user.
+   *
+   * Note: This function will interface with the database once the backend has been implemented. 
+   * */
+  joinClub(inf, clubID) {
+    let newCurrUserInfo = inf.state.currUserInfo;
+    let newClubInfo = inf.state.clubInfo;
+    let target = -1;
 
-  leaveClub(clubID) {
-    ;
+    for (let i = 0; i < newCurrUserInfo.accs.length; i++) {
+      if (newCurrUserInfo.accs[i].id === newCurrUserInfo.id) {
+        target = i;
+        break;
+      }
+    }
+
+    if ((target >= 0) && !newClubInfo.requests.includes(newCurrUserInfo.id)) {
+      newClubInfo.requests.push(newCurrUserInfo.id);
+    }
+
+    inf.setState({ 
+        currUserInfo: newCurrUserInfo, 
+        clubInfo: newClubInfo 
+      }); 
   }
+   /* 
+   * Removes the current user from the club signified by the given club id. 
+      * Note: This function will interface with the database once the backend has been implemented. 
+      * 
+   */
+   leaveClub(inf, clubID) {
+    let newCurrUserInfo = inf.state.currUserInfo;
+    let newClubInfo = inf.state.clubInfo;
+    let target = -1;
+    for (let i = 0; i < newCurrUserInfo.accs.length; i++) {
+      if (newCurrUserInfo.accs[i].id === newCurrUserInfo.id) {
+        target = i;
+        break;
+      }
+    }
+
+    if ((target >= 0) && newClubInfo.members.includes(newCurrUserInfo.id)) {
+      let val = newClubInfo.members.indexOf(newCurrUserInfo.id);
+      newClubInfo.members.splice(val, 1);
+    }
+
+    inf.setState({
+      currUserInfo: newCurrUserInfo,
+      clubInfo: newClubInfo
+    });
+  }
+  
+  
 
   createAccount = (username, permissions, password, firstName, lastName, email) => {
     const newAcc = new info.Account(username, permissions, [], this.state.accounts[this.state.accounts.length - 1].id + 1, password, firstName, lastName, email)

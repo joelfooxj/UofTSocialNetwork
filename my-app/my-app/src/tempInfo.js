@@ -28,9 +28,9 @@ class Account {
 }
 
 const Accs = [
-  new Account("user", 0, ["UofT PTSD Support Group"], 1, "user", "user", "user", "user@user.com", [], [], false),
-  new Account("mike1995", 0, ["UofT Students Anonymous"], 2, "password", "mike", "johnson", "mike@gmail.com", [], [], true),
-  new Account("admin", 1, [], 3, "admin", "admin", "admin", "admin@admin.com", [], [], false)
+  new Account("user", 0, [1], 1, "user", "user", "user", "user@user.com", [2, 3], [], false),
+  new Account("mike1995", 0, [2], 2, "password", "mike", "johnson", "mike@gmail.com", [3], [2], true),
+  new Account("admin", 1, [1, 2, 3], 3, "admin", "admin", "admin", "admin@admin.com", [], [], false)
 ]
 
 
