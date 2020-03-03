@@ -60,6 +60,7 @@ class ClubTimeline extends React.Component {
         }
 
         this.props.addPost(this, form.value);
+        form.value = "";
     }
 
     render() {
