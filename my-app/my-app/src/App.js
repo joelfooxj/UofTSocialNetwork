@@ -15,10 +15,10 @@ class App extends React.Component{
 
   //TODO: THESE ARE TEMPORARY HARDCODED VALUES
   state = {
-    signedIn: false,
+    signedIn: true,
     permission: 0, // 0 - reg user, 1 - admin
     execOf: [],
-    accountId: -1,
+    accountId: 3,
     accounts: info.Accs, 
     isAdmin: false, 
   }
@@ -234,7 +234,6 @@ class App extends React.Component{
       clubInfo: newClubInfo
     });
   }
-
 
   createAccount = (username, permissions, password, firstName, lastName, email) => {
     const newAcc = new info.Account(username, permissions, [], this.state.accounts[this.state.accounts.length - 1].id + 1, password, firstName, lastName, email)

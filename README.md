@@ -24,5 +24,7 @@ This page is meant for regular users who wish to create an account. Admin accoun
 ### User Profile Settings Page
 On this page the user is able to change profile information such as username, password, email, etc. The user is also able to upload a profile picture to be used for their account. Please note that for now the profile picture will change only on this page as we are going to be using a database in phase 2 to support image file uploads so that all our views could display the profile picture as necessary. Lastly, on this page the user can delete their account. This action cannot be reverted and therefore this feature should be used only with absolute certainty. 
 
+### Club Profile Page
+This page is the view for any club. It displays a selected banner image and profile photo based on the club. Also displayed is a bio and posts that the club has made. A user is able to perform several different actions depending on their permissions. Executives will be able to make posts and delete existing ones. Club members are able to All users are able to follow and unfollow, and request to join a club if they are not a part of it already. This request must be approved by an admin before a user is actually a part of the club.
 
 ##
