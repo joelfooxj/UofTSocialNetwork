@@ -93,6 +93,7 @@ class ClubTimeline extends React.Component {
                         timeline={this}
                         removePost={this.props.removePost}
                         isExec={this.isExec()}
+                        isAdmin={this.props.currUserInfo.isAdmin}
                     />
                 ))}
             </div>

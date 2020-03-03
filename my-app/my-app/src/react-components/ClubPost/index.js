@@ -15,7 +15,7 @@ class ClubPost extends React.Component {
                     <p>{this.props.postContent}</p>
                 </div>
 
-                {(this.props.isExec || this.props.currUser.isAdmin) &&
+                {(this.props.isExec || this.props.isAdmin) &&
                     <div id="removePost">
                         <CustomButton
                             height="50px"
