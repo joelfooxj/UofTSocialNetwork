@@ -21,6 +21,7 @@ class Account {
     this.clubsMemberOf = clubsMemberOf
     this.clubsFollowing = clubsFollowing
     this.banned = banned
+    this.profileImgFile = null
     this.profile = profile
     this.eventDecisions = eventDecisions
   }
