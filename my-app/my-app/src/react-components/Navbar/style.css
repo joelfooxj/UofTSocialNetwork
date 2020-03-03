@@ -1,0 +1,77 @@
+NavbarRB {
+	position: fixed;
+	top: 0;
+	color:white;
+}
+
+NavBarRB.Link{
+	pointer-events: none; 
+	cursor: default; 
+ 	text-decoration: none; 
+	color: white; 
+}
+
+
+.navbar{
+	/* dimension, position, font, background color, border */
+	width: 100vw;
+	/*height: 12vh;*/
+	position: fixed;
+	top: 0;
+	background-color: rgb(102, 102, 153);
+
+}
+
+
+
+/*.navbar div , form{
+	display: inline-block;
+	height: 10vh;
+}*/
+
+/*.navbar div{
+	margin-top: 1vh;
+	margin-bottom: 1vh;
+}
+*/
+.navLogo .navLogoPic{
+	/* dimemsion, shape, position, frame*/
+	margin-left: 5vw;
+	width: 10vh;
+	/*padding: none;*/
+
+}
+
+.navLogoPic, .navProfilePic{
+	/* border */
+	border-radius: 50%;
+	width: 10vh;
+}
+
+.navLink{
+	/* font */
+	position: relative;
+	top: -3.8vh;
+	margin-left: 3vw;
+	font-size: 18pt;
+	width: 40vw;
+}
+
+.navLink ul{
+	list-style-type: none;
+	list-style: none;
+}
+
+.navLink li:hover{
+	background-color: black;
+}
+
+.navProfile li:hover{
+	background-color: black;
+}
+
+
+.navLink li{
+	display:inline;
+}
+

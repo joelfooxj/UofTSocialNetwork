@@ -26,11 +26,8 @@ class UserProfilePage extends React.Component{
         const account = this.getAccount()
         return (
             <div id="mainDiv">
-                <div id="bannerImgDiv">
-                    <img src={require("./static/headingBanner.png")} alt="Heading Banner"/>
-                </div>
-                <UserProfileImage id={"profileImg"}
-                />
+                <img id="bannerImgDiv" src={require("./static/headingBanner.png")} alt="Heading Banner"/>
+                <UserProfileImage id={"profileImg"}/>
                 <div id="userProfilePageInfo">
                     <h1>General Info</h1>
                     <UserProfileField
@@ -115,7 +112,7 @@ class UserProfilePage extends React.Component{
                     width={"150px"}
                     height={"30px"}
                     padding={"0px"}
-                    top={"-100px"}
+                    top={"-75px"}
                     left={"555px"}
                     fontSize={"10px"}
                     onClick={() => {this.props.history.push("/"); this.props.deleteAcc(account.id)}}

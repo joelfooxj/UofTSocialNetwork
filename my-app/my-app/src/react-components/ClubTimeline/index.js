@@ -65,7 +65,7 @@ class ClubTimeline extends React.Component {
     render() {
         return(
             <div id="timeline">
-                    {this.isExec() && 
+                    {(this.isExec() || this.props.currUserInfo.isAdmin) && 
                         <div id="makePost">
                             <div id="postButton">
                                 <CustomButton

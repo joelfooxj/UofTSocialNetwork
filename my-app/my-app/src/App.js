@@ -2,7 +2,8 @@ import React from 'react';
 import './App.css';
 import { Route, Switch, BrowserRouter} from 'react-router-dom';
 
-
+import FeedPage from './react-components/FeedPage';
+import FollowingPage from './react-components/FollowingPage' 
 import LogInPage from './react-components/LogInPage';
 import CreateAccPage from './react-components/CreateAccPage';
 import UserProfilePage from './react-components/UserProfilePage';
@@ -10,6 +11,31 @@ import ClubProfilePage from './react-components/ClubProfilePage';
 import ClubPost from './react-components/ClubPost';
 import info from "./tempInfo";
 import {changeAccInfo, changeAccTimelineOpts, deleteAccount} from './actions/accountActions';
+import ClubDashboard from './react-components/ClubDashboard/ClubDashboard';
+import AdminDashboard from './react-components/AdminDashboard/AdminDashboard';
+import BrowseAllClubs from "./react-components/BrowseAllClubs/index";
+
+//
+import Navbar from './react-components/Navbar';
+import EventTimePlace from './react-components/EventTimePlace';
+// tempoary classes for storeing testing objects only 
+
+class userObject {
+  constructor(type, name){
+    this.userType = type
+    this.userName = name
+    this.userProfile = 'https://assets.currencycloud.com/wp-content/uploads/2018/01/profile-placeholder.gif'
+    if (type!='admin'){
+      this.followingClub = []
+      this.managingClub = []
+      this.requests = []
+    }
+  }
+}
+const admin = new userObject('admin', 'ADMIN')
+const userNoClub = new userObject('user', 'inactivist')
+
+//
 
 class App extends React.Component{
   
@@ -125,7 +151,6 @@ class App extends React.Component{
     ;
   }
 
-
   createAccount = (username, permissions, password, firstName, lastName, email) => {
     const newAcc = new info.Account(username, permissions, [], this.state.accounts[this.state.accounts.length - 1].id + 1, password, firstName, lastName, email)
     const accs = this.state.accounts
@@ -133,6 +158,12 @@ class App extends React.Component{
     this.setState({
       accounts: accs
     })
+  }
+
+  makeEventDecision = (account, postId, decision) =>{
+    if (decision in ['going','notgoing', 'interested']){
+      account.eventDecision[postId] = decision
+    }
   }
 
   render(){
@@ -147,53 +178,102 @@ class App extends React.Component{
                             />)}/>
             <Route exact path='/CreateAccPage' render={() => 
                             (<CreateAccPage createAccAction={this.createAccount}/>)}/>
-            <Route exact path='/UserProfilePage' render={() =>
-                            (<UserProfilePage 
+            <Route exact path='/FeedPage' render={() => 
+                            (this.state.signedIn ?
+                              <FeedPage 
+                              changeSignInStatus={this.changeSignInStatus.bind(this)}
                               userInfo={{accs: this.state.accounts,
-                                           id: this.state.accountId,
-                                          }
-                                       }
-                              changeAccInfo={(accId, attrName, attrVal) => {changeAccInfo(this, info.Accs, accId, attrName, attrVal)}}
-                              changeAccTimelineOpts={(accId, optionIndex) => {changeAccTimelineOpts(this, info.Accs, optionIndex, accId)}}
-                              deleteAcc={(accId) => {deleteAccount(this, accId, info.Accs)}}
-                            />)}/>
-            <Route exact path='/ClubProfilePage' render={() => 
-                            (<ClubProfilePage 
-                                userInfo={{profileName: "Lorem Ipsum Club",
-                                          id: 0,
-                                          isClub: true,
-                                          bioText: `Lorem ipsum dolor sit amet, consectetur adipiscing 
-                                                    elit. Donec pharetra sodales nunc. Sed facilisis, orci 
-                                                    sed ornare vulputate, metus orci rutrum felis, viverra 
-                                                    hendrerit magna felis vitae mauris. Aliquam posuere fringilla
-                                                    dolor, id varius risus feugiat sit amet. Aliquam vitae lacus
-                                                    quis nisl vestibulum scelerisque. Nunc rhoncus mauris 
-                                                    eu quam faucibus tempus. Maecenas blandit magna quis 
-                                                    odio scelerisque, a convallis urna porta. Class aptent 
-                                                    taciti sociosqu ad litora torquent per conubia nostra, 
-                                                    per inceptos himenaeos. Mauris placerat leo ac tellus 
-                                                    pretium, ac tincidunt tellus feugiat. Donec risus erat, 
-                                                    tempus et velit id, molestie consectetur mauris. Fusce 
-                                                    vitae leo nec risus rhoncus fringilla in vel neque. Cra
-                                                    sed odio interdum, varius risus non, pulvinar nunc. Morbi
-                                                    fermentum dolor lectus, commodo blandit diam eleifend 
-                                                    eget. Etiam sed porta orci. Fusce posuere malesuada lectus,
-                                                    a dignissim risus placerat a. Proin quis purus nec erat
-                                                    viverra rutrum id sed nisl. Ut ut arcu laoreet, 
-                                                    porttitor diam bibendum, molestie metus. Mauris nec 
-                                                    ornare elit, non laoreet nisl. Maecenas in ultrices elit.`,
-                                         profilePic: require("./react-components/ClubProfilePage/static/profilepic.png"),
-                                         bannerImage: require("./react-components/ClubProfilePage/static/bannerimage.jpg"),
-                                        }}
+                                          id: this.state.accountId,
+                                            }}
+                              allPosts={info.Posts}
+                              allClubs={info.Clubs}
+                              makeEventDecision={this.makeEventDecision}
+                            /> :
+                            <Redirect to='/'/>)}
+            />
+            <Route exact path='/Following' render={() => 
+                            (this.state.signedIn ?
+                              <FollowingPage 
+                              changeSignInStatus={this.changeSignInStatus.bind(this)}
+                              userInfo={{accs: this.state.accounts,
+                                          id: this.state.accountId,
+                                            }}
+                              allClubs={info.Clubs}
+                            /> :
+                            <Redirect to='/'/>)}
+            />
+            <Route exact path='/UserProfilePage' render={() =>
+                            (this.state.signedIn && !this.state.isAdmin?
+                              <UserProfilePage 
+                                userInfo={{accs: this.state.accounts,
+                                            id: this.state.accountId,
+                                            }
+                                        }
+                                changeAccInfo={this.changeAccInfo}
+                                changeAccTimelineOpts={this.changeAccTimelineOpts}
+                                deleteAcc={this.deleteAccount}
+                              /> : 
+                              <Redirect to='/'/>)}
+            />
+            <Route exact path='/csc309' render={() => 
+                            (this.state.signedIn ?
+                              <ClubProfilePage 
+                                clubInfo={info.Clubs[0]}
                                 currUserInfo={{id: this.state.accountId,
-                                               accs: this.state.accounts}}
+                                               accs: this.state.accounts,
+                                               isAdmin: this.state.isAdmin}}
                                 addPost={this.makePost}
                                 getClubPosts={this.getClubPosts}
                                 followClub={this.followClub}
                                 unfollowClub={this.unfollowClub}
                                 removePost={this.removePost}
-                              />)}
-              />
+                                joinClub={this.joinClub}
+                                leaveClub={this.leaveClub}
+                              /> :
+                              <Redirect to='/'/>)}
+            />
+            <Route exact path='/uoft' render={() => 
+                          (this.state.signedIn ?
+                            <ClubProfilePage 
+                              clubInfo={info.Clubs[1]}
+                              currUserInfo={{id: this.state.accountId,
+                                             accs: this.state.accounts,
+                                             isAdmin: this.state.isAdmin}}
+                              addPost={this.makePost}
+                              getClubPosts={this.getClubPosts}
+                              followClub={this.followClub}
+                              unfollowClub={this.unfollowClub}
+                              removePost={this.removePost}
+                              joinClub={this.joinClub}
+                              leaveClub={this.leaveClub}
+                            /> :
+                            <Redirect to='/'/>)}
+            />
+            <Route exact path='/team11' render={() => 
+                          (this.state.signedIn ? 
+                            <ClubProfilePage 
+                              clubInfo={info.Clubs[2]}
+                              currUserInfo={{id: this.state.accountId,
+                                             accs: this.state.accounts,
+                                             isAdmin: this.state.isAdmin}}
+                              addPost={this.makePost}
+                              getClubPosts={this.getClubPosts}
+                              followClub={this.followClub}
+                              unfollowClub={this.unfollowClub}
+                              removePost={this.removePost}
+                              joinClub={this.joinClub}
+                              leaveClub={this.leaveClub}
+                           /> : 
+                           <Redirect to='/'/>)}
+            />
+            <Route exact path='/ClubDashboard' render={ () => 
+              (this.state.signedIn ? <ClubDashboard users={info.Accs} posts={info.Posts} currentUser={this.state}/> : <Redirect to='/'/>) }/>
+            <Route exact path='/AdminDashboard' render={() => 
+              (this.state.signedIn && this.state.isAdmin ? <AdminDashboard accounts={info.Accs} clubs={info.Clubs}/> : <Redirect to='/'/>) }/>
+            <Route exact path='/browseAllClubs' render={() => 
+            (this.state.signedIn ? 
+              <BrowseAllClubs allClubs={info.Clubs} currentUserID={this.state.accountId} userIsAdmin={this.state.isAdmin}/> : 
+              <Redirect to='/'/>) }/>
           </Switch>
         </BrowserRouter>
     );

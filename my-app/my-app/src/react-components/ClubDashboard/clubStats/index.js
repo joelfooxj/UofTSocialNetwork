@@ -12,7 +12,6 @@ const ClubStats = props => {
                         <ul>
                         {
                             props.statsList.map((stat, index) => <li key={index}> { stat } </li>)
-                            
                         }
                         </ul>
                     </div>

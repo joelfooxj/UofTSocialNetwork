@@ -46,9 +46,6 @@ class LogInPage extends React.Component{
             banned: acc.banned,
             isAdmin: acc.permission === 1
         }, () => {
-            console.log(acc.name); 
-            console.log(acc.permission);
-            console.log(acc.permission === 1);
             this.props.changeSignInStatus(true, acc.id, acc.permission, acc.clubsExecOf, acc.permission === 1)
 
         })

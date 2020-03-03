@@ -1,22 +1,35 @@
 import React from 'react';
 import './ClubDashboard.css';
-import ClubStats from './ClubStats/index';
-import MemberList from './MemberList/index';
+import ClubStats from './clubStats/index';
+import MemberList from './memberList/index';
 import ExecList from './ExecList/index';
 import RequestList from './RequestList/index';
 import PostList from './PostList/index';
+import { Button } from '../../../node_modules/@material-ui/core'
+import { withRouter, Link } from '../../../node_modules/react-router-dom'
 
 class ClubDashboard extends React.Component {
     constructor(props){
 			super(props);
+			let passedInClub = this.props.location.state.club;
+			
 			this.state={
-				tempData: props.tempData,
-				members: props.thisClub.members, 
-				execs: props.thisClub.execs, 
-				posts: props.thisClub.posts, 
-				requests: props.thisClub.requests, 
-				clubID: props.thisClub.clubID,
+				allUsers: props.users, 
+				allPosts: props.posts,
+				thisClub: passedInClub,
+				members: passedInClub.members, 
+				execs: passedInClub.execs, 
+				posts: passedInClub.posts, 
+				requests: passedInClub.requests, 
+				clubID: passedInClub.clubID,
+				link: passedInClub.link
 			}	
+
+
+			if (!(passedInClub.execs.includes(this.props.currentUser.accountId) || this.props.currentUser.isAdmin)){
+				alert("Unauthorized access"); 
+				this.props.history.push('/');
+			}
 		}
 		
 		componentDidMount(){
@@ -28,49 +41,65 @@ class ClubDashboard extends React.Component {
 		}
 
 		deleteObject = (inType, inID)  => {
-			//TODO: delete object from database		
+			//TODO: delete object from database
+			
+			const thisClub = this.state.thisClub; 
 			
 			switch(inType){
 				case 'member': 
-					this.props.thisClub.members = this.state.members.filter(member => member != inID);
-					this.props.thisClub.execs = this.state.execs.filter(exec => exec != inID);
+					thisClub.members = this.state.members.filter(member => member !== inID);
+					thisClub.execs = this.state.execs.filter(exec => exec !== inID);
 					break; 
 				case 'exec': 
-					this.props.thisClub.execs = this.state.execs.filter(exec => exec != inID);
+					thisClub.execs = this.state.execs.filter(exec => exec !== inID);
 					break;
 				case 'request': 
-					this.props.thisClub.requests = this.state.requests.filter(request => request != inID);
+					thisClub.requests = this.state.requests.filter(request => request !== inID);
+					break;
 				case 'post': 
-					this.props.thisClub.posts = this.state.posts.filter(post => post != inID)
+					thisClub.posts = this.state.posts.filter(post => post !== inID);
+					break;
 				default: 
 					break;
 			}
 
 			this.setState({
-				members: this.props.thisClub.members, 
-				execs: this.props.thisClub.execs, 
-				requests: this.props.thisClub.requests, 
-				posts: this.props.thisClub.posts
+				members: thisClub.members, 
+				execs: thisClub.execs, 
+				requests: thisClub.requests, 
+				posts: thisClub.posts
 			});
 		}
 
-		goToObject = (inType, inID) => {
-			// TODO: route to the relevant object page
-			alert('going to ' + inType + inID); 
-		}
-
 		onRequestApprove = (inUserID) => {
-			this.props.thisClub.requests = this.state.requests.filter(request => request != inUserID);
-			this.props.thisClub.members.push(inUserID);
+			const thisClub = this.state.thisClub;
+			thisClub.requests = this.state.requests.filter(request => request !== inUserID);
+			thisClub.members.push(inUserID);
 			this.setState({
-				requests: this.props.thisClub.requests, 
-				members: this.props.thisClub.members, 
+				requests: thisClub.requests, 
+				members: thisClub.members, 
 			}); 
 		}
 
     render(){
         return(
             <div className="clubDashboardContainer"> 
+							<h1> {this.state.thisClub.name} Dashboard </h1> 
+							<Link  
+								to={{
+									pathname: this.state.thisClub.link
+								}}
+								style={{ textDecoration:'none' }}>
+								<Button 
+									size="small"
+									edge="end" 
+									aria-label="join" 
+									variant="outlined"
+									color='primary'																			
+									>																		
+									Go to club profile page
+								</Button>
+							</Link> 
                 <ClubStats 
 									statsList={[
 										"No. of Members: " + this.state.members.length,
@@ -79,28 +108,25 @@ class ClubDashboard extends React.Component {
 									]}
                 />
 								<MemberList 
-								users={this.state.tempData.Users.filter(user => this.state.members.includes(user.userID))}
-								onDelete={this.deleteObject}
-								onClick={this.goToObject}/>
+								users={this.state.allUsers.filter(user => this.state.members.includes(user.id))}
+								onDelete={this.deleteObject}/>
 								<ExecList 
-								users={this.state.tempData.Users.filter(user => this.state.execs.includes(user.userID))}
-								onDelete={this.deleteObject}
-								onClick={this.goToObject}/>
+								users={this.state.allUsers.filter(user => this.state.execs.includes(user.id))}
+								onDelete={this.deleteObject}/>
 								<RequestList 
-								users={this.state.tempData.Users.filter(user => this.state.requests.includes(user.userID))}
+								users={this.state.allUsers.filter(user => this.state.requests.includes(user.id))}
 								onDelete={this.deleteObject}
-								onClick={this.goToObject}
 								onApprove={this.onRequestApprove}/>
 								<PostList
-								posts={this.state.tempData.Posts.filter(post => this.state.posts.includes(post.postID))}
+								posts={this.state.allPosts.filter(post => this.state.posts.includes(post.postID))}
+								thisClubLink={this.state.link}
 								onDelete={this.deleteObject}
-								onClick={this.goToObject}
 								/>
             </div>
         );
     }
 }
 
-export default ClubDashboard;
+export default withRouter(ClubDashboard);
 
 

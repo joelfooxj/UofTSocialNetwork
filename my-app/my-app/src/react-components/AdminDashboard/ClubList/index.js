@@ -20,6 +20,25 @@ const ClubList = props => {
                                     primary={club.name}
                                   />
                                   <ListItemSecondaryAction>
+                                    <Link  
+                                      to={{
+                                        pathname:"/ClubDashboard", 
+                                        state:{
+                                          club: club
+                                        }
+                                      }}
+                                      style={{ textDecoration:'none' }}	
+                                    >
+                                      <Button 
+                                        size="small"
+                                        edge="end" 
+                                        aria-label="join" 
+                                        variant="outlined"
+                                        color='primary'																			
+                                        >																		
+                                        edit
+                                      </Button>
+                                    </Link> 
                                     <Link 
                                       to={club.link}
                                       style={{ textDecoration:'none' }}	
