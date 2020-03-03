@@ -70,7 +70,7 @@ class LogInPage extends React.Component{
                 const {history} = this.props;
                 if(history && !this.state.banned){
                     this.state.isAdmin ? history.push('/AdminDashboard') :  
-                    history.push('/UserProfilePage', this.state)
+                    history.push('/FeedPage', this.state)
                 } 
             })
             

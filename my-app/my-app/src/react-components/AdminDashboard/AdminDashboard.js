@@ -5,6 +5,7 @@ import UserList from './UserList/index';
 import ClubList from './ClubList/index';
 import { Button } from '@material-ui/core';
 import { Link } from '../../../node_modules/react-router-dom'
+import Navbar from '../Navbar'
 
 class AdminDashboard extends React.Component {
 	// props should contain Accounts and Clubs
@@ -33,8 +34,13 @@ class AdminDashboard extends React.Component {
 
     render(){
 				const totalPosts = this.state.clubs.map(club => club.posts.length).reduce((c, p) => c + p, 0)
+				const { changeSignInStatus, user, accounts, clubs } = this.props;
 				// const totalPosts = this.state.clubs.map((p, club) => p + club.posts.length, 0)
         return(
+        	<div>
+        	<Navbar changeSignInStatus={changeSignInStatus} logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
+	          status={true} user={user}>
+	        </Navbar>
             <div className="adminDashboardContainer"> 
                 <AdminStats 
                     numUsers={this.state.accounts.length}
@@ -60,6 +66,7 @@ class AdminDashboard extends React.Component {
 										LOGOUT
 									</Button>
 								</Link>
+            </div>
             </div>
         );
     }

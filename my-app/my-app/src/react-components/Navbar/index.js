@@ -52,15 +52,14 @@ class Navbar extends React.Component{
 			if (userType){
 				return (
 					<NavRB className="mr-auto" inline>
-						<NavRB.Link href='/timeline'>Admin DashBoard</NavRB.Link>
+						<NavRB.Link href='/AdminDashboard'>Admin DashBoard</NavRB.Link>
 					</NavRB>
 				);
 			}else{
 				return (
 					<NavRB className="mr-auto" inline>
-						<NavRB.Link as='li' href='/allclubs'>Explore</NavRB.Link>
-						<NavRB.Link href='/hotposts'>Trend</NavRB.Link>
-						<NavRB.Link href='/timeline'>Feeds</NavRB.Link>
+						<NavRB.Link as='li' href='/browseAllClubs'>Explore</NavRB.Link>
+						<NavRB.Link href='/FeedPage'>Feeds</NavRB.Link>
 						<NavRB.Link href='/Following'>Following</NavRB.Link>
 						<NavRB.Link href='/UserProfilePage'>UserCenter</NavRB.Link>
 					</NavRB>

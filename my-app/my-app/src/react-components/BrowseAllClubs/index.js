@@ -2,7 +2,7 @@ import React from 'react';
 import './index.css';
 import {Container, TextField, Button, List, ListItem, ListItemText, ListItemSecondaryAction, Paper } from '@material-ui/core';
 import { withRouter, Link } from 'react-router-dom';
-
+import Navbar from '../Navbar'
 
 
 class BrowseAllClubs extends React.Component {
@@ -44,6 +44,9 @@ class BrowseAllClubs extends React.Component {
   render(){
     return (
       <div> 
+        <Navbar changeSignInStatus={this.props.changeSignInStatus} logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
+          status={true} user={this.user}>
+        </Navbar>
         <Container maxWidth="xs">
           <h1 className="mainTitle"> CLUBS </h1> 
           <form onChange={this.filterClubs}> 
