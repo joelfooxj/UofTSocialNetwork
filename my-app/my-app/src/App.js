@@ -1,84 +1,45 @@
 import React from 'react';
 import './App.css';
-import { Route, Switch, BrowserRouter, Redirect} from 'react-router-dom';
+import { Route, Switch, BrowserRouter} from 'react-router-dom';
 
 
 import LogInPage from './react-components/LogInPage';
 import CreateAccPage from './react-components/CreateAccPage';
 import UserProfilePage from './react-components/UserProfilePage';
 import ClubProfilePage from './react-components/ClubProfilePage';
+import ClubPost from './react-components/ClubPost';
 import info from "./tempInfo";
-import AdminDashboard from './react-components/AdminDashboard/AdminDashboard';
-import BrowseAllClubs from "./react-components/BrowseAllClubs/index";
+import {changeAccInfo, changeAccTimelineOpts, deleteAccount} from './actions/accountActions';
 
 class App extends React.Component{
 
   //TODO: THESE ARE TEMPORARY HARDCODED VALUES
+  
+
   state = {
     signedIn: false,
     permission: 0, // 0 - reg user, 1 - admin
     execOf: [],
     accountId: -1,
-    accounts: info.Accs, 
-    isAdmin: false, 
+    accounts: info.Accs
   }
 
-  changeSignInStatus(val, id, perm, clubs, admin){
+  changeSignInStatus(val, id, perm, clubs){
     this.setState({
       signedIn: val,
       accountId: id,
       permission: perm,
-      execOf: clubs,
-      isAdmin: admin
+      execOf: clubs
     })
   }
 
   //THE FOLLOWING FUNCTIONS WILL INTERFACE WITH THE DATABASE TO UPDATE THE CORRECT VALUES
-  changeAccInfo = (accId, attrName, attrVal) => {
-    for(let i = 0; i < info.Accs.length; i++){
-      if(info.Accs[i].id === accId){
-        info.Accs[i][attrName] = attrVal
-      }
-    }
 
-    this.setState({
-      accounts: info.Accs
-    })
-  }
+  
 
-  changeAccTimelineOpts = (accId, optionIndex) =>{
-    for(let i = 0; i < info.Accs.length; i++){
-      if(info.Accs[i].id === accId){
-        info.Accs[i].timelineOpts[optionIndex] = !info.Accs[i].timelineOpts[optionIndex]
-      }
-    }
-
-    this.setState({
-      accounts: info.Accs
-    })
-  }
-
-  deleteAccount = (accId) => {
-      let newAccounts = []
-      for(let i = 0; i < this.state.accounts.length; i++){
-        if(!(this.state.accounts[i].id === accId)){
-          newAccounts.push(this.state.accounts[i])
-        }
-      }
-      this.setState({
-        accounts: newAccounts
-      })
-  }
-
-  /*
-   * Adds the current user to the club signified by the club id's following list.
-   *
-   * Note: This function will interface with the database once the backend has been implemented. 
-   */
   followClub(inf, clubID) {
-    // Find correct user
     let newCurrUserInfo = inf.state.currUserInfo;
-    let newClubInfo = inf.state.clubInfo;
+    let newUserInfo = inf.state.userInfo;
     let target = -1;
     for (let i = 0; i < newCurrUserInfo.accs.length; i++) {
       if (newCurrUserInfo.accs[i].id === newCurrUserInfo.id) {
@@ -91,22 +52,16 @@ class App extends React.Component{
       newCurrUserInfo.accs[target].clubsFollowing.push(clubID);
     }
 
-    // set info state to change button
     inf.setState({
       currUserInfo: newCurrUserInfo,
-      clubInfo: newClubInfo
+      userInfo: newUserInfo
     });
 
   }
 
-  /*
-   * Removes the current user from the club signified by the club id's following list.
-   *
-   * Note: This function will interface with the database once the backend has been implemented. 
-   */
   unfollowClub(inf, clubID) {
     let newCurrUserInfo = inf.state.currUserInfo;
-    let newClubInfo = inf.state.clubInfo;
+    let newUserInfo = inf.state.userInfo;
     let target = -1;
     for (let i = 0; i < newCurrUserInfo.accs.length; i++) {
       if (newCurrUserInfo.accs[i].id === newCurrUserInfo.id) {
@@ -115,38 +70,29 @@ class App extends React.Component{
       }
     }
 
+    console.log(newCurrUserInfo.accs[target].clubsFollowing)
     if ((target >= 0) && newCurrUserInfo.accs[target].clubsFollowing.includes(clubID)) {
       let index = newCurrUserInfo.accs[target].clubsFollowing.indexOf(clubID)
       newCurrUserInfo.accs[target].clubsFollowing.splice(index, 1)
     }
+    console.log(newCurrUserInfo.accs[target].clubsFollowing)
 
     inf.setState({
       currUserInfo: newCurrUserInfo,
-      clubInfo: newClubInfo
+      userInfo: newUserInfo
     });
   }
 
-  /*
-   * Makes a new post on the given timeline.
-   *
-   * Note: This function will interface with the database once the backend has been implemented. 
-   */
   makePost(timeline, postContent) {
-    let today = new Date();
-    let dd = String(today.getDate()).padStart(2, '0');
-    let mm = String(today.getMonth() + 1).padStart(2, '0');
-    let yyyy = today.getFullYear();
-    today = dd + '-' + mm + '-' + yyyy;
-    console.log(today);
-
-    let newPost = {
-      postID: timeline.lastID + 1,
-      title: "post" + String(timeline.lastID + 1),
-      content: postContent,
-      authorID: timeline.props.clubInfo.clubID,
-      date: today
-    }
-
+    let newPost = <ClubPost
+                    id={timeline.lastID + 1}
+                    clubName={timeline.props.userInfo.profileName}
+                    profilePic={timeline.props.userInfo.profilePic}
+                    postContent={postContent}
+                    timeline={timeline}
+                    removePost={this.removePost}
+                    isExec={timeline.isExec(timeline.props.userInfo.id)}
+                  />
     timeline.lastID += 1;
     let newPosts = timeline.state.posts;
     newPosts.unshift(newPost)
@@ -155,17 +101,12 @@ class App extends React.Component{
     })
   }
 
-  /*
-   * Deletes a given post from the given timeline.
-   *
-   * Note: This function will interface with the database once the backend has been implemented. 
-   */
   removePost(timeline, post) {
     let newPosts = timeline.state.posts;
     let target = -1;
 
     for (let i = 0; i < newPosts.length; i++) {
-      if (newPosts[i].postID === post.props.id) {
+      if (newPosts[i].props.id === post.props.id) {
         target = i;
         break;
       }
@@ -179,60 +120,13 @@ class App extends React.Component{
       posts: newPosts
     })
   }
-  /*
-   * Requests a join to the club signified by the club id. This request must be granted or denied
-   * by an admin level user.
-   *
-   * Note: This function will interface with the database once the backend has been implemented. 
-   */
-  joinClub(inf, clubID) {
-    let newCurrUserInfo = inf.state.currUserInfo;
-    let newClubInfo = inf.state.clubInfo;
-    let target = -1;
 
-    for (let i = 0; i < newCurrUserInfo.accs.length; i++) {
-      if (newCurrUserInfo.accs[i].id === newCurrUserInfo.id) {
-        target = i;
-        break;
-      }
-    }
-
-    console.log(target)
-    if ((target >= 0) && !newClubInfo.requests.includes(newCurrUserInfo.id)) {
-      newClubInfo.requests.push(newCurrUserInfo.id);
-    }
-
-    inf.setState({
-      currUserInfo: newCurrUserInfo,
-      clubInfo: newClubInfo
-    });
+  joinClub(clubID) {
+    ;
   }
 
-  /*
-   * Removes the current user from the club signified by the given club id.
-   *
-   * Note: This function will interface with the database once the backend has been implemented. 
-   */
-  leaveClub(inf, clubID) {
-    let newCurrUserInfo = inf.state.currUserInfo;
-    let newClubInfo = inf.state.clubInfo;
-    let target = -1;
-    for (let i = 0; i < newCurrUserInfo.accs.length; i++) {
-      if (newCurrUserInfo.accs[i].id === newCurrUserInfo.id) {
-        target = i;
-        break;
-      }
-    }
-
-    if ((target >= 0) && newClubInfo.members.includes(newCurrUserInfo.id)) {
-      let val = newClubInfo.members.indexOf(newCurrUserInfo.id);
-      newClubInfo.members.splice(val, 1);
-    }
-
-    inf.setState({
-      currUserInfo: newCurrUserInfo,
-      clubInfo: newClubInfo
-    });
+  leaveClub(clubID) {
+    ;
   }
 
 
@@ -246,8 +140,7 @@ class App extends React.Component{
   }
 
   render(){
-    // console.log(info)
-    console.log(this.state)
+    console.log(info)
     return (
       <BrowserRouter>
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
@@ -260,21 +153,43 @@ class App extends React.Component{
             <Route exact path='/CreateAccPage' render={() => 
                             (<CreateAccPage createAccAction={this.createAccount}/>)}/>
             <Route exact path='/UserProfilePage' render={() =>
-                            (this.state.signedIn && !this.state.isAdmin?
-                              <UserProfilePage 
-                                userInfo={{accs: this.state.accounts,
-                                            id: this.state.accountId,
-                                            }
-                                        }
-                                changeAccInfo={this.changeAccInfo}
-                                changeAccTimelineOpts={this.changeAccTimelineOpts}
-                                deleteAcc={this.deleteAccount}
-                              /> : 
-                              <Redirect to='/'/>)}/>
-            <Route exact path='/csc309' render={() => 
-                            (this.state.signedIn ?
-                              <ClubProfilePage 
-                                clubInfo={info.Clubs[0]}
+                            (<UserProfilePage 
+                              userInfo={{accs: this.state.accounts,
+                                           id: this.state.accountId,
+                                          }
+                                       }
+                              changeAccInfo={(accId, attrName, attrVal) => {changeAccInfo(this, info.Accs, accId, attrName, attrVal)}}
+                              changeAccTimelineOpts={(accId, optionIndex) => {changeAccTimelineOpts(this, info.Accs, optionIndex, accId)}}
+                              deleteAcc={(accId) => {deleteAccount(this, accId)}}
+                            />)}/>
+            <Route exact path='/ClubProfilePage' render={() => 
+                            (<ClubProfilePage 
+                                userInfo={{profileName: "Lorem Ipsum Club",
+                                          id: 0,
+                                          isClub: true,
+                                          bioText: `Lorem ipsum dolor sit amet, consectetur adipiscing 
+                                                    elit. Donec pharetra sodales nunc. Sed facilisis, orci 
+                                                    sed ornare vulputate, metus orci rutrum felis, viverra 
+                                                    hendrerit magna felis vitae mauris. Aliquam posuere fringilla
+                                                    dolor, id varius risus feugiat sit amet. Aliquam vitae lacus
+                                                    quis nisl vestibulum scelerisque. Nunc rhoncus mauris 
+                                                    eu quam faucibus tempus. Maecenas blandit magna quis 
+                                                    odio scelerisque, a convallis urna porta. Class aptent 
+                                                    taciti sociosqu ad litora torquent per conubia nostra, 
+                                                    per inceptos himenaeos. Mauris placerat leo ac tellus 
+                                                    pretium, ac tincidunt tellus feugiat. Donec risus erat, 
+                                                    tempus et velit id, molestie consectetur mauris. Fusce 
+                                                    vitae leo nec risus rhoncus fringilla in vel neque. Cra
+                                                    sed odio interdum, varius risus non, pulvinar nunc. Morbi
+                                                    fermentum dolor lectus, commodo blandit diam eleifend 
+                                                    eget. Etiam sed porta orci. Fusce posuere malesuada lectus,
+                                                    a dignissim risus placerat a. Proin quis purus nec erat
+                                                    viverra rutrum id sed nisl. Ut ut arcu laoreet, 
+                                                    porttitor diam bibendum, molestie metus. Mauris nec 
+                                                    ornare elit, non laoreet nisl. Maecenas in ultrices elit.`,
+                                         profilePic: require("./react-components/ClubProfilePage/static/profilepic.png"),
+                                         bannerImage: require("./react-components/ClubProfilePage/static/bannerimage.jpg"),
+                                        }}
                                 currUserInfo={{id: this.state.accountId,
                                                accs: this.state.accounts}}
                                 addPost={this.makePost}
@@ -282,53 +197,8 @@ class App extends React.Component{
                                 followClub={this.followClub}
                                 unfollowClub={this.unfollowClub}
                                 removePost={this.removePost}
-                                joinClub={this.joinClub}
-                                leaveClub={this.leaveClub}
-                              /> :
-                              <Redirect to='/'/>)}
-            />
-            <Route exact path='/uoft' render={() => 
-                          (this.state.signedIn ?
-                            <ClubProfilePage 
-                              clubInfo={info.Clubs[1]}
-                              currUserInfo={{id: this.state.accountId,
-                                             accs: this.state.accounts}}
-                              addPost={this.makePost}
-                              getClubPosts={this.getClubPosts}
-                              followClub={this.followClub}
-                              unfollowClub={this.unfollowClub}
-                              removePost={this.removePost}
-                              joinClub={this.joinClub}
-                              leaveClub={this.leaveClub}
-                            /> :
-                            <Redirect to='/'/>)}
-            />
-            <Route exact path='/team11' render={() => 
-                          (this.state.signedIn ? 
-                            <ClubProfilePage 
-                              clubInfo={info.Clubs[2]}
-                              currUserInfo={{id: this.state.accountId,
-                                             accs: this.state.accounts}}
-                              addPost={this.makePost}
-                              getClubPosts={this.getClubPosts}
-                              followClub={this.followClub}
-                              unfollowClub={this.unfollowClub}
-                              removePost={this.removePost}
-                              joinClub={this.joinClub}
-                              leaveClub={this.leaveClub}
-                           /> : 
-                           <Redirect to='/'/>)}
-            />
-            <Route exact path='/AdminDashboard' render={() => 
-              (this.state.signedIn && this.state.isAdmin ? <AdminDashboard accounts={info.Accs} clubs={info.Clubs}/> : <Redirect to='/'/>) }/>
-            {/* <Route exact path='/browseAllClubs' render={() => 
-            (this.state.signedIn ? 
-              <BrowseAllClubs allClubs={info.Clubs} currentUserID={this.state.accountId}/> : 
-              <Redirect to='/'/>) }/> */}
-            <Route exact path='/browseAllClubs' render={() => 
-            (
-              <BrowseAllClubs allClubs={info.Clubs} currentUserID={this.state.accountId}/> 
-              ) }/>           
+                              />)}
+              />
           </Switch>
         </BrowserRouter>
     );
