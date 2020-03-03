@@ -2,7 +2,8 @@ import React from 'react';
 import './App.css';
 import { Route, Switch, BrowserRouter, Redirect} from 'react-router-dom';
 
-
+import FeedPage from './react-components/FeedPage';
+import FollowingPage from './react-components/FollowingPage' 
 import LogInPage from './react-components/LogInPage';
 import CreateAccPage from './react-components/CreateAccPage';
 import UserProfilePage from './react-components/UserProfilePage';
@@ -11,11 +12,33 @@ import info from "./tempInfo";
 import AdminDashboard from './react-components/AdminDashboard/AdminDashboard';
 import BrowseAllClubs from "./react-components/BrowseAllClubs/index";
 
+//
+import Navbar from './react-components/Navbar';
+import EventTimePlace from './react-components/EventTimePlace';
+// tempoary classes for storeing testing objects only 
+
+class userObject {
+  constructor(type, name){
+    this.userType = type
+    this.userName = name
+    this.userProfile = 'https://assets.currencycloud.com/wp-content/uploads/2018/01/profile-placeholder.gif'
+    if (type!='admin'){
+      this.followingClub = []
+      this.managingClub = []
+      this.requests = []
+    }
+  }
+}
+const admin = new userObject('admin', 'ADMIN')
+const userNoClub = new userObject('user', 'inactivist')
+
+//
+
 class App extends React.Component{
 
   //TODO: THESE ARE TEMPORARY HARDCODED VALUES
   state = {
-    signedIn: false,
+    signedIn: true,
     permission: 0, // 0 - reg user, 1 - admin
     execOf: [],
     accountId: -1,
@@ -244,6 +267,12 @@ class App extends React.Component{
     })
   }
 
+  makeEventDecision = (account, postId, decision) =>{
+    if (decision in ['going','notgoing', 'interested']){
+      account.eventDecision[postId] = decision
+    }
+  }
+
   render(){
     // console.log(info)
     console.log(this.state)
@@ -258,6 +287,30 @@ class App extends React.Component{
                             />)}/>
             <Route exact path='/CreateAccPage' render={() => 
                             (<CreateAccPage createAccAction={this.createAccount}/>)}/>
+            <Route exact path='/FeedPage' render={() => 
+                            (this.state.signedIn ?
+                              <FeedPage 
+                              changeSignInStatus={this.changeSignInStatus.bind(this)}
+                              userInfo={{accs: this.state.accounts,
+                                          id: this.state.accountId,
+                                            }}
+                              allPosts={info.Posts}
+                              allClubs={info.Clubs}
+                              makeEventDecision={this.makeEventDecision}
+                            /> :
+                            <Redirect to='/'/>)}
+            />
+            <Route exact path='/Following' render={() => 
+                            (this.state.signedIn ?
+                              <FollowingPage 
+                              changeSignInStatus={this.changeSignInStatus.bind(this)}
+                              userInfo={{accs: this.state.accounts,
+                                          id: this.state.accountId,
+                                            }}
+                              allClubs={info.Clubs}
+                            /> :
+                            <Redirect to='/'/>)}
+            />
             <Route exact path='/UserProfilePage' render={() =>
                             (this.state.signedIn && !this.state.isAdmin?
                               <UserProfilePage 
@@ -269,7 +322,8 @@ class App extends React.Component{
                                 changeAccTimelineOpts={this.changeAccTimelineOpts}
                                 deleteAcc={this.deleteAccount}
                               /> : 
-                              <Redirect to='/'/>)}/>
+                              <Redirect to='/'/>)}
+            />
             <Route exact path='/csc309' render={() => 
                             (this.state.signedIn ?
                               <ClubProfilePage 
