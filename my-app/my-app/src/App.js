@@ -39,12 +39,12 @@ class App extends React.Component{
 
   //TODO: THESE ARE TEMPORARY HARDCODED VALUES
   state = {
-    signedIn: true,
+    signedIn: false,
     permission: 0, // 0 - reg user, 1 - admin
     execOf: [],
-    accountId: 1,
+    accountId: -1,
     accounts: info.Accs, 
-    isAdmin: true, 
+    isAdmin: false, 
   }
 
   changeSignInStatus(val, id, perm, clubs, admin){
