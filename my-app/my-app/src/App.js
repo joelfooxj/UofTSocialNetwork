@@ -12,8 +12,6 @@ import info from "./tempInfo";
 import {changeAccInfo, changeAccTimelineOpts, deleteAccount} from './actions/accountActions';
 
 class App extends React.Component{
-
-  //TODO: THESE ARE TEMPORARY HARDCODED VALUES
   
 
   state = {
@@ -70,12 +68,10 @@ class App extends React.Component{
       }
     }
 
-    console.log(newCurrUserInfo.accs[target].clubsFollowing)
     if ((target >= 0) && newCurrUserInfo.accs[target].clubsFollowing.includes(clubID)) {
       let index = newCurrUserInfo.accs[target].clubsFollowing.indexOf(clubID)
       newCurrUserInfo.accs[target].clubsFollowing.splice(index, 1)
     }
-    console.log(newCurrUserInfo.accs[target].clubsFollowing)
 
     inf.setState({
       currUserInfo: newCurrUserInfo,
@@ -140,7 +136,6 @@ class App extends React.Component{
   }
 
   render(){
-    console.log(info)
     return (
       <BrowserRouter>
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
@@ -160,7 +155,7 @@ class App extends React.Component{
                                        }
                               changeAccInfo={(accId, attrName, attrVal) => {changeAccInfo(this, info.Accs, accId, attrName, attrVal)}}
                               changeAccTimelineOpts={(accId, optionIndex) => {changeAccTimelineOpts(this, info.Accs, optionIndex, accId)}}
-                              deleteAcc={(accId) => {deleteAccount(this, accId)}}
+                              deleteAcc={(accId) => {deleteAccount(this, accId, info.Accs)}}
                             />)}/>
             <Route exact path='/ClubProfilePage' render={() => 
                             (<ClubProfilePage 

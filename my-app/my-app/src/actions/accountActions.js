@@ -69,16 +69,16 @@ export const changeAccTimelineOpts = (context, accs, optionIndex, accId) => {
  * @param {React.Component} context component storing internal information to 
  *                                  be updated.
  * @param {int}  accId              id of account to be removed.
+ * @param {Array} accs              array of all user accounts
  */
-export const deleteAccount = (context, accId) => {
+export const deleteAccount = (context, accId, accs) => {
   let newAccounts = []
-  for(let i = 0; i < context.state.accounts.length; i++){
-    if(!(context.state.accounts[i].id === accId)){
-      newAccounts.push(context.state.accounts[i])
+  for(let i = 0; i < accs.length; i++){
+    if(!(accs[i].id === accId)){
+      newAccounts.push(accs[i])
     }
   }
   context.setState({
     accounts: newAccounts
   })
 }
-

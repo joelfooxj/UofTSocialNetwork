@@ -12,7 +12,7 @@ class UserProfileImage extends React.Component{
     fileSelectHandler = event => {
         this.setState({
             profileImageFile: event.target.files[0]
-        }, () => {console.log(this.state.profileImageFile)})
+        })
     }
 
     render(){

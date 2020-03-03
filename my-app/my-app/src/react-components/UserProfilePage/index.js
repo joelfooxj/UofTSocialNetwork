@@ -29,7 +29,8 @@ class UserProfilePage extends React.Component{
                 <div id="bannerImgDiv">
                     <img src={require("./static/headingBanner.png")} alt="Heading Banner"/>
                 </div>
-                <UserProfileImage id={"profileImg"}/>
+                <UserProfileImage id={"profileImg"}
+                />
                 <div id="userProfilePageInfo">
                     <h1>General Info</h1>
                     <UserProfileField
