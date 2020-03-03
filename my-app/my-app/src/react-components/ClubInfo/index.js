@@ -11,21 +11,26 @@ class ClubInfo extends React.Component {
         }
     }
 
+    // Functions for verifying permisisons of current user.
+    // Returns true if the current user is an exec.
     isExec = function() {
         let val = this.state.clubInfo.execs.includes(this.state.currUserInfo.id);
         return val;
     }
     
+    // Returns true if the current user is an executive of the club.
     isMember = function() {
         let val = this.state.clubInfo.members.includes(this.state.currUserInfo.id);
         return val;
     }
 
+    // Returns true if the current user has requested to join this club
     didRequest = function() {
         let val = this.state.clubInfo.requests.includes(this.state.currUserInfo.id) 
         return val;
     }
 
+    // Returns true if the current user is following this club.
     isFollowing = function() {
         let target = -1;
         for (let i = 0; i < this.state.currUserInfo.accs.length; i++) {

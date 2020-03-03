@@ -18,8 +18,6 @@ import BrowseAllClubs from "./react-components/BrowseAllClubs/index";
 class App extends React.Component{
 
   //TODO: THESE ARE TEMPORARY HARDCODED VALUES
-  
-
   state = {
     signedIn: false,
     permission: 0, // 0 - reg user, 1 - admin
@@ -76,7 +74,13 @@ class App extends React.Component{
       })
   }
 
+  /*
+   * Adds the current user to the club signified by the club id's following list.
+   *
+   * Note: This function will interface with the database once the backend has been implemented. 
+   */
   followClub(inf, clubID) {
+    // Find correct user
     let newCurrUserInfo = inf.state.currUserInfo;
     let newClubInfo = inf.state.clubInfo;
     let target = -1;
@@ -91,6 +95,7 @@ class App extends React.Component{
       newCurrUserInfo.accs[target].clubsFollowing.push(clubID);
     }
 
+    // set info state to change button
     inf.setState({
       currUserInfo: newCurrUserInfo,
       clubInfo: newClubInfo
@@ -98,6 +103,11 @@ class App extends React.Component{
 
   }
 
+  /*
+   * Removes the current user from the club signified by the club id's following list.
+   *
+   * Note: This function will interface with the database once the backend has been implemented. 
+   */
   unfollowClub(inf, clubID) {
     let newCurrUserInfo = inf.state.currUserInfo;
     let newClubInfo = inf.state.clubInfo;
@@ -120,6 +130,11 @@ class App extends React.Component{
     });
   }
 
+  /*
+   * Makes a new post on the given timeline.
+   *
+   * Note: This function will interface with the database once the backend has been implemented. 
+   */
   makePost(timeline, postContent) {
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, '0');
@@ -144,6 +159,11 @@ class App extends React.Component{
     })
   }
 
+  /*
+   * Deletes a given post from the given timeline.
+   *
+   * Note: This function will interface with the database once the backend has been implemented. 
+   */
   removePost(timeline, post) {
     let newPosts = timeline.state.posts;
     let target = -1;
@@ -163,7 +183,12 @@ class App extends React.Component{
       posts: newPosts
     })
   }
-
+  /*
+   * Requests a join to the club signified by the club id. This request must be granted or denied
+   * by an admin level user.
+   *
+   * Note: This function will interface with the database once the backend has been implemented. 
+   */
   joinClub(inf, clubID) {
     let newCurrUserInfo = inf.state.currUserInfo;
     let newClubInfo = inf.state.clubInfo;
@@ -187,6 +212,11 @@ class App extends React.Component{
     });
   }
 
+  /*
+   * Removes the current user from the club signified by the given club id.
+   *
+   * Note: This function will interface with the database once the backend has been implemented. 
+   */
   leaveClub(inf, clubID) {
     let newCurrUserInfo = inf.state.currUserInfo;
     let newClubInfo = inf.state.clubInfo;
@@ -198,8 +228,6 @@ class App extends React.Component{
       }
     }
 
-    console.log(target)
-    console.log(newClubInfo.members)
     if ((target >= 0) && newClubInfo.members.includes(newCurrUserInfo.id)) {
       let val = newClubInfo.members.indexOf(newCurrUserInfo.id);
       newClubInfo.members.splice(val, 1);
