@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Route, Switch, BrowserRouter} from 'react-router-dom';
+import {Redirect} from "react-router";
 
 import FeedPage from './react-components/FeedPage';
 import FollowingPage from './react-components/FollowingPage' 
@@ -209,9 +210,9 @@ class App extends React.Component{
                                             id: this.state.accountId,
                                             }
                                         }
-                                changeAccInfo={this.changeAccInfo}
-                                changeAccTimelineOpts={this.changeAccTimelineOpts}
-                                deleteAcc={this.deleteAccount}
+                                changeAccInfo={(accId, attrName, attrVal) => {changeAccInfo(this, info.Accs, accId, attrName, attrVal)}}
+                                changeAccTimelineOpts={(accId, optionIndex) => {changeAccTimelineOpts(this, info.Accs, optionIndex, accId)}}
+                                deleteAcc={(accId) => {deleteAccount(this, accId, info.Accs)}}
                               /> : 
                               <Redirect to='/'/>)}
             />
