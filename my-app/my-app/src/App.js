@@ -39,7 +39,7 @@ class App extends React.Component{
 
   //TODO: THESE ARE TEMPORARY HARDCODED VALUES
   state = {
-    signedIn: true,
+    signedIn: false,
     permission: 0, // 0 - reg user, 1 - admin
     execOf: [],
     accountId: -1,
@@ -330,7 +330,8 @@ class App extends React.Component{
                               <ClubProfilePage 
                                 clubInfo={info.Clubs[0]}
                                 currUserInfo={{id: this.state.accountId,
-                                               accs: this.state.accounts}}
+                                               accs: this.state.accounts,
+                                               isAdmin: this.state.isAdmin}}
                                 addPost={this.makePost}
                                 getClubPosts={this.getClubPosts}
                                 followClub={this.followClub}
@@ -346,7 +347,8 @@ class App extends React.Component{
                             <ClubProfilePage 
                               clubInfo={info.Clubs[1]}
                               currUserInfo={{id: this.state.accountId,
-                                             accs: this.state.accounts}}
+                                             accs: this.state.accounts,
+                                             isAdmin: this.state.isAdmin}}
                               addPost={this.makePost}
                               getClubPosts={this.getClubPosts}
                               followClub={this.followClub}
@@ -362,7 +364,8 @@ class App extends React.Component{
                             <ClubProfilePage 
                               clubInfo={info.Clubs[2]}
                               currUserInfo={{id: this.state.accountId,
-                                             accs: this.state.accounts}}
+                                             accs: this.state.accounts,
+                                             isAdmin: this.state.isAdmin}}
                               addPost={this.makePost}
                               getClubPosts={this.getClubPosts}
                               followClub={this.followClub}
