@@ -5,7 +5,8 @@ import MemberList from './MemberList/index';
 import ExecList from './ExecList/index';
 import RequestList from './RequestList/index';
 import PostList from './PostList/index';
-import { withRouter } from '../../../node_modules/react-router-dom'
+import { Button } from '../../../node_modules/@material-ui/core'
+import { withRouter, Link } from '../../../node_modules/react-router-dom'
 
 class ClubDashboard extends React.Component {
     constructor(props){
@@ -83,6 +84,22 @@ class ClubDashboard extends React.Component {
     render(){
         return(
             <div className="clubDashboardContainer"> 
+							<h1> {this.state.thisClub.name} Dashboard </h1> 
+							<Link  
+								to={{
+									pathname: this.state.thisClub.link
+								}}
+								style={{ textDecoration:'none' }}>
+								<Button 
+									size="small"
+									edge="end" 
+									aria-label="join" 
+									variant="outlined"
+									color='primary'																			
+									>																		
+									Go to club profile page
+								</Button>
+							</Link> 
                 <ClubStats 
 									statsList={[
 										"No. of Members: " + this.state.members.length,

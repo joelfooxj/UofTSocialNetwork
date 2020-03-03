@@ -56,7 +56,7 @@ const Clubs = [
   },
 
   {
-    clubID: 2, name: 'U of T', execs:[3], 
+    clubID: 2, name: 'U of T', execs:[1,3], 
     posts:[3,4], requests:[2,4], members:[1,3], 
     link: '/uoft', profilePic: require('./images/uoftpp.png'),
     bannerImage: require('./images/uoftbi.png'),
