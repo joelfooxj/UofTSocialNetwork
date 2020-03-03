@@ -1,7 +1,8 @@
 import React from 'react';
 import './index.css';
 import {Container, TextField, Button, List, ListItem, ListItemText, ListItemSecondaryAction, Paper } from '@material-ui/core';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
+
 
 
 class BrowseAllClubs extends React.Component {
@@ -74,16 +75,58 @@ class BrowseAllClubs extends React.Component {
                     <ListItemText
                     primary={club.name}/>
                       <ListItemSecondaryAction>
+                        {
+                          this.club.execs.includes(this.props.currentUserID) ? 
+                            <Link
+                            to={{
+                              pathname:'/ClubDashboard', 
+                              state:{
+                                club:club
+                              }
+                            }}
+                            style={{textDecoration:'none'}}> 
+                              <Button
+                              size="small"
+                              edge="end" 
+                              variant="outlined"
+                              color="primary"
+                              style={{marginLeft:'10px'}}> 
+                                edit
+                              </Button>
+                            </Link>
+                          : null
+                        }
                         <Link
-                          to={{
-                            pathname:club.link, 
-                            state:{
-                              club:club
-                            }
-                          }}
-                          style={{textDecoration:'none', margin:'10px'}}
-                        > 
-                          <Button> 
+                        to={{
+                          pathname:club.link, 
+                          state:{
+                            club:club
+                          }
+                        }}
+                        style={{textDecoration:'none'}}> 
+                          <Button
+                          size="small"
+                          edge="end" 
+                          variant="outlined"
+                          color="primary"
+                          style={{marginLeft:'10px'}}> 
+                            view
+                          </Button>
+                        </Link>
+                        <Link
+                        to={{
+                          pathname:club.link, 
+                          state:{
+                            club:club
+                          }
+                        }}
+                        style={{textDecoration:'none'}}> 
+                          <Button
+                          size="small"
+                          edge="end" 
+                          variant="outlined"
+                          color="primary"
+                          style={{marginLeft:'10px'}}> 
                             view
                           </Button>
                         </Link>

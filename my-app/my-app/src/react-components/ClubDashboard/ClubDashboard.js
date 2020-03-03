@@ -5,12 +5,12 @@ import MemberList from './MemberList/index';
 import ExecList from './ExecList/index';
 import RequestList from './RequestList/index';
 import PostList from './PostList/index';
+import { withRouter } from '../../../node_modules/react-router-dom'
 
 class ClubDashboard extends React.Component {
     constructor(props){
 			super(props);
 			let passedInClub = this.props.location.state.club;
-			// let passedInClub = props.tempClub; 
 			
 			this.state={
 				allUsers: props.users, 
@@ -23,6 +23,12 @@ class ClubDashboard extends React.Component {
 				clubID: passedInClub.clubID,
 				link: passedInClub.link
 			}	
+
+
+			if (!(passedInClub.execs.includes(this.props.currentUser.accountId) || this.props.currentUser.isAdmin)){
+				alert("Unauthorized access"); 
+				this.props.history.push('/');
+			}
 		}
 		
 		componentDidMount(){
@@ -104,6 +110,6 @@ class ClubDashboard extends React.Component {
     }
 }
 
-export default ClubDashboard;
+export default withRouter(ClubDashboard);
 
 
