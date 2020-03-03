@@ -1,7 +1,7 @@
 import React from 'react';
 import './ClubDashboard.css';
-import ClubStats from './clubStats/index';
-import MemberList from './memberList/index';
+import ClubStats from './ClubStats/index';
+import MemberList from './MemberList/index';
 import ExecList from './ExecList/index';
 import RequestList from './RequestList/index';
 import PostList from './PostList/index';
@@ -26,7 +26,7 @@ class ClubDashboard extends React.Component {
 			}	
 
 
-			if (!(passedInClub.execs.includes(this.props.currentUser.accountId) || this.props.currentUser.isAdmin)){
+			if (!(passedInClub.execs.includes(this.props.currentUser.accountId) || this.props.currentUser.permission === 1)){
 				alert("Unauthorized access"); 
 				this.props.history.push('/');
 			}
