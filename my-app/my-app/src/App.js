@@ -8,7 +8,12 @@ import CreateAccPage from './react-components/CreateAccPage';
 import UserProfilePage from './react-components/UserProfilePage';
 import ClubProfilePage from './react-components/ClubProfilePage';
 import info from "./tempInfo";
+<<<<<<< HEAD
 import ClubDashboard from './react-components/ClubDashboard/ClubDashboard';
+=======
+import AdminDashboard from './react-components/AdminDashboard/AdminDashboard';
+import BrowseAllClubs from "./react-components/BrowseAllClubs/index";
+>>>>>>> Development
 
 class App extends React.Component{
 
@@ -20,15 +25,17 @@ class App extends React.Component{
     permission: 0, // 0 - reg user, 1 - admin
     execOf: [],
     accountId: -1,
-    accounts: info.Accs
+    accounts: info.Accs, 
+    isAdmin: false, 
   }
 
-  changeSignInStatus(val, id, perm, clubs){
+  changeSignInStatus(val, id, perm, clubs, admin){
     this.setState({
       signedIn: val,
       accountId: id,
       permission: perm,
-      execOf: clubs
+      execOf: clubs,
+      isAdmin: admin
     })
   }
 
@@ -215,7 +222,8 @@ class App extends React.Component{
   }
 
   render(){
-    console.log(info)
+    // console.log(info)
+    console.log(this.state)
     return (
       <BrowserRouter>
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
@@ -228,7 +236,7 @@ class App extends React.Component{
             <Route exact path='/CreateAccPage' render={() => 
                             (<CreateAccPage createAccAction={this.createAccount}/>)}/>
             <Route exact path='/UserProfilePage' render={() =>
-                            (this.state.signedIn ?
+                            (this.state.signedIn && !this.state.isAdmin?
                               <UserProfilePage 
                                 userInfo={{accs: this.state.accounts,
                                             id: this.state.accountId,
@@ -288,6 +296,16 @@ class App extends React.Component{
                            <Redirect to='/'/>)}
             />
             <Route exact path='/clubDashboard' render={ () => (<ClubDashboard users={info.Accs} posts={info.Posts}/>) }/>
+            <Route exact path='/AdminDashboard' render={() => 
+              (this.state.signedIn && this.state.isAdmin ? <AdminDashboard accounts={info.Accs} clubs={info.Clubs}/> : <Redirect to='/'/>) }/>
+            {/* <Route exact path='/browseAllClubs' render={() => 
+            (this.state.signedIn ? 
+              <BrowseAllClubs allClubs={info.Clubs} currentUserID={this.state.accountId}/> : 
+              <Redirect to='/'/>) }/> */}
+            <Route exact path='/browseAllClubs' render={() => 
+            (
+              <BrowseAllClubs allClubs={info.Clubs} currentUserID={this.state.accountId}/> 
+              ) }/>           
           </Switch>
         </BrowserRouter>
     );

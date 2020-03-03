@@ -15,7 +15,8 @@ class LogInPage extends React.Component{
         changeButtonColor: false,
         accounts: [],
         accountId: -1,
-        banned: false
+        banned: false,
+        isAdmin: false
     }
 
     /*NOTE: THIS FUNCTION WILL QUERY OUR DATABASE RECORDS TO DETERMINE IF THE USER
@@ -42,9 +43,13 @@ class LogInPage extends React.Component{
 
         this.setState({
             accountId: acc.id,
-            banned: acc.banned
+            banned: acc.banned,
+            isAdmin: acc.permission === 1
         }, () => {
-            this.props.changeSignInStatus(true, acc.id, acc.permission, acc.clubsExecOf)
+            console.log(acc.name); 
+            console.log(acc.permission);
+            console.log(acc.permission === 1);
+            this.props.changeSignInStatus(true, acc.id, acc.permission, acc.clubsExecOf, acc.permission === 1)
 
         })
         return true
@@ -67,8 +72,9 @@ class LogInPage extends React.Component{
             }, () => {
                 const {history} = this.props;
                 if(history && !this.state.banned){
+                    this.state.isAdmin ? history.push('/AdminDashboard') :  
                     history.push('/UserProfilePage', this.state)
-                }
+                } 
             })
             
             

@@ -2,11 +2,15 @@ import React from '../../../../node_modules/react';
 import { Grid, List, ListItem, ListItemText, IconButton, ListItemSecondaryAction, Paper, Button } from '../../../../node_modules/@material-ui/core'
 import DeleteIcon from  '../../../../node_modules/@material-ui/icons/Delete' 
 
+import { Link } from '../../../../node_modules/react-router-dom'
+
 class UserList extends React.Component {
 	constructor(props){ 
 		super(props);
 		this.state={
-			users: props.usersArr
+			users: props.usersArr, 
+			accounts: props.usersArr, 
+			accountsId: 0
 		}
 	}
 
@@ -36,41 +40,62 @@ class UserList extends React.Component {
 									{this.state.users.map(user =>
 										{
 											let banState = false;
-											let buttonColor = 'primary'; 
+											let buttonColor = 'secondary'; 
 											let buttonText = ''; 
 											if (user.banned) {
-												buttonColor = 'secondary' 
+												buttonColor = 'primary' 
 												buttonText = 'Unban'; 
 												banState = false;
 											} else {
-												buttonColor = 'primary';
+												buttonColor = 'secondary';
 												buttonText = 'Ban';
 												banState = true; 
 											}
 											return(
-												<Paper elevation={0} variant='outlined' key={user.id} >
-													<ListItem button onClick={() => this.props.onClick('user', user.id)}> 
-															<ListItemText
-																primary={user.firstName + ' ' + user.lastName}
-															/>
-															<ListItemSecondaryAction>
-															<Button 
-																	id={user.id}
-																	size="small"
-																	edge="end" 
-																	aria-label="join" 
-																	variant="outlined"
-																	color={buttonColor}
-																	onClick={() => this.banUser(user.id, banState)}
-																	>																		
-																	{buttonText}
-																</Button>
-																<IconButton edge="end" aria-label="delete" onClick={() => this.onDelete(user.id)}>
-																	<DeleteIcon fontSize="small" color="primary"/>
-																</IconButton>																			
-															</ListItemSecondaryAction>
-													</ListItem> 
-												</Paper>
+													<Paper elevation={0} variant='outlined' key={user.id} style={{ margin:'10px'}}>
+														<ListItem> 
+																<ListItemText
+																	primary={user.firstName + ' ' + user.lastName}
+																/>
+																<ListItemSecondaryAction>
+																	<Link 
+																		to={{
+																			pathname: "/UserProfilePage", 
+																			state: {
+																				accounts: this.state.users,
+																				accountId: user.id
+																			}
+																		}}
+																		style={{ textDecoration:'none' }}
+																		key={user.id}												
+																	>
+																		<Button 
+																			size="small"
+																			edge="end" 
+																			aria-label="join" 
+																			variant="outlined"
+																			color='primary'																			
+																			>																		
+																			view
+																		</Button>
+																	</Link> 
+																	<Button 
+																		id={user.id}
+																		size="small"
+																		edge="end" 
+																		aria-label="join" 
+																		variant="outlined"
+																		color={buttonColor}
+																		onClick={() => this.banUser(user.id, banState)}
+																		>																		
+																		{buttonText}
+																	</Button>
+																	<IconButton edge="end" aria-label="delete" onClick={() => this.onDelete(user.id)}>
+																		<DeleteIcon fontSize="small" color="primary"/>
+																	</IconButton>																			
+																</ListItemSecondaryAction>
+														</ListItem> 
+													</Paper>
 											)
 										}
 									)}

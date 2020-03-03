@@ -1,6 +1,7 @@
 import React from 'react';
 import './index.css';
 import {Container, TextField, Button, List, ListItem, ListItemText, ListItemSecondaryAction, Paper } from '@material-ui/core';
+import { withRouter } from 'react-router-dom';
 
 
 class BrowseAllClubs extends React.Component {
@@ -16,21 +17,16 @@ class BrowseAllClubs extends React.Component {
   filterClubs = e => { 
     this.setState({
       displayedClubs: e.target.value === '' ?
-      this.state.allClubs : this.state.allClubs.filter(club => club.name.includes(e.target.value))
+      this.state.allClubs : this.state.allClubs.filter(club => club.name.toLowerCase().includes(e.target.value.toLowerCase()))
     });
   }
 
   goToClub = clubID => {
-    //alert("Going to profile page of: club " + clubID);
-    let target = false;
-    for (let i = 0; i < this.state.allClubs.length; i++) {
-      if (clubID === this.state.allClubs[i].clubID) {
-        target = this.state.allClubs[i];
-        break;
-      }
-    }
+    let target = null
+    target = this.state.allClubs.find(club => club.clubID == clubID);
 
     if (target) {
+      const {history} = this.props; 
       history.push(target.link);
     } else {
       alert("Something went wrong.")
@@ -39,8 +35,8 @@ class BrowseAllClubs extends React.Component {
 
   joinRequest = e => {
     console.log(e.currentTarget.id); 
-    let getClub = this.state.allClubs.filter(club => club.clubID === parseInt(e.currentTarget.id))[0];
-    getClub.requests.push(this.props.currentUser.userID);
+    let getClub = this.state.allClubs.find(club => club.clubID === parseInt(e.currentTarget.id));    
+    getClub.requests.push(this.props.currentUserID);
     this.setState({ allClubs: this.props.allClubs });
   }
 
@@ -62,10 +58,10 @@ class BrowseAllClubs extends React.Component {
               this.state.displayedClubs.map(club => {
                 let disabledState = false; 
                 let buttonText = ''; 
-                if (club.members.includes(this.props.currentUser.userID)) {
+                if (club.members.includes(this.props.currentUserID)) {
                   disabledState = true; 
                   buttonText = 'Joined'; 
-                } else if (club.requests.includes(this.props.currentUser.userID)) {
+                } else if (club.requests.includes(this.props.currentUserID)) {
                   disabledState = true; 
                   buttonText = 'Requested'
                 } else {
@@ -116,4 +112,4 @@ class BrowseAllClubs extends React.Component {
   }
 }
 
-export default BrowseAllClubs; 
+export default withRouter(BrowseAllClubs); 
