@@ -1,11 +1,15 @@
 # team11
-Project description
+## Project Description:
+This project is aimed at creating a social space for students to discover new clubs around UofT.
 
 ## How to Download and Run our Project:
 * git clone 
 * cd team11
 * npm install
 * npm install @material-ui/core
+* npm install @material-ui/icons
+* npm install react-boostrap
+* npm install react-router-dom
 * cd my-app/my-app
 * npm start
 
@@ -15,7 +19,7 @@ Project description
 ### Log In Page
 This is the first page the user (both a regular user and an admin) will see upon navigating to our website. Here the user is able to enter their credentials and log into their account. If they do not have an account, they can press the "Create Account" button to navigate to the account creation page. <br/>
 <br/>
-If the log in was successful, the user will be navigated to [INSERT PAGE HERE]
+If the log in was successful, the user will be navigated to their feed page where they can see events and posts from clubs that they follow.
 However, if the log in was not successful, either of two messages will appear: "Account Banned" if the account was banned by an admin or "Incorrect Credentials" if the user mistyped their username or password. If the user wishes to see their password while typing it, they can click the visibility icon next to the password field. Please note that the only way to recover access t your account after being banned is to contact the admin directly. <br/>
 <br/>
 __Working Credentials Include:__
@@ -40,4 +44,8 @@ This page is the main page of the app, it has a navbar that integrated multiple 
 ### Club Following Manage Page
 This page is for the purpose of manage clubs that the user is following. The clubs are ordered by the following order with the information of the club profile, club name, club followers. A delete button is besides each entry.
 
-##
+### Navigation 
+Explore - Goes to a list of all clubs that exist on our website.
+Feeds   - Goes to the main feed page for this user.
+Following - Goes to a page displaying a list of clubs that the user is following.
+UserCenter - Goes to the user profile.
