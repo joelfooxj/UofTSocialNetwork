@@ -22,9 +22,13 @@ class FollowingPage extends React.Component{
 		var followingObject = []
 		
 		let a = []
-		for (let i=0;i<user.clubsFollowing.length;i++){
-			let club = allClubs[user.clubsFollowing[i]-1]
-			followingObject.push(new ClubFollowing(club.profilePic, club.name, club.members.length-club.members.execs.length))
+
+		for (let i=0;i<allClubs.length;i++){
+			let club = null
+			if(user.clubsFollowing.includes(allClubs[i].id)){
+				club = allClubs[i]
+				followingObject.push(new ClubFollowing(club.profilePic, club.name, club.members.length-club.members.execs.length))
+			}
 		}
 		const elements = followingObject.map( club => <ClubFollowingCard clubProfile={club.clubProfile} clubName={club.clubName} clubFollowing={club.clubFollowing} /> );
 

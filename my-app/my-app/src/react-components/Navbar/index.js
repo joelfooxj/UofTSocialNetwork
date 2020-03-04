@@ -77,7 +77,7 @@ class Navbar extends React.Component{
 
 	
 		return (
-			<div className="navbar">
+			<div>
 				<NavbarRB sticky="top" bg='dark' variant="dark" expand='md'>
 				<Container>
 					<NavbarRB.Brand>
@@ -89,7 +89,7 @@ class Navbar extends React.Component{
 					<NavbarRB.Collapse id="basic-navbar-nav">
 						<Links />
 						<NavRB>
-							<NavRB.Link onclick={this.logout} href='/'>Logout</NavRB.Link>
+							<NavRB.Link onClick={this.logout} href='/'>Logout</NavRB.Link>
 						</NavRB>
 					</NavbarRB.Collapse>
 				</Container>
