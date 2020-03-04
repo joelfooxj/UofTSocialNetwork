@@ -2,6 +2,7 @@ import React from 'react'
 import { Container, Row, Col, Button, Image, Card } from 'react-bootstrap'
 import ClubFollowingCard from '../ClubFollowingCard'
 import Navbar from '../Navbar'
+import { withRouter } from 'react-router-dom';
 
 class ClubFollowing {
 	constructor(profile, name, follwer){
@@ -39,4 +40,4 @@ class FollowingPage extends React.Component{
 	}
 }
 
-export default FollowingPage;
+export default withRouter(FollowingPage);
