@@ -49,3 +49,6 @@ Explore - Goes to a list of all clubs that exist on our website.
 Feeds   - Goes to the main feed page for this user.
 Following - Goes to a page displaying a list of clubs that the user is following.
 UserCenter - Goes to the user profile.
+
+### Browse All Clubs Page 
+This page allows the user to view all clubs. 
