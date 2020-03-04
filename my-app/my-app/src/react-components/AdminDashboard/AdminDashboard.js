@@ -6,6 +6,7 @@ import ClubList from './ClubList/index';
 import { Button } from '@material-ui/core';
 import { Link } from '../../../node_modules/react-router-dom'
 import Navbar from '../Navbar'
+import { withRouter } from 'react-router-dom';
 
 class AdminDashboard extends React.Component {
 	// props should contain Accounts and Clubs
@@ -73,6 +74,6 @@ class AdminDashboard extends React.Component {
     
 }
 
-export default AdminDashboard;
+export default withRouter(AdminDashboard);
 
 

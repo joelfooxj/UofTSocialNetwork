@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
+import { withRouter } from 'react-router-dom';
 
 class Navbar extends React.Component{
 	// status: True => logged in, False => not yet
@@ -45,6 +46,11 @@ class Navbar extends React.Component{
         })
 	}
 
+	switchpage(pagename){
+		const {history} = this.props;
+		history.push('/'+pagename, this.state)
+	}
+
 	render(){
 		const { logoPic, status, user, changeSignInStatus } = this.props; 
 		const userType = user.permission
@@ -52,16 +58,16 @@ class Navbar extends React.Component{
 			if (userType){
 				return (
 					<NavRB className="mr-auto" inline>
-						<NavRB.Link href='/AdminDashboard'>Admin DashBoard</NavRB.Link>
+						<NavRB.Link onlick={switchpage('AdminDashboard')} href='/AdminDashboard'>Admin DashBoard</NavRB.Link>
 					</NavRB>
 				);
 			}else{
 				return (
 					<NavRB className="mr-auto" inline>
-						<NavRB.Link href='/browseAllClubs'>Explore</NavRB.Link>
-						<NavRB.Link href='/FeedPage'>Feeds</NavRB.Link>
-						<NavRB.Link href='/Following'>Following</NavRB.Link>
-						<NavRB.Link href='/UserProfilePage'>UserCenter</NavRB.Link>
+						<NavRB.Link onlick={switchpage('browseAllClubs')} href='/browseAllClubs'>Explore</NavRB.Link>
+						<NavRB.Link onlick={switchpage('FeedPage')} href='/FeedPage'>Feeds</NavRB.Link>
+						<NavRB.Link onlick={switchpage('Following')} href='/Following'>Following</NavRB.Link>
+						<NavRB.Link onlick={switchpage('UserProfilePage')} href='/UserProfilePage'>UserCenter</NavRB.Link>
 					</NavRB>
 				);
 			}
@@ -96,4 +102,4 @@ class Navbar extends React.Component{
 
 			
 
-export default Navbar;
+export default withrouter(Navbar);
