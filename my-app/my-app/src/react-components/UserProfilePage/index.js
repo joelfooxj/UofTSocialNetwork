@@ -30,7 +30,7 @@ class UserProfilePage extends React.Component{
         return (
             <div id="mainDiv">
                 <Navbar changeSignInStatus={changeSignInStatus} logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
-                  status={true} user={user}>
+                  status={true} user={account}>
                 </Navbar>
                 <img id="bannerImgDiv" src={require("./static/headingBanner.png")} alt="Heading Banner"/>
                 <UserProfileImage id={"profileImg"}/>
