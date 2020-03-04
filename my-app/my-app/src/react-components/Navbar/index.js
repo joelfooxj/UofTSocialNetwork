@@ -13,20 +13,20 @@ class Navbar extends React.Component{
 	// status: True => logged in, False => not yet
 	// logoPic: the sourse to the logo picture
 	// profilePic: the sourse to the profile picture
-	constructor(props){
-		super(props)
-		this.setState({
-			account:this.props.user,
-			numLink: 2,
-			logoutPressed: false,
-			searchPressed: false,
-			feedPressed: false,
-			explorePressed: false,
-			userPressed: false,
-			trendPressed:false,
-			feedsPressed: false,
-			followingPressed: false,
-			adminPressed: false})
+	state = {
+		account:this.props.user,
+		numLink: 2,
+		logoutPressed: false,
+		searchPressed: false,
+		feedPressed: false,
+		explorePressed: false,
+		userPressed: false,
+		trendPressed:false,
+		feedsPressed: false,
+		followingPressed: false,
+		adminPressed: false,
+		accountId: this.props.accId,
+		accounts: this.props.accs
 	}
 
 
@@ -46,8 +46,9 @@ class Navbar extends React.Component{
         })
 	}
 
-	switchpage(pagename){
+	switchpage = (pagename) => {
 		const { history } = this.props;
+		console.log(this)
 		history.push('/'+pagename, this.state)
 	}
 
@@ -67,7 +68,7 @@ class Navbar extends React.Component{
 						<NavRB.Link onClick={()=>this.switchpage('browseAllClubs')} href='/browseAllClubs'>Explore</NavRB.Link>
 						<NavRB.Link onClick={()=>this.switchpage('FeedPage')} href='/FeedPage'>Feeds</NavRB.Link>
 						<NavRB.Link onClick={()=>this.switchpage('Following')} href='/Following'>Following</NavRB.Link>
-						<NavRB.Link onClick={()=>this.switchpage('UserProfilePage')} href='/UserProfilePage'>UserCenter</NavRB.Link>
+						<NavRB.Link onClick={()=>this.switchpage('UserProfilePage')}>UserCenter</NavRB.Link>
 					</NavRB>
 				);
 			}
