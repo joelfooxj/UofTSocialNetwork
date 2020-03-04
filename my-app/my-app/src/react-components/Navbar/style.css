@@ -9,6 +9,11 @@ NavBarRB.Link{
 	cursor: default; 
  	text-decoration: none; 
 	color: white; 
+
+}
+
+navbar {
+	style={{display:'block'}}
 }
 
 

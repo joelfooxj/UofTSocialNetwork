@@ -65,9 +65,9 @@ class Navbar extends React.Component{
 			}else{
 				return (
 					<NavRB className="mr-auto" inline>
-						<NavRB.Link onClick={()=>this.switchpage('browseAllClubs')} href='/browseAllClubs'>Explore</NavRB.Link>
-						<NavRB.Link onClick={()=>this.switchpage('FeedPage')} href='/FeedPage'>Feeds</NavRB.Link>
-						<NavRB.Link onClick={()=>this.switchpage('Following')} href='/Following'>Following</NavRB.Link>
+						<NavRB.Link onClick={()=>this.switchpage('browseAllClubs')} >Explore</NavRB.Link>
+						<NavRB.Link onClick={()=>this.switchpage('FeedPage')} >Feeds</NavRB.Link>
+						<NavRB.Link onClick={()=>this.switchpage('Following')} >Following</NavRB.Link>
 						<NavRB.Link onClick={()=>this.switchpage('UserProfilePage')}>UserCenter</NavRB.Link>
 					</NavRB>
 				);
@@ -77,7 +77,7 @@ class Navbar extends React.Component{
 
 	
 		return (
-			<div style={{display:'block'}}>
+			<div className="navbar">
 				<NavbarRB sticky="top" bg='dark' variant="dark" expand='md'>
 				<Container>
 					<NavbarRB.Brand>
