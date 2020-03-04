@@ -47,7 +47,7 @@ class BrowseAllClubs extends React.Component {
         <Navbar changeSignInStatus={this.props.changeSignInStatus} logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
           status={true} user={this.props.user}>
         </Navbar>
-        <Container maxWidth="xs">
+        <Container id="container" maxWidth="xs">
           <h1 className="mainTitle"> CLUBS </h1> 
           <form onChange={this.filterClubs}> 
             <TextField 
