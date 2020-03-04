@@ -11,9 +11,11 @@ class UserProfilePage extends React.Component{
 
     //THIS FUNCTION WILL QUERY THE DATABASE FOR THE CORRECT ACCOUNT INFORMATION
     getAccount(){
+        
         let accs = this.props.location.state.accounts
         let id = this.props.location.state.accountId
 
+        console.log(accs)
         for(let i = 0; i < accs.length; i++){
             if(accs[i].id === id){
                 return accs[i]
@@ -24,13 +26,14 @@ class UserProfilePage extends React.Component{
     }
 
     render(){
+        
         const account = this.getAccount()
         const { userInfo, changeSignInStatus, changeAccInfo, changeAccTimelineOpts, deleteAcc } = this.props;
         const user = userInfo.accs[userInfo.id-1];
         return (
             <div id="mainDiv">
                 <Navbar changeSignInStatus={changeSignInStatus} logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
-                  status={true} user={user}>
+                  status={true} user={account} accs={userInfo.accs} accId={userInfo.id}>
                 </Navbar>
                 <img id="bannerImgDiv" src={require("./static/headingBanner.png")} alt="Heading Banner"/>
                 <UserProfileImage id={"profileImg"}/>

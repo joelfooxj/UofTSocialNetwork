@@ -9,6 +9,11 @@ NavBarRB.Link{
 	cursor: default; 
  	text-decoration: none; 
 	color: white; 
+
+}
+
+navbar {
+	style={{display:'block'}}
 }
 
 
@@ -22,18 +27,6 @@ NavBarRB.Link{
 
 }
 
-
-
-/*.navbar div , form{
-	display: inline-block;
-	height: 10vh;
-}*/
-
-/*.navbar div{
-	margin-top: 1vh;
-	margin-bottom: 1vh;
-}
-*/
 .navLogo .navLogoPic{
 	/* dimemsion, shape, position, frame*/
 	margin-left: 5vw;

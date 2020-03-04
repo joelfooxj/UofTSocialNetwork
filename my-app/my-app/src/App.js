@@ -353,7 +353,7 @@ class App extends React.Component{
                 accounts={info.Accs} clubs={info.Clubs}/> : <Redirect to='/'/>) }/>
             <Route exact path='/browseAllClubs' render={() => 
             (this.state.signedIn ? 
-              <BrowseAllClubs allClubs={info.Clubs} currentUserID={this.state.accountId} 
+              <BrowseAllClubs allClubs={info.Clubs} currentUserID={this.state.accountId} allUsers={info.Accs}
               userIsAdmin={this.state.permission === 1} changeSignInStatus={this.changeSignInStatus.bind(this)} user={ this.state.accounts[this.state.accountId-1]}/> : 
               <Redirect to='/'/>) }/>
           </Switch>
