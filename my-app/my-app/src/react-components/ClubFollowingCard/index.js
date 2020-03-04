@@ -3,6 +3,7 @@ import { Container, Row, Col, Button, Image, Card } from 'react-bootstrap'
 
 class ClubFollowingCard extends React.Component{
 
+
 	render(){
 		const { clubProfile, clubName, clubFollowing } = this.props;
 		return (
@@ -22,7 +23,7 @@ class ClubFollowingCard extends React.Component{
 						<p>Follower: {clubFollowing}</p>
 					</Col>
 					<Col lg={2} xl={2}>
-						<Button variant="outline-danger">Unfollow</Button>
+						<Button onClick={()=>alert("deleted")} variant="outline-danger">Unfollow</Button>
 					</Col>
 				</Row>
 

@@ -1,4 +1,5 @@
 import React from 'react'
+import './style.css';
 import { Container, Row, Col, Button, Image, Card } from 'react-bootstrap'
 import ClubFollowingCard from '../ClubFollowingCard'
 import Navbar from '../Navbar'
@@ -15,7 +16,6 @@ class ClubFollowing {
 class FollowingPage extends React.Component{
 
 
-
 	render(){
 		const { changeSignInStatus, userInfo, allClubs } = this.props;
 		const user = userInfo.accs[userInfo.id-1];
@@ -28,17 +28,20 @@ class FollowingPage extends React.Component{
 			if(user.clubsFollowing.includes(allClubs[i].clubID)){
 				club = allClubs[i]
 				followingObject.push(new ClubFollowing(club.profilePic, club.name, club.members.length-club.execs.length))
+				
 			}
 		}
-		const elements = followingObject.map( club => <ClubFollowingCard clubProfile={club.clubProfile} clubName={club.clubName} clubFollowing={club.clubFollowing} /> );
-
+		
+		let elements = followingObject.map( club => <ClubFollowingCard clubProfile={club.clubProfile} clubName={club.clubName} clubFollowing={club.clubFollowing} /> );
+		elements
 		return (
 		<div>
 		<Navbar changeSignInStatus={changeSignInStatus} logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
           status={true} user={user}>
         </Navbar>
-
-		{elements}
+        <div className='clublist'>
+			{elements}
+		</div>
 		</div>
 			);
 	}
