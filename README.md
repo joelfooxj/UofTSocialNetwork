@@ -37,7 +37,7 @@ This page is the view for any club. It displays a selected banner image and prof
 ### MainPage/Feed Page
 This page is the main page of the app, it has a navbar that integrated multiple functionality. If the user type is admin, then the admin will be able to access the admin dashboard page. If the user type is user, then the user will be able to access hotposts, all feeds, club following manage and user profile page. Both user contains a search page which searches across all the posts and clubs, this will be implemented in pharse 2. The first two feeds on this page is a sample of posts with full description, those will be delete later. The posts following are the postes from all the clubs that the current user is following.
 
-### Club Following Manage Page
-This page is for the purpose of manage clubs that the user is following. The clubs are ordered by the following order with the information of the club profile, club name, club followers. A delete button is besides each entry.
+### Club Following Page
+This page is for the purpose of showing clubs that the user is following. The clubs are ordered by the following order with the information of the club profile, club name, club followers. 
 
 ##
