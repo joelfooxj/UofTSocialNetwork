@@ -3,11 +3,21 @@ import { Container, Row, Col, Button, Image, Card } from 'react-bootstrap'
 
 class ClubFollowingCard extends React.Component{
 
+	state={
+		deleted:false
+	}
+
+	delete(){
+        this.setState({ deleted: true });
+    }
+
+
 
 	render(){
 		const { clubProfile, clubName, clubFollowing } = this.props;
+		const deleteThis = this.state.deleted ? {display:'none'} : {}
 		return (
-		<Container>
+		<Container onClick={this.deleteThis}>
 		<Row><Col xl={1} lg={1}></Col><Col>
 		<Card  className="text-center" border="dark">
 		<Card.Body>
@@ -22,9 +32,7 @@ class ClubFollowingCard extends React.Component{
 					<Col>
 						<p>Follower: {clubFollowing}</p>
 					</Col>
-					<Col lg={2} xl={2}>
-						<Button onClick={()=>alert("deleted")} variant="outline-danger">Unfollow</Button>
-					</Col>
+					
 				</Row>
 
 			</Container>
