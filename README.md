@@ -2,6 +2,13 @@
 Project description
 
 ## How to Download and Run our Project:
+* git clone 
+* cd team11
+* npm install
+* npm install @material-ui/core
+* cd my-app/my-app
+* npm start
+
 
 
 ## Description and Instructions
@@ -26,5 +33,11 @@ On this page the user is able to change profile information such as username, pa
 
 ### Club Profile Page
 This page is the view for any club. It displays a selected banner image and profile photo based on the club. Also displayed is a bio and posts that the club has made. A user is able to perform several different actions depending on their permissions. Executives will be able to make posts and delete existing ones. Club members are able to All users are able to follow and unfollow, and request to join a club if they are not a part of it already. This request must be approved by an admin before a user is actually a part of the club.
+
+### MainPage/Feed Page
+This page is the main page of the app, it has a navbar that integrated multiple functionality. If the user type is admin, then the admin will be able to access the admin dashboard page. If the user type is user, then the user will be able to access hotposts, all feeds, club following manage and user profile page. Both user contains a search page which searches across all the posts and clubs, this will be implemented in pharse 2. The first two feeds on this page is a sample of posts with full description, those will be delete later. The posts following are the postes from all the clubs that the current user is following.
+
+### Club Following Manage Page
+This page is for the purpose of manage clubs that the user is following. The clubs are ordered by the following order with the information of the club profile, club name, club followers. A delete button is besides each entry.
 
 ##
