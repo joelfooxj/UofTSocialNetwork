@@ -47,7 +47,7 @@ class Navbar extends React.Component{
 	}
 
 	switchpage(pagename){
-		const {history} = this.props;
+		const { history } = this.props;
 		history.push('/'+pagename, this.state)
 	}
 
@@ -58,16 +58,16 @@ class Navbar extends React.Component{
 			if (userType){
 				return (
 					<NavRB className="mr-auto" inline>
-						<NavRB.Link onlick={switchpage('AdminDashboard')} href='/AdminDashboard'>Admin DashBoard</NavRB.Link>
+						<NavRB.Link onlick={this.switchpage('AdminDashboard')} href='/AdminDashboard'>Admin DashBoard</NavRB.Link>
 					</NavRB>
 				);
 			}else{
 				return (
 					<NavRB className="mr-auto" inline>
-						<NavRB.Link onlick={switchpage('browseAllClubs')} href='/browseAllClubs'>Explore</NavRB.Link>
-						<NavRB.Link onlick={switchpage('FeedPage')} href='/FeedPage'>Feeds</NavRB.Link>
-						<NavRB.Link onlick={switchpage('Following')} href='/Following'>Following</NavRB.Link>
-						<NavRB.Link onlick={switchpage('UserProfilePage')} href='/UserProfilePage'>UserCenter</NavRB.Link>
+						<NavRB.Link onlick={this.switchpage('browseAllClubs')} href='/browseAllClubs'>Explore</NavRB.Link>
+						<NavRB.Link onlick={this.switchpage('FeedPage')} href='/FeedPage'>Feeds</NavRB.Link>
+						<NavRB.Link onlick={this.switchpage('Following')} href='/Following'>Following</NavRB.Link>
+						<NavRB.Link onlick={this.switchpage('UserProfilePage')} href='/UserProfilePage'>UserCenter</NavRB.Link>
 					</NavRB>
 				);
 			}
@@ -102,4 +102,4 @@ class Navbar extends React.Component{
 
 			
 
-export default withrouter(Navbar);
+export default withRouter(Navbar);
