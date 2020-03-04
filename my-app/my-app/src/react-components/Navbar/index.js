@@ -58,16 +58,16 @@ class Navbar extends React.Component{
 			if (userType){
 				return (
 					<NavRB className="mr-auto" inline>
-						<NavRB.Link onlick={this.switchpage('AdminDashboard')} href='/AdminDashboard'>Admin DashBoard</NavRB.Link>
+						<NavRB.Link onClick={()=>this.switchpage('AdminDashboard')} href='/AdminDashboard'>Admin DashBoard</NavRB.Link>
 					</NavRB>
 				);
 			}else{
 				return (
 					<NavRB className="mr-auto" inline>
-						<NavRB.Link onlick={this.switchpage('browseAllClubs')} href='/browseAllClubs'>Explore</NavRB.Link>
-						<NavRB.Link onlick={this.switchpage('FeedPage')} href='/FeedPage'>Feeds</NavRB.Link>
-						<NavRB.Link onlick={this.switchpage('Following')} href='/Following'>Following</NavRB.Link>
-						<NavRB.Link onlick={this.switchpage('UserProfilePage')} href='/UserProfilePage'>UserCenter</NavRB.Link>
+						<NavRB.Link onClick={()=>this.switchpage('browseAllClubs')} href='/browseAllClubs'>Explore</NavRB.Link>
+						<NavRB.Link onClick={()=>this.switchpage('FeedPage')} href='/FeedPage'>Feeds</NavRB.Link>
+						<NavRB.Link onClick={()=>this.switchpage('Following')} href='/Following'>Following</NavRB.Link>
+						<NavRB.Link onClick={()=>this.switchpage('UserProfilePage')} href='/UserProfilePage'>UserCenter</NavRB.Link>
 					</NavRB>
 				);
 			}
