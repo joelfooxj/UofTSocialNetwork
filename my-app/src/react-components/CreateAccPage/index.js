@@ -23,14 +23,17 @@ class CreateAccPage extends React.Component{
     })
   }
 
+
   render(){
-    const {createAccAction} = this.props
+    const {createAccAction, changeAccCreateState, accCreateState} = this.props
+    const emailRegex = new RegExp("[a-zA-Z]{1,25}[@][a-zA-Z]{1,25}[.](com|org|ca)")
+
     return (
       <div id="mainDiv">
         <LogInPageBanner id="banner"/>
         <h1 id="mainHeader">Create Account</h1>
         <div id="infoDiv">
-          <CreateAccUserInfo className="info" onInputChange={this.inputHandler}></CreateAccUserInfo>
+          <CreateAccUserInfo className="info" onInputChange={this.inputHandler} changeAccCreateState={changeAccCreateState}></CreateAccUserInfo>
         </div>
         <CustomButton
           id={"doneButton"}
@@ -43,8 +46,9 @@ class CreateAccPage extends React.Component{
           top={"20px"}
           left={"48%"}
           onClick={() => {createAccAction(this.state.usernameInput, this.state.permissions, this.state.passwordInput, this.state.firstNameInput, this.state.lastNameInput, this.state.emailInput); this.props.history.push("/"); }}
-          disabled={this.state.usernameInput==="" || this.state.passwordInput==="" || this.state.firstNameInput==="" || this.state.lastNameInput==="" || this.state.emailInput===""}
+          disabled={!emailRegex.test(this.state.emailInput) || this.state.usernameInput==="" || this.state.passwordInput==="" || this.state.firstNameInput==="" || this.state.lastNameInput==="" || this.state.emailInput===""}
         ></CustomButton>
+        {!emailRegex.test(this.state.emailInput) ? <span id="emailErrorSpan">Email must have the following form: something@something.com/ca/org</span> : null}
       </div>
     );
   }
