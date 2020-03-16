@@ -1,7 +1,7 @@
 import React from 'react';
 // import './style.css';
 import Button from "@material-ui/core/Button";
-import ButtonGroup from 'react-bootstrap/ButtonGroup'
+import {ButtonGroup} from 'react-bootstrap'
 import ToggleButton from 'react-bootstrap/ToggleButton'
 
 class EventDecision extends React.Component{
