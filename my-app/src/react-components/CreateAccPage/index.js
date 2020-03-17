@@ -48,7 +48,7 @@ class CreateAccPage extends React.Component{
           onClick={() => {createAccAction(this.state.usernameInput, this.state.permissions, this.state.passwordInput, this.state.firstNameInput, this.state.lastNameInput, this.state.emailInput); this.props.history.push("/"); }}
           disabled={!emailRegex.test(this.state.emailInput) || this.state.usernameInput==="" || this.state.passwordInput==="" || this.state.firstNameInput==="" || this.state.lastNameInput==="" || this.state.emailInput===""}
         ></CustomButton>
-        {!emailRegex.test(this.state.emailInput) ? <span id="emailErrorSpan">Email must have the following form: something@something.com/ca/org</span> : null}
+        {(this.state.emailInput !== "" && !emailRegex.test(this.state.emailInput)) ? <span id="emailErrorSpan">Email must have the following form: something@something.com/ca/org</span> : null}
       </div>
     );
   }

@@ -107,7 +107,7 @@ class CreateAccUserInfo extends React.Component{
                             id="margin-normal"
                             className="emailInput"
                             margin="normal"
-                            onChange={(e) => {this.changeErrorState(e, "errorEmail"); if(!emailRegex.test(e.value)){changeAccCreateState(true)}else{changeAccCreateState(false)} onInputChange(e);}}
+                            onChange={(e) => {this.changeErrorState(e, "errorEmail"); if(e.value !== "" && !emailRegex.test(e.value)){changeAccCreateState(true)}else{changeAccCreateState(false)} onInputChange(e);}}
                             onClick={(e) => {this.changeErrorState(e, "errorEmail"); onInputChange(e);}}
                             error={this.state.errorEmail}
                             helperText={this.state.errorEmail ? "Field Must Not Be Empty" : ""}
