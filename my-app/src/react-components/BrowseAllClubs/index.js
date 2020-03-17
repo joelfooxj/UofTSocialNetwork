@@ -116,23 +116,6 @@ class BrowseAllClubs extends React.Component {
                             view
                           </Button>
                         </Link>
-                        <Link
-                        to={{
-                          pathname:club.link, 
-                          state:{
-                            club:club
-                          }
-                        }}
-                        style={{textDecoration:'none'}}> 
-                          <Button
-                          size="small"
-                          edge="end" 
-                          variant="outlined"
-                          color="primary"
-                          style={{marginLeft:'10px'}}> 
-                            view
-                          </Button>
-                        </Link>
                         <Button 
                             id={club.clubID}
                             size="small"
