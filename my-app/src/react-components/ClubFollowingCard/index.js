@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Row, Col, Button, Image, Card } from 'react-bootstrap'
+import {Row, Col, Image, Card, Container} from 'react-bootstrap'
 
 class ClubFollowingCard extends React.Component{
 

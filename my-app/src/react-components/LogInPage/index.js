@@ -61,7 +61,7 @@ class LogInPage extends React.Component{
 
 
     //set signed in status based on whether sign in succeeded or not
-    onAttemptSignIn = () => {
+    onAttemptSignIn = (callLoc) => {
         if(this.checkCredentials()){
             this.setState({
                 signInFailed: false,
@@ -77,10 +77,19 @@ class LogInPage extends React.Component{
             
         }
         else{
-            this.setState({
-                signInFailed: true,
-                changeButtonColor: true
-            })
+            if(callLoc == 1){
+                this.setState({
+                    signInFailed: true,
+                    changeButtonColor: true
+                })
+            }
+            else{
+                this.setState({
+                    signInFailed: true,
+                    changeButtonColor: true
+                })
+                setTimeout(()=>{this.setState({changeButtonColor: false})}, 500)
+            }
         }
     }
 
@@ -89,7 +98,9 @@ class LogInPage extends React.Component{
             changeButtonColor: false,
         })
     }
-
+    componentDidMount = () => {
+        window.addEventListener('keydown', (e) => {if(e.key === "Enter"){this.onAttemptSignIn(0)}})
+    }
     render(){
         return (
             <div className="LogInPage">
@@ -98,7 +109,7 @@ class LogInPage extends React.Component{
                     username={this.state.usernameInput}
                     password={this.state.passwordInput}
                     onInputChange={this.onInputChange}
-                    onAttemptSignIn={this.onAttemptSignIn}
+                    onAttemptSignIn={() => {this.onAttemptSignIn(1)}}
                     signInFailed={this.state.signInFailed}
                     changeButtonColor={this.state.changeButtonColor}
                     onButtonAnimationEnd={this.onButtonAnimationEnd}

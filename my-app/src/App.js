@@ -46,7 +46,8 @@ class App extends React.Component{
     permission: 0, // 0 - reg user, 1 - admin
     execOf: [],
     accountId: -1,
-    accounts: info.Accs
+    accounts: info.Accs,
+    accountCreationFailed: false
   }
 
   changeSignInStatus(val, id, perm, clubs){
@@ -230,11 +231,17 @@ class App extends React.Component{
   
 
   createAccount = (username, permissions, password, firstName, lastName, email) => {
-    const newAcc = new info.Account(username, permissions, [], this.state.accounts[this.state.accounts.length - 1].id + 1, password, firstName, lastName, email)
-    const accs = this.state.accounts
-    accs.push(newAcc)
+      const newAcc = new info.Account(username, permissions, [], this.state.accounts[this.state.accounts.length - 1].id + 1, password, firstName, lastName, email)
+      const accs = this.state.accounts
+      accs.push(newAcc)
+      this.setState({
+        accounts: accs
+      })
+  }
+
+  changeAccountCreationState = (newState) => {
     this.setState({
-      accounts: accs
+      accountCreationFailed: newState
     })
   }
 
@@ -255,7 +262,10 @@ class App extends React.Component{
                               accounts={this.state.accounts}
                             />)}/>
             <Route exact path='/CreateAccPage' render={() => 
-                            (<CreateAccPage createAccAction={this.createAccount}/>)}/>
+                            (<CreateAccPage createAccAction={this.createAccount}
+                                            changeAccCreateState={this.changeAccountCreationState}
+                                            accCreateState={this.state.accountCreationFailed}
+                            />)}/>
             <Route exact path='/FeedPage' render={() => 
                             (this.state.signedIn ?
                               <FeedPage 
