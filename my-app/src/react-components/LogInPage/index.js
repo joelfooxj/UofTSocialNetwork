@@ -62,6 +62,36 @@ class LogInPage extends React.Component{
 
     //set signed in status based on whether sign in succeeded or not
     onAttemptSignIn = (callLoc) => {
+        const request = new Request('/do-something', {
+            method: 'post', 
+            body: JSON.stringify({data: "this"}),
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+        });
+    
+        // Send the request with fetch()
+        fetch(request)
+        .then(function(res) {
+            console.log("FJKSDGAJWKLNMGFKBGDSLMNAJFD")
+            // Handle response we get from the API.
+            // Usually check the error codes to see what happened.
+            if (res.status === 200) {
+                // If student was added successfully, tell the user.
+                console.log('Made request')
+               
+            } else {
+                // If server couldn't add the student, tell the user.
+                // Here we are adding a generic message, but you could be more specific in your app.
+                console.log("error")
+            }
+            console.log(res)  // log the result in the console for development purposes,
+                              //  users are not expected to see this.
+        }).catch((error) => {
+            console.log(error)
+        })
+
         if(this.checkCredentials()){
             this.setState({
                 signInFailed: false,

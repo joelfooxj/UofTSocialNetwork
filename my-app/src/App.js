@@ -230,13 +230,36 @@ class App extends React.Component{
   
   
 
-  createAccount = (username, permissions, password, firstName, lastName, email) => {
-      const newAcc = new info.Account(username, permissions, [], this.state.accounts[this.state.accounts.length - 1].id + 1, password, firstName, lastName, email)
-      const accs = this.state.accounts
-      accs.push(newAcc)
-      this.setState({
-        accounts: accs
-      })
+  createAccount = (usernameIn, permissionsIn, passwordIn, firstNameIn, lastNameIn, emailIn) => {
+    let data = {
+      username: usernameIn,
+      password: passwordIn,
+      firstName: firstNameIn,
+      lastName: lastNameIn,
+      email: emailIn,
+      permissions: permissionsIn
+    }
+    const url = '/user'
+    const request = new Request(url, {
+        method: 'post', 
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+    console.log(request)
+    fetch(request)
+    .then(function(res) {
+        if (res.status === 200) {
+            console.log("Added new account.")
+           
+        } else {
+            console.log("Account not added. Status: " + res.status)
+        }
+    }).catch((error) => {
+        console.log(error)
+    })
   }
 
   changeAccountCreationState = (newState) => {

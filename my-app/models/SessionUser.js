@@ -19,6 +19,40 @@ const UserSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 		minlength: 1
+	},
+    firstName: {
+		type: String,
+		required: true,
+		minLength: 1
+	},
+	lastName: {
+		type: String,
+		required: true,
+		minLength: 1
+	},
+	email: {
+		type: String,
+		required: true,
+		minLength: 1
+	},
+	permissions: {
+		type: Number,
+		required: true,
+	},
+	clubsExecOf: {
+		type: Array
+	},
+	clubsMemberOf: {
+		type: Array
+	},
+	clubsFollowing: {
+		type: Array
+	},
+	clubsAwaitingJoin: {
+		type: Array
+	},
+	timelineOpts: {
+		type: Array
 	}
 })
 
@@ -48,7 +82,7 @@ UserSchema.pre('save', function(next) {
 UserSchema.statics.findByUsernamePassword = function(username, password) {
 	const User = this // binds this to the User model
 
-	// First find the user by their email
+	// First find the user by their username
 	return User.findOne({ username: username }).then((user) => {
 		if (!user) {
 			return Promise.reject()  // a rejected promise
@@ -67,8 +101,8 @@ UserSchema.statics.findByUsernamePassword = function(username, password) {
 }
 
 // make a model using the User schema
-//THE NAME OF THE EXPORT CONTROLS THE NAME 
-//OF THE COLLECTION ON MONGO ATLAS; IT WILL BE 'NAME OF MODULE' + 'S'
-const Logged_In_User = mongoose.model('Logged_In_User', UserSchema)
-module.exports = { Logged_In_User }
+//FIRST ARGUMENT TO MODEL IS THE COLLECTION NAME!!!
+//It will change it to be '1st arg' + 's'
+const User = mongoose.model('User', UserSchema)
+module.exports = { User }
 
