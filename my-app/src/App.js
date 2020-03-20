@@ -239,7 +239,7 @@ class App extends React.Component{
       email: emailIn,
       permissions: permissionsIn
     }
-    const url = '/user'
+    const url = '/users/create'
     const request = new Request(url, {
         method: 'post', 
         headers: {
