@@ -6,6 +6,10 @@ import NavRB from 'react-bootstrap/Nav'
 import Container from 'react-bootstrap/Container'
 import { withRouter } from 'react-router-dom';
 
+//actions
+import {logout} from '../../actions/accountActions';
+
+
 class Navbar extends React.Component{
 	// status: True => logged in, False => not yet
 	// logoPic: the sourse to the logo picture
@@ -75,7 +79,9 @@ class Navbar extends React.Component{
 					<NavbarRB.Collapse id="basic-navbar-nav">
 						<Links />
 						<NavRB>
-							<NavRB.Link onClick={this.logout} href='/'>Logout</NavRB.Link>
+							<NavRB.Link 
+							 onClick={logout}
+							 href='/'>Logout</NavRB.Link>
 						</NavRB>
 					</NavbarRB.Collapse>
 				</Container>

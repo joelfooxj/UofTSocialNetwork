@@ -68,7 +68,7 @@ app.post('/log_in', (req, res) => {
     const password = req.body.password
 
     if(username === "" || password === ""){
-        res.status(500).send()
+        res.status(400).send()
         return;
     }
 

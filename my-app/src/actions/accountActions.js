@@ -40,6 +40,91 @@ export const createAccount = (usernameIn, permissionsIn, passwordIn, firstNameIn
   })
 }
 
+export const logout = () => {
+  const request = new Request('/logout', {
+      method: 'delete', 
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+  });
+
+  fetch(request)
+  .then(function(res) {
+      if (res.status === 200) {
+          console.log("Logged Out")
+         
+      } else {
+          console.log("Error, could not log out, status: " + res.status)
+      }
+  }).catch((error) => {
+      console.log(error)
+  })
+}
+
+export const attemptSignIn = (context, callLoc) => {
+  const request = new Request('/log_in', {
+            method: "post",
+            body: JSON.stringify({username: context.state.usernameInput, password: context.state.passwordInput}),
+            headers: {
+                Accept: "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            }
+        });
+    
+        fetch(request)
+        .then((res) => {
+            if (res.status === 200) {
+                context.setState({
+                    signInFailed: false,
+                }, () => {
+                    res.json()
+                        .then((result) => {
+                            const {history} = context.props;
+
+                            changeSignInStatus(context.props.logInContext, result, true)
+
+                            if(history && result !== null){
+                                if(result.status === 0){ //banned
+                                    context.setState({
+                                        banned: true
+                                    })
+                                }
+                                else{
+                                    result.permissions === 1 ? history.push('/AdminDashboard') :  
+                                    history.push('/FeedPage', context.state)
+                                }
+                            }
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                        })
+                })
+            } 
+            else {
+                if(callLoc == 1){
+                    context.setState({
+                        signInFailed: true,
+                        changeButtonColor: true,
+                        banned: false
+                    })
+                }
+                else{
+                    context.setState({
+                        signInFailed: true,
+                        changeButtonColor: true,
+                        banned: false
+                    })
+                    setTimeout(()=>{context.setState({changeButtonColor: false})}, 500)
+                }
+                console.log("ERROR: Could not log in, status: " + res.status)
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        });
+}
+
 
 
 
