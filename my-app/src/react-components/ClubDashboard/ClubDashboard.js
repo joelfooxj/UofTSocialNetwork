@@ -82,6 +82,16 @@ class ClubDashboard extends React.Component {
 		}
 
     render(){
+				let returnPath = ''; 
+				let returnText ='';
+				if (this.props.currentUser.permission == 1){
+					returnPath = "/AdminDashboard";
+					returnText = "Return to Admin Dashboard";
+				} 
+				else if (this.state.execs.includes(this.props.currentUser.accountId)){
+					returnPath = '/BrowseAllClubs';
+					returnText = 'Return to Following Clubs Page';
+				}  
         return(
             <div className="clubDashboardContainer"> 
 							<h1> {this.state.thisClub.name} Dashboard </h1> 
@@ -100,28 +110,43 @@ class ClubDashboard extends React.Component {
 									Go to club profile page
 								</Button>
 							</Link> 
-                <ClubStats 
-									statsList={[
-										"No. of Members: " + this.state.members.length,
-										"No. of Requests: " + this.state.requests.length,
-										"No. of Posts: " + this.state.posts.length,
-									]}
-                />
-								<MemberList 
-								users={this.state.allUsers.filter(user => this.state.members.includes(user.id))}
-								onDelete={this.deleteObject}/>
-								<ExecList 
-								users={this.state.allUsers.filter(user => this.state.execs.includes(user.id))}
-								onDelete={this.deleteObject}/>
-								<RequestList 
-								users={this.state.allUsers.filter(user => this.state.requests.includes(user.id))}
-								onDelete={this.deleteObject}
-								onApprove={this.onRequestApprove}/>
-								<PostList
-								posts={this.state.allPosts.filter(post => this.state.posts.includes(post.postID))}
-								thisClubLink={this.state.link}
-								onDelete={this.deleteObject}
-								/>
+							<ClubStats 
+								statsList={[
+									"No. of Members: " + this.state.members.length,
+									"No. of Requests: " + this.state.requests.length,
+									"No. of Posts: " + this.state.posts.length,
+								]}
+							/>
+							<MemberList 
+							users={this.state.allUsers.filter(user => this.state.members.includes(user.id))}
+							onDelete={this.deleteObject}/>
+							<ExecList 
+							users={this.state.allUsers.filter(user => this.state.execs.includes(user.id))}
+							onDelete={this.deleteObject}/>
+							<RequestList 
+							users={this.state.allUsers.filter(user => this.state.requests.includes(user.id))}
+							onDelete={this.deleteObject}
+							onApprove={this.onRequestApprove}/>
+							<PostList
+							posts={this.state.allPosts.filter(post => this.state.posts.includes(post.postID))}
+							thisClubLink={this.state.link}
+							onDelete={this.deleteObject}
+							/>
+							<Link  
+								to={{
+									pathname: returnPath
+								}}
+								style={{ textDecoration:'none' }}>
+								<Button 
+									size="small"
+									edge="end" 
+									aria-label="join" 
+									variant="outlined"
+									color='primary'																			
+									>																		
+									{returnText}
+								</Button>
+							</Link>							
             </div>
         );
     }
