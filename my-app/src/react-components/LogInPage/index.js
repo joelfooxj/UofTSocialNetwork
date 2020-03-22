@@ -1,9 +1,12 @@
 import React from "react";
-
 import LogInForm from "./../LogInForm"
 import LogInPageBanner from "./../LogInPageBanner"
 import "./style.css"
 import { withRouter } from 'react-router-dom';
+
+//actions
+import {changeSignInStatus} from '../../actions/accountActions';
+
 
 class LogInPage extends React.Component{
 
@@ -50,7 +53,7 @@ class LogInPage extends React.Component{
                             .then((result) => {
                                 const {history} = this.props;
 
-                                this.props.changeSignInStatus(result, true)
+                               changeSignInStatus(this.props.logInContext, result, true)
 
                                 if(history && result !== null){
                                     if(result.status === 0){ //banned

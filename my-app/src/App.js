@@ -11,7 +11,7 @@ import UserProfilePage from './react-components/UserProfilePage';
 import ClubProfilePage from './react-components/ClubProfilePage';
 import ClubPost from './react-components/ClubPost';
 import info from "./tempInfo";
-import {changeAccInfo, changeAccTimelineOpts, deleteAccount} from './actions/accountActions';
+//import {changeAccInfo, changeAccTimelineOpts, deleteAccount, changeSignInStatus} from './actions/accountActions';
 import ClubDashboard from './react-components/ClubDashboard/ClubDashboard';
 import AdminDashboard from './react-components/AdminDashboard/AdminDashboard';
 import BrowseAllClubs from "./react-components/BrowseAllClubs/index";
@@ -48,12 +48,7 @@ class App extends React.Component{
     loggedInUser: null
   }
 
-  changeSignInStatus = (user, signedIn) => {
-      this.setState({
-        signedIn: signedIn,
-        loggedInUser: user
-      })
-  }
+ 
 
   //THE FOLLOWING FUNCTIONS WILL INTERFACE WITH THE DATABASE TO UPDATE THE CORRECT VALUES
 
@@ -227,38 +222,7 @@ class App extends React.Component{
   
   //TODO: MOVE THIS OUT INTO A SEPARATE ACTION FILE. IN FACT DO THAT FOR ALL THESE FUNCTIONS THAT 
   //CLUTER THIS FILE
-  createAccount = (usernameIn, permissionsIn, passwordIn, firstNameIn, lastNameIn, emailIn) => {
-    let data = {
-      username: usernameIn,
-      password: passwordIn,
-      firstName: firstNameIn,
-      lastName: lastNameIn,
-      email: emailIn,
-      permissions: permissionsIn
-    }
-
-    const url = '/users/create'
-    const request = new Request(url, {
-        method: 'post', 
-        headers: {
-          'Accept': 'application/json, text/plain, */*',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    });
-
-    fetch(request)
-    .then(function(res) {
-        if (res.status === 200) {
-            console.log("Added new account.")
-           
-        } else {
-            console.log("Account not added. Status: " + res.status)
-        }
-    }).catch((error) => {
-        console.log(error)
-    })
-  }
+ 
 
   changeAccountCreationState = (newState) => {
     this.setState({
@@ -278,9 +242,9 @@ class App extends React.Component{
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
             <Route exact path='/' render={() => 
-                            (<LogInPage changeSignInStatus={this.changeSignInStatus}/>)}/>
+                            (<LogInPage logInContext={this}/>)}/>
             <Route exact path='/CreateAccPage' render={() => 
-                            (<CreateAccPage createAccAction={this.createAccount}
+                            (<CreateAccPage 
                                             changeAccCreateState={this.changeAccountCreationState}
                                             accCreateState={this.state.accountCreationFailed}
                             />)}/>
@@ -313,9 +277,9 @@ class App extends React.Component{
                                             }
                                         }
                                 changeSignInStatus={this.changeSignInStatus.bind(this)}
-                                changeAccInfo={(accId, attrName, attrVal) => {changeAccInfo(this, info.Accs, accId, attrName, attrVal)}}
-                                changeAccTimelineOpts={(accId, optionIndex) => {changeAccTimelineOpts(this, info.Accs, optionIndex, accId)}}
-                                deleteAcc={(accId) => {deleteAccount(this, accId, info.Accs)}}
+                                //changeAccInfo={(accId, attrName, attrVal) => {changeAccInfo(this, info.Accs, accId, attrName, attrVal)}}
+                                //changeAccTimelineOpts={(accId, optionIndex) => {changeAccTimelineOpts(this, info.Accs, optionIndex, accId)}}
+                                //deleteAcc={(accId) => {deleteAccount(this, accId, info.Accs)}}
                               /> : 
                               <Redirect to='/'/>)}
             />

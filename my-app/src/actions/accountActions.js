@@ -1,3 +1,62 @@
+
+
+export const changeSignInStatus = (context, user, signedIn) => {
+  context.setState({
+    signedIn: signedIn,
+    loggedInUser: user
+  })
+}
+
+export const createAccount = (usernameIn, permissionsIn, passwordIn, firstNameIn, lastNameIn, emailIn) => {
+  let data = {
+    username: usernameIn,
+    password: passwordIn,
+    firstName: firstNameIn,
+    lastName: lastNameIn,
+    email: emailIn,
+    permissions: permissionsIn
+  }
+
+  const url = '/users/create'
+  const request = new Request(url, {
+      method: 'post', 
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+  });
+
+  fetch(request)
+  .then(function(res) {
+      if (res.status === 200) {
+          console.log("Added new account.")
+         
+      } else {
+          console.log("Account not added. Status: " + res.status)
+      }
+  }).catch((error) => {
+      console.log(error)
+  })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 //Functions in this file are used for manipulating account data
 //they will both, manipulate our internal states and make 
 //database queries as necessary
@@ -20,7 +79,7 @@
  * @param {String} attrName         name of account attribute to be changed.
  * @param {String} attrVal          new value of attribute being changed.
  */
-export const changeAccInfo = (context, accs, accId, attrName, attrVal) => {
+/*export const changeAccInfo = (context, accs, accId, attrName, attrVal) => {
     for(let i = 0; i < accs.length; i++){
         if(accs[i].id === accId){
           accs[i][attrName] = attrVal
@@ -30,7 +89,7 @@ export const changeAccInfo = (context, accs, accId, attrName, attrVal) => {
       context.setState({
         accounts: accs
       })
-}
+}*/
 
 
 /**
@@ -47,7 +106,7 @@ export const changeAccInfo = (context, accs, accId, attrName, attrVal) => {
  * @param {int} accId               id of account the options of which are 
  *                                  being changed.
  */
-export const changeAccTimelineOpts = (context, accs, optionIndex, accId) => {
+/*export const changeAccTimelineOpts = (context, accs, optionIndex, accId) => {
   for(let i = 0; i < accs.length; i++){
     if(accs[i].id === accId){
       accs[i].timelineOpts[optionIndex] = !accs[i].timelineOpts[optionIndex]
@@ -57,7 +116,7 @@ export const changeAccTimelineOpts = (context, accs, optionIndex, accId) => {
   context.setState({
     accounts: accs
   })
-}
+}*/
 
 /**
  * NOTE: This function will query our database and remove the account
@@ -71,7 +130,7 @@ export const changeAccTimelineOpts = (context, accs, optionIndex, accId) => {
  * @param {int}  accId              id of account to be removed.
  * @param {Array} accs              array of all user accounts
  */
-export const deleteAccount = (context, accId, accs) => {
+/*export const deleteAccount = (context, accId, accs) => {
   let newAccounts = []
   for(let i = 0; i < accs.length; i++){
     if(!(accs[i].id === accId)){
@@ -81,4 +140,4 @@ export const deleteAccount = (context, accId, accs) => {
   context.setState({
     accounts: newAccounts
   })
-}
+}*/
