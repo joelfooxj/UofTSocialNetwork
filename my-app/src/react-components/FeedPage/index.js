@@ -9,8 +9,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron'
 
 class FeedPage extends React.Component{
   render() {
-    const { changeSignInStatus, userInfo, allPosts, allClubs, makeEventDecision } = this.props;
-    const user = userInfo.accs[userInfo.id-1];
+    const { changeSignInStatus, loggedInUser, allPosts, allClubs, makeEventDecision } = this.props;
     
       var feeds = []
       for (let i=0;i<allPosts.length;i++){
@@ -24,7 +23,7 @@ class FeedPage extends React.Component{
     return (
       <div>
         <Navbar changeSignInStatus={changeSignInStatus} logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
-          status={true} user={user} accs={userInfo.accs} accId={userInfo.id}>
+          status={true} loggedInUser={loggedInUser}>
         </Navbar>
         <div className='feedsContainer'>
         

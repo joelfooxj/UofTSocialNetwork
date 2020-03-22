@@ -43,19 +43,15 @@ class App extends React.Component{
 
   state = {
     signedIn: false,
-    accounts: info.Accs,
     accountCreationFailed: false,
     //new properties
-    loggedInUser = {
-      id: null,
-      permissions: -1, //0 - reg, 1 - admin
-    }
+    loggedInUser: null
   }
 
-  changeSignInStatus(id, perm, signedIn){
+  changeSignInStatus = (user, signedIn) => {
       this.setState({
         signedIn: signedIn,
-        loggedInUser: {id: id, permissions: perm}
+        loggedInUser: user
       })
   }
 
@@ -282,10 +278,7 @@ class App extends React.Component{
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
             <Route exact path='/' render={() => 
-                            (<LogInPage 
-                              changeSignInStatus={this.changeSignInStatus.bind(this)}
-                              accounts={this.state.accounts}
-                            />)}/>
+                            (<LogInPage changeSignInStatus={this.changeSignInStatus}/>)}/>
             <Route exact path='/CreateAccPage' render={() => 
                             (<CreateAccPage createAccAction={this.createAccount}
                                             changeAccCreateState={this.changeAccountCreationState}
@@ -294,10 +287,7 @@ class App extends React.Component{
             <Route exact path='/FeedPage' render={() => 
                             (this.state.signedIn && this.state.loggedInUser.permissions === 0 ?
                               <FeedPage 
-                              changeSignInStatus={this.changeSignInStatus.bind(this)} //import this from an action file
-                              userInfo={{accs: this.state.accounts,
-                                          id: this.state.accountId,
-                                            }}
+                              loggedInUser={this.state.loggedInUser}
                               allPosts={info.Posts}
                               allClubs={info.Clubs}
                               makeEventDecision={this.makeEventDecision} //import this from an action file

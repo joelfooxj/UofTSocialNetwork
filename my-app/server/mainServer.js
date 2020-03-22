@@ -32,6 +32,8 @@ app.use('/users', userRoutes)
 // mongoose and mongo connection
 const { mongoose } = require('../db/mongoose')
 mongoose.set('useFindAndModify', false); // for some deprecation issues
+const { User } = require('../models/SessionUser')
+
 
 
 // to validate object IDs
@@ -59,6 +61,47 @@ const sessionChecker = (req, res, next) => {
         next(); // next() moves on to the route.
     }    
 };
+
+//POST - Log In
+app.post('/log_in', (req, res) => {
+	const username = req.body.username
+    const password = req.body.password
+
+    if(username === "" || password === ""){
+        res.status(500).send()
+        return;
+    }
+
+    // Use the static method on the User model to find a user
+    // by their username and password
+	User.findByUsernamePassword(username, password).then((user) => {
+	    if (!user) {
+            res.status(404).send();
+        } else {
+            // Add the user's id to the session cookie.
+            // We can check later if this exists to ensure we are logged in.
+            req.session.user = user._id;
+            req.session.username = user.username
+            res.status(200).send(user);
+        }
+    }).catch((error) => {
+        console.log(error) //FOR DEV PURPOSES ONLY
+		res.status(500).send();
+    })
+})
+
+//DELETE - Log Out
+app.delete('/logout', (req, res) => {
+	// Remove the session
+	req.session.destroy((error) => {
+		if (error) {
+            console.log(error) //FOR DEV PURPOSES ONLY
+			res.status(500).send()
+		} else {
+			res.redirect('/')
+		}
+	})
+})
 
 //start server
 const port = process.env.PORT || 5000
