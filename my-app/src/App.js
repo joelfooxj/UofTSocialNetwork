@@ -251,6 +251,7 @@ class App extends React.Component{
             <Route exact path='/FeedPage' render={() => 
                             (this.state.signedIn && this.state.loggedInUser.permissions === 0 ?
                               <FeedPage 
+                              appContext={this}
                               loggedInUser={this.state.loggedInUser}
                               allPosts={info.Posts}
                               allClubs={info.Clubs}
