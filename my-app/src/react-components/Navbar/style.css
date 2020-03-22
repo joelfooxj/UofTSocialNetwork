@@ -2,6 +2,7 @@ NavbarRB {
 	position: fixed;
 	top: 0;
 	color:white;
+	display: block;
 }
 
 NavBarRB.Link{
