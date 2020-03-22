@@ -53,6 +53,9 @@ const UserSchema = new mongoose.Schema({
 	},
 	timelineOpts: {
 		type: Array
+	},
+	status: {
+		type: Number
 	}
 })
 

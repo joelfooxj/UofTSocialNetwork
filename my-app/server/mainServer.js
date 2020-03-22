@@ -62,6 +62,7 @@ const sessionChecker = (req, res, next) => {
     }    
 };
 
+
 //POST - Log In
 app.post('/log_in', (req, res) => {
 	const username = req.body.username
