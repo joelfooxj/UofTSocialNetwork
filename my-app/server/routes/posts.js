@@ -12,7 +12,7 @@ const { sessionChecker} = require('../mainServer')
  *     - content: post content
 */
 router.post('/makePost', (req, res) => {
-    if (!req.body.posterID || !req.body.content || !ObjectID.isValid(req.body.posterID)) {
+    if (!req.body.posterID || !req.body.content) {
         res.status(400).send()
         return;
     }
@@ -31,7 +31,7 @@ router.post('/makePost', (req, res) => {
         newPost.location = req.body.location
     }
 
-    newPost.save().then((res) => {
+    newPost.save().then((result) => {
         res.status(200).send(newPost)
     }).catch((err) => {
         console.log(err)
@@ -52,7 +52,7 @@ router.get('/getPost/:id', (req, res) => {
         return;
     }
 
-    Post.find({"_id": new ObjectID(id)}).then((posts) => {
+    Post.find({"posterID": new ObjectID(id)}).then((posts) => {
         res.status(200).send(posts)
     }).catch((err) => {
         console.log(err)
@@ -75,7 +75,7 @@ router.get('/getPostSet', (req, res) => {
         }
     }
 
-    Post.find({"_id": {$in: ids.map(x => {
+    Post.find({"posterID": {$in: ids.map(x => {
         new ObjectID(x)
     })}}).then((posts) => {
         res.status(200).send(posts)
@@ -145,7 +145,7 @@ router.patch('/updatePost/:id', (req, res) => {
     }).then((res) => {
         res.status(200).send()
     }).catch((err) => {
-        console.log(error)
+        console.log(err)
         res.status(400).send()
     })
 })

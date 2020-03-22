@@ -1,6 +1,7 @@
 /* User model */
 'use strict';
 
+const { ObjectID } = require('mongodb')
 const mongoose = require('mongoose')
 
 const PostSchema = new mongoose.Schema({
@@ -22,7 +23,7 @@ const PostSchema = new mongoose.Schema({
         trim: true
     },
     date: {
-        type: String,
+        type: String, 
         require: true,
         minlength: 8
     },
