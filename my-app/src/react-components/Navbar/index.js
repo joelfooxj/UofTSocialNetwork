@@ -6,12 +6,16 @@ import NavRB from 'react-bootstrap/Nav'
 import Container from 'react-bootstrap/Container'
 import { withRouter } from 'react-router-dom';
 
+//actions
+import {logout} from '../../actions/accountActions';
+
+
 class Navbar extends React.Component{
 	// status: True => logged in, False => not yet
 	// logoPic: the sourse to the logo picture
 	// profilePic: the sourse to the profile picture
 	state = {
-		account:this.props.user,
+		loggedInUser:this.props.loggedInUser,
 		numLink: 2,
 		logoutPressed: false,
 		searchPressed: false,
@@ -27,20 +31,8 @@ class Navbar extends React.Component{
 	}
 
 
-	logout(changeSignInStatus, user){
-		// changeSignInStatus(false, user.id, user.permission,user.clubsExecOf)
-		// const {history} = this.props;
-  //       if(history){
-  //           history.push('/', this.state)
-  //       }
-  		let acc = this.props.user
-
-  		this.setState({
-            logoutPressed:true
-        }, () => {
-            this.props.changeSignInStatus(false, acc.id, acc.permission, acc.clubsExecOf)
-
-        })
+	logout = () => {
+		
 	}
 
 	switchpage = (pagename) => {
@@ -51,8 +43,8 @@ class Navbar extends React.Component{
 
 	render(){
 		console.log(this.props)
-		const { logoPic, status, user, changeSignInStatus } = this.props; 
-		const userType = user.permission
+		const { logoPic, status, loggedInUser, changeSignInStatus } = this.props; 
+		const userType = loggedInUser.permissions
 		const Links = () => {
 			if (userType){
 				return (
@@ -87,7 +79,9 @@ class Navbar extends React.Component{
 					<NavbarRB.Collapse id="basic-navbar-nav">
 						<Links />
 						<NavRB>
-							<NavRB.Link onClick={this.logout} href='/'>Logout</NavRB.Link>
+							<NavRB.Link 
+							 onClick={logout}
+							 href='/'>Logout</NavRB.Link>
 						</NavRB>
 					</NavbarRB.Collapse>
 				</Container>

@@ -11,7 +11,7 @@ import UserProfilePage from './react-components/UserProfilePage';
 import ClubProfilePage from './react-components/ClubProfilePage';
 import ClubPost from './react-components/ClubPost';
 import info from "./tempInfo";
-import {changeAccInfo, changeAccTimelineOpts, deleteAccount} from './actions/accountActions';
+//import {changeAccInfo, changeAccTimelineOpts, deleteAccount, changeSignInStatus} from './actions/accountActions';
 import ClubDashboard from './react-components/ClubDashboard/ClubDashboard';
 import AdminDashboard from './react-components/AdminDashboard/AdminDashboard';
 import BrowseAllClubs from "./react-components/BrowseAllClubs/index";
@@ -43,21 +43,12 @@ class App extends React.Component{
 
   state = {
     signedIn: false,
-    permission: 0, // 0 - reg user, 1 - admin
-    execOf: [],
-    accountId: -1,
-    accounts: info.Accs,
-    accountCreationFailed: false
+    accountCreationFailed: false,
+    //new properties
+    loggedInUser: null
   }
 
-  changeSignInStatus(val, id, perm, clubs){
-    this.setState({
-      signedIn: val,
-      accountId: id,
-      permission: perm,
-      execOf: clubs
-    })
-  }
+ 
 
   //THE FOLLOWING FUNCTIONS WILL INTERFACE WITH THE DATABASE TO UPDATE THE CORRECT VALUES
 
@@ -229,15 +220,9 @@ class App extends React.Component{
   }
   
   
-
-  createAccount = (username, permissions, password, firstName, lastName, email) => {
-      const newAcc = new info.Account(username, permissions, [], this.state.accounts[this.state.accounts.length - 1].id + 1, password, firstName, lastName, email)
-      const accs = this.state.accounts
-      accs.push(newAcc)
-      this.setState({
-        accounts: accs
-      })
-  }
+  //TODO: MOVE THIS OUT INTO A SEPARATE ACTION FILE. IN FACT DO THAT FOR ALL THESE FUNCTIONS THAT 
+  //CLUTER THIS FILE
+ 
 
   changeAccountCreationState = (newState) => {
     this.setState({
@@ -257,25 +242,19 @@ class App extends React.Component{
           <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
             <Route exact path='/' render={() => 
-                            (<LogInPage 
-                              changeSignInStatus={this.changeSignInStatus.bind(this)}
-                              accounts={this.state.accounts}
-                            />)}/>
+                            (<LogInPage logInContext={this}/>)}/>
             <Route exact path='/CreateAccPage' render={() => 
-                            (<CreateAccPage createAccAction={this.createAccount}
+                            (<CreateAccPage 
                                             changeAccCreateState={this.changeAccountCreationState}
                                             accCreateState={this.state.accountCreationFailed}
                             />)}/>
             <Route exact path='/FeedPage' render={() => 
-                            (this.state.signedIn ?
+                            (this.state.signedIn && this.state.loggedInUser.permissions === 0 ?
                               <FeedPage 
-                              changeSignInStatus={this.changeSignInStatus.bind(this)}
-                              userInfo={{accs: this.state.accounts,
-                                          id: this.state.accountId,
-                                            }}
+                              loggedInUser={this.state.loggedInUser}
                               allPosts={info.Posts}
                               allClubs={info.Clubs}
-                              makeEventDecision={this.makeEventDecision}
+                              makeEventDecision={this.makeEventDecision} //import this from an action file
                             /> :
                             <Redirect to='/'/>)}
             />
@@ -298,9 +277,9 @@ class App extends React.Component{
                                             }
                                         }
                                 changeSignInStatus={this.changeSignInStatus.bind(this)}
-                                changeAccInfo={(accId, attrName, attrVal) => {changeAccInfo(this, info.Accs, accId, attrName, attrVal)}}
-                                changeAccTimelineOpts={(accId, optionIndex) => {changeAccTimelineOpts(this, info.Accs, optionIndex, accId)}}
-                                deleteAcc={(accId) => {deleteAccount(this, accId, info.Accs)}}
+                                //changeAccInfo={(accId, attrName, attrVal) => {changeAccInfo(this, info.Accs, accId, attrName, attrVal)}}
+                                //changeAccTimelineOpts={(accId, optionIndex) => {changeAccTimelineOpts(this, info.Accs, optionIndex, accId)}}
+                                //deleteAcc={(accId) => {deleteAccount(this, accId, info.Accs)}}
                               /> : 
                               <Redirect to='/'/>)}
             />
@@ -358,7 +337,7 @@ class App extends React.Component{
             <Route exact path='/ClubDashboard' render={ () => 
               (this.state.signedIn ? <ClubDashboard users={info.Accs} posts={info.Posts} currentUser={this.state}/> : <Redirect to='/'/>) }/>
             <Route exact path='/AdminDashboard' render={() => 
-              (this.state.signedIn && this.state.permission === 1 ? <AdminDashboard changeSignInStatus={this.changeSignInStatus.bind(this)} 
+              (this.state.signedIn && this.state.loggedInUser.permissions === 1 ? <AdminDashboard changeSignInStatus={this.changeSignInStatus.bind(this)} 
                 user={ this.state.accounts[this.state.accountId-1]} 
                 accounts={info.Accs} clubs={info.Clubs}/> : <Redirect to='/'/>) }/>
             <Route exact path='/browseAllClubs' render={() => 
