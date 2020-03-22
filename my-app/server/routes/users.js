@@ -26,34 +26,64 @@ router.post('/create', (req, res) => {
     })
 })
 
+//GET - Get user with username and password
+router.get('/user', (req, res) => {
+    const username = req.body.username
+    const pass = req.body.password
+
+    if(username === "" || pass === ""){
+        res.status(400).send()
+        return;
+    }
+
+    User.findByUsernamePassword(username, pass).then((user) => {
+	    if(!user){
+            res.status(404).send()
+        }
+        else{
+            res.status(200).send()
+        }
+    }).catch((error) => {
+        console.log(error) //FOR DEV PURPOSES ONLY
+		res.status(500).send()
+    })
+})
+
 //POST - Log In
-router.post('/use', (req, res) => {
+router.post('/log_in', (req, res) => {
 	const username = req.body.username
     const password = req.body.password
 
+    if(username === "" || password === ""){
+        res.status(500).send()
+        return;
+    }
+
     // Use the static method on the User model to find a user
     // by their username and password
-	Logged_In_User.findByUsernamePassword(username, password).then((user) => {
+	User.findByUsernamePassword(username, password).then((user) => {
 	    if (!user) {
-            res.redirect('/');
+            res.status(404).send();
         } else {
             // Add the user's id to the session cookie.
             // We can check later if this exists to ensure we are logged in.
             req.session.user = user._id;
-            req.session.email = user.email
-            res.redirect('/dashboard');
+            req.session.username = user.username
+            res.status(200).send();
         }
     }).catch((error) => {
-		res.status(400).redirect('/');
+        console.log(error) //FOR DEV PURPOSES ONLY
+		res.status(500).send();
     })
 })
 
 //DELETE - Log Out
-router.delete('/users/logout', (req, res) => {
+router.delete('/logout', (req, res) => {
 	// Remove the session
 	req.session.destroy((error) => {
 		if (error) {
-			res.status(500).send(error)
+            console.log(error) //FOR DEV PURPOSES ONLY
+			res.status(500).send()
 		} else {
 			res.redirect('/')
 		}

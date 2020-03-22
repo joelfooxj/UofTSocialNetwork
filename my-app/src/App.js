@@ -43,20 +43,20 @@ class App extends React.Component{
 
   state = {
     signedIn: false,
-    permission: 0, // 0 - reg user, 1 - admin
-    execOf: [],
-    accountId: -1,
     accounts: info.Accs,
-    accountCreationFailed: false
+    accountCreationFailed: false,
+    //new properties
+    loggedInUser = {
+      id: null,
+      permissions: -1, //0 - reg, 1 - admin
+    }
   }
 
-  changeSignInStatus(val, id, perm, clubs){
-    this.setState({
-      signedIn: val,
-      accountId: id,
-      permission: perm,
-      execOf: clubs
-    })
+  changeSignInStatus(id, perm, signedIn){
+      this.setState({
+        signedIn: signedIn,
+        loggedInUser: {id: id, permissions: perm}
+      })
   }
 
   //THE FOLLOWING FUNCTIONS WILL INTERFACE WITH THE DATABASE TO UPDATE THE CORRECT VALUES
@@ -229,7 +229,8 @@ class App extends React.Component{
   }
   
   
-
+  //TODO: MOVE THIS OUT INTO A SEPARATE ACTION FILE. IN FACT DO THAT FOR ALL THESE FUNCTIONS THAT 
+  //CLUTER THIS FILE
   createAccount = (usernameIn, permissionsIn, passwordIn, firstNameIn, lastNameIn, emailIn) => {
     let data = {
       username: usernameIn,
@@ -239,6 +240,7 @@ class App extends React.Component{
       email: emailIn,
       permissions: permissionsIn
     }
+
     const url = '/users/create'
     const request = new Request(url, {
         method: 'post', 
@@ -248,7 +250,7 @@ class App extends React.Component{
         },
         body: JSON.stringify(data)
     });
-    console.log(request)
+
     fetch(request)
     .then(function(res) {
         if (res.status === 200) {
@@ -290,15 +292,15 @@ class App extends React.Component{
                                             accCreateState={this.state.accountCreationFailed}
                             />)}/>
             <Route exact path='/FeedPage' render={() => 
-                            (this.state.signedIn ?
+                            (this.state.signedIn && this.state.loggedInUser.permissions === 0 ?
                               <FeedPage 
-                              changeSignInStatus={this.changeSignInStatus.bind(this)}
+                              changeSignInStatus={this.changeSignInStatus.bind(this)} //import this from an action file
                               userInfo={{accs: this.state.accounts,
                                           id: this.state.accountId,
                                             }}
                               allPosts={info.Posts}
                               allClubs={info.Clubs}
-                              makeEventDecision={this.makeEventDecision}
+                              makeEventDecision={this.makeEventDecision} //import this from an action file
                             /> :
                             <Redirect to='/'/>)}
             />
@@ -381,7 +383,7 @@ class App extends React.Component{
             <Route exact path='/ClubDashboard' render={ () => 
               (this.state.signedIn ? <ClubDashboard users={info.Accs} posts={info.Posts} currentUser={this.state}/> : <Redirect to='/'/>) }/>
             <Route exact path='/AdminDashboard' render={() => 
-              (this.state.signedIn && this.state.permission === 1 ? <AdminDashboard changeSignInStatus={this.changeSignInStatus.bind(this)} 
+              (this.state.signedIn && this.state.loggedInUser.permissions === 1 ? <AdminDashboard changeSignInStatus={this.changeSignInStatus.bind(this)} 
                 user={ this.state.accounts[this.state.accountId-1]} 
                 accounts={info.Accs} clubs={info.Clubs}/> : <Redirect to='/'/>) }/>
             <Route exact path='/browseAllClubs' render={() => 

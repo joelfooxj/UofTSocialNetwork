@@ -19,38 +19,7 @@ class LogInPage extends React.Component{
         isAdmin: false
     }
 
-    /*NOTE: THIS FUNCTION WILL QUERY OUR DATABASE RECORDS TO DETERMINE IF THE USER
-     HAS AN ACCOUNT WITH OUR SERVICE. FOR NOW IT IS USING A HARDCODED ARRAY OF OBJECTS
-     THAT REPRESENT ACCOUNTS. THIS FUNCTION WILL ALSO UPDATE VARIOUS INTERNAL ACCOUNT
-     ATTRIBUTES REQUIRED FOR THE CORRECT FUNCTIONING OF THE APP. IT MAY OR MAY NOT
-     USE HELPERS TO QUERY THE DATABASE.
-    */
-    checkCredentials = () => {
-        let acc = null
-        let accs = this.props.accounts
-        for(let i = 0; i < accs.length; i++){
-            if(accs[i].username === this.state.usernameInput && accs[i].password === this.state.passwordInput){
-                acc = accs[i]
-            }
-        }
-
-        if(acc === null){
-            this.setState({
-                banned: false
-            })
-            return false
-        }  
-
-        this.setState({
-            accountId: acc.id,
-            banned: acc.banned,
-            isAdmin: acc.permission === 1
-        }, () => {
-            this.props.changeSignInStatus(true, acc.id, acc.permission, acc.clubsExecOf, acc.permission === 1)
-
-        })
-        return true
-    }
+    
     
     //set usernameInput and passwordInput when text input is entered
     onInputChange = (event) => {
@@ -62,36 +31,41 @@ class LogInPage extends React.Component{
 
     //set signed in status based on whether sign in succeeded or not
     onAttemptSignIn = (callLoc) => {
-        const request = new Request('/do-something', {
-            method: 'post', 
-            body: JSON.stringify({data: "this"}),
+        const request = new Request(, {
+            method: "post",
+            body: ,
             headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
-            },
+                Accept: "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            }
         });
     
-        // Send the request with fetch()
         fetch(request)
-        .then(function(res) {
-            console.log("FJKSDGAJWKLNMGFKBGDSLMNAJFD")
-            // Handle response we get from the API.
-            // Usually check the error codes to see what happened.
-            if (res.status === 200) {
-                // If student was added successfully, tell the user.
-                console.log('Made request')
-               
-            } else {
-                // If server couldn't add the student, tell the user.
-                // Here we are adding a generic message, but you could be more specific in your app.
-                console.log("error")
-            }
-            console.log(res)  // log the result in the console for development purposes,
-                              //  users are not expected to see this.
-        }).catch((error) => {
-            console.log(error)
-        })
-
+            .then(function (res) {
+                if (res.status === 200) {
+                    
+                } else {
+                    
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        
+        if(callLoc == 1){
+            this.setState({
+                signInFailed: true,
+                changeButtonColor: true
+            })
+        }
+        else{
+            this.setState({
+                signInFailed: true,
+                changeButtonColor: true
+            })
+            setTimeout(()=>{this.setState({changeButtonColor: false})}, 500)
+        }
+        
         if(this.checkCredentials()){
             this.setState({
                 signInFailed: false,
@@ -106,21 +80,7 @@ class LogInPage extends React.Component{
             
             
         }
-        else{
-            if(callLoc == 1){
-                this.setState({
-                    signInFailed: true,
-                    changeButtonColor: true
-                })
-            }
-            else{
-                this.setState({
-                    signInFailed: true,
-                    changeButtonColor: true
-                })
-                setTimeout(()=>{this.setState({changeButtonColor: false})}, 500)
-            }
-        }
+
     }
 
     onButtonAnimationEnd = () => {
