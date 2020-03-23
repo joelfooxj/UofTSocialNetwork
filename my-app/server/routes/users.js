@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const { User } = require('../../models/SessionUser')
+const { ObjectID } = require('mongodb')
 
 //POST - Create new user
 router.post('/create', (req, res) => {
@@ -16,7 +17,7 @@ router.post('/create', (req, res) => {
         clubsMemberOf: [],
         clubsFollowing: [],
         clubsAwaitingJoin: [],
-        timelineOpts: []
+        timelineOpts: [false, false, false]
     })
 
     user.save().then(() => {
@@ -42,7 +43,29 @@ router.get('/user', (req, res) => {
             res.status(404).send()
         }
         else{
-            res.status(200).send()
+            res.status(200).send(user)
+        }
+    }).catch((error) => {
+        console.log(error) //FOR DEV PURPOSES ONLY
+		res.status(500).send()
+    })
+})
+
+//[DELETE] - delete user
+router.delete('/delete', (req, res) => {
+    const id = req.body.id
+
+    if (!ObjectID.isValid(id)) {
+		res.status(404).send()  
+		return;
+	}
+
+    User.deleteOne({_id: id}).then((result) => {
+	    if(!result){
+            res.status(500).send()
+        }
+        else{
+            res.status(200).send(result)
         }
     }).catch((error) => {
         console.log(error) //FOR DEV PURPOSES ONLY
@@ -51,6 +74,87 @@ router.get('/user', (req, res) => {
 })
 
 
+//[PATCH] - ban user
+router.patch('/ban', (req, res) => {
+    const id = req.body.id
+
+    if (!ObjectID.isValid(id)) {
+		res.status(404).send()  
+		return;
+	}
+
+    const update = {
+        status: 0
+    }
+
+    User.findOneAndUpdate({_id: id}, update).then((result) => {
+	    if(!result){
+            res.status(500).send()
+        }
+        else{
+            res.status(200).send()
+        }
+    }).catch((error) => {
+        console.log(error) //FOR DEV PURPOSES ONLY
+		res.status(500).send()
+    })
+})
+
+//[PATCH] - ban user
+router.patch('/unban', (req, res) => {
+    const id = req.body.id
+
+    if (!ObjectID.isValid(id)) {
+		res.status(404).send()  
+		return;
+	}
+
+    const update = {
+        status: 1
+    }
+
+    User.findOneAndUpdate({_id: id}, update).then((result) => {
+	    if(!result){
+            res.status(500).send()
+        }
+        else{
+            res.status(200).send()
+        }
+    }).catch((error) => {
+        console.log(error) //FOR DEV PURPOSES ONLY
+		res.status(500).send()
+    })
+})
+
+//[PATCH] - update user info
+router.patch('/update',  (req, res) => {
+    const id = req.body.id
+
+    if (!ObjectID.isValid(id)) {
+		res.status(404).send()  
+		return;
+    }
+    else if(req.body.propertyName === "" || req.body.propertyVal === ""){
+        res.status(400).send()
+        return;
+    }
+
+    const update = {
+        [req.body.propertyName]: (req.body.propertyVal).trim()
+    }
+
+    User.findOneAndUpdate({_id: id}, update).then((result) => {
+	    if(!result){
+            res.status(500).send()
+        }
+        else{
+            res.status(200).send(result)
+        }
+    }).catch((error) => {
+        console.log(error) //FOR DEV PURPOSES ONLY
+		res.status(500).send()
+    })
+})
 
 module.exports = router
 
