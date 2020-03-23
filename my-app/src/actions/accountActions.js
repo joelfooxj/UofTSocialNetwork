@@ -1,5 +1,3 @@
-
-
 export const changeSignInStatus = (context, user, signedIn) => {
   context.setState({
     signedIn: signedIn,
@@ -125,104 +123,167 @@ export const attemptSignIn = (context, callLoc) => {
         });
 }
 
+export const getUser = (usernameIn, passwordIn) => {
+  let data = {
+    username: usernameIn,
+    password: passwordIn
+  }
 
+  const url = '/users/user'
+  const request = new Request(url, {
+      method: 'get', 
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+  });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-//Functions in this file are used for manipulating account data
-//they will both, manipulate our internal states and make 
-//database queries as necessary
-
-
-/**
- * NOTE: This function will also interact with our database to 
- * update the account information there.
- * 
- * Change attributes of account with id accId.
- * 
- * Set attribute with name attrName to have value attrVal and
- * update the state of the internal component storing this 
- * information given as main.
- * 
- * 
- * @param {React.Component} context component storing internal account data
- * @param {Array} accs              array of all user accounts.
- * @param {int} accId               id of account to be changed.
- * @param {String} attrName         name of account attribute to be changed.
- * @param {String} attrVal          new value of attribute being changed.
- */
-/*export const changeAccInfo = (context, accs, accId, attrName, attrVal) => {
-    for(let i = 0; i < accs.length; i++){
-        if(accs[i].id === accId){
-          accs[i][attrName] = attrVal
-        }
+  fetch(request)
+  .then(function(res) {
+      if (res.status === 200) {
+          res.json()
+            .then((result) => {
+              console.log("User obtained successfully.")
+              return result
+            })
+            .catch((err) => {
+              console.log("User obtained successfully, but something else went wrong.")
+              console.log(err)
+              return null
+            })     
+      } else {
+          console.log("Failed to obtain user. Status: " + res.status)
+          return null
       }
-  
-      context.setState({
-        accounts: accs
-      })
-}*/
+  })
+  .catch((error) => {
+      console.log("Failed to obtain user.")
+      console.log(error)
+      return null
+  })
+}
 
 
-/**
- * NOTE: This function will query our database and update the information there
- * as well.
- * 
- * Toggle timeline option at index optionIndex of the option array of account
- * with id accId.
- * 
- * @param {React.Component} context component storing internal information to 
- *                                  be updated.
- * @param {Array} accs              array of all user accounts.
- * @param {int} optionIndex         index of option to toggle.
- * @param {int} accId               id of account the options of which are 
- *                                  being changed.
- */
-/*export const changeAccTimelineOpts = (context, accs, optionIndex, accId) => {
-  for(let i = 0; i < accs.length; i++){
-    if(accs[i].id === accId){
-      accs[i].timelineOpts[optionIndex] = !accs[i].timelineOpts[optionIndex]
-    }
+export const deleteUser = (userID) => {
+  const data = {
+    id: userID
   }
 
-  context.setState({
-    accounts: accs
-  })
-}*/
+  const request = new Request('/users/delete', {
+    method: 'delete', 
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
 
-/**
- * NOTE: This function will query our database and remove the account
- * from there too.
- * 
- * Delete the account with accId.
- * 
- * 
- * @param {React.Component} context component storing internal information to 
- *                                  be updated.
- * @param {int}  accId              id of account to be removed.
- * @param {Array} accs              array of all user accounts
- */
-/*export const deleteAccount = (context, accId, accs) => {
-  let newAccounts = []
-  for(let i = 0; i < accs.length; i++){
-    if(!(accs[i].id === accId)){
-      newAccounts.push(accs[i])
-    }
-  }
-  context.setState({
-    accounts: newAccounts
+  fetch(request)
+  .then(function(res) {
+      if (res.status === 200) {
+          console.log("Deleted User.")
+      } else {
+          console.log("Error: delete user failed, status: " + res.status)
+      }
+  }).catch((error) => {
+      console.log("Error: delete user failed.")
+      console.log(error)
   })
-}*/
+}
+
+
+export const banUser = (userID) => {
+  let data = {
+    id: userID
+  }
+
+  const url = '/users/ban'
+  const request = new Request(url, {
+      method: 'patch', 
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+  });
+
+  fetch(request)
+  .then(function(res) {
+      if (res.status === 200) {
+          console.log("Banned user.")
+         
+      } else {
+          console.log("Could not ban user. Status: " + res.status)
+      }
+  }).catch((error) => {
+      console.log("Could not ban user.")
+      console.log(error)
+  })
+}
+
+export const unbanUser = (userID) => {
+  let data = {
+    id: userID
+  }
+
+  const url = '/users/unban'
+  const request = new Request(url, {
+      method: 'patch', 
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+  });
+
+  fetch(request)
+  .then(function(res) {
+      if (res.status === 200) {
+          console.log("Unanned user.")
+         
+      } else {
+          console.log("Could not unban user. Status: " + res.status)
+      }
+  }).catch((error) => {
+      console.log("Could not unban user.")
+      console.log(error)
+  })
+}
+
+export const updateUserRecord = (userID, propName, propVal) => {
+  let data = {
+    id: userID,
+    propertyName: propName,
+    propertyVal: propVal
+  }
+
+  const url = '/users/update'
+  const request = new Request(url, {
+      method: 'patch', 
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+  });
+
+  fetch(request)
+  .then(function(res) {
+      if (res.status === 200) {
+          console.log("Set " + propName + " of user " + userID + " to: " +  propVal)
+         
+      } else {
+          console.log("Failed to update user document. Status: " + res.status)
+      }
+  }).catch((error) => {
+      console.log("Failed to update user document.")
+      console.log(error)
+  })
+}
+
+
+
+
+
+

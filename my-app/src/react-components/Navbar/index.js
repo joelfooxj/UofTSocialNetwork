@@ -30,11 +30,6 @@ class Navbar extends React.Component{
 		accounts: this.props.accs
 	}
 
-
-	logout = () => {
-		
-	}
-
 	switchpage = (pagename) => {
 		const { history } = this.props;
 		console.log(this)
@@ -80,7 +75,7 @@ class Navbar extends React.Component{
 						<Links />
 						<NavRB>
 							<NavRB.Link 
-							 onClick={() => {logout(); changeSignInStatus(this.props.appContext, null, false)}}
+							 onClick={() => {logout(); changeSignInStatus(this.props.appContext, null, false);}}
 							 href='/'>Logout</NavRB.Link>
 						</NavRB>
 					</NavbarRB.Collapse>
