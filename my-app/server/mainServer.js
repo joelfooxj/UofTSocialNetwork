@@ -27,7 +27,9 @@ app.use(cors())
 
 //routes
 const userRoutes = require('./routes/users')
+const clubRoutes = require('./routes/clubs')
 app.use('/users', userRoutes)
+app.use('/clubs', clubRoutes)
 
 // mongoose and mongo connection
 const { mongoose } = require('../db/mongoose')
