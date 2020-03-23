@@ -4,7 +4,9 @@
 * [accountActions.js documentation](#accountActions-documentation)
 
 ## Dev Notes
-Express requests will not be called directly, instead their wrapper action functions will be called in the front end of the application. These functions can be found inside the files in the __src/actions__ folder. This document will specify their signatures, explain their parameters and returns. There are three main types of routes that this document will have the documentation for: user related functions, club related functions and post related routes. In addition, there will be authentication related functions and some miscalleneous functions for working with data that does not fit into any of the listed categories. The links to each section can be found above. __All of these functions deal with manipulating our databse.__
+Express requests will not be called directly, instead their wrapper action functions will be called in the front end of the application. These functions can be found inside the files in the __src/actions__ folder. This document will specify their signatures, explain their parameters and returns. There are three main types of routes that this document will have the documentation for: user related functions, club related functions and post related routes. In addition, there will be authentication related functions and some miscalleneous functions for working with data that does not fit into any of the listed categories. The links to each section can be found above. __All of these functions deal with manipulating our databse.__ </br>
+
+__NOTE: Functions marked as 'async' return a promise!__
 
 
 ## accountActions Documentation
@@ -40,9 +42,9 @@ Logs out the currently logged in user by deleting them from the session cookie. 
 ##### Parameters
 None
 
-__4.__ `getUser(usernameIn: String, passwordIn: String)`
+__4.__ `[ASYNC] getUser(usernameIn: String, passwordIn: String)`
 ##### Summary:
-Obtains information about the user with given username _usernameIn_ and password _passwordIn_ and returns the found user object or __NULL__ if none was found.
+Obtains information about the user with given username _usernameIn_ and password _passwordIn_ and returns a promise containing the found user object or __NULL__ if none was found.
 ##### Parameters
 * __`usernameIn`__: username of user you wish to find
 * __`passwordIn`__: password of user you wish to find
