@@ -17,7 +17,7 @@ router.post('/create', (req, res) => {
         clubsMemberOf: [],
         clubsFollowing: [],
         clubsAwaitingJoin: [],
-        timelineOpts: []
+        timelineOpts: [false, false, false]
     })
 
     user.save().then(() => {
