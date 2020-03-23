@@ -29,7 +29,6 @@ export const createAccount = (usernameIn, permissionsIn, passwordIn, firstNameIn
   .then(function(res) {
       if (res.status === 200) {
           console.log("Added new account.")
-         
       } else {
           console.log("Account not added. Status: " + res.status)
       }
@@ -145,22 +144,22 @@ export const getUser = (usernameIn, passwordIn) => {
           res.json()
             .then((result) => {
               console.log("User obtained successfully.")
-              return result
+              return Promise.resolve(result)
             })
             .catch((err) => {
               console.log("User obtained successfully, but something else went wrong.")
               console.log(err)
-              return null
+              return Promise.resolve(null)
             })     
       } else {
           console.log("Failed to obtain user. Status: " + res.status)
-          return null
+          return Promise.resolve(null)
       }
   })
   .catch((error) => {
       console.log("Failed to obtain user.")
       console.log(error)
-      return null
+      return Promise.resolve(null)
   })
 }
 
