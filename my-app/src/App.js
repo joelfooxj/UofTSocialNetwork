@@ -21,6 +21,8 @@ import Navbar from './react-components/Navbar';
 import EventTimePlace from './react-components/EventTimePlace';
 // tempoary classes for storeing testing objects only 
 
+import {createAccount, getUserByName, getUserById, deleteUser, banUser, unbanUser, updateUserRecord} from './actions/accountActions';
+
 class userObject {
   constructor(type, name){
     this.userType = type
@@ -52,7 +54,61 @@ class App extends React.Component{
 
   //THE FOLLOWING FUNCTIONS WILL INTERFACE WITH THE DATABASE TO UPDATE THE CORRECT VALUES
 
-  
+  componentDidMount = () => {
+    /*
+   createAccount("JSisAGoodLanguage", 0, "a", "firstNameIn", "lastNameIn", "email@email.com").then((result) => {
+    if(result === 200){
+      console.log("Account created")
+    }
+    else{
+      console.log("Failed to create account, status: " + result)
+    }
+   })*/
+/*
+   let user = null
+   getUserByName("JSisAGoodLanguage").then((result) => {
+     user = result
+     console.log(user)
+   })*/
+   /*
+   let user = null
+   getUserById("5e79496a482bcf0994dd986b").then((result) => {
+     user = result
+     console.log(user)
+   })*/
+   /*
+    updateUserRecord("5e79496a482bcf0994dd986b", "username", "b").then((res) => {
+      if(res === 200){
+        console.log("update successful")
+      }
+      else{
+        console.log("update failed " + res)
+      }
+    })
+   }*/
+   /*
+   unbanUser("5e79496a482bcf0994dd986b").then((res) => {
+    if(res === 200){
+      console.log("banned user")
+    }
+    else{
+      console.log("failed to ban user " + res)
+    }
+   })*/
+   
+    //banUser(user.id)a
+    //unbanUser(user.id)
+    deleteUser("5e79496a482bcf0994dd986b").then((res) => {
+      if(res === 200){
+        console.log("deleted user")
+      }
+      else{
+        console.log("could not delete user" + res)
+      }
+    })
+    console.log("another one")
+  }
+
  /*
    * Adds the current user to the club signified by the club id's following list.
    *

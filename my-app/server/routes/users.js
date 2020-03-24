@@ -28,17 +28,39 @@ router.post('/create', (req, res) => {
     })
 })
 
-//GET - Get user with username and password
-router.get('/user', (req, res) => {
-    const username = req.body.username
-    const pass = req.body.password
+//[GET] - Get user with username and password
+router.get('/findUserByName/:username', (req, res) => {
+    const username = req.params.username
 
-    if(username === "" || pass === ""){
+    if(username === ""){
         res.status(400).send()
         return;
     }
 
-    User.findByUsernamePassword(username, pass).then((user) => {
+    User.find({username: username})
+    .then((user) => {
+	    if(!user){
+            res.status(404).send()
+        }
+        else{
+            res.status(200).send(user)
+        }
+    }).catch((error) => {
+        console.log(error) //FOR DEV PURPOSES ONLY
+		res.status(500).send()
+    })
+})
+
+//[GET] - Get user with given object id
+router.get('/findUserByID/:id', (req, res) => {
+    const id = new ObjectID(req.params.id)
+    console.log(id)
+    if(!ObjectID.isValid(id)){
+        res.status(400).send()
+        return;
+    }
+
+    User.findOne({_id: id}).then((user) => {
 	    if(!user){
             res.status(404).send()
         }

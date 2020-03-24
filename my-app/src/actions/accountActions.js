@@ -5,7 +5,7 @@ export const changeSignInStatus = (context, user, signedIn) => {
   })
 }
 
-export const createAccount = (usernameIn, permissionsIn, passwordIn, firstNameIn, lastNameIn, emailIn) => {
+export const createAccount = async (usernameIn, permissionsIn, passwordIn, firstNameIn, lastNameIn, emailIn) => {
   let data = {
     username: usernameIn,
     password: passwordIn,
@@ -17,7 +17,7 @@ export const createAccount = (usernameIn, permissionsIn, passwordIn, firstNameIn
 
   const url = '/users/create'
   const request = new Request(url, {
-      method: 'post', 
+      method: 'POST', 
       headers: {
         'Accept': 'application/json, text/plain, */*',
         'Content-Type': 'application/json'
@@ -25,43 +25,36 @@ export const createAccount = (usernameIn, permissionsIn, passwordIn, firstNameIn
       body: JSON.stringify(data)
   });
 
-  fetch(request)
-  .then(function(res) {
-      if (res.status === 200) {
-          console.log("Added new account.")
-      } else {
-          console.log("Account not added. Status: " + res.status)
-      }
-  }).catch((error) => {
-      console.log(error)
-  })
+  try{
+    const res = await fetch(request)
+    return res.status
+  }
+  catch(err){
+    return new Error(err)
+  }
 }
 
-export const logout = () => {
+export const logout = async () => {
   const request = new Request('/logout', {
-      method: 'delete', 
+      method: 'DELETE', 
       headers: {
         'Accept': 'application/json, text/plain, */*',
         'Content-Type': 'application/json'
       },
   });
 
-  fetch(request)
-  .then(function(res) {
-      if (res.status === 200) {
-          console.log("Logged Out")
-         
-      } else {
-          console.log("Error, could not log out, status: " + res.status)
-      }
-  }).catch((error) => {
-      console.log(error)
-  })
+  try{
+    const res = await fetch(request)
+    return res.status
+  }
+  catch(err){
+    return new Error(err)
+  }
 }
 
 export const attemptSignIn = (context, callLoc) => {
   const request = new Request('/log_in', {
-            method: "post",
+            method: "POST",
             body: JSON.stringify({username: context.state.usernameInput, password: context.state.passwordInput}),
             headers: {
                 Accept: "application/json, text/plain, */*",
@@ -122,55 +115,63 @@ export const attemptSignIn = (context, callLoc) => {
         });
 }
 
-export const getUser = (usernameIn, passwordIn) => {
-  let data = {
-    username: usernameIn,
-    password: passwordIn
-  }
 
-  const url = '/users/user'
+export const getUserByName = async (usernameIn) => {
+  const url = '/users/findUserByName/'+usernameIn
   const request = new Request(url, {
-      method: 'get', 
+      method: 'GET', 
       headers: {
         'Accept': 'application/json, text/plain, */*',
         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
+      }
   });
 
-  fetch(request)
-  .then(function(res) {
-      if (res.status === 200) {
-          res.json()
-            .then((result) => {
-              console.log("User obtained successfully.")
-              return Promise.resolve(result)
-            })
-            .catch((err) => {
-              console.log("User obtained successfully, but something else went wrong.")
-              console.log(err)
-              return Promise.resolve(null)
-            })     
-      } else {
-          console.log("Failed to obtain user. Status: " + res.status)
-          return Promise.resolve(null)
+  try{
+    const res = await fetch(request)
+    if(res.status === 200){
+      return await res.json()
+    }
+    else{
+      return null
+    }
+  }
+  catch(err){
+    return new Error(err)
+  }
+}
+
+export const getUserById = async (idIn) => {
+  const url = '/users/findUserByID/'+idIn
+  const request = new Request(url, {
+      method: 'GET', 
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
       }
-  })
-  .catch((error) => {
-      console.log("Failed to obtain user.")
-      console.log(error)
-      return Promise.resolve(null)
-  })
+  });
+
+  try{
+    const res = await fetch(request)
+    if(res.status === 200){
+      return await res.json()
+    }
+    else{
+      return null
+    }
+  }
+  catch(err){
+    return new Error(err)
+  }
 }
 
 
-export const deleteUser = (userID) => {
+export const deleteUser = async (userID) => {
   const data = {
     id: userID
   }
 
   const request = new Request('/users/delete', {
-    method: 'delete', 
+    method: 'DELETE', 
     headers: {
       'Accept': 'application/json, text/plain, */*',
       'Content-Type': 'application/json'
@@ -178,28 +179,24 @@ export const deleteUser = (userID) => {
     body: JSON.stringify(data)
   });
 
-  fetch(request)
-  .then(function(res) {
-      if (res.status === 200) {
-          console.log("Deleted User.")
-      } else {
-          console.log("Error: delete user failed, status: " + res.status)
-      }
-  }).catch((error) => {
-      console.log("Error: delete user failed.")
-      console.log(error)
-  })
+  try{
+    const res = await fetch(request)
+    return res.status
+  }
+  catch(err){
+    return new Error(err)
+  }
 }
 
 
-export const banUser = (userID) => {
+export const banUser = async (userID) => {
   let data = {
     id: userID
   }
 
   const url = '/users/ban'
   const request = new Request(url, {
-      method: 'patch', 
+      method: 'PATCH', 
       headers: {
         'Accept': 'application/json, text/plain, */*',
         'Content-Type': 'application/json'
@@ -207,28 +204,23 @@ export const banUser = (userID) => {
       body: JSON.stringify(data)
   });
 
-  fetch(request)
-  .then(function(res) {
-      if (res.status === 200) {
-          console.log("Banned user.")
-         
-      } else {
-          console.log("Could not ban user. Status: " + res.status)
-      }
-  }).catch((error) => {
-      console.log("Could not ban user.")
-      console.log(error)
-  })
+  try{
+    const res = await fetch(request)
+    return res.status
+  }
+  catch(err){
+    return new Error(err)
+  }
 }
 
-export const unbanUser = (userID) => {
+export const unbanUser = async (userID) => {
   let data = {
     id: userID
   }
 
   const url = '/users/unban'
   const request = new Request(url, {
-      method: 'patch', 
+      method: 'PATCH', 
       headers: {
         'Accept': 'application/json, text/plain, */*',
         'Content-Type': 'application/json'
@@ -236,21 +228,16 @@ export const unbanUser = (userID) => {
       body: JSON.stringify(data)
   });
 
-  fetch(request)
-  .then(function(res) {
-      if (res.status === 200) {
-          console.log("Unanned user.")
-         
-      } else {
-          console.log("Could not unban user. Status: " + res.status)
-      }
-  }).catch((error) => {
-      console.log("Could not unban user.")
-      console.log(error)
-  })
+  try{
+    const res = await fetch(request)
+    return res.status
+  }
+  catch(err){
+    return new Error(err)
+  }
 }
 
-export const updateUserRecord = (userID, propName, propVal) => {
+export const updateUserRecord = async (userID, propName, propVal) => {
   let data = {
     id: userID,
     propertyName: propName,
@@ -259,7 +246,7 @@ export const updateUserRecord = (userID, propName, propVal) => {
 
   const url = '/users/update'
   const request = new Request(url, {
-      method: 'patch', 
+      method: 'PATCH', 
       headers: {
         'Accept': 'application/json, text/plain, */*',
         'Content-Type': 'application/json'
@@ -267,18 +254,13 @@ export const updateUserRecord = (userID, propName, propVal) => {
       body: JSON.stringify(data)
   });
 
-  fetch(request)
-  .then(function(res) {
-      if (res.status === 200) {
-          console.log("Set " + propName + " of user " + userID + " to: " +  propVal)
-         
-      } else {
-          console.log("Failed to update user document. Status: " + res.status)
-      }
-  }).catch((error) => {
-      console.log("Failed to update user document.")
-      console.log(error)
-  })
+  try{
+    const res = await fetch(request)
+    return res.status
+  }
+  catch(err){
+    return new Error(err)
+  }
 }
 
 
