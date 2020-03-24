@@ -165,7 +165,7 @@ router.patch('/update',  (req, res) => {
     }
 
     const update = {
-        [req.body.propertyName]: (req.body.propertyVal).trim()
+        [req.body.propertyName]: (req.body.propertyVal)
     }
 
     User.findOneAndUpdate({_id: id}, update).then((result) => {
