@@ -3,7 +3,7 @@
 ## Links to Items within this Document
 * [accountActions.js documentation](#accountActions-documentation)
 * [clubActions.js documentation](#clubActions-documentation)
-* [clubActions.js documentation](#postActions-documentation)
+* [postActions.js documentation](#postActions-documentation)
 
 ## Dev Notes (Please Read)
 Express requests will not be called directly, instead their wrapper action functions will be called in the front end of the application. These functions can be found inside the files in the __src/actions__ folder. This document will specify their signatures, explain their parameters and returns. There are three main types of routes that this document will have the documentation for: user related functions, club related functions and post related routes. In addition, there will be authentication related functions and some miscalleneous functions for working with data that does not fit into any of the listed categories. The links to each section can be found above. Example function calls will be provided only for some functions that represent a general type of functions included in the API and not all of the functions. __All of these functions deal with manipulating our databse.__ </br>
