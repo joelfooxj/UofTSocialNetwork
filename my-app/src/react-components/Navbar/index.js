@@ -38,7 +38,7 @@ class Navbar extends React.Component{
 
 	render(){
 		console.log(this.props)
-		const { logoPic, status, loggedInUser, changeSignInStatus } = this.props; 
+		const { logoPic, status, loggedInUser} = this.props; 
 		const userType = loggedInUser.permissions
 		const Links = () => {
 			if (userType){

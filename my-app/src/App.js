@@ -276,11 +276,12 @@ class App extends React.Component{
             <Route exact path='/UserProfilePage' render={() =>
                             (this.state.signedIn ?
                               <UserProfilePage 
-                                userInfo={{accs: this.state.accounts,
-                                            id: this.state.accountId,
-                                            }
-                                        }
-                                changeSignInStatus={this.changeSignInStatus.bind(this)}
+                                userInfo={this.state.loggedInUser}
+                               // userInfo={{accs: this.state.accounts,
+                                //            id: this.state.accountId,
+                               //             }
+                                //        }
+                                //changeSignInStatus={this.changeSignInStatus.bind(this)}
                                 //changeAccInfo={(accId, attrName, attrVal) => {changeAccInfo(this, info.Accs, accId, attrName, attrVal)}}
                                 //changeAccTimelineOpts={(accId, optionIndex) => {changeAccTimelineOpts(this, info.Accs, optionIndex, accId)}}
                                 //deleteAcc={(accId) => {deleteAccount(this, accId, info.Accs)}}
