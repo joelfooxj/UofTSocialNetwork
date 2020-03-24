@@ -102,11 +102,21 @@ A promise containing the status code of the request. __Throws error on terminal 
 
 __9.__ `[ASYNC] updateUserRecord(userID: ObjectID/String, propName: String, propVal: various)`
 ##### Summary:
-Updates property _propName_ with value _propVal_ of user with id _userID_. __Note:__ the type of propVal varies depending on field being updated; check the schema of object you are updating to know the correct type of this parameter.
+Updates property _propName_ with value _propVal_ of user with id _userID_. __Note:__ the type of propVal varies depending on field being updated; check the schema of object you are updating to know the correct type of this parameter. __DO NOT USE THIS METHOD TO UPDATE USER PASSWORDS IT WILL NOT WORK DUE TO THE HASHING INVOLVED IN CHANGING A PASSWORD, USE THE ONE BELOW.__
 ##### Parameters
 * __`userID`__: id of user to be updated   
 * __`propName`__: name of property to update
 * __`propVal`__: updated property value
+##### Return
+A promise containing the status code of the request. __Throws error on terminal failure.__
+
+__10.__ `[ASYNC] updatePassword(id: String/ObjectID, newPass: String)`
+##### Summary:
+Updates the user's password to be _newPass_ while also ensuring to rehash it.
+##### Parameters
+* __`id`__: id of user object the password of which is being changed
+* __`newPass`__: new password
+* __``__: 
 ##### Return
 A promise containing the status code of the request. __Throws error on terminal failure.__
 
