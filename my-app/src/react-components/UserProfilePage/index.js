@@ -32,7 +32,8 @@ class UserProfilePage extends React.Component{
                         type={"text"}
                         defaultValue={userInfo.username}
                         disabled={true}
-                        onChange={(attrVal) => {updateUserRecord(userInfo._id, "username", attrVal).then((res) => {console.log(res)})}}
+                        userID={userInfo._id}
+                        id={"usernameIn"}
                     />
                     <UserProfileField
                         label={"Password"}
@@ -40,7 +41,8 @@ class UserProfilePage extends React.Component{
                         type={"password"}
                         defaultValue={"notarealpassword"}
                         disabled={true}
-                        onChange={(attrVal) => {updatePassword(userInfo._id, attrVal).then((res) => {console.log(res)})}}
+                        userID={userInfo._id}
+                        id={"passIn"}
                     />
                     <UserProfileField
                         label={"First Name"}
@@ -48,7 +50,8 @@ class UserProfilePage extends React.Component{
                         type={"text"}
                         defaultValue={userInfo.firstName}
                         disabled={true}
-                        onChange={(attrVal) => {updateUserRecord(userInfo._id, "firstName", attrVal).then((res) => {console.log(res)})}}
+                        userID={userInfo._id}
+                        id={"fisrtNameIn"}
                     />
                     <UserProfileField
                         label={"Last Name"}
@@ -56,7 +59,8 @@ class UserProfilePage extends React.Component{
                         type={"text"}
                         defaultValue={userInfo.lastName}
                         disabled={true}
-                        onChange={(attrVal) => {updateUserRecord(userInfo._id, "lastName", attrVal).then((res) => {console.log(res)})}}
+                        userID={userInfo._id}
+                        id={"lastNameIn"}
                     />
                     <UserProfileField
                         label={"Email"}
@@ -64,7 +68,8 @@ class UserProfilePage extends React.Component{
                         type={"text"}
                         defaultValue={userInfo.email}
                         disabled={true}
-                        onChange={(attrVal) => {updateUserRecord(userInfo._id, "email", attrVal).then((res) => {console.log(res)})}}
+                        userID={userInfo._id}
+                        id={"emailIn"}
                     />
                 
                     <div id="checkboxDiv">
