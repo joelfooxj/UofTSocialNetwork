@@ -285,13 +285,12 @@ class App extends React.Component{
                               /> : 
                               <Redirect to='/'/>)}
             />
+            {/*SOMETHING HAS TO BE DONE WITH THESE, WE CAN POTENTIALLY HAVE AN INDEFINITE NUMBER OF CLUBS*/ }
             <Route exact path='/csc309' render={() => 
                             (this.state.signedIn ?
                               <ClubProfilePage 
                                 clubInfo={info.Clubs[0]}
-                                currUserInfo={{id: this.state.accountId,
-                                               accs: this.state.accounts,
-                                               isAdmin: this.state.permission === 1}}
+                                userInfo={this.state.loggedInUser}
                                 addPost={this.makePost}
                                 getClubPosts={this.getClubPosts}
                                 followClub={this.followClub}
@@ -306,9 +305,7 @@ class App extends React.Component{
                           (this.state.signedIn ?
                             <ClubProfilePage 
                               clubInfo={info.Clubs[1]}
-                              currUserInfo={{id: this.state.accountId,
-                                             accs: this.state.accounts,
-                                             isAdmin: this.state.permission === 1}}
+                              userInfo={this.state.loggedInUser}
                               addPost={this.makePost}
                               getClubPosts={this.getClubPosts}
                               followClub={this.followClub}
@@ -323,9 +320,7 @@ class App extends React.Component{
                           (this.state.signedIn ? 
                             <ClubProfilePage 
                               clubInfo={info.Clubs[2]}
-                              currUserInfo={{id: this.state.accountId,
-                                             accs: this.state.accounts,
-                                             isAdmin: this.state.permission === 1}}
+                              userInfo={this.state.loggedInUser}
                               addPost={this.makePost}
                               getClubPosts={this.getClubPosts}
                               followClub={this.followClub}
@@ -344,8 +339,7 @@ class App extends React.Component{
                 accounts={info.Accs} clubs={info.Clubs}/> : <Redirect to='/'/>) }/>
             <Route exact path='/browseAllClubs' render={() => 
             (this.state.signedIn ? 
-              <BrowseAllClubs allClubs={info.Clubs} currentUserID={this.state.accountId} allUsers={info.Accs}
-              userIsAdmin={this.state.permission === 1} changeSignInStatus={this.changeSignInStatus.bind(this)} user={ this.state.accounts[this.state.accountId-1]}/> : 
+              <BrowseAllClubs allClubs={info.Clubs} userInfo={this.state.loggedInUser}/> : 
               <Redirect to='/'/>) }/>
           </Switch>
         </BrowserRouter>

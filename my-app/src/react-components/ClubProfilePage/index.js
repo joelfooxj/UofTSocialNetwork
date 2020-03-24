@@ -20,7 +20,7 @@ class ClubProfilePage extends React.Component {
 
                 <ClubInfo 
                     clubInfo={this.props.clubInfo} 
-                    currUserInfo={this.props.currUserInfo}
+                    userInfo={this.props.userInfo}
                     followClub={this.props.followClub}
                     unfollowClub={this.props.unfollowClub}
                     joinClub={this.props.joinClub}
@@ -31,7 +31,7 @@ class ClubProfilePage extends React.Component {
                     addPost={this.props.addPost}
                     removePost={this.props.removePost}
                     clubInfo={this.props.clubInfo}
-                    currUserInfo={this.props.currUserInfo}
+                    userInfo={this.props.userInfo}
                 />
             </div>
         )

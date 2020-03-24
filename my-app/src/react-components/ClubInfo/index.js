@@ -6,35 +6,41 @@ class ClubInfo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currUserInfo: props.currUserInfo,
+            userInfo: props.userInfo,
             clubInfo: props.clubInfo
         }
     }
 
+    //THESE SHOULD BE MOVED INTO AN OUTSIDE ACTION FILE
+    //They were changed just so that the page actually loads, these functions should just check the club IDs within the various 
+    //club info arrays (see schema or database) attached to our User object
+
     // Functions for verifying permisisons of current user.
     // Returns true if the current user is an exec.
     isExec = function() {
-        let val = this.state.clubInfo.execs.includes(this.state.currUserInfo.id);
+        let val = this.state.clubInfo.execs.includes(this.state.userInfo._id);
         return val;
     }
     
     // Returns true if the current user is an executive of the club.
     isMember = function() {
-        let val = this.state.clubInfo.members.includes(this.state.currUserInfo.id);
+        let val = this.state.clubInfo.members.includes(this.state.userInfo._id);
         return val;
     }
 
     // Returns true if the current user has requested to join this club
     didRequest = function() {
-        let val = this.state.clubInfo.requests.includes(this.state.currUserInfo.id) 
+        let val = this.state.clubInfo.requests.includes(this.state.userInfo._id) 
         return val;
     }
 
     // Returns true if the current user is following this club.
     isFollowing = function() {
+        return this.state.userInfo.clubsFollowing.includes(this.state.clubInfo.clubID)
+        /*
         let target = -1;
         for (let i = 0; i < this.state.currUserInfo.accs.length; i++) {
-            if (this.state.currUserInfo.accs[i].id === this.state.currUserInfo.id) {
+            if (this.state.currUserInfo.accs[i].id === this.state.userInfo._id) {
                 target = i;
                 break;
             }
@@ -45,7 +51,7 @@ class ClubInfo extends React.Component {
             return true;
         }
         
-        return false;
+        return false;*/
     }
 
     render() {
