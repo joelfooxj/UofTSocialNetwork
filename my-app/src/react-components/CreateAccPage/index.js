@@ -60,7 +60,21 @@ class CreateAccPage extends React.Component{
             })}}
           disabled={!emailRegex.test(this.state.emailInput) || this.state.usernameInput==="" || this.state.passwordInput==="" || this.state.firstNameInput==="" || this.state.lastNameInput==="" || this.state.emailInput===""}
         ></CustomButton>
+
         {(this.state.emailInput !== "" && !emailRegex.test(this.state.emailInput)) ? <span id="emailErrorSpan">Email must have the following form: something@something.com/ca/org</span> : null}
+        
+        <CustomButton
+          id={"backButton"}
+          width={"fit-content"}
+          height={"fit-content"}
+          borderColor={"#3F51B5"}
+          textColor={"#3F51B5"}
+          buttonText={"Back"}
+          variant={"outlined"}
+          top={"65px"}
+          left={"43.2%"}
+          onClick={() => {this.props.history.push("/");}}
+        ></CustomButton>
       </div>
     );
   }
