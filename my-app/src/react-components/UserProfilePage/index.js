@@ -12,6 +12,9 @@ import {updateUserRecord, deleteUser, updatePassword} from '../../actions/accoun
 
 
 class UserProfilePage extends React.Component{
+    state = {
+        displayTimelineOpts: this.props.userInfo.timelineOpts
+    }
     render(){
         const {userInfo} = this.props;
         return (
@@ -69,8 +72,8 @@ class UserProfilePage extends React.Component{
                         <Checkbox 
                                 color={"primary"}
                                 label={"Clubs I am a part of"}
-                                checked={userInfo.timelineOpts[0]}
-                                onChange={() => {const newOpts = [!userInfo.timelineOpts[0], userInfo.timelineOpts[1], userInfo.timelineOpts[2]]; updateUserRecord(userInfo._id, "timelineOpts", newOpts).then((res) => {console.log(res)})}}//TODO{this.props.changeAccTimelineOpts(account.id, 0)}}
+                                checked={this.state.displayTimelineOpts[0]}
+                                onChange={() => {userInfo.timelineOpts[0] = !userInfo.timelineOpts[0]; updateUserRecord(userInfo._id, "timelineOpts", userInfo.timelineOpts).then((res) => {console.log(res); this.setState({displayTimelineOpts: userInfo.timelineOpts})})}}//TODO{this.props.changeAccTimelineOpts(account.id, 0)}}
                                 >
                         </Checkbox>
                         <span>Clubs I follow</span>
@@ -79,16 +82,16 @@ class UserProfilePage extends React.Component{
                         <Checkbox 
                                 color={"primary"}
                                 label={"Clubs I follow"}
-                                checked={userInfo.timelineOpts[1]}
-                                onChange={() => {const newOpts = [userInfo.timelineOpts[0], !userInfo.timelineOpts[1], userInfo.timelineOpts[2]]; updateUserRecord(userInfo._id, "timelineOpts", newOpts).then((res) => {console.log(res)})}} //TODO {this.props.changeAccTimelineOpts(account.id, 1)}}
+                                checked={this.state.displayTimelineOpts[1]}
+                                onChange={() => {userInfo.timelineOpts[1] = !userInfo.timelineOpts[1]; updateUserRecord(userInfo._id, "timelineOpts", userInfo.timelineOpts).then((res) => {console.log(res); this.setState({displayTimelineOpts: userInfo.timelineOpts})})}} //TODO {this.props.changeAccTimelineOpts(account.id, 1)}}
                                 >
                         </Checkbox>
                         <span>Clubs I am a part of</span>
                         <br></br>
                         <Checkbox 
                                 color={"primary"}
-                                checked={userInfo.timelineOpts[2]}
-                                onChange={() => {const newOpts = [userInfo.timelineOpts[0], userInfo.timelineOpts[1], !userInfo.timelineOpts[2]]; updateUserRecord(userInfo._id, "timelineOpts", newOpts).then((res) => {console.log(res)})}} //TODO{this.props.changeAccTimelineOpts(account.id, 2)}}
+                                checked={this.state.displayTimelineOpts[2]}
+                                onChange={() => {userInfo.timelineOpts[2] = !userInfo.timelineOpts[2];  updateUserRecord(userInfo._id, "timelineOpts", userInfo.timelineOpts).then((res) => {console.log(res); this.setState({displayTimelineOpts: userInfo.timelineOpts})})}} //TODO{this.props.changeAccTimelineOpts(account.id, 2)}}
                                 >
                         </Checkbox>
                         <span>Clubs I am an executive of</span>
