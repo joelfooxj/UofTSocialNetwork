@@ -48,7 +48,16 @@ class CreateAccPage extends React.Component{
           variant={"outlined"}
           top={"20px"}
           left={"48%"}
-          onClick={() => {createAccount(this.state.usernameInput, this.state.permissions, this.state.passwordInput, this.state.firstNameInput, this.state.lastNameInput, this.state.emailInput); this.props.history.push("/"); }}
+          onClick={() => {
+            createAccount(this.state.usernameInput, this.state.permissions, this.state.passwordInput, this.state.firstNameInput, this.state.lastNameInput, this.state.emailInput)
+            .then((result) => {
+              if(result === 200){
+                this.props.history.push("/"); 
+              }
+              else{
+                console.log("Could not create new user. Status: " + result.status)
+              }
+            })}}
           disabled={!emailRegex.test(this.state.emailInput) || this.state.usernameInput==="" || this.state.passwordInput==="" || this.state.firstNameInput==="" || this.state.lastNameInput==="" || this.state.emailInput===""}
         ></CustomButton>
         {(this.state.emailInput !== "" && !emailRegex.test(this.state.emailInput)) ? <span id="emailErrorSpan">Email must have the following form: something@something.com/ca/org</span> : null}

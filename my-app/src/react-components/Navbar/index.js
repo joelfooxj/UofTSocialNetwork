@@ -26,8 +26,6 @@ class Navbar extends React.Component{
 		feedsPressed: false,
 		followingPressed: false,
 		adminPressed: false,
-		accountId: this.props.accId,
-		accounts: this.props.accs
 	}
 
 	switchpage = (pagename) => {
@@ -38,7 +36,7 @@ class Navbar extends React.Component{
 
 	render(){
 		console.log(this.props)
-		const { logoPic, status, loggedInUser, changeSignInStatus } = this.props; 
+		const { logoPic, loggedInUser} = this.props; 
 		const userType = loggedInUser.permissions
 		const Links = () => {
 			if (userType){
