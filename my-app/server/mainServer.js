@@ -27,13 +27,16 @@ app.use(cors())
 
 //routes
 const userRoutes = require('./routes/users')
+const postRoutes = require('./routes/posts')
+const clubRoutes = require('./routes/clubs')
 app.use('/users', userRoutes)
+app.use('/clubs', clubRoutes)
+app.use('/posts', postRoutes)
 
 // mongoose and mongo connection
 const { mongoose } = require('../db/mongoose')
 mongoose.set('useFindAndModify', false); // for some deprecation issues
 const { User } = require('../models/SessionUser')
-
 
 
 // to validate object IDs
@@ -61,6 +64,7 @@ const sessionChecker = (req, res, next) => {
         next(); // next() moves on to the route.
     }    
 };
+
 
 //POST - Log In
 app.post('/log_in', (req, res) => {

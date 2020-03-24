@@ -7,7 +7,7 @@ import Container from 'react-bootstrap/Container'
 import { withRouter } from 'react-router-dom';
 
 //actions
-import {logout} from '../../actions/accountActions';
+import {logout, changeSignInStatus} from '../../actions/accountActions';
 
 
 class Navbar extends React.Component{
@@ -26,13 +26,6 @@ class Navbar extends React.Component{
 		feedsPressed: false,
 		followingPressed: false,
 		adminPressed: false,
-		accountId: this.props.accId,
-		accounts: this.props.accs
-	}
-
-
-	logout = () => {
-		
 	}
 
 	switchpage = (pagename) => {
@@ -43,7 +36,7 @@ class Navbar extends React.Component{
 
 	render(){
 		console.log(this.props)
-		const { logoPic, status, loggedInUser, changeSignInStatus } = this.props; 
+		const { logoPic, loggedInUser} = this.props; 
 		const userType = loggedInUser.permissions
 		const Links = () => {
 			if (userType){
@@ -80,7 +73,7 @@ class Navbar extends React.Component{
 						<Links />
 						<NavRB>
 							<NavRB.Link 
-							 onClick={logout}
+							 onClick={() => {logout(); changeSignInStatus(this.props.appContext, null, false);}}
 							 href='/'>Logout</NavRB.Link>
 						</NavRB>
 					</NavbarRB.Collapse>

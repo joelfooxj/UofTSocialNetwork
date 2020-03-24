@@ -33,7 +33,7 @@ class ClubTimeline extends React.Component {
 
     // Returns true if the current user is a club executive
     isExec = function() {
-        let val = this.props.clubInfo.execs.includes(this.props.currUserInfo.id);
+        let val = this.props.clubInfo.execs.includes(this.props.userInfo._id);
         return val;
     }
 
@@ -66,7 +66,7 @@ class ClubTimeline extends React.Component {
     render() {
         return(
             <div id="timeline">
-                    {(this.isExec() || this.props.currUserInfo.isAdmin) && 
+                    {(this.isExec() || this.props.userInfo.permissions === 1) && 
                         <div id="makePost">
                             <div id="postButton">
                                 <CustomButton
@@ -94,7 +94,7 @@ class ClubTimeline extends React.Component {
                         timeline={this}
                         removePost={this.props.removePost}
                         isExec={this.isExec()}
-                        isAdmin={this.props.currUserInfo.isAdmin}
+                        isAdmin={this.props.userInfo.permissions === 1}
                     />
                 ))}
             </div>
