@@ -68,7 +68,7 @@ async function createClub(name, profilePicture=undefined, bannerImage=undefined)
  *
  */
 async function getClub(id) {
-    const url = `/clubs/${id}`
+    const url = `/clubs/get/${id}`
     const request = new Request(url, {
         method: 'GET',
         headers: {
@@ -94,7 +94,7 @@ async function getClub(id) {
  *
  */
 async function updateClub(id, attr, new_val) {
-    const url = `/clubs/${id}`
+    const url = `clubs/update/${id}`
     const data = {
         attr: attr,
         nVal: new_val

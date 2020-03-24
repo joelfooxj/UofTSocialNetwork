@@ -76,7 +76,7 @@ router.get('/get/:id', (req, res) => {
  *     - nVal: new value to set attribute to
  *
  */
-router.patch('/get/:id', (req, res) => {
+router.patch('/update/:id', (req, res) => {
     const id = req.params.id
 
     if (!ObjectID.isValid(id) || !req.body.attr || !req.body.nVal) {
