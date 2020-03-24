@@ -20,17 +20,17 @@ router.get('/all', (req, res) => {
  *     - name: name of the new club
 */
 router.post('/create', (req, res) => {
-    if (!req.name) {
+    if (!req.body.name) {
         res.status(400).send()
         return;
     }
 
-    const newClub = {
+    const newClub = new Club({
         name: req.body.name,
         execs: [],
         requested: [],
         members: []
-    }
+    })
 
     if (req.body.profilePicture) {
         newClub.profilePicture = req.body.profilePicture
