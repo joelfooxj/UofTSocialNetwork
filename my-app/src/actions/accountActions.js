@@ -132,6 +132,7 @@ export const getUserByName = async (usernameIn) => {
       return await res.json()
     }
     else{
+      console.log("Failed to obtain user object, status: " + res.status)
       return null
     }
   }
