@@ -40,6 +40,8 @@ Set the _signedIn_ state property of context to _signedIn_ and the _loggedInUser
 * __`context`__: the main App context the state of which stores the currently logged in user.   
 * __`user`__: object holding information about the currently logged in user. See models/SessionUser.js for details on what kind of fields it contains.  
 * __`signedIn`__: whether the user is signed in or not. 
+##### Return
+None
 
 __2.__ `[ASYNC] createAccount(usernameIn: String, permissionsIn: int, passwordIn: String, firstNameIn: String, lastNameIn: String, emailIn: String)`
 ##### Summary:
