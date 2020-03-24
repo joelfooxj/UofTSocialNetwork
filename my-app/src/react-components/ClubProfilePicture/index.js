@@ -4,7 +4,7 @@ import './style.css';
 class ClubProfileBanner extends React.Component {
     render() {
         return(
-            <img class="ClubProfilePicture" src={this.props.profilePic} alt="Failed to Load"/>
+            <img className="ClubProfilePicture" src={this.props.profilePic} alt="Failed to Load"/>
         );
     }
 }

@@ -25,20 +25,45 @@ router.post('/create', (req, res) => {
     }, (err) => {
         console.log(err)
         res.status(400).send(err)
+    }).catch((err) => {
+        console.log(err)
+        res.status(500).send()
     })
 })
 
-//GET - Get user with username and password
-router.get('/user', (req, res) => {
-    const username = req.body.username
-    const pass = req.body.password
+//[GET] - Get user with username and password
+router.get('/findUserByName/:username', (req, res) => {
+    const username = req.params.username
 
-    if(username === "" || pass === ""){
+    if(username === ""){
         res.status(400).send()
         return;
     }
 
-    User.findByUsernamePassword(username, pass).then((user) => {
+    User.find({username: username})
+    .then((user) => {
+	    if(!user){
+            res.status(404).send()
+        }
+        else{
+            res.status(200).send(user)
+        }
+    }).catch((error) => {
+        console.log(error) //FOR DEV PURPOSES ONLY
+		res.status(500).send()
+    })
+})
+
+//[GET] - Get user with given object id
+router.get('/findUserByID/:id', (req, res) => {
+    const id = new ObjectID(req.params.id)
+    console.log(id)
+    if(!ObjectID.isValid(id)){
+        res.status(400).send()
+        return;
+    }
+
+    User.findOne({_id: id}).then((user) => {
 	    if(!user){
             res.status(404).send()
         }
@@ -153,6 +178,37 @@ router.patch('/update',  (req, res) => {
     }).catch((error) => {
         console.log(error) //FOR DEV PURPOSES ONLY
 		res.status(500).send()
+    })
+})
+
+//[PUT] - replace the current doc with the same doc with a different password
+router.put('/updatePass',  (req, res) => {
+    const id = req.body.id
+    const pass = req.body.pass
+
+    if (!ObjectID.isValid(id)) {
+		res.status(404).send()  
+		return;
+    }
+
+    User.findById(req.body.id, function (err, doc){
+        if(err){
+            console.log("Error updating password.")
+            res.status(500).send()
+            return;
+        }
+        else{
+            doc.password = pass
+            doc.save().then(() => {
+                res.status(200).send()
+            }, (err) => {
+                console.log(err)
+                res.status(400).send(err)
+            }).catch((err) => {
+                console.log(err)
+                res.status(500).send()
+            })
+        }
     })
 })
 
