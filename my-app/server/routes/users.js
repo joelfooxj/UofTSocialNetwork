@@ -181,6 +181,37 @@ router.patch('/update',  (req, res) => {
     })
 })
 
+//[PUT] - replace the current doc with the same doc with a different password
+router.put('/updatePass',  (req, res) => {
+    const id = req.body.id
+    const pass = req.body.pass
+
+    if (!ObjectID.isValid(id)) {
+		res.status(404).send()  
+		return;
+    }
+
+    User.findById(req.body.id, function (err, doc){
+        if(err){
+            console.log("Error updating password.")
+            res.status(500).send()
+            return;
+        }
+        else{
+            doc.password = pass
+            doc.save().then(() => {
+                res.status(200).send()
+            }, (err) => {
+                console.log(err)
+                res.status(400).send(err)
+            }).catch((err) => {
+                console.log(err)
+                res.status(500).send()
+            })
+        }
+    })
+})
+
 module.exports = router
 
 

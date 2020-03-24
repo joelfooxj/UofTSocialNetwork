@@ -264,6 +264,31 @@ export const updateUserRecord = async (userID, propName, propVal) => {
   }
 }
 
+export const updatePassword = async (id, newPass) => {
+  let data = {
+    id: id,
+    pass: newPass
+  }
+
+  const url = '/users/updatePass'
+  const request = new Request(url, {
+      method: 'PUT', 
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+  });
+
+  try{
+    const res = await fetch(request)
+    return res.status
+  }
+  catch(err){
+    throw new Error(err)
+  }
+}
+
 
 
 
