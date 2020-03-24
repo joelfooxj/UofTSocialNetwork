@@ -22,7 +22,7 @@ async function getAllClubs() {
         if (response.status === 200) {
             return await response.json()
         } else {
-            return {}
+            return []
         }
     } catch (error) {
         throw new Error(error)
@@ -82,7 +82,7 @@ async function getClub(id) {
         if (response.status === 200) {
             return await response.json()    
         } else {
-            return {}
+            return {"status": response.status}
         }
     } catch (error) {
         throw new Error(error)

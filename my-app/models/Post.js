@@ -1,4 +1,3 @@
-/* User model */
 'use strict';
 
 const { ObjectID } = require('mongodb')

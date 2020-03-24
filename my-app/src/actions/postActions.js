@@ -59,7 +59,7 @@ async function getPostByPosterID(posterID){
         if (response.status === 200) {
             return await response.json()
         } else {
-            return {}
+            return []
         }
     } catch (error) {
         throw new Error(error);

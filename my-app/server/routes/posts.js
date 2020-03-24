@@ -33,7 +33,7 @@ router.post('/create', (req, res) => {
         res.status(200).send(newPost)
     }).catch((err) => {
         console.log(err)
-        res.status(400).send(newPost)
+        res.status(500).send(newPost)
     })
 })
 
@@ -54,7 +54,7 @@ router.get('/get/:id', (req, res) => {
         res.status(200).send(posts)
     }).catch((err) => {
         console.log(err)
-        res.status(400).send()
+        res.status(500).send()
     })
 })
 
@@ -79,7 +79,7 @@ router.delete('/remove/:id', (req, res) => {
         }
     }).catch((err) => {
         console.log(err)
-        res.status(400).send()
+        res.status(500).send()
     })
 })
 
@@ -105,7 +105,7 @@ router.patch('/update/:id', (req, res) => {
 
     Post.findOneAndUpdate({_id: id}, update).then((result) => {
         if (!result) {
-            res.status(500).send()
+            res.status(404).send()
         } else {
             res.status(200).send(result)
         }
