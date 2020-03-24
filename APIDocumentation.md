@@ -3,14 +3,29 @@
 ## Links to Items within this Document
 * [accountActions.js documentation](#accountActions-documentation)
 
-## Dev Notes
-Express requests will not be called directly, instead their wrapper action functions will be called in the front end of the application. These functions can be found inside the files in the __src/actions__ folder. This document will specify their signatures, explain their parameters and returns. There are three main types of routes that this document will have the documentation for: user related functions, club related functions and post related routes. In addition, there will be authentication related functions and some miscalleneous functions for working with data that does not fit into any of the listed categories. The links to each section can be found above. __All of these functions deal with manipulating our databse.__ </br>
+## Dev Notes (Please Read)
+Express requests will not be called directly, instead their wrapper action functions will be called in the front end of the application. These functions can be found inside the files in the __src/actions__ folder. This document will specify their signatures, explain their parameters and returns. There are three main types of routes that this document will have the documentation for: user related functions, club related functions and post related routes. In addition, there will be authentication related functions and some miscalleneous functions for working with data that does not fit into any of the listed categories. The links to each section can be found above. Example function calls will be provided only for some functions that represent a general type of functions included in the API and not all of the functions. __All of these functions deal with manipulating our databse.__ </br>
 
-__NOTE: Functions marked as 'async' return a promise!__
+__NOTE: Functions marked as '[ASYNC]' return a promise!__</br>
+
+Here is an example call of one of our functions.</br>
+##### Example Call:</br>
+```javascript
+doSomething(arg1, arg2, arg3, ...).then((result) => {
+    if(result === 200){
+      console.log("Success")
+    }
+    else{
+      console.log("Failure status: " + result)
+    }
+})
+```
+
+Here _result_ is whatever the API function being called returns. It could be anything from an integer status code to an Object so please read the docs carefully to make sure you know what the function returns and can use its result as desired in your code.
 
 
 ## accountActions Documentation
-API for working with user sign in status. To use these in your code make sure to import them. Ex: 
+API for user related functions. To use these you need to add the following import statement in your code with the function names you with to use. The path might need to be adjusted depending on where your file is located. Ex: 
 ```javascript
 import {functionName} from '../../actions/accountActions'
 ```
@@ -22,9 +37,9 @@ Set the _signedIn_ state property of context to _signedIn_ and the _loggedInUser
 ##### Parameters
 * __`context`__: the main App context the state of which stores the currently logged in user.   
 * __`user`__: object holding information about the currently logged in user. See models/SessionUser.js for details on what kind of fields it contains.  
-* __`signedIn`__: whether the user is signed in or not.
+* __`signedIn`__: whether the user is signed in or not. 
 
-__2.__ `createAccount(usernameIn: String, permissionsIn: int, passwordIn: String, firstNameIn: String, lastNameIn: String, emailIn: String)`
+__2.__ `[ASYNC] createAccount(usernameIn: String, permissionsIn: int, passwordIn: String, firstNameIn: String, lastNameIn: String, emailIn: String)`
 ##### Summary:
 Creates a new account with username _usernameIn_, permissions _permissionsIn_ (0 for reg user, 1 for admin), password _passwordIn_ (this is hashed), first name _firstNameIn_, last name _lastNameIn_ and email _emailIn_. By default the account is not banned (status = 1) and the _clubsExecOf_, _clubsMemberOf_, _clubsFollowing_ and _clubsAwaitingJoin_ are empty. Timeline options in _timelineOpts_ are all set to false.
 ##### Parameters
@@ -34,46 +49,66 @@ Creates a new account with username _usernameIn_, permissions _permissionsIn_ (0
 * __`firstNameIn`__: first name of the new user 
 * __`lastNameIn`__: last name of the new user 
 * __`emailIn`__: email of the new user 
+##### Return
+A promise that resolves to the status code of the request. __Throws error on terminal failure.__
 
-
-__3.__ `logout()`
+__3.__ `[ASYNC] logout()`
 ##### Summary:
 Logs out the currently logged in user by deleting them from the session cookie. Does not do any kind of routing this has to be handled by the calling component.
 ##### Parameters
 None
+##### Return
+A promise that resolves to the status code of the request. __Throws error on terminal failure.__
 
-__4.__ `[ASYNC] getUser(usernameIn: String, passwordIn: String)`
+__4.__ `[ASYNC] getUserByName(usernameIn: String)`
 ##### Summary:
-Obtains information about the user with given username _usernameIn_ and password _passwordIn_ and returns a promise containing the found user object or __NULL__ if none was found.
+Obtains information about the user with given username _usernameIn_ and returns a promise containing the found user object or __NULL__ if none was found.
 ##### Parameters
 * __`usernameIn`__: username of user you wish to find
-* __`passwordIn`__: password of user you wish to find
+##### Return
+A promise that resolves to the user object if it was found and null otherwise. __Throws error on terminal failure.__
 
- __5.__ `deleteUser(userID: ObjectID/String)`
+__5.__ `[ASYNC] getUserById(id: String)`
+##### Summary:
+Obtains information about the user with given id _id_ and returns a promise containing the found user object or __NULL__ if none was found.
+##### Parameters
+* __`id`__: id of user to find
+##### Return
+A promise that resolves to the user object if it was found and null otherwise. __Throws error on terminal failure.__
+
+ __6.__ `[ASYNC] deleteUser(userID: ObjectID/String)`
 ##### Summary:
 Deletes the user with given userID. The id can be a string or an ObjectID object, but it has to be one of those otherwise the function will fail.
 ##### Parameters
 * __`userID`__: id of user being deleted   
+##### Return
+A promise containing the status code of the request. __Throws error on terminal failure.__
 
- __6.__ `banUser(userID: ObjectID/String)`
+ __7.__ `[ASYNC] banUser(userID: ObjectID/String)`
 ##### Summary:
 Bans user with _id _userID_ by setting their _status_ to 0.
 ##### Parameters
 * __`userID`__: id of user to be banned
+##### Return
+A promise containing the status code of the request. __Throws error on terminal failure.__
 
- __7.__ `unbanUser(userID: ObjectID/String)`
+ __8.__ `[ASYNC] unbanUser(userID: ObjectID/String)`
 ##### Summary:
 Unbans user with _id _userID_ by setting their _status_ to 1.
 ##### Parameters
 * __`userID`__: id of user to be unbanned
+##### Return
+A promise containing the status code of the request. __Throws error on terminal failure.__
 
-__8.__ `updateUserRecord(userID: ObjectID/String, propName: String, propVal: various)`
+__9.__ `[ASYNC] updateUserRecord(userID: ObjectID/String, propName: String, propVal: various)`
 ##### Summary:
 Updates property _propName_ with value _propVal_ of user with id _userID_. __Note:__ the type of propVal varies depending on field being updated; check the schema of object you are updating to know the correct type of this parameter.
 ##### Parameters
 * __`userID`__: id of user to be updated   
 * __`propName`__: name of property to update
 * __`propVal`__: updated property value
+##### Return
+A promise containing the status code of the request. __Throws error on terminal failure.__
 
 __1.__ ``
 ##### Summary:
