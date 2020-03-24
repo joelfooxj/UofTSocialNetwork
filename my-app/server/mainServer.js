@@ -27,13 +27,14 @@ app.use(cors())
 
 //routes
 const userRoutes = require('./routes/users')
+const postRoutes = require('./routes/posts')
 app.use('/users', userRoutes)
+app.use('/posts', postRoutes)
 
 // mongoose and mongo connection
 const { mongoose } = require('../db/mongoose')
 mongoose.set('useFindAndModify', false); // for some deprecation issues
 const { User } = require('../models/SessionUser')
-
 
 
 // to validate object IDs
