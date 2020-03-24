@@ -30,7 +30,7 @@ export const createAccount = async (usernameIn, permissionsIn, passwordIn, first
     return res.status
   }
   catch(err){
-    return new Error(err)
+    throw new Error(err)
   }
 }
 
@@ -48,7 +48,7 @@ export const logout = async () => {
     return res.status
   }
   catch(err){
-    return new Error(err)
+    throw new Error(err)
   }
 }
 
@@ -136,7 +136,7 @@ export const getUserByName = async (usernameIn) => {
     }
   }
   catch(err){
-    return new Error(err)
+    throw new Error(err)
   }
 }
 
@@ -160,7 +160,7 @@ export const getUserById = async (idIn) => {
     }
   }
   catch(err){
-    return new Error(err)
+    throw new Error(err)
   }
 }
 
@@ -184,7 +184,7 @@ export const deleteUser = async (userID) => {
     return res.status
   }
   catch(err){
-    return new Error(err)
+    throw new Error(err)
   }
 }
 
@@ -209,7 +209,7 @@ export const banUser = async (userID) => {
     return res.status
   }
   catch(err){
-    return new Error(err)
+    throw new Error(err)
   }
 }
 
@@ -233,7 +233,7 @@ export const unbanUser = async (userID) => {
     return res.status
   }
   catch(err){
-    return new Error(err)
+    throw new Error(err)
   }
 }
 
@@ -259,7 +259,7 @@ export const updateUserRecord = async (userID, propName, propVal) => {
     return res.status
   }
   catch(err){
-    return new Error(err)
+    throw new Error(err)
   }
 }
 
