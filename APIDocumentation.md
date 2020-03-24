@@ -179,3 +179,48 @@ Removes club with `id` from the collection.
 * __`id`__: The id of the club we wish to remove. 
 #### Return
 Returns a promise containing the status of the operation. __Throws error on terminal failure.__
+
+## postActions Documentation
+
+This file contains the API for manipulating post data. To import any functions from this file, use the following import statement:
+```javascript
+import {functionName} from '../../actions/postActions'
+```
+
+#### Functions
+__1.__ `[ASYNC] createPost(posterID, content, title, location)`
+#### Summary:
+Creates a new post with the given arguments. 
+#### Parameters
+* __`posterID`__: The id of the user or club that has made this post. Ensure that this is a valid ObjectID.
+* __`content`__: The text content of this post.
+* __`[OPTIONAL] title`__: The title of this post.
+* __`[OPTIONAL] location`__: The location this post was made.
+#### Return
+Returns a promise containing the status of the operation. __Throws error on terminal failure.__
+
+__2.__ `[ASYNC] getPostbyPosterID(posterID)`
+#### Summary:
+Retrieves all posts made by a specific id. Ensure that posterID is a valid ObjectID or our status will always be 400.
+#### Parameters
+* __`posterID`__: The id of the poster we wish to retrieve posts for.
+#### Return
+Returns a promise containing an arary of post objects with posterID matching the provided id. When the status of the HTTP request is not 200, or no posts are found, will return an empty array.__Throws error on terminal failure.__
+
+__3.__ `[ASYNC] removePostByID(id)`
+#### Summary:
+Removes a post with the given id.
+#### Parameters
+* __`id`__: The id of the post we wish to remove.
+#### Return
+Returns a promise containing the status of the operation. __Throws error on terminal failure.__
+
+__4.__ `[ASYNC] updatePost(id, updateField, updateContent)`
+#### Summary:
+Updates the `updateField` member of the post with given id to `updateContent`.
+#### Parameters
+* __`id`__: The id of the post we wish to update.
+* __`updateField`__: The field of the post we want to update.
+* __`updateContent`__: The new value we want the `updateField` to take.
+#### Return
+Returns a promise containing the status of the operation. __Throws error on terminal failure.__
