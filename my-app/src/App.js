@@ -265,10 +265,7 @@ class App extends React.Component{
             <Route exact path='/Following' render={() => 
                             (this.state.signedIn ?
                               <FollowingPage 
-                              changeSignInStatus={this.changeSignInStatus.bind(this)}
-                              userInfo={{accs: this.state.accounts,
-                                          id: this.state.accountId,
-                                            }}
+                              userInfo={this.state.loggedInUser}
                               allClubs={info.Clubs}
                             /> :
                             <Redirect to='/'/>)}
