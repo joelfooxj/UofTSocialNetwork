@@ -18,4 +18,4 @@ const ClubSchema = new mongoose.Schema({
 })
 
 const Club = mongoose.model('Club', ClubSchema)
-module.exports = { Post }
+module.exports = { Club }
