@@ -27,7 +27,7 @@ export const createAccount = async (usernameIn, permissionsIn, passwordIn, first
 
   try{
     const res = await fetch(request)
-    return res.status
+    return res
   }
   catch(err){
     throw new Error(err)

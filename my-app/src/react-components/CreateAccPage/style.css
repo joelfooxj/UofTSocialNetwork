@@ -28,13 +28,13 @@
     
 }
 
-#emailErrorSpan{
+.inputErrorSpan{
     color: red;
     width: 525px;
     height: 10px;
     position: relative;
     left: 35%;
-    top: 5%;
+    top: 15%;
     display: block;
 }
 

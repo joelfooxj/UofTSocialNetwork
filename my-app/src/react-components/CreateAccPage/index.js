@@ -17,12 +17,16 @@ class CreateAccPage extends React.Component{
     lastNameInput: "",
     emailInput: "",
     permissions: 0,
-    allowCreation: false
+    allowCreation: false,
+    dupUsername: false,
+    dupEmail: false
   }
 
   inputHandler = (e) => {
     this.setState({
-      [e.target.name]:e.target.value
+      [e.target.name]:e.target.value,
+      dupUsername: e.target.name === "usernameInput" ? false : this.state.dupUsername,
+      dupEmail: e.target.name === "emailInput" ? false : this.state.dupEmail
     })
   }
 
@@ -51,8 +55,16 @@ class CreateAccPage extends React.Component{
           onClick={() => {
             createAccount(this.state.usernameInput, this.state.permissions, this.state.passwordInput, this.state.firstNameInput, this.state.lastNameInput, this.state.emailInput)
             .then((result) => {
-              if(result === 200){
+              if(result.status === 200){
                 this.props.history.push("/"); 
+              }
+              else if(result.status === 409){
+                  if(result.statusText === "username"){
+                    this.setState({dupUsername: true})
+                  }
+                  else if(result.statusText  === "email"){
+                    this.setState({dupEmail: true})
+                  }
               }
               else{
                 console.log("Could not create new user. Status: " + result.status)
@@ -61,8 +73,10 @@ class CreateAccPage extends React.Component{
           disabled={!emailRegex.test(this.state.emailInput) || this.state.usernameInput==="" || this.state.passwordInput==="" || this.state.firstNameInput==="" || this.state.lastNameInput==="" || this.state.emailInput===""}
         ></CustomButton>
 
-        {(this.state.emailInput !== "" && !emailRegex.test(this.state.emailInput)) ? <span id="emailErrorSpan">Email must have the following form: something@something.com/ca/org</span> : null}
-        
+        {(this.state.emailInput !== "" && !emailRegex.test(this.state.emailInput)) ? <span className="inputErrorSpan">Email must have the following form: something@something.com/ca/org</span> : null}
+        {(this.state.usernameInput !== "" && this.state.dupUsername) ? <span className="inputErrorSpan">Username already in use!</span> : null}
+        {(this.state.emailInput !== "" && this.state.dupEmail) ? <span className="inputErrorSpan">Email already in use!</span> : null}
+
         <CustomButton
           id={"backButton"}
           width={"fit-content"}

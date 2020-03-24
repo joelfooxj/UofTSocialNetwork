@@ -23,8 +23,16 @@ router.post('/create', (req, res) => {
     user.save().then(() => {
         res.status(200).send(user)
     }, (err) => {
-        console.log(err)
-        res.status(400).send(err)
+        if(err.code === 11000){
+            const dupField = err.message.split("{")[1].split(":")[0]
+            res.statusMessage = dupField.trim()
+            res.status(409).send()
+
+            return
+        }else{
+            res.status(400).send(err)
+            return
+        }
     }).catch((err) => {
         console.log(err)
         res.status(500).send()
