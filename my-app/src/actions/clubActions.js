@@ -3,6 +3,8 @@
  * APIDocumentation.md file.
  */
 
+ const fs = require('fs');
+
  /*
   * Wrapper for getting all clubs
   *
@@ -40,9 +42,31 @@ async function createClub(name, profilePicture=undefined, bannerImage=undefined)
         name: name,
         execs: [],
         requested: [],
-        members: [],
-        profilePicture,
-        bannerImage
+        members: []
+    }
+
+    if (profilePicture) {
+        try {
+            let profileData = await fs.readFile(profilePicture)
+            let profileBase64 = profileData.toString('base64')
+            let profilePic = new Buffer(profileBase64, 'base64')
+            data.profilePicture = profilePic
+        } catch (error) {
+            console.log("Could not add image");
+            console.log(error)
+        }
+    }
+
+    if (bannerImage) {
+        try {
+            let bannerData = await fs.readFile(bannerImage)
+            let bannerBase64 = bannerData.toString('base64')
+            let bannerPic = new Buffer(bannerBase64, 'base64')
+            data.bannerImage = bannerPic
+        } catch (error) {
+            console.log("Could not add image");
+            console.log(error)
+        }
     }
 
     const request = new Request(url, {
@@ -95,9 +119,23 @@ async function getClub(id) {
  */
 async function updateClub(id, attr, new_val) {
     const url = `clubs/update/${id}`
+
+    let val = new_val
+    if (attr === "profilePicture" || attr === "bannerImage") {
+        try {
+            let data = await fs.readFile(new_val)
+            let base64 = data.toString('base64')
+            let img = new Buffer(base64, 'base64')
+            val = img
+        } catch (error) {
+            console.log("Could not add image")
+            console.log(error)
+        }
+    }
+
     const data = {
         attr: attr,
-        nVal: new_val
+        nVal: val
     }
 
     const request = new Request(url, {
