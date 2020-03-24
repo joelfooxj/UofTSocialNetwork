@@ -73,9 +73,9 @@ class CreateAccPage extends React.Component{
           disabled={!emailRegex.test(this.state.emailInput) || this.state.usernameInput==="" || this.state.passwordInput==="" || this.state.firstNameInput==="" || this.state.lastNameInput==="" || this.state.emailInput===""}
         ></CustomButton>
 
-        {(this.state.emailInput !== "" && !emailRegex.test(this.state.emailInput)) ? <span className="inputErrorSpan">Email must have the following form: something@something.com/ca/org</span> : null}
-        {(this.state.usernameInput !== "" && this.state.dupUsername) ? <span className="inputErrorSpan">Username already in use!</span> : null}
-        {(this.state.emailInput !== "" && this.state.dupEmail) ? <span className="inputErrorSpan">Email already in use!</span> : null}
+        {(this.state.emailInput !== "" && !emailRegex.test(this.state.emailInput)) ? <span className="emailErrorSpan">Email must have the following form: something@something.com/ca/org</span> : null}
+        {(this.state.usernameInput !== "" && this.state.dupUsername && !this.state.dupEmail) ? <span className="dupUserErrorSpan">Username already in use!</span> : null}
+        {(this.state.emailInput !== "" && this.state.dupEmail && !this.state.dupUsername) ? <span className="dupEmailErrorSpan">Email already in use!</span> : null}
 
         <CustomButton
           id={"backButton"}
@@ -85,8 +85,8 @@ class CreateAccPage extends React.Component{
           textColor={"#3F51B5"}
           buttonText={"Back"}
           variant={"outlined"}
-          top={"65px"}
-          left={"43.2%"}
+          top={"30px"}
+          left={"48%"}
           onClick={() => {this.props.history.push("/");}}
         ></CustomButton>
       </div>
