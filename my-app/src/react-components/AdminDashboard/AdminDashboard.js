@@ -14,7 +14,7 @@ class AdminDashboard extends React.Component {
 			super(props); 
 			this.state={
 				accounts: props.accounts, 
-				clubs: props.clubs
+				clubs: props.clubs,
 			}	
 		}
 		
@@ -39,8 +39,8 @@ class AdminDashboard extends React.Component {
 				// const totalPosts = this.state.clubs.map((p, club) => p + club.posts.length, 0)
         return(
         	<div>
-        	<Navbar changeSignInStatus={changeSignInStatus} logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
-	          status={true} user={user}>
+        	<Navbar logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
+	          loggedInUser={user}>
 	        </Navbar>
             <div className="adminDashboardContainer"> 
                 <AdminStats 

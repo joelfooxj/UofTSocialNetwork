@@ -334,8 +334,8 @@ class App extends React.Component{
             <Route exact path='/ClubDashboard' render={ () => 
               (this.state.signedIn ? <ClubDashboard users={info.Accs} posts={info.Posts} currentUser={this.state}/> : <Redirect to='/'/>) }/>
             <Route exact path='/AdminDashboard' render={() => 
-              (this.state.signedIn && this.state.loggedInUser.permissions === 1 ? <AdminDashboard changeSignInStatus={this.changeSignInStatus.bind(this)} 
-                user={ this.state.accounts[this.state.accountId-1]} 
+              (this.state.signedIn && this.state.loggedInUser.permissions === 1 ? <AdminDashboard 
+                user={ this.state.loggedInUser} 
                 accounts={info.Accs} clubs={info.Clubs}/> : <Redirect to='/'/>) }/>
             <Route exact path='/browseAllClubs' render={() => 
             (this.state.signedIn ? 
