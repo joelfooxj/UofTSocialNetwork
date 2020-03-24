@@ -128,4 +128,54 @@ __1.__ ``
 * __``__:   
 * __``__: 
 
+## clubActions Documentation
 
+This file contains the API for manipulating club data. To import any functions from this file, use the following import statement:
+```javascript
+import {functionName} from '../../actions/clubActions'
+```
+
+#### Functions
+__1.__ `[ASYNC] getAllClubs()`
+#### Summary:
+Retrieves all clubs.
+#### Parameters
+* none
+#### Return
+Returns a Promise that resolves to an array containing club objects on success. When the status code of our HTTP response is not 200, will resolve to an empty array. __Throws error on terminal failure.__
+
+__2.__ `[ASYNC] createClub(name, profilePicture, bannerImage)`
+#### Summary:
+Creates a new club object and adds it to our database.
+#### Parameters
+* __`name`__: The name of the new club.
+* __`[OPTIONAL] profilePicture`__: The profile picture of the new club. When Victor and I figure out how we will be storing images, this may change.
+* __`[OPTIONAL] bannerImage`__: The banner image of the new club. The same caveat for images above applies here.
+#### Return
+Returns a Promise containing the status of the operation. __Throws error on terminal failure.__
+
+__3.__ `[ASYNC] getClub(id)`
+#### Summary:
+Retrieves a club with the given id.
+#### Parameters
+* __`id`__: The id of the club we want to retrieve.
+#### Return
+Returns a promise containing a club object. When the status of our HTTP request is not 200, returns an object containing only the status of the request. __Throws error on terminal failure.__
+
+__4.__ `[ASYNC] updateClub(id, attr, new_val)`
+#### Summary:
+Update attribute `attr` of club with given id, `id`, to new value, `new_val`.
+#### Parameters
+* __`id`__: The id of the club we wish to update. 
+* __`attr`__: The attribute of the club we wish to update. 
+* __`id`__: The new value we want to set `attr` to.
+#### Return
+Returns a promise containing the status of the operation. __Throws error on terminal failure.__
+
+__5.__ `[ASYNC] deleteClub(id)`
+#### Summary:
+Removes club with `id` from the collection.
+#### Parameters
+* __`id`__: The id of the club we wish to remove. 
+#### Return
+Returns a promise containing the status of the operation. __Throws error on terminal failure.__
