@@ -15,8 +15,10 @@ class ClubFollowing {
 class FollowingPage extends React.Component{
 	render(){
 		const {userInfo, allClubs } = this.props;
+
+		//THIS HAS TO BE CHANGED TO USE OUR DB
+		//ALSO, DON'T USE VAR
 		var followingObject = []
-		
 		for (let i=0;i<allClubs.length;i++){
 			let club = null
 			if(userInfo.clubsFollowing.includes(allClubs[i].clubID)){

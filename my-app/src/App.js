@@ -266,7 +266,7 @@ class App extends React.Component{
                             (this.state.signedIn ?
                               <FollowingPage 
                               userInfo={this.state.loggedInUser}
-                              allClubs={info.Clubs}
+                              allClubs={info.Clubs} //TODO: REMOVE THIS, IT IS NOT NECESSARY ONCE WE START USING OUR DB
                             /> :
                             <Redirect to='/'/>)}
             />
