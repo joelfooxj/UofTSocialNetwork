@@ -56,8 +56,8 @@ class UserProfileField extends React.Component{
                         width={"10px"}
                         height={"15px"}
                         padding={"0px"}
-                        top={"42px"}
-                        left={"10px"}
+                        top={"-23px"}
+                        left={"170px"}
                         fontSize={"10px"}
                         onClick={this.editButtonOnClick}
                     >
@@ -72,8 +72,8 @@ class UserProfileField extends React.Component{
                             width={"10px"}
                             height={"15px"}
                             padding={"0px"}
-                            top={"42px"}
-                            left={"10px"}
+                            top={"-23px"}
+                            left={"170px"}
                             fontSize={"10px"}
                             onClick={() => {this.saveButtonOnClick();
                                             if(name === "password"){
