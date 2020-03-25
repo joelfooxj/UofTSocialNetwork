@@ -140,11 +140,12 @@ Retrieves all clubs.
 #### Return
 Returns a Promise that resolves to an array containing club objects on success. When the status code of our HTTP response is not 200, will resolve to an empty array. __Throws error on terminal failure.__
 
-__2.__ `[ASYNC] createClub(name, profilePicture, bannerImage)`
+__2.__ `[ASYNC] createClub(name, clubInfo, profilePicture, bannerImage)`
 #### Summary:
 Creates a new club object and adds it to our database.
 #### Parameters
 * __`name`__: The name of the new club.
+* __`clubInfo`__: The info text to be displayed for this club.
 * __`[OPTIONAL] profilePicture`__: The full path to the profile picture for this club. Must be the absolute path, relative paths (starting with `../` or `./`) will not work.
 * __`[OPTIONAL] bannerImage`__: The full path to the banner image for this club. Must be the absolute path, relative paths (starting with `../` or `./`) will not work.
 #### Return
