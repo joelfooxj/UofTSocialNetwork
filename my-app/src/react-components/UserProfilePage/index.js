@@ -38,8 +38,8 @@ class UserProfilePage extends React.Component{
                     <UserProfileField
                         label={"Password"}
                         name={"password"}
-                        type={"password"}
-                        defaultValue={"notarealpassword"}
+                        type={"text"}
+                        defaultValue={"New Password"}
                         disabled={true}
                         userID={userInfo._id}
                         id={"passIn"}

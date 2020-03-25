@@ -8,7 +8,8 @@ import {updateUserRecord, updatePassword} from '../../actions/accountActions';
 class UserProfileField extends React.Component{
 
     state = {
-        beingChanged: false
+        beingChanged: false,
+        disableSaveButton: false
     }
 
     editButtonOnClick = () => {
@@ -45,6 +46,7 @@ class UserProfileField extends React.Component{
                             className="infoFieldText"
                             margin="normal"
                             disabled={false}
+                            onChange={(e) => {if(e.target.value === ""){this.setState({disableSaveButton: true})} else{this.setState({disableSaveButton: false})}}}
                         />
         let editButton = <CustomButton id="editButton"
                         color={"primary"}
@@ -57,7 +59,7 @@ class UserProfileField extends React.Component{
                         height={"15px"}
                         padding={"0px"}
                         top={"-23px"}
-                        left={"170px"}
+                        left={"200px"}
                         fontSize={"10px"}
                         onClick={this.editButtonOnClick}
                     >
@@ -73,7 +75,7 @@ class UserProfileField extends React.Component{
                             height={"15px"}
                             padding={"0px"}
                             top={"-23px"}
-                            left={"170px"}
+                            left={"200px"}
                             fontSize={"10px"}
                             onClick={() => {this.saveButtonOnClick();
                                             if(name === "password"){
@@ -85,6 +87,7 @@ class UserProfileField extends React.Component{
                                                 }
                                             }
                                     }
+                            disabled={this.state.disableSaveButton}
                         >
                         </CustomButton>
 
