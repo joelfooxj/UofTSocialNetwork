@@ -13,8 +13,8 @@ const ClubSchema = new mongoose.Schema({
     execs: [ObjectID],
     requested: [ObjectID],
     members: [ObjectID],
-    profilePicture: String, // String with local path for now, need to figure out images
-    bannerImage: String, // same as above
+    profilePicture: Buffer, // String with local path for now, need to figure out images
+    bannerImage: Buffer, // same as above
 })
 
 const Club = mongoose.model('Club', ClubSchema)

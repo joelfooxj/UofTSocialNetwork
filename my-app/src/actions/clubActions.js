@@ -95,23 +95,9 @@ async function getClub(id) {
  */
 async function updateClub(id, attr, new_val) {
     const url = `clubs/update/${id}`
-
-    let val = new_val
-    if (attr === "profilePicture" || attr === "bannerImage") {
-        try {
-            let data = await fs.readFile(new_val)
-            let base64 = data.toString('base64')
-            let img = new Buffer(base64, 'base64')
-            val = img
-        } catch (error) {
-            console.log("Could not add image")
-            console.log(error)
-        }
-    }
-
     const data = {
         attr: attr,
-        nVal: val
+        nVal: new_val
     }
 
     const request = new Request(url, {
