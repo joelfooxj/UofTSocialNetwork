@@ -145,8 +145,8 @@ __2.__ `[ASYNC] createClub(name, profilePicture, bannerImage)`
 Creates a new club object and adds it to our database.
 #### Parameters
 * __`name`__: The name of the new club.
-* __`[OPTIONAL] profilePicture`__: The profile picture of the new club. When Victor and I figure out how we will be storing images, this may change.
-* __`[OPTIONAL] bannerImage`__: The banner image of the new club. The same caveat for images above applies here.
+* __`[OPTIONAL] profilePicture`__: The full path to the profile picture for this club. Must be the absolute path, relative paths (starting with `..` or `.`) will not work.
+* __`[OPTIONAL] bannerImage`__: The full path to the banner image for this club. Must be the absolute path, relative paths (starting with `..` or `.`) will not work.
 #### Return
 Returns a Promise containing the status of the operation. __Throws error on terminal failure.__
 
@@ -217,6 +217,6 @@ Updates the `updateField` member of the post with given id to `updateContent`.
 #### Parameters
 * __`id`__: The id of the post we wish to update.
 * __`updateField`__: The field of the post we want to update.
-* __`updateContent`__: The new value we want the `updateField` to take.
+* __`updateContent`__: The new value we want the `updateField` to take. NOTE: Just like in `createClub`, if this is a new image, this field must be the absolute path, relative paths (starting with `.` or `..`) will not work. 
 #### Return
 Returns a promise containing the status of the operation. __Throws error on terminal failure.__
