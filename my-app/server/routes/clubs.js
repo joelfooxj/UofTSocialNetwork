@@ -18,6 +18,7 @@ router.get('/all', (req, res) => {
  *
  * req body expects:
  *     - name: name of the new club
+ *     - clubInfo: info text of this club
 */
 router.post('/create', (req, res) => {
     if (!req.body.name) {
@@ -27,6 +28,7 @@ router.post('/create', (req, res) => {
 
     const newClub = new Club({
         name: req.body.name,
+        clubInfo: req.body.clubInfo,
         execs: [],
         requested: [],
         members: []

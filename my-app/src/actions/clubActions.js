@@ -33,11 +33,12 @@ async function getAllClubs() {
  * Wrapper for adding a new club
  *
  */
-async function createClub(name, profilePicture=undefined, bannerImage=undefined) {
+async function createClub(name, clubInfo, profilePicture=undefined, bannerImage=undefined) {
     // todo: change undefined to default images here?
     const url = '/clubs/create'
     const data = {
         name: name,
+        clubInfo: clubInfo,
         execs: [],
         requested: [],
         members: [],
