@@ -3,8 +3,6 @@
  * APIDocumentation.md file.
  */
 
- const fs = require('fs');
-
  /*
   * Wrapper for getting all clubs
   *
@@ -42,31 +40,9 @@ async function createClub(name, profilePicture=undefined, bannerImage=undefined)
         name: name,
         execs: [],
         requested: [],
-        members: []
-    }
-
-    if (profilePicture) {
-        try {
-            let profileData = await fs.readFile(profilePicture)
-            let profileBase64 = profileData.toString('base64')
-            let profilePic = new Buffer(profileBase64, 'base64')
-            data.profilePicture = profilePic
-        } catch (error) {
-            console.log("Could not add image");
-            console.log(error)
-        }
-    }
-
-    if (bannerImage) {
-        try {
-            let bannerData = await fs.readFile(bannerImage)
-            let bannerBase64 = bannerData.toString('base64')
-            let bannerPic = new Buffer(bannerBase64, 'base64')
-            data.bannerImage = bannerPic
-        } catch (error) {
-            console.log("Could not add image");
-            console.log(error)
-        }
+        members: [],
+        profilePicture: profilePicture,
+        bannerImage: bannerImage
     }
 
     const request = new Request(url, {
