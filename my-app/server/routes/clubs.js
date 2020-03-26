@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 const { Club } = require('../../models/Club')
 const { ObjectID } = require('mongodb')
-const fs = require('fs');
 
 // multipart middleware: allows access to uploaded files from req.file
 const multipart = require('connect-multiparty')
@@ -11,16 +10,16 @@ const multipartMiddleware = multipart()
 // Cloudinary
 const cloudinary = require('cloudinary')
 cloudinary.config({
-    cloud_name: 'dxjczw5fp',
-    api_key: '634728876591328',
-    api_secret: 'o17p3opn6g7UxjhqNgHWwE9StTE'
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET
 })
 
 // default photos for club
-const DEF_AVI_URL = "https://res.cloudinary.com/dxjczw5fp/image/upload/v1585192612/so9l6y3xg2ilhjsk3scq.png";
-const DEF_AVI_ID = "so9l6y3xg2ilhjsk3scq"
-const DEF_BANNER_URL = "https://res.cloudinary.com/dxjczw5fp/image/upload/v1585182503/team11bi_fuhzkh.jpg"
-const DEF_BANNER_ID = "team11bi_fuhzkh"
+const DEF_AVI_URL = process.env.DEF_AVI_URL
+const DEF_AVI_ID = process.env.DEF_AVI_ID
+const DEF_BANNER_URL = process.env.DEF_BANNER_URL
+const DEF_BANNER_ID = process.env.DEF_BANNER_ID
 
 // routes here
 // [GET] get all clubs
