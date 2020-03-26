@@ -10,6 +10,12 @@ const ClubSchema = new mongoose.Schema({
         minlength: 1,
         trim: true
     },
+    clubInfo: {
+        type: String,
+        required: true,
+        minlength: 1,
+        trim: true
+    },
     execs: [ObjectID],
     requested: [ObjectID],
     members: [ObjectID],

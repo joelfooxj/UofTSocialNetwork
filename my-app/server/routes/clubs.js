@@ -36,7 +36,7 @@ router.get('/all', (req, res) => {
  *
  * req body expects:
  *     - name: name of the new club
- *     - path to default profile picture if formdata is not provided
+ *     - clubInfo: info text of this club
 */
 router.post('/create', async (req, res) => {
     if (!req.body.name) {
@@ -46,6 +46,7 @@ router.post('/create', async (req, res) => {
 
     const newClub = new Club({
         name: req.body.name,
+        clubInfo: req.body.clubInfo,
         execs: [],
         requested: [],
         members: [],
