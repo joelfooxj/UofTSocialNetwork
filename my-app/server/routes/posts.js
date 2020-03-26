@@ -43,8 +43,8 @@ router.post('/create', (req, res) => {
  *     - nothing
 */
 router.get('/all', (req, res) => {
-    Post.find().then((clubs) => {
-        res.send(clubs)
+    Post.find().then((posts) => {
+        res.send(posts)
     }).catch((error) => {
         console.log(error)
         res.status(500).send()
