@@ -8,6 +8,8 @@ import { Link } from '../../../node_modules/react-router-dom'
 import Navbar from '../Navbar'
 import { withRouter } from 'react-router-dom';
 import { getAllClubs } from '../../actions/clubActions'
+import { getUsers } from '../../actions/accountActions'
+import { getAllPosts } from '../../actions/postActions'
 
 
 class AdminDashboard extends React.Component {
@@ -38,7 +40,7 @@ class AdminDashboard extends React.Component {
 
 		fetchAccounts(){
 			try {
-				const allAccounts = getAllAccounts(); 
+				const allAccounts = getUsers(); 
 				this.setState({ accounts: allAccounts });
 			} catch (error) {
 				alert(`${error}: There was an error retrieving all accounts`); 
@@ -69,11 +71,9 @@ class AdminDashboard extends React.Component {
                 />
                 <UserList
 								usersArr={this.state.accounts}
-								onClick={this.goToAccount}
 								/>
                 <ClubList
 								clubsArr={this.state.clubs}
-								onDelete={this.deleteObject}
 								/> 
 								<Link to="/" className="notUnderlined"> 
 									<Button

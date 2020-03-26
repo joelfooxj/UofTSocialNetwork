@@ -9,14 +9,6 @@ const AdminStats = props => {
                     <Grid item xs={12} md={6}>
                     <h2> Admin Statistics </h2>
                     <div>
-                        {/* Possible styling components for later */}
-                        {/* <List dense={true}>
-                            <ListItem>
-                            <ListItemText
-                                primary="Users"
-                            />
-                            </ListItem>
-                        </List> */}
                         <ul>
                             <li> No. of Users:  {props.numUsers}</li>
                             <li> No. of Clubs:  {props.numClubs}</li>
