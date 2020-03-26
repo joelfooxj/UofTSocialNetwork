@@ -39,7 +39,7 @@ class ClubList extends React.Component {
                   <Grid item xs={12} md={6}> 
                     <List dense={true}> 
                         {clubs.map(club =>                           
-                          <Paper elevation={0} variant='outlined' key={club._id} style={{ margin:'10px'}}>
+                          <Paper elevation={0} variant='outlined' key={club._id} className="listItem">
                             <ListItem> 
                                 <ListItemText
                                   primary={club.name}
@@ -53,7 +53,7 @@ class ClubList extends React.Component {
                                         club: club
                                       }
                                     }}
-                                    style={{ textDecoration:'none' }}>
+                                    className="link">
                                     <Button 
                                       size="small"
                                       edge="end" 
@@ -66,7 +66,7 @@ class ClubList extends React.Component {
                                   </Link> 
                                   <Link 
                                     to={`/clubs/${club._id}`}
-                                    style={{ textDecoration:'none' }}>
+                                    className="link">
                                     <Button 
                                       size="small"
                                       edge="end" 
