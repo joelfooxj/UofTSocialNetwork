@@ -37,6 +37,20 @@ router.post('/create', (req, res) => {
     })
 })
 
+/* get request for getting all posts
+ *
+ * req body expects:
+ *     - nothing
+*/
+router.get('/all', (req, res) => {
+    Post.find().then((clubs) => {
+        res.send(clubs)
+    }).catch((error) => {
+        console.log(error)
+        res.status(500).send()
+    })
+})
+
 /* route for getting posts based on an id
  *
  * req body expects:
