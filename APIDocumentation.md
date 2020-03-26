@@ -2,6 +2,8 @@
 
 ## Links to Items within this Document
 * [accountActions.js documentation](#accountActions-documentation)
+* [clubActions.js documentation](#clubActions-documentation)
+* [postActions.js documentation](#postActions-documentation)
 
 ## Dev Notes (Please Read)
 Express requests will not be called directly, instead their wrapper action functions will be called in the front end of the application. These functions can be found inside the files in the __src/actions__ folder. This document will specify their signatures, explain their parameters and returns. There are three main types of routes that this document will have the documentation for: user related functions, club related functions and post related routes. In addition, there will be authentication related functions and some miscalleneous functions for working with data that does not fit into any of the listed categories. The links to each section can be found above. Example function calls will be provided only for some functions that represent a general type of functions included in the API and not all of the functions. __All of these functions deal with manipulating our databse.__ </br>
@@ -38,6 +40,8 @@ Set the _signedIn_ state property of context to _signedIn_ and the _loggedInUser
 * __`context`__: the main App context the state of which stores the currently logged in user.   
 * __`user`__: object holding information about the currently logged in user. See models/SessionUser.js for details on what kind of fields it contains.  
 * __`signedIn`__: whether the user is signed in or not. 
+##### Return
+None
 
 __2.__ `[ASYNC] createAccount(usernameIn: String, permissionsIn: int, passwordIn: String, firstNameIn: String, lastNameIn: String, emailIn: String)`
 ##### Summary:
@@ -120,14 +124,6 @@ Updates the user's password to be _newPass_ while also ensuring to rehash it.
 ##### Return
 A promise containing the status code of the request. __Throws error on terminal failure.__
 
-__1.__ ``
-##### Summary:
-
-##### Parameters
-* __``__:   
-* __``__:   
-* __``__: 
-
 ## clubActions Documentation
 
 This file contains the API for manipulating club data. To import any functions from this file, use the following import statement:
@@ -144,13 +140,14 @@ Retrieves all clubs.
 #### Return
 Returns a Promise that resolves to an array containing club objects on success. When the status code of our HTTP response is not 200, will resolve to an empty array. __Throws error on terminal failure.__
 
-__2.__ `[ASYNC] createClub(name, profilePicture, bannerImage)`
+__2.__ `[ASYNC] createClub(name, clubInfo, profilePicture, bannerImage)`
 #### Summary:
 Creates a new club object and adds it to our database.
 #### Parameters
 * __`name`__: The name of the new club.
-* __`[OPTIONAL] profilePicture`__: The profile picture of the new club. When Victor and I figure out how we will be storing images, this may change.
-* __`[OPTIONAL] bannerImage`__: The banner image of the new club. The same caveat for images above applies here.
+* __`clubInfo`__: The info text to be displayed for this club.
+* __`[OPTIONAL] profilePicture`__: The full path to the profile picture for this club. Must be the absolute path, relative paths (starting with `../` or `./`) will not work.
+* __`[OPTIONAL] bannerImage`__: The full path to the banner image for this club. Must be the absolute path, relative paths (starting with `../` or `./`) will not work.
 #### Return
 Returns a Promise containing the status of the operation. __Throws error on terminal failure.__
 
@@ -221,6 +218,6 @@ Updates the `updateField` member of the post with given id to `updateContent`.
 #### Parameters
 * __`id`__: The id of the post we wish to update.
 * __`updateField`__: The field of the post we want to update.
-* __`updateContent`__: The new value we want the `updateField` to take.
+* __`updateContent`__: The new value we want the `updateField` to take. NOTE: Just like in `createClub`, if this is a new image, this field must be the absolute path, relative paths (starting with `./` or `../`) will not work. 
 #### Return
 Returns a promise containing the status of the operation. __Throws error on terminal failure.__
