@@ -8,10 +8,11 @@ import UserProfileImage from "./../UserProfileImage"
 import Navbar from './../Navbar'
 
 //actions
-import {updateUserRecord, deleteUser, updatePassword} from '../../actions/accountActions';
+import {updateUserRecord, deleteUser, updatePassword, readCookie} from '../../actions/accountActions';
 
 
 class UserProfilePage extends React.Component{
+
     state = {
         displayTimelineOpts: this.props.userInfo.timelineOpts
     }
