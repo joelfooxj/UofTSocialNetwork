@@ -286,51 +286,11 @@ class App extends React.Component{
                               <Redirect to='/'/>)}
             />
             {/*SOMETHING HAS TO BE DONE WITH THESE, WE CAN POTENTIALLY HAVE AN INDEFINITE NUMBER OF CLUBS*/ }
-            <Route exact path='/csc309' render={() => 
-                            (this.state.signedIn ?
-                              <ClubProfilePage 
-                                clubInfo={info.Clubs[0]}
-                                userInfo={this.state.loggedInUser}
-                                addPost={this.makePost}
-                                getClubPosts={this.getClubPosts}
-                                followClub={this.followClub}
-                                unfollowClub={this.unfollowClub}
-                                removePost={this.removePost}
-                                joinClub={this.joinClub}
-                                leaveClub={this.leaveClub}
-                              /> :
-                              <Redirect to='/'/>)}
-            />
-            <Route exact path='/uoft' render={() => 
-                          (this.state.signedIn ?
-                            <ClubProfilePage 
-                              clubInfo={info.Clubs[1]}
-                              userInfo={this.state.loggedInUser}
-                              addPost={this.makePost}
-                              getClubPosts={this.getClubPosts}
-                              followClub={this.followClub}
-                              unfollowClub={this.unfollowClub}
-                              removePost={this.removePost}
-                              joinClub={this.joinClub}
-                              leaveClub={this.leaveClub}
-                            /> :
-                            <Redirect to='/'/>)}
-            />
-            <Route exact path='/team11' render={() => 
-                          (this.state.signedIn ? 
-                            <ClubProfilePage 
-                              clubInfo={info.Clubs[2]}
-                              userInfo={this.state.loggedInUser}
-                              addPost={this.makePost}
-                              getClubPosts={this.getClubPosts}
-                              followClub={this.followClub}
-                              unfollowClub={this.unfollowClub}
-                              removePost={this.removePost}
-                              joinClub={this.joinClub}
-                              leaveClub={this.leaveClub}
-                           /> : 
-                           <Redirect to='/'/>)}
-            />
+            <Route path='/club/:id' render={(props) => 
+              //(this.state.signedIn ?
+                <ClubProfilePage {...props} userInfo={this.state.loggedInUser}/> 
+                //<Redirect to='/'/>)
+            }/>
             <Route exact path='/ClubDashboard' render={ () => 
               (this.state.signedIn ? <ClubDashboard users={info.Accs} posts={info.Posts} currentUser={this.state}/> : <Redirect to='/'/>) }/>
             <Route exact path='/AdminDashboard' render={() => 
