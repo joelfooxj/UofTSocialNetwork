@@ -9,7 +9,7 @@ import {getClub} from '../../actions/clubActions'
 class ClubProfilePage extends React.Component {
     constructor(props) {
         super(props)
-        console.log(props)
+
         this.state = {
             id: props.match.params.id,
             clubInfo: {},
@@ -17,6 +17,8 @@ class ClubProfilePage extends React.Component {
             loaded: false
 
         }
+
+        this.getClubInfo(this.state.id)
     }
 
     getClubInfo(id) {
@@ -25,7 +27,6 @@ class ClubProfilePage extends React.Component {
                 alert(`Something went wrong retrieving club information. Status: ${result.status}`)
                 return;
             }
-
             this.setState({
                 clubInfo: result,
                 loaded: true
@@ -37,11 +38,12 @@ class ClubProfilePage extends React.Component {
         })
     }
 
-    componentWillMount() {
-        this.getClubInfo(this.state.id)
-    }
+    // componentWillMount() {
+    //     this.getClubInfo(this.state.id)
+    // }
 
     render() {
+        console.log(this.state)
         if (this.state.loaded) {
             return(
                 <div id="profilePage">
@@ -53,12 +55,12 @@ class ClubProfilePage extends React.Component {
                         bannerImage={this.state.clubInfo.bannerImage}
                     />
     
-                    {/* <ClubInfo 
+                    <ClubInfo 
                         clubInfo={this.state.clubInfo} 
                         userInfo={this.state.userInfo}
                     />
     
-                    <ClubTimeline 
+                    {/* <ClubTimeline 
                         clubInfo={this.state.clubInfo}
                         userInfo={this.state.userInfo}
                     /> */}
