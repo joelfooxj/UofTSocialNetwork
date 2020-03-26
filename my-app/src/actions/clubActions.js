@@ -33,16 +33,14 @@ async function getAllClubs() {
  * Wrapper for adding a new club
  *
  */
-async function createClub(name, profilePicture=undefined, bannerImage=undefined) {
+async function createClub(name) {
     // todo: change undefined to default images here?
     const url = '/clubs/create'
     const data = {
         name: name,
         execs: [],
         requested: [],
-        members: [],
-        profilePicture,
-        bannerImage
+        members: []
     }
 
     const request = new Request(url, {
@@ -118,6 +116,28 @@ async function updateClub(id, attr, new_val) {
 }
 
 /*
+ * Wrapper for updating club images
+ *
+ */
+async function updateClubImage(id, attr, formData) {
+    const url = `clubs/updateImg/${id}/${attr}`
+
+    console.log(formData)
+
+    const request = new Request(url, {
+        method: 'PATCH',
+        body: formData
+    })
+
+    try {
+        const response = await fetch(request)
+        return response.status
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+/*
  * Wrapper for updating club info
  *
  */
@@ -139,4 +159,4 @@ async function deleteClub(id) {
     }
 }
 
-export {getAllClubs, createClub, getClub, updateClub, deleteClub}
+export {getAllClubs, createClub, getClub, updateClub, updateClubImage, deleteClub}
