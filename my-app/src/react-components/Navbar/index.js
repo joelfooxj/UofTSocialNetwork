@@ -41,13 +41,13 @@ class Navbar extends React.Component{
 		const Links = () => {
 			if (userType){
 				return (
-					<NavRB className="mr-auto" inline>
+					<NavRB className="mr-auto" inline="true">
 						<NavRB.Link onClick={()=>this.switchpage('AdminDashboard')} href='/AdminDashboard'>Admin DashBoard</NavRB.Link>
 					</NavRB>
 				);
 			}else{
 				return (
-					<NavRB className="mr-auto" inline>
+					<NavRB className="mr-auto" inline="true">
 						<NavRB.Link onClick={()=>this.switchpage('browseAllClubs')} >Explore</NavRB.Link>
 						<NavRB.Link onClick={()=>this.switchpage('FeedPage')} >Feeds</NavRB.Link>
 						<NavRB.Link onClick={()=>this.switchpage('Following')} >Following</NavRB.Link>

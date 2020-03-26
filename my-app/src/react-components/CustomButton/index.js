@@ -25,7 +25,8 @@ class CustomButton extends React.Component{
             left: left,
             fontSize: fontSize,
             position: position,
-            margin: margin
+            margin: margin,
+            display: "block"
         })
         return (
             <CustomButton
