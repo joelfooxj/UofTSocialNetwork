@@ -6,3 +6,11 @@
 	position: relative;
 	top:100px;
 }	
+
+.notUnderlined{
+	text-decoration: none;
+}
+
+.button{
+	margin: 5px; 
+}
