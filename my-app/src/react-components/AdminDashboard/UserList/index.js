@@ -3,6 +3,7 @@ import { Grid, List, ListItem, ListItemText, IconButton, ListItemSecondaryAction
 import DeleteIcon from  '../../../../node_modules/@material-ui/icons/Delete' 
 import { Link } from '../../../../node_modules/react-router-dom'
 import { banUser, unbanUser, deleteUser } from '../../../actions/accountActions'
+import './index.css'
 
 class UserList extends React.Component {
 	constructor(props){ 
@@ -87,7 +88,7 @@ class UserList extends React.Component {
 												buttonText = 'Ban';
 											}
 											return(
-													<Paper elevation={0} variant='outlined' key={account._id} style={{ margin:'10px'}}>
+													<Paper elevation={0} variant='outlined' key={account._id} className="listItem">
 														<ListItem> 
 																<ListItemText
 																	primary={account.firstName + ' ' + account.lastName}
@@ -101,7 +102,7 @@ class UserList extends React.Component {
 																				accountId: account._id
 																			}
 																		}}
-																		style={{ textDecoration:'none' }}>
+																		className="notUnderlined">
 																		<Button 
 																			size="small"
 																			edge="end" 
