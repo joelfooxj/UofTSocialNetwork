@@ -163,6 +163,30 @@ export const getUserById = async (idIn) => {
   }
 }
 
+export const getUsers = async () => {
+  const url = '/users/allUsers'
+  const request = new Request(url, {
+      method: 'GET', 
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      }
+  });
+
+  try{
+    const res = await fetch(request)
+    if(res.status === 200){
+      return await res.json()
+    }
+    else{
+      return null
+    }
+  }
+  catch(err){
+    throw new Error(err)
+  }
+}
+
 
 export const deleteUser = async (userID) => {
   const data = {
