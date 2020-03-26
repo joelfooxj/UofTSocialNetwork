@@ -28,13 +28,33 @@
     
 }
 
-#emailErrorSpan{
+.emailErrorSpan{
     color: red;
     width: 525px;
     height: 10px;
     position: relative;
     left: 35%;
-    top: 5%;
+    top: 10%;
+    display: block;
+}
+
+.dupUserErrorSpan{
+    color: red;
+    width: 525px;
+    height: 10px;
+    position: relative;
+    left: 45%;
+    top: 10%;
+    display: block;
+}
+
+.dupEmailErrorSpan{
+    color: red;
+    width: 525px;
+    height: 10px;
+    position: relative;
+    left: 45%;
+    top: 10%;
     display: block;
 }
 

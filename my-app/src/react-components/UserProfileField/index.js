@@ -3,10 +3,13 @@ import TextField from "@material-ui/core/TextField";
 import "./style.css"
 import CustomButton from "./../CustomButton"
 
+import {updateUserRecord, updatePassword} from '../../actions/accountActions';
+
 class UserProfileField extends React.Component{
 
     state = {
-        beingChanged: false
+        beingChanged: false,
+        disableSaveButton: false
     }
 
     editButtonOnClick = () => {
@@ -22,13 +25,13 @@ class UserProfileField extends React.Component{
     }
 
     render(){
-        const {label, name, type, defaultValue, onChange} = this.props
+        const {label, name, type, defaultValue, userID, id} = this.props
         let field = null
         let editField = <TextField 
                             name={name}
                             type={type}
                             label={label}
-                            id="margin-normal"
+                            id={id}
                             defaultValue={defaultValue || ""}
                             className="infoFieldText"
                             margin="normal"
@@ -38,12 +41,12 @@ class UserProfileField extends React.Component{
                             name={name}
                             type={type}
                             label={label}
-                            id="margin-normal"
                             defaultValue={defaultValue || ""}
+                            id={id}
                             className="infoFieldText"
                             margin="normal"
                             disabled={false}
-                            onChange={(e) => {onChange(e.target.value)}}
+                            onChange={(e) => {if(e.target.value === ""){this.setState({disableSaveButton: true})} else{this.setState({disableSaveButton: false})}}}
                         />
         let editButton = <CustomButton id="editButton"
                         color={"primary"}
@@ -55,8 +58,8 @@ class UserProfileField extends React.Component{
                         width={"10px"}
                         height={"15px"}
                         padding={"0px"}
-                        top={"42px"}
-                        left={"10px"}
+                        top={"-23px"}
+                        left={"200px"}
                         fontSize={"10px"}
                         onClick={this.editButtonOnClick}
                     >
@@ -71,10 +74,20 @@ class UserProfileField extends React.Component{
                             width={"10px"}
                             height={"15px"}
                             padding={"0px"}
-                            top={"42px"}
-                            left={"10px"}
+                            top={"-23px"}
+                            left={"200px"}
                             fontSize={"10px"}
-                            onClick={this.saveButtonOnClick}
+                            onClick={() => {this.saveButtonOnClick();
+                                            if(name === "password"){
+                                                updatePassword(userID, document.getElementById(id).value).then((res) => {console.log(res)})
+                                                    
+                                                } 
+                                                else{updateUserRecord(userID, name, document.getElementById(id).value)
+                                                    .then((res) => {console.log(res)})
+                                                }
+                                            }
+                                    }
+                            disabled={this.state.disableSaveButton}
                         >
                         </CustomButton>
 

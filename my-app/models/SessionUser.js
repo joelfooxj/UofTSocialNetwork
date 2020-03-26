@@ -33,7 +33,8 @@ const UserSchema = new mongoose.Schema({
 	email: {
 		type: String,
 		required: true,
-		minLength: 1
+		minLength: 1,
+		unique: true
 	},
 	permissions: {
 		type: Number,

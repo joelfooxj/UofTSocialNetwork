@@ -27,7 +27,7 @@ export const createAccount = async (usernameIn, permissionsIn, passwordIn, first
 
   try{
     const res = await fetch(request)
-    return res.status
+    return res
   }
   catch(err){
     throw new Error(err)
@@ -72,8 +72,6 @@ export const attemptSignIn = (context, callLoc) => {
                         .then((result) => {
                             const {history} = context.props;
 
-                            changeSignInStatus(context.props.logInContext, result, true)
-
                             if(history && result !== null){
                                 if(result.status === 0){ //banned
                                     context.setState({
@@ -81,8 +79,8 @@ export const attemptSignIn = (context, callLoc) => {
                                     })
                                 }
                                 else{
-                                    result.permissions === 1 ? history.push('/AdminDashboard') :  
-                                    history.push('/FeedPage', context.state)
+                                    changeSignInStatus(context.props.logInContext, result, true)
+                                    result.permissions === 1 ? history.push('/AdminDashboard') : history.push('/FeedPage', context.state)
                                 }
                             }
                         })
@@ -143,6 +141,30 @@ export const getUserByName = async (usernameIn) => {
 
 export const getUserById = async (idIn) => {
   const url = '/users/findUserByID/'+idIn
+  const request = new Request(url, {
+      method: 'GET', 
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      }
+  });
+
+  try{
+    const res = await fetch(request)
+    if(res.status === 200){
+      return await res.json()
+    }
+    else{
+      return null
+    }
+  }
+  catch(err){
+    throw new Error(err)
+  }
+}
+
+export const getUsers = async () => {
+  const url = '/users/allUsers'
   const request = new Request(url, {
       method: 'GET', 
       headers: {
@@ -289,6 +311,26 @@ export const updatePassword = async (id, newPass) => {
   }
 }
 
+
+// A function to check if a user is logged in on the session cookie
+export const readCookie = (app) => {
+  const url = "/users/check-session";
+
+  fetch(url)
+      .then(res => {
+          if (res.status === 200) {
+              return res.json();
+          }
+      })
+      .then(json => {
+          if (json && json.currentUser) {
+              app.setState({ loggedInUser: json.currentUser });
+          }
+      })
+      .catch(error => {
+          console.log(error);
+      });
+};
 
 
 

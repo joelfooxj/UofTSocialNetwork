@@ -26,7 +26,7 @@
     width: fit-content;
     height: fit-content;
     left: 500px;
-    top: -390px;
+    top: -465px;
 }
 
 #timelineOptsHeader{
@@ -37,7 +37,7 @@
 #mainDiv #profileImg{
     position: absolute;
     display: inline-block;
-    left: 43.75%;
-    top: 22%;
+    left: 43.85%;
+    top: 30%;
 }
 

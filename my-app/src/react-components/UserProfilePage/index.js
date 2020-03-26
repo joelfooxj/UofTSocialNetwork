@@ -8,10 +8,14 @@ import UserProfileImage from "./../UserProfileImage"
 import Navbar from './../Navbar'
 
 //actions
-import {updateUserRecord, deleteUser, updatePassword} from '../../actions/accountActions';
+import {updateUserRecord, deleteUser, updatePassword, readCookie} from '../../actions/accountActions';
 
 
 class UserProfilePage extends React.Component{
+
+    state = {
+        displayTimelineOpts: this.props.userInfo.timelineOpts
+    }
     render(){
         const {userInfo} = this.props;
         return (
@@ -29,15 +33,17 @@ class UserProfilePage extends React.Component{
                         type={"text"}
                         defaultValue={userInfo.username}
                         disabled={true}
-                        onChange={(attrVal) => {updateUserRecord(userInfo._id, "username", attrVal).then((res) => {console.log(res)})}}//TODO:{this.props.changeAccInfo(account.id, "username", attrVal)}}
+                        userID={userInfo._id}
+                        id={"usernameIn"}
                     />
                     <UserProfileField
                         label={"Password"}
                         name={"password"}
-                        type={"password"}
-                        defaultValue={"notarealpassword"}
+                        type={"text"}
+                        defaultValue={"New Password"}
                         disabled={true}
-                        onChange={(attrVal) => {updatePassword(userInfo._id, attrVal).then((res) => {console.log(res)})}} //TODO:{this.props.changeAccInfo(account.id, "password", attrVal)}}
+                        userID={userInfo._id}
+                        id={"passIn"}
                     />
                     <UserProfileField
                         label={"First Name"}
@@ -45,7 +51,8 @@ class UserProfilePage extends React.Component{
                         type={"text"}
                         defaultValue={userInfo.firstName}
                         disabled={true}
-                        onChange={(attrVal) => {updateUserRecord(userInfo._id, "firstName", attrVal).then((res) => {console.log(res)})}} //TODO{this.props.changeAccInfo(account.id, "firstName", attrVal)}}
+                        userID={userInfo._id}
+                        id={"fisrtNameIn"}
                     />
                     <UserProfileField
                         label={"Last Name"}
@@ -53,7 +60,8 @@ class UserProfilePage extends React.Component{
                         type={"text"}
                         defaultValue={userInfo.lastName}
                         disabled={true}
-                        onChange={(attrVal) => {updateUserRecord(userInfo._id, "lastName", attrVal).then((res) => {console.log(res)})}} //TODO{this.props.changeAccInfo(account.id, "lastName", attrVal)}}
+                        userID={userInfo._id}
+                        id={"lastNameIn"}
                     />
                     <UserProfileField
                         label={"Email"}
@@ -61,7 +69,8 @@ class UserProfilePage extends React.Component{
                         type={"text"}
                         defaultValue={userInfo.email}
                         disabled={true}
-                        onChange={(attrVal) => {updateUserRecord(userInfo._id, "email", attrVal).then((res) => {console.log(res)})}} //TODO{this.props.changeAccInfo(account.id, "email", attrVal)}}
+                        userID={userInfo._id}
+                        id={"emailIn"}
                     />
                 
                     <div id="checkboxDiv">
@@ -69,8 +78,8 @@ class UserProfilePage extends React.Component{
                         <Checkbox 
                                 color={"primary"}
                                 label={"Clubs I am a part of"}
-                                checked={userInfo.timelineOpts[0]}
-                                onChange={() => {const newOpts = [!userInfo.timelineOpts[0], userInfo.timelineOpts[1], userInfo.timelineOpts[2]]; updateUserRecord(userInfo._id, "timelineOpts", newOpts).then((res) => {console.log(res)})}}//TODO{this.props.changeAccTimelineOpts(account.id, 0)}}
+                                checked={this.state.displayTimelineOpts[0]}
+                                onChange={() => {userInfo.timelineOpts[0] = !userInfo.timelineOpts[0]; updateUserRecord(userInfo._id, "timelineOpts", userInfo.timelineOpts).then((res) => {console.log(res); this.setState({displayTimelineOpts: userInfo.timelineOpts})})}}
                                 >
                         </Checkbox>
                         <span>Clubs I follow</span>
@@ -79,16 +88,16 @@ class UserProfilePage extends React.Component{
                         <Checkbox 
                                 color={"primary"}
                                 label={"Clubs I follow"}
-                                checked={userInfo.timelineOpts[1]}
-                                onChange={() => {const newOpts = [userInfo.timelineOpts[0], !userInfo.timelineOpts[1], userInfo.timelineOpts[2]]; updateUserRecord(userInfo._id, "timelineOpts", newOpts).then((res) => {console.log(res)})}} //TODO {this.props.changeAccTimelineOpts(account.id, 1)}}
+                                checked={this.state.displayTimelineOpts[1]}
+                                onChange={() => {userInfo.timelineOpts[1] = !userInfo.timelineOpts[1]; updateUserRecord(userInfo._id, "timelineOpts", userInfo.timelineOpts).then((res) => {console.log(res); this.setState({displayTimelineOpts: userInfo.timelineOpts})})}}
                                 >
                         </Checkbox>
                         <span>Clubs I am a part of</span>
                         <br></br>
                         <Checkbox 
                                 color={"primary"}
-                                checked={userInfo.timelineOpts[2]}
-                                onChange={() => {const newOpts = [userInfo.timelineOpts[0], userInfo.timelineOpts[1], !userInfo.timelineOpts[2]]; updateUserRecord(userInfo._id, "timelineOpts", newOpts).then((res) => {console.log(res)})}} //TODO{this.props.changeAccTimelineOpts(account.id, 2)}}
+                                checked={this.state.displayTimelineOpts[2]}
+                                onChange={() => {userInfo.timelineOpts[2] = !userInfo.timelineOpts[2];  updateUserRecord(userInfo._id, "timelineOpts", userInfo.timelineOpts).then((res) => {console.log(res); this.setState({displayTimelineOpts: userInfo.timelineOpts})})}}
                                 >
                         </Checkbox>
                         <span>Clubs I am an executive of</span>
@@ -108,7 +117,7 @@ class UserProfilePage extends React.Component{
                     top={"-75px"}
                     left={"555px"}
                     fontSize={"10px"}
-                    onClick={() => {this.props.history.push("/"); deleteUser(userInfo._id).then((res) => {console.log(res)})}}//TODO: this.props.deleteAcc(account.id)}}
+                    onClick={() => {this.props.history.push("/"); deleteUser(userInfo._id).then((res) => {console.log(res)})}}
                 >
                     
                 </CustomButton>

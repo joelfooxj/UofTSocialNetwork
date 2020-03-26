@@ -20,8 +20,7 @@ import BrowseAllClubs from "./react-components/BrowseAllClubs/index";
 import Navbar from './react-components/Navbar';
 import EventTimePlace from './react-components/EventTimePlace';
 // tempoary classes for storeing testing objects only 
-
-import {createAccount, getUserByName, getUserById, deleteUser, banUser, unbanUser, updateUserRecord} from './actions/accountActions';
+import {readCookie} from './actions/accountActions';
 
 class userObject {
   constructor(type, name){
@@ -41,13 +40,17 @@ const userNoClub = new userObject('user', 'inactivist')
 //
 
 class App extends React.Component{
-  
+
+  constructor(props){
+    super(props)
+    readCookie(this)
+  }
 
   state = {
     signedIn: false,
     accountCreationFailed: false,
     //new properties
-    loggedInUser: null
+    loggedInUser: null,
   }
 
  
@@ -251,19 +254,20 @@ class App extends React.Component{
                                             changeAccCreateState={this.changeAccountCreationState}
                                             accCreateState={this.state.accountCreationFailed}
                             />)}/>
-            <Route exact path='/FeedPage' render={() => 
-                            (this.state.signedIn && this.state.loggedInUser.permissions === 0 ?
+            <Route exact path='/FeedPage' render={({history}) => 
+                            (this.state.loggedInUser && this.state.loggedInUser.permissions === 0 ?
                               <FeedPage 
                               appContext={this}
                               loggedInUser={this.state.loggedInUser}
+                              history={history}
                               allPosts={info.Posts}
                               allClubs={info.Clubs}
                               makeEventDecision={this.makeEventDecision} //import this from an action file
                             /> :
-                            <Redirect to='/'/>)}
+                            <LogInPage logInContext={this}/>)}
             />
             <Route exact path='/Following' render={() => 
-                            (this.state.signedIn ?
+                            (this.state.loggedInUser ?
                               <FollowingPage 
                               userInfo={this.state.loggedInUser}
                               allClubs={info.Clubs} //TODO: REMOVE THIS, IT IS NOT NECESSARY ONCE WE START USING OUR DB
@@ -271,7 +275,7 @@ class App extends React.Component{
                             <Redirect to='/'/>)}
             />
             <Route exact path='/UserProfilePage' render={() =>
-                            (this.state.signedIn ?
+                            (this.state.loggedInUser ?
                               <UserProfilePage 
                                 userInfo={this.state.loggedInUser}
                                // userInfo={{accs: this.state.accounts,
@@ -283,24 +287,74 @@ class App extends React.Component{
                                 //changeAccTimelineOpts={(accId, optionIndex) => {changeAccTimelineOpts(this, info.Accs, optionIndex, accId)}}
                                 //deleteAcc={(accId) => {deleteAccount(this, accId, info.Accs)}}
                               /> : 
-                              <Redirect to='/'/>)}
+                              <LogInPage logInContext={this}/>)}
             />
             {/*SOMETHING HAS TO BE DONE WITH THESE, WE CAN POTENTIALLY HAVE AN INDEFINITE NUMBER OF CLUBS*/ }
+<<<<<<< HEAD
             <Route path='/club/:id' render={(props) => 
               //(this.state.signedIn ?
                 <ClubProfilePage {...props} userInfo={this.state.loggedInUser}/> 
                 //<Redirect to='/'/>)
             }/>
+=======
+            <Route exact path='/csc309' render={() => 
+                            (this.state.loggedInUser ?
+                              <ClubProfilePage 
+                                clubInfo={info.Clubs[0]}
+                                userInfo={this.state.loggedInUser}
+                                addPost={this.makePost}
+                                getClubPosts={this.getClubPosts}
+                                followClub={this.followClub}
+                                unfollowClub={this.unfollowClub}
+                                removePost={this.removePost}
+                                joinClub={this.joinClub}
+                                leaveClub={this.leaveClub}
+                              /> :
+                              <LogInPage logInContext={this}/>)}
+            />
+            <Route exact path='/uoft' render={() => 
+                          (this.state.loggedInUser ?
+                            <ClubProfilePage 
+                              clubInfo={info.Clubs[1]}
+                              userInfo={this.state.loggedInUser}
+                              addPost={this.makePost}
+                              getClubPosts={this.getClubPosts}
+                              followClub={this.followClub}
+                              unfollowClub={this.unfollowClub}
+                              removePost={this.removePost}
+                              joinClub={this.joinClub}
+                              leaveClub={this.leaveClub}
+                            /> :
+                            <LogInPage logInContext={this}/>)}
+            />
+            <Route exact path='/team11' render={() => 
+                          (this.state.loggedInUser ? 
+                            <ClubProfilePage 
+                              clubInfo={info.Clubs[2]}
+                              userInfo={this.state.loggedInUser}
+                              addPost={this.makePost}
+                              getClubPosts={this.getClubPosts}
+                              followClub={this.followClub}
+                              unfollowClub={this.unfollowClub}
+                              removePost={this.removePost}
+                              joinClub={this.joinClub}
+                              leaveClub={this.leaveClub}
+                           /> : 
+                           <LogInPage logInContext={this}/>)}
+            />
+>>>>>>> dd2af5f8e7f5c598739ad458ff4068851288fd2d
             <Route exact path='/ClubDashboard' render={ () => 
-              (this.state.signedIn ? <ClubDashboard users={info.Accs} posts={info.Posts} currentUser={this.state}/> : <Redirect to='/'/>) }/>
+              (this.state.loggedInUser ? <ClubDashboard users={info.Accs} posts={info.Posts} currentUser={this.state}/> : <LogInPage logInContext={this}/>) }/>
             <Route exact path='/AdminDashboard' render={() => 
-              (this.state.signedIn && this.state.loggedInUser.permissions === 1 ? <AdminDashboard 
+              (this.state.loggedInUser && this.state.loggedInUser.permissions === 1 ? <AdminDashboard 
                 user={ this.state.loggedInUser} 
-                accounts={info.Accs} clubs={info.Clubs}/> : <Redirect to='/'/>) }/>
+                accounts={info.Accs} clubs={info.Clubs}/> : <LogInPage logInContext={this}/>) }/>
             <Route exact path='/browseAllClubs' render={() => 
-            (this.state.signedIn ? 
+            (this.state.loggedInUser ? 
               <BrowseAllClubs allClubs={info.Clubs} userInfo={this.state.loggedInUser}/> : 
-              <Redirect to='/'/>) }/>
+              <LogInPage logInContext={this}/>) }/>
+            
+            
           </Switch>
         </BrowserRouter>
     );
