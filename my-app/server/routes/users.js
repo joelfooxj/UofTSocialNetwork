@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { User } = require('../../models/SessionUser')
 const { ObjectID } = require('mongodb')
+const security = require('../mainServer')
 
 //POST - Create new user
 router.post('/create', (req, res) => {
@@ -40,7 +41,7 @@ router.post('/create', (req, res) => {
 })
 
 //[GET] - Get user with username and password
-router.get('/findUserByName/:username', (req, res) => {
+router.get('/findUserByName/:username', (req, res, next) => {security.auth(req, res, next)}, (req, res) => {
     const username = req.params.username
 
     if(username === ""){
@@ -63,7 +64,7 @@ router.get('/findUserByName/:username', (req, res) => {
 })
 
 //[GET] - Get user with given object id
-router.get('/findUserByID/:id', (req, res) => {
+router.get('/findUserByID/:id', (req, res, next) => {security.auth(req, res, next)}, (req, res) => {
     const id = new ObjectID(req.params.id)
 
     if(!ObjectID.isValid(id)){
@@ -86,7 +87,7 @@ router.get('/findUserByID/:id', (req, res) => {
 
 
 //[GET] - Gets all users IDs
-router.get('/allUsers', (req, res) => {
+router.get('/allUsers', (req, res, next) => {security.auth(req, res, next)}, (req, res) => {
     User.find().then((users) => {
 	    if(!users){
             res.status(404).send()
@@ -101,7 +102,7 @@ router.get('/allUsers', (req, res) => {
 })
 
 //[DELETE] - delete user
-router.delete('/delete', (req, res) => {
+router.delete('/delete', (req, res, next) => {security.auth(req, res, next)}, (req, res) => {
     const id = req.body.id
 
     if (!ObjectID.isValid(id)) {
@@ -124,7 +125,7 @@ router.delete('/delete', (req, res) => {
 
 
 //[PATCH] - ban user
-router.patch('/ban', (req, res) => {
+router.patch('/ban', (req, res, next) => {security.authAdmin(req, res, next)}, (req, res) => {
     const id = req.body.id
 
     if (!ObjectID.isValid(id)) {
@@ -150,7 +151,7 @@ router.patch('/ban', (req, res) => {
 })
 
 //[PATCH] - ban user
-router.patch('/unban', (req, res) => {
+router.patch('/unban', (req, res, next) => {security.authAdmin(req, res, next)}, (req, res) => {
     const id = req.body.id
 
     if (!ObjectID.isValid(id)) {
@@ -176,7 +177,7 @@ router.patch('/unban', (req, res) => {
 })
 
 //[PATCH] - update user info
-router.patch('/update',  (req, res) => {
+router.patch('/update', (req, res, next) => {security.auth(req, res, next)}, (req, res) => {
     const id = req.body.id
 
     if (!ObjectID.isValid(id)) {
@@ -206,7 +207,7 @@ router.patch('/update',  (req, res) => {
 })
 
 //[PUT] - replace the current doc with the same doc with a different password
-router.put('/updatePass',  (req, res) => {
+router.put('/updatePass', (req, res, next) => {security.auth(req, res, next)}, (req, res) => {
     const id = req.body.id
     const pass = req.body.pass
 

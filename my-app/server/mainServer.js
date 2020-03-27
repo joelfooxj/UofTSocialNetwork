@@ -25,6 +25,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const cors = require('cors');
 app.use(cors())
 
+// Create a session cookie
+app.use(session({
+    secret: 'oursecret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        expires: 60000,
+        httpOnly: true
+    }
+}));
+
+
 //routes
 const userRoutes = require('./routes/users')
 const postRoutes = require('./routes/posts')
@@ -45,16 +57,6 @@ const { ObjectID } = require('mongodb')
 
 //----------------------------------------------------------------------
 
-// Create a session cookie
-app.use(session({
-    secret: 'oursecret',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        expires: 60000,
-        httpOnly: true
-    }
-}));
 
 //Middleware to check for active users on session cookie
 const sessionChecker = (req, res, next) => {
@@ -127,3 +129,38 @@ const port = process.env.PORT || 5000
 app.listen(port, () => {
 	log(`Listening on port ${port}...`)
 })
+
+
+
+module.exports.auth = (req, res, next) => {
+    if (req.session.user) {
+        User.findById(req.session.user._id).then((user) => {
+            if (!user) {
+                return Promise.reject()
+            } else {
+                req.user = user
+                next()
+            }
+        }).catch((error) => {
+            res.status(401).send("Unauthorized")
+        })
+    } else {
+        res.status(401).send("Unauthorized")
+    }
+}
+module.exports.authAdmin = (req, res, next) => {
+    if (req.session.user) {
+        User.findById(req.session.user._id).then((user) => {
+            if (!user || (user && user.permissions === 0)) {
+                return Promise.reject()
+            } else {
+                req.user = user
+                next()
+            }
+        }).catch((error) => {
+            res.status(401).send("Unauthorized")
+        })
+    } else {
+        res.status(401).send("Unauthorized")
+    }
+}
