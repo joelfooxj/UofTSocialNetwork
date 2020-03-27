@@ -92,6 +92,9 @@ class UserList extends React.Component {
 												buttonColor = 'secondary';
 												buttonText = 'Ban';
 											}
+
+											if(account.permissions === 1) return null; 
+
 											return(
 													<Paper elevation={0} variant='outlined' key={account._id} className="listItem">
 														<ListItem> 
