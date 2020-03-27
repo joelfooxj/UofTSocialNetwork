@@ -31,8 +31,9 @@ class AdminDashboard extends React.Component {
 
 		fetchClubs(){ 
 			try {
-				const allClubs = getAllClubs(); 
-				this.setState({ clubs: allClubs });
+				getAllClubs().then(retClubs => { 
+					this.setState({ clubs: retClubs });
+				}); 
 			} catch (error) {
 				alert(`${error}: There was an error retrieving all clubs`); 
 			}
@@ -40,17 +41,19 @@ class AdminDashboard extends React.Component {
 
 		fetchAccounts(){
 			try {
-				const allAccounts = getUsers(); 
-				this.setState({ accounts: allAccounts });
+				getUsers().then(retAccounts => { 
+					this.setState({ accounts: retAccounts });
+				}); 
 			} catch (error) {
 				alert(`${error}: There was an error retrieving all accounts`); 
 			}
 		}
 
 		fetchPosts(){
-			try {
-				const allPosts = getAllPosts(); 
-				this.setState({ posts: allPosts });
+			try{
+				getAllPosts().then(retPosts => { 
+					this.setState({ posts: retPosts });
+				}); 
 			} catch (error) {
 				alert(`${error}: There was an error retrieving all posts`); 
 			}
