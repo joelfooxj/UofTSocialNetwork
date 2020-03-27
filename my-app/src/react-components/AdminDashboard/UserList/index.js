@@ -21,13 +21,15 @@ class UserList extends React.Component {
 		if (banState === 0){ 
 			// Ban account
 			try {
-				if (banUser(accountID) !== 200){
-					alert(`Failed to ban ${accountID}.`)
-				} else {
-					let accountsCopy = [...this.state.accounts]; 
-					accountsCopy.find(account => account._id === accountID).status = banState;
-					this.setState({accounts: accountsCopy});
-				}
+				banUser(accountID).then(res => {
+					if (res !== 200){
+						alert(`Failed to ban ${accountID}.`);
+					}	else {
+						let accountsCopy = [...this.state.accounts]; 
+						accountsCopy.find(account => account._id === accountID).status = banState;
+						this.setState({accounts: accountsCopy});
+					}
+				})
 			} catch (error) {
 				alert(`${error}: cannot ban account`)
 			}
@@ -36,13 +38,15 @@ class UserList extends React.Component {
 		if (banState === 1){ 
 			// Unban account
 			try {
-				if (unbanUser(accountID) !== 200){
-					alert(`Failed to unban ${accountID}.`)
-				} else {
-					let accountsCopy = [...this.state.accounts]; 
-					accountsCopy.find(account => account._id === accountID).status = banState;
-					this.setState({accounts: accountsCopy});
-				}
+				unbanUser(accountID).then(res => {
+					if (res !== 200){
+						alert(`Failed to unban ${accountID}.`);
+					}	else {
+						let accountsCopy = [...this.state.accounts]; 
+						accountsCopy.find(account => account._id === accountID).status = banState;
+						this.setState({accounts: accountsCopy});
+					}
+				});
 			} catch (error) {
 				alert(`${error}: cannot unban account`)
 			}
@@ -55,18 +59,19 @@ class UserList extends React.Component {
 			alert(`${accountID} does not exist`); 
 		}
 		try {
-			if (deleteUser(accountID) !== 200){
-				alert(`${accountID} was not deleted. Please try again.`);
-			} else {
-				let accountsCopy = [...this.state.accounts]; 
-				accountsCopy = accountsCopy.filter(account => account._id !== accountID);
-				this.setState({accounts: accountsCopy});
-			}
+			deleteUser(accountID).then(res => {
+				if (res !== 200){
+					alert(`${accountID} was not deleted. Please try again.`);
+				} else {
+					let accountsCopy = [...this.state.accounts]; 
+					accountsCopy = accountsCopy.filter(account => account._id !== accountID);
+					this.setState({accounts: accountsCopy});
+				}
+			});
 		} catch (error) {
 			alert(`${error}: The user was not deleted`);
 		}
 	}
-
 
 	render(){
 		return (
