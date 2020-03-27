@@ -5,31 +5,30 @@ import { Link } from '../../../../node_modules/react-router-dom'
 import './index.css'
 import { deleteClub } from '../../../actions/clubActions'
 
-
-delClub = (clubID) => {
-  if (!this.state.clubs.some(club => club._id === clubID)){
-    alert(`${clubID} does not exist`); 
-  }
-  try {
-    deleteClub(clubID).then(res => {
-      if(res !== 200){
-        alert(`${clubID} was not deleted. Please try again.`);
-      } else {
-        let clubsCopy = [...this.state.clubs]; 
-        clubsCopy.filter(club => club._id !== clubID);
-        this.setState({clubs: clubsCopy});
-      } 
-    });
-  } catch (error) {
-    alert(`${error}: ${clubID} was not deleted`);
-  }
-}
-
 class ClubList extends React.Component {
   constructor(props){
     super(props); 
     this.state = {
       clubs: props.clubsArr
+    }
+  }
+
+  delClub = (clubID) => {
+    if (!this.state.clubs.some(club => club._id === clubID)){
+      alert(`${clubID} does not exist`); 
+    }
+    try {
+      deleteClub(clubID).then(res => {
+        if(res !== 200){
+          alert(`${clubID} was not deleted. Please try again.`);
+        } else {
+          let clubsCopy = [...this.state.clubs]; 
+          clubsCopy.filter(club => club._id !== clubID);
+          this.setState({clubs: clubsCopy});
+        } 
+      });
+    } catch (error) {
+      alert(`${error}: ${clubID} was not deleted`);
     }
   }
 
@@ -40,7 +39,7 @@ class ClubList extends React.Component {
           <Grid container spacing={2}>
                   <Grid item xs={12} md={6}> 
                     <List dense={true}> 
-                        {clubs.map(club =>                           
+                        {this.state.clubs.map(club =>                           
                           <Paper elevation={0} variant='outlined' key={club._id} className="listItem">
                             <ListItem> 
                                 <ListItemText
@@ -67,7 +66,7 @@ class ClubList extends React.Component {
                                     </Button>
                                   </Link> 
                                   <Link 
-                                    to={`/clubs/${club._id}`}
+                                    to={`/club/${club._id}`}
                                     className="link">
                                     <Button 
                                       size="small"
@@ -79,7 +78,7 @@ class ClubList extends React.Component {
                                       view
                                     </Button>
                                   </Link> 
-                                  <IconButton edge="end" aria-label="delete" onClick={() => props.delClub(club._id)}>
+                                  <IconButton edge="end" aria-label="delete" onClick={() => this.delClub(club._id)}>
                                     <DeleteIcon fontSize="small" color="primary"/>
                                   </IconButton>
                                 </ListItemSecondaryAction>

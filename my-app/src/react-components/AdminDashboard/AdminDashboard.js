@@ -72,7 +72,7 @@ class AdminDashboard extends React.Component {
 				if (this.state.loading){
 					return(
 						<div> 
-							<div className="centeredText"> LOADING... </div>
+							<h1 className="centeredText"> LOADING... </h1>
 						</div>
 					);
 				}
