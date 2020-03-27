@@ -68,7 +68,7 @@ class BrowseAllClubs extends React.Component {
     } else {
       retRequested.push(this.props.userInfo._id);
       try {
-        if (updateClub(getClub._id, requested, retRequested) !== 200){
+        if (updateClub(getClub._id, "requested", retRequested) !== 200){
           alert(`Failed to update club ${getClub.name}`)
         }
       } catch (error) {
