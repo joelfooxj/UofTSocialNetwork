@@ -17,7 +17,15 @@ class UserProfilePage extends React.Component{
         displayTimelineOpts: this.props.userInfo.timelineOpts
     }
     render(){
-        const {userInfo} = this.props;
+
+        let userInfo; 
+        if (typeof(this.props.location.state.account) !== "undefined"){
+            userInfo = this.props.location.state.account; 
+        } else {
+            userInfo = this.props.userInfo;
+        }
+
+        // const {userInfo} = this.props
         return (
             <div id="mainDiv">
                 <Navbar logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
