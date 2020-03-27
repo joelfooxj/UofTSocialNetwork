@@ -5,8 +5,6 @@ import { withRouter, Link } from 'react-router-dom';
 import Navbar from '../Navbar'
 import { getAllClubs, updateClub } from '../../actions/clubActions';
 
-
-
 class BrowseAllClubs extends React.Component {
   constructor(props){
     super(props); 
@@ -16,26 +14,21 @@ class BrowseAllClubs extends React.Component {
     }
   }
 
-  //THESE SHOULD NOW BE SUPPLEMENTED BY OUR DB FUNCTIONS
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
   // user this.props.userInfo for the currently logged in user
   
   componentDidMount(){
     console.log("starting component"); 
     try {
-      const retClubs = getAllClubs(); 
-      this.setState({
-        allClubs: retClubs, 
-        displayedClubs: retClubs
-      })
+      getAllClubs().then(clubs => {
+        this.setState({
+          allClubs: clubs, 
+          displayedClubs: clubs
+        })
+      });
     } catch (error) {
       alert(error);
     }
   }
-
-
 
   filterClubs = e => { 
     this.setState({
@@ -44,44 +37,28 @@ class BrowseAllClubs extends React.Component {
     });
   }
 
-  // TODO: make sure that this links to the correct page.
-  // Don't actually every use this...
-  // goToClub = clubID => {
-  //   let target = null
-  //   target = this.state.allClubs.find(club => club._id == clubID);
-
-  //   if (target) {
-  //     const {history} = this.props; 
-  //     history.push(`/clubs/${target._id}`);
-  //   } else {
-  //     alert("Unable to find club link.")
-  //   }
-  // }
-
   joinRequest = e => {
-    console.log(e.currentTarget._id); 
     let allClubsCopy = [...this.state.allClubs];
-    let getClub = allClubsCopy.find(club => club._id === parseInt(e.currentTarget._id));
+    let getClub = allClubsCopy.find(club => club._id === e.currentTarget.id);
     let retRequested = getClub.requested;
     if (retRequested.includes(this.props.userInfo._id)){
       alert("You have already joined this club.") // THERE IS A BUG IF THIS SHOWS UP
     } else {
       retRequested.push(this.props.userInfo._id);
       try {
-        if (updateClub(getClub._id, "requested", retRequested) !== 200){
-          alert(`Failed to update club ${getClub.name}`)
-        }
+        updateClub(getClub._id, "requested", retRequested).then(res => {
+          if (res !== 200){
+            alert(`Failed to update club ${getClub.name}`)
+            retRequested.pop();
+          }
+        });
       } catch (error) {
-        alert(error);
-        alert(`Failed to update club ${getClub.name}`);
+        alert(`${error}: Failed to update club ${getClub.name}`);
         retRequested.pop(); 
       }
       this.setState({allClubs: allClubsCopy});
     }
-
-    
   }
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
   render(){
     return (
