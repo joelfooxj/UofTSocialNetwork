@@ -13,54 +13,70 @@ import { getAllPosts } from '../../actions/postActions'
 
 
 class AdminDashboard extends React.Component {
-	// props should contain Accounts and Clubs
     constructor(props){
 			super(props); 
 			this.state={
 				accounts: [],
 				clubs: [],
-				posts: [] 
-			}	
-		}
-		
-		componentDidMount(){
-			this.fetchClubs(); 
-			this.fetchAccounts();
-			this.fetchPosts();  
-		}
-
-		fetchClubs(){ 
-			try {
-				getAllClubs().then(retClubs => { 
-					this.setState({ clubs: retClubs });
-				}); 
-			} catch (error) {
-				alert(`${error}: There was an error retrieving all clubs`); 
+				posts: [], 
+				loading: true
 			}
 		}
 
-		fetchAccounts(){
+		componentDidMount(){
+			this.fetchAll().then(retObj => {
+				this.setState({
+					accounts: retObj.retAccounts,
+					clubs: retObj.retClubs, 
+					posts: retObj.retPosts, 
+					loading:false
+				});
+			});
+		}
+
+		async fetchAll(){
+			let retAccounts = [];
+			let retClubs = []; 
+			let retPosts = []; 
+			 
 			try {
-				getUsers().then(retAccounts => { 
-					this.setState({ accounts: retAccounts });
+				await getUsers().then(accounts => {
+					retAccounts = accounts;
 				}); 
 			} catch (error) {
 				alert(`${error}: There was an error retrieving all accounts`); 
 			}
-		}
+			
+			try {
+				await getAllClubs().then(clubs => {
+					retClubs = clubs;
+				}); 
+			} catch (error) {
+				alert(`${error}: There was an error retrieving all clubs`); 
+			}
 
-		fetchPosts(){
 			try{
-				getAllPosts().then(retPosts => { 
-					this.setState({ posts: retPosts });
+				await getAllPosts().then(posts => {
+					retPosts = posts;
 				}); 
 			} catch (error) {
 				alert(`${error}: There was an error retrieving all posts`); 
 			}
-		}
 
+			return {retAccounts, retClubs, retPosts};
+		}
+		
     render(){
 				const { changeSignInStatus, user } = this.props;
+
+				if (this.state.loading){
+					return(
+						<div> 
+							<div className="centeredText"> LOADING... </div>
+						</div>
+					);
+				}
+
         return(
         	<div>
         	<Navbar logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
@@ -78,22 +94,10 @@ class AdminDashboard extends React.Component {
                 <ClubList
 								clubsArr={this.state.clubs}
 								/> 
-								<Link to="/" className="notUnderlined"> 
-									<Button
-										size="small"
-										edge="end" 
-										aria-label="join" 
-										variant="outlined"
-										color='primary'
-										>																		
-										LOGOUT
-									</Button>
-								</Link>
             </div>
           </div>
         );
     }
-    
 }
 
 export default withRouter(AdminDashboard);
