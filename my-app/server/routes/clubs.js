@@ -106,7 +106,7 @@ router.patch('/update/:id', (req, res) => {
     }
 
    const update = {
-        [req.body.attr]: new_val
+        [req.body.attr]: req.body.nVal
     }
 
     Club.findOneAndUpdate({_id: id}, update).then((result) => {
