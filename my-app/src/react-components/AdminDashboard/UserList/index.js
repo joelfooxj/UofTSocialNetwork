@@ -104,7 +104,7 @@ class UserList extends React.Component {
 																<ListItemSecondaryAction>
 																	<Link 
 																		to={{
-																			pathname: "/UserProfilePage", 
+																			pathname: `/UserProfilePage/${account._id}`, 
 																			state: {
 																				accounts: this.state.accounts,
 																				accountId: account._id
