@@ -11,13 +11,15 @@ delClub = (clubID) => {
     alert(`${clubID} does not exist`); 
   }
   try {
-    if (deleteClub(clubID) !== 200){
-      alert(`${clubID} was not deleted. Please try again.`);
-    } else {
-      let clubsCopy = [...this.state.clubs]; 
-      clubsCopy.filter(club => club._id !== clubID);
-      this.setState({clubs: clubsCopy});
-    }
+    deleteClub(clubID).then(res => {
+      if(res !== 200){
+        alert(`${clubID} was not deleted. Please try again.`);
+      } else {
+        let clubsCopy = [...this.state.clubs]; 
+        clubsCopy.filter(club => club._id !== clubID);
+        this.setState({clubs: clubsCopy});
+      } 
+    });
   } catch (error) {
     alert(`${error}: ${clubID} was not deleted`);
   }
