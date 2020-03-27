@@ -13,7 +13,7 @@ class ClubTimeline extends React.Component {
         super(props);
         this.state = {
             clubInfo: props.clubInfo,
-            userInfo: props.userInfo,
+           // userInfo: props.userInfo,
             posts: [],
             loaded: false
         }

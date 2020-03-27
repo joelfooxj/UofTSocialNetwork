@@ -11,7 +11,7 @@ class ClubInfo extends React.Component {
         console.log(props)
         super(props);
         this.state = {
-            userInfo: props.userInfo,
+            //userInfo: props.userInfo,
             clubInfo: props.clubInfo
         }
     }
@@ -23,25 +23,25 @@ class ClubInfo extends React.Component {
     // Functions for verifying permisisons of current user.
     // Returns true if the current user is an exec.
     isExec = function() {
-        let val = this.state.clubInfo.execs.includes(this.state.userInfo._id);
+        let val = this.state.clubInfo.execs.includes(this.props.userInfo._id);
         return val;
     }
     
     // Returns true if the current user is an executive of the club.
     isMember = function() {
-        let val = this.state.clubInfo.members.includes(this.state.userInfo._id);
+        let val = this.state.clubInfo.members.includes(this.props.userInfo._id);
         return val;
     }
 
     // Returns true if the current user has requested to join this club
     didRequest = function() {
-        let val = this.state.clubInfo.requested.includes(this.state.userInfo._id) 
+        let val = this.state.clubInfo.requested.includes(this.props.userInfo._id) 
         return val;
     }
 
     // Returns true if the current user is following this club.
     isFollowing = function() {
-        return this.state.userInfo.clubsFollowing.includes(this.state.clubInfo._id)
+        return this.props.userInfo.clubsFollowing.includes(this.state.clubInfo._id)
     }
 
     render() {

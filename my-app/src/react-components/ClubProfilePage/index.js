@@ -13,7 +13,7 @@ class ClubProfilePage extends React.Component {
         this.state = {
             id: props.match.params.id,
             clubInfo: {},
-            userInfo: props.userInfo,
+            //userInfo: props.userInfo,
             loaded: false
 
         }
@@ -56,12 +56,12 @@ class ClubProfilePage extends React.Component {
     
                     <ClubInfo 
                         clubInfo={this.state.clubInfo} 
-                        userInfo={this.state.userInfo}
+                        userInfo={this.props.userInfo}
                     />
     
                     <ClubTimeline 
                         clubInfo={this.state.clubInfo}
-                        userInfo={this.state.userInfo}
+                        userInfo={this.props.userInfo}
                     />
                 </div>
             )
