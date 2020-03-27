@@ -98,7 +98,6 @@ router.get('/get/:id', (req, res) => {
  */
 router.patch('/update/:id', (req, res) => {
     const id = req.params.id
-
     if (!ObjectID.isValid(id) || !req.body.attr || !req.body.nVal) {
         console.log(ObjectID.isValid(id), req.body.attr, req.body.nVal)
         res.status(400).send()
@@ -106,7 +105,7 @@ router.patch('/update/:id', (req, res) => {
     }
 
    const update = {
-        [req.body.attr]: new_val
+        [req.body.attr]: req.body.nVal
     }
 
     Club.findOneAndUpdate({_id: id}, update).then((result) => {

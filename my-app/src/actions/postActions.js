@@ -34,7 +34,11 @@ async function createPost(posterID, content, title=undefined, location=undefined
 
     try {
         const response = await fetch(request)
-        return response.status
+        if (response.status === 200) {
+            return await response.json()
+        } else {
+            return {'status': response.status}
+        }
     } catch (error) {
         throw new Error(error)
     }
@@ -44,7 +48,7 @@ async function createPost(posterID, content, title=undefined, location=undefined
  * Wrapper for getting all posts
  */
 async function getAllPosts() {
-    const url = 'posts/all'
+    const url = '/posts/all'
     const request = new Request(url, {
         method: 'GET',
         headers: {
@@ -70,7 +74,7 @@ async function getAllPosts() {
  * returns an array
  */
 async function getPostByPosterID(posterID){
-    const url = `posts/get/${posterID}`
+    const url = `/posts/get/${posterID}`
     const request = new Request(url, {
         method: 'GET',
         headers: {
@@ -92,10 +96,24 @@ async function getPostByPosterID(posterID){
 }
 
 /*
+ * Function for getting all posts for a set of ids
+ */
+async function collectPosts(ids) {
+    let posts = []
+    for (let i = 0; i < ids.length; i++) {
+        let postsForID = await getPostByPosterID(ids[i])
+        let idList = new Set(posts.map(o => o._id))
+        let newPosts = [...posts, ...postsForID.filter(o => !idList.has(o._id))]
+        posts = newPosts
+    }
+    return posts;
+}
+
+/*
  * Wrapper for deleting a post.
  */
 async function removePostByID(id) {
-    const url = `posts/remove/${id}`
+    const url = `/posts/remove/${id}`
     const request = new Request(url, {
         method: 'DELETE',
         headers: {
@@ -116,7 +134,7 @@ async function removePostByID(id) {
  * Wrapper for updating a post.
  */
 async function updatePost(id, updateField, updateContent) {
-    const url = `posts/update/${id}`
+    const url = `/posts/update/${id}`
     const data = {
         attr: updateField,
         nVal: updateContent
@@ -139,4 +157,4 @@ async function updatePost(id, updateField, updateContent) {
     }
 }
 
-export {createPost, getPostByPosterID, removePostByID, updatePost, getAllPosts}
+export {createPost, getPostByPosterID, collectPosts, removePostByID, updatePost, getAllPosts}

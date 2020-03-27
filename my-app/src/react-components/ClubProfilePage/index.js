@@ -43,7 +43,6 @@ class ClubProfilePage extends React.Component {
     // }
 
     render() {
-        console.log(this.state)
         if (this.state.loaded) {
             return(
                 <div id="profilePage">
@@ -60,10 +59,10 @@ class ClubProfilePage extends React.Component {
                         userInfo={this.state.userInfo}
                     />
     
-                    {/* <ClubTimeline 
+                    <ClubTimeline 
                         clubInfo={this.state.clubInfo}
                         userInfo={this.state.userInfo}
-                    /> */}
+                    />
                 </div>
             )
         } else {

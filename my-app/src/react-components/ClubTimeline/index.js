@@ -3,6 +3,7 @@ import './style.css';
 import ClubPost from "../ClubPost";
 import CustomButton from "../CustomButton";
 import info from '../../tempInfo';
+import {removePostByID, getPostByPosterID, collectPosts, createPost} from '../../actions/postActions'
 
 class ClubTimeline extends React.Component {
     cPosts = info.Posts.filter((p) => p.authorID === this.props.clubInfo.clubID);
@@ -10,26 +11,72 @@ class ClubTimeline extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            posts: this.getPosts(props.clubInfo.clubID)
+            clubInfo: props.clubInfo,
+            userInfo: props.userInfo,
+            posts: [],
+            loaded: false
         }
     }
     
     // This will be a database call later
-    getPosts(id) {
-        let posts = info.Posts.filter((p) => p.authorID === id)
-        posts.sort(function(a, b) {
-            // sort posts by date
-            let adate, bdate;
-            adate = a.date.split('-').reverse().join('');
-            bdate = b.date.split('-').reverse().join('');
-            return adate > bdate ? 1 : adate < bdate ? -1 : 0
-        }) 
-        return posts
+    getPosts() {
+        getPostByPosterID(this.state.clubInfo._id).then((result) => {
+            this.setState({
+                posts: result,
+                loaded: true
+            })
+        }).catch((error) => {
+            console.log("Fatal error")
+            throw new Error(error)
+        })
     }
 
-    // The last id used to create a post, used for ensuring new posts
-    // have a unique id for this club.
-    lastID = 1;
+    removePost(postID) {
+        let newPosts = this.state.posts
+        let target = -1
+        for (let i = 0; i < newPosts.length; i++) {
+            if (newPosts[i]._id === postID) {
+                target = i;
+                break;
+            }
+        }
+
+        if (target >= 0) {
+            newPosts.splice(target, 1)
+            removePostByID(postID).then((result) => {
+                if (result === 200) {
+                    this.setState({
+                        posts: newPosts
+                    })
+                } else {
+                    alert(`There was a problem removing the post. Status: ${result}`)
+                }
+            }).catch((error) => {
+                console.log("Fatal error")
+                throw new Error(error)
+            })
+        }
+    }
+
+    addPost(postContent) {
+        let newPosts = this.state.posts
+        createPost(this.state.clubInfo._id, postContent).then((result) => {
+            return result
+        }).then((result) => {
+            if (result.status) {
+                alert(`There was a problem adding a post. Status: ${result.status}`)
+            } else {
+                newPosts.push(result)
+                this.setState({
+                    posts: newPosts
+                })
+            }
+        }).catch((error) => {
+            console.log("Fatal error.")
+            console.log(error)
+            throw new Error(error);
+        })
+    }
 
     // Returns true if the current user is a club executive
     isExec = function() {
@@ -59,46 +106,56 @@ class ClubTimeline extends React.Component {
             return;
         }
 
-        this.props.addPost(this, form.value);
-        form.value = "";
+        this.addPost(form.value);
+    }
+
+    componentDidMount() {
+        this.getPosts()
     }
 
     render() {
-        return(
-            <div id="timeline">
-                    {(this.isExec() || this.props.userInfo.permissions === 1) && 
-                        <div id="makePost">
-                            <div id="postButton">
-                                <CustomButton
-                                    width="125px"
-                                    height="75px"
-                                    variant="outline"
-                                    buttonText="Make Post"
-                                    backgroundColor="lightgray"
-                                    border="1px gray solid"
-                                    margin="10px"
-                                    onClick={this.onClickAddPost.bind(this)}
-                                />
+        if (this.state.loaded) {
+            return(
+                <div id="timeline">
+                        {(this.isExec() || this.props.userInfo.permissions === 1) && 
+                            <div id="makePost">
+                                <div id="postButton">
+                                    <CustomButton
+                                        width="125px"
+                                        height="75px"
+                                        variant="outline"
+                                        buttonText="Make Post"
+                                        backgroundColor="lightgray"
+                                        border="1px gray solid"
+                                        margin="10px"
+                                        onClick={this.onClickAddPost.bind(this)}
+                                    />
+                                </div>
+                                <div id="makePostTextArea">
+                                    <textarea id="makePostText" placeholder="What's on your mind?"/>
+                                </div>
                             </div>
-                            <div id="makePostTextArea">
-                                <textarea id="makePostText" placeholder="What's on your mind?"/>
-                            </div>
-                        </div>
-                    }
-                {this.state.posts.map(p => (
-                    <ClubPost 
-                        id={p.postID}
-                        clubName={this.props.clubInfo.name} 
-                        profilePic={this.props.clubInfo.profilePic}
-                        postContent={p.content}
-                        timeline={this}
-                        removePost={this.props.removePost}
-                        isExec={this.isExec()}
-                        isAdmin={this.props.userInfo.permissions === 1}
-                    />
-                ))}
-            </div>
-        )
+                        }
+                    {this.state.posts.map(p => (
+                        <ClubPost 
+                            clubInfo={this.props.clubInfo}
+                            userInfo={this.props.userInfo}
+                            postInfo={p}
+                            timeline={this}
+                            removePost={this.removePost.bind(this)}
+                            isExec={this.isExec()}
+                            isAdmin={this.props.userInfo.permissions === 1}
+                        />
+                    ))}
+                </div>
+            )
+        } else {
+            return(
+                <div>
+                    Loading...
+                </div>
+            )
+        }
     }
 }
 

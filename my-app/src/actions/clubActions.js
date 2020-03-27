@@ -93,11 +93,11 @@ async function getClub(id) {
  *
  */
 async function updateClub(id, attr, new_val) {
-    const url = `clubs/update/${id}`
+    const url = `/clubs/update/${id}`
     const data = {
         attr: attr,
         nVal: new_val
-    }
+    }   
 
     const request = new Request(url, {
         method: 'PATCH',
@@ -121,10 +121,7 @@ async function updateClub(id, attr, new_val) {
  *
  */
 async function updateClubImage(id, attr, formData) {
-    const url = `clubs/updateImg/${id}/${attr}`
-
-    console.log(formData)
-
+    const url = `/clubs/updateImg/${id}/${attr}`
     const request = new Request(url, {
         method: 'PATCH',
         body: formData
@@ -143,7 +140,7 @@ async function updateClubImage(id, attr, formData) {
  *
  */
 async function deleteClub(id) {
-    const url = `clubs/remove/${id}`
+    const url = `/clubs/remove/${id}`
     const request = new Request(url, {
         method: 'DELETE',
         headers: {
