@@ -3,6 +3,7 @@ import './style.css';
 import CustomButton from "../CustomButton";
 import {updateUserRecord} from '../../actions/accountActions';
 import {updateClub} from '../../actions/clubActions';
+import * as actions from './actions';
 import ClubDashboard from "../ClubDashboard/ClubDashboard";
 
 class ClubInfo extends React.Component {
@@ -43,134 +44,7 @@ class ClubInfo extends React.Component {
         return this.state.userInfo.clubsFollowing.includes(this.state.clubInfo._id)
     }
 
-    followClub = (clubID) => {
-        this.state.userInfo.clubsFollowing.push(clubID)
-        updateUserRecord(this.state.userInfo._id, 'clubsFollowing', this.state.userInfo.clubsFollowing).then((result) => {
-            if (result === 200) {
-                this.setState({
-                    userInfo: this.state.userInfo
-                })
-            } else {
-                alert(`There was a problem updating the user. Status: ${result.status}`)
-            }
-        }).catch((error) => {
-            console.log("Fatal Error")
-            throw new Error(error)
-        })
-    }
-
-    unfollowClub = (clubID) => {
-        let target = -1
-        let clubsFollowing = this.state.userInfo.clubsFollowing
-        for (let i = 0; i < clubsFollowing.length; i++) {
-            if (clubID === clubsFollowing[i]) {
-                target = i
-                break;
-            }
-        }
-
-        if (target >= 0) {
-            this.state.userInfo.clubsFollowing.splice(target, 1)
-            updateUserRecord(this.state.userInfo._id, 'clubsFollowing', this.state.userInfo.clubsFollowing).then((result) => {
-                if (result === 200) {
-                    this.setState({
-                        userInfo: this.state.userInfo
-                    })
-                } else {
-                    alert(`There was a problem updating the user. Status: ${result.status}`)
-                }
-            }).catch((error) => {
-                console.log("Fatal Error")
-                throw new Error(error)
-            })
-        } else {
-            console.log("Couldnt unfollow club. Club not found.")
-        }
-    }
-
-    joinClub = () => {
-        let requested = this.state.clubInfo.requested
-        if (requested.includes(this.state.userInfo._id)) {
-            return;
-        }
-
-        this.state.clubInfo.requested.push(this.state.userInfo._id)
-        updateClub(this.state.clubInfo._id, 'requested', this.state.clubInfo.requested).then((result) => {
-            if (result === 200) {
-                this.setState({
-                    clubInfo: this.state.clubInfo
-                })
-            } else {
-                alert(`There was a problem updating the user. Status: ${result}`)
-            }
-        }).catch((error) => {
-            console.log("Fatal error")
-            throw new Error(error);
-        })
-    }
-    
-    cancelRequest = () => {
-        let target = -1
-        let requested = this.state.clubInfo.requested
-
-        for (let i = 0; i < requested.length; i++) {
-            if (requested[i] === this.state.userInfo._id) {
-                target = i
-                break;
-            }
-        }
-
-        if (target >= 0) {
-            this.state.clubInfo.requested.splice(target, 1)
-            updateClub(this.state.clubInfo._id, 'requested', this.state.clubInfo.requested).then((result) => {
-                if (result === 200) {
-                    this.setState({
-                        clubInfo: this.state.clubInfo
-                    })
-                } else {
-                    alert(`There was a problem updating the user. Status: ${result.status}`)
-                }
-            }).catch((error) => {
-                console.log("Fatal error")
-                throw new Error(error)
-            })
-        } else {
-            console.log("Could find request to remove.");
-        }
-    }
-
-    leaveClub = () => {
-        let target = -1
-        let members = this.state.clubInfo.members
-
-        for (let i = 0; i < members.length; i++) {
-            if (members[i] === this.state.userInfo._id) {
-                target = i;
-                break;
-            }
-        }
-
-        if (target >= 0) {
-            this.state.clubInfo.members.splice(target, 1)
-            updateClub(this.state.clubInfo._id, 'members', this.state.clubInfo.members).then((result) => {
-                if (result === 200) {
-                    this.setState({
-                        clubInfo: this.state.clubInfo
-                    })
-                } else {
-                    alert(`There was a problem updating the user. Status: ${result.status}`)
-                }
-            }).catch((error) => {
-                console.log("Fatal error")
-                throw new Error(error)
-            })
-        } else {
-            console.log("Could not find club to leave.")
-        }
-    }
-
     render() {
-        console.log(this.state)
         return(
             <div id="ClubInfoContainer">
                 <div id="InfoContents">
@@ -187,7 +61,7 @@ class ClubInfo extends React.Component {
                                 backgroundColor="lightgray"
                                 border="1px gray solid"
                                 margin="5px"
-                                onClick={()=>(this.followClub(this.state.clubInfo._id))}
+                                onClick={()=>(actions.followClub(this))}
                             />
                         }
 
@@ -200,7 +74,7 @@ class ClubInfo extends React.Component {
                                 backgroundColor="lightgray"
                                 border="1px gray solid"
                                 margin="5px"
-                                onClick={() => this.unfollowClub(this.state.clubInfo._id)}
+                                onClick={() => actions.unfollowClub(this)}
                             />
                         }
 
@@ -213,7 +87,7 @@ class ClubInfo extends React.Component {
                                 backgroundColor="lightgray"
                                 border="1px gray solid"
                                 margin="5px"
-                                onClick={() => this.joinClub()}
+                                onClick={() => actions.joinClub(this)}
                             />
                         }
 
@@ -226,7 +100,7 @@ class ClubInfo extends React.Component {
                                 backgroundColor="lightgray"
                                 border="1px gray solid"
                                 margin="5px"
-                                onClick={() => this.leaveClub()}
+                                onClick={() => actions.leaveClub(this)}
                             />
                         }
 
@@ -239,7 +113,7 @@ class ClubInfo extends React.Component {
                             backgroundColor="lightgray"
                             border="1px gray solid"
                             margin="5px"
-                            onClick={() => this.cancelRequest()}
+                            onClick={() => actions.cancelRequest(this)}
                         />
                     }
                     </span>
