@@ -1,17 +1,13 @@
 import React from "react";
 import './style.css';
 import CustomButton from "../CustomButton";
-import {updateUserRecord} from '../../actions/accountActions';
-import {updateClub} from '../../actions/clubActions';
 import * as actions from './actions';
-import ClubDashboard from "../ClubDashboard/ClubDashboard";
 
 class ClubInfo extends React.Component {
     constructor(props) {
         console.log(props)
         super(props);
         this.state = {
-            //userInfo: props.userInfo,
             clubInfo: props.clubInfo
         }
     }

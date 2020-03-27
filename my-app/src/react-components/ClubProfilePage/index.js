@@ -13,7 +13,6 @@ class ClubProfilePage extends React.Component {
         this.state = {
             id: props.match.params.id,
             clubInfo: {},
-            //userInfo: props.userInfo,
             loaded: false
 
         }

@@ -13,7 +13,6 @@ class ClubTimeline extends React.Component {
         super(props);
         this.state = {
             clubInfo: props.clubInfo,
-           // userInfo: props.userInfo,
             posts: [],
             loaded: false
         }
@@ -30,6 +29,7 @@ class ClubTimeline extends React.Component {
     }
 
     render() {
+        console.log(this.isExec())
         if (this.state.loaded) {
             return(
                 <div id="timeline">
