@@ -23,8 +23,16 @@ router.post('/create', (req, res) => {
     user.save().then(() => {
         res.status(200).send(user)
     }, (err) => {
-        console.log(err)
-        res.status(400).send(err)
+        if(err.code === 11000){
+            const dupField = err.message.split("{")[1].split(":")[0]
+            res.statusMessage = dupField.trim()
+            res.status(409).send()
+
+            return
+        }else{
+            res.status(400).send(err)
+            return
+        }
     }).catch((err) => {
         console.log(err)
         res.status(500).send()
@@ -57,7 +65,7 @@ router.get('/findUserByName/:username', (req, res) => {
 //[GET] - Get user with given object id
 router.get('/findUserByID/:id', (req, res) => {
     const id = new ObjectID(req.params.id)
-    console.log(id)
+
     if(!ObjectID.isValid(id)){
         res.status(400).send()
         return;
@@ -69,6 +77,22 @@ router.get('/findUserByID/:id', (req, res) => {
         }
         else{
             res.status(200).send(user)
+        }
+    }).catch((error) => {
+        console.log(error) //FOR DEV PURPOSES ONLY
+		res.status(500).send()
+    })
+})
+
+
+//[GET] - Gets all users IDs
+router.get('/allUsers', (req, res) => {
+    User.find().then((users) => {
+	    if(!users){
+            res.status(404).send()
+        }
+        else{
+            res.status(200).send(users)
         }
     }).catch((error) => {
         console.log(error) //FOR DEV PURPOSES ONLY

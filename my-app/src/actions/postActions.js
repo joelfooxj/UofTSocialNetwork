@@ -41,6 +41,31 @@ async function createPost(posterID, content, title=undefined, location=undefined
 }
 
 /*
+ * Wrapper for getting all posts
+ */
+async function getAllPosts() {
+    const url = 'posts/all'
+    const request = new Request(url, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        }
+    })
+
+    try {
+        const response = await fetch(request)
+        if (response.status === 200) {
+            return await response.json()
+        } else {
+            return []
+        }
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+/*
  * Wrapper for getting a post based on a single poster id.
  * returns an array
  */
@@ -114,4 +139,4 @@ async function updatePost(id, updateField, updateContent) {
     }
 }
 
-export {createPost, getPostByPosterID, removePostByID, updatePost}
+export {createPost, getPostByPosterID, removePostByID, updatePost, getAllPosts}

@@ -8,6 +8,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron'
 
 
 class FeedPage extends React.Component{
+
   render() {
     const { changeSignInStatus, loggedInUser, allPosts, allClubs, makeEventDecision, appContext} = this.props;
     
@@ -19,11 +20,11 @@ class FeedPage extends React.Component{
           </FeedCard>)
       }
       
-    
+
     return (
       <div>
-        <Navbar changeSignInStatus={changeSignInStatus} logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
-          status={true} loggedInUser={loggedInUser} appContext={appContext}>
+        <Navbar  logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
+           loggedInUser={loggedInUser} appContext={appContext}>
         </Navbar>
         <div className='feedsContainer'>
         
@@ -42,4 +43,4 @@ class FeedPage extends React.Component{
   }
 }
 
-export default withRouter(FeedPage);
+export default FeedPage;

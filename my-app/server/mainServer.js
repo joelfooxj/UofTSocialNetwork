@@ -84,8 +84,7 @@ app.post('/log_in', (req, res) => {
         } else {
             // Add the user's id to the session cookie.
             // We can check later if this exists to ensure we are logged in.
-            req.session.user = user._id;
-            req.session.username = user.username
+            req.session.user = user;
             res.status(200).send(user);
         }
     }).catch((error) => {
@@ -106,6 +105,22 @@ app.delete('/logout', (req, res) => {
 		}
 	})
 })
+
+
+//GET - for checking if user is logged in
+app.get("/users/check-session", (req, res) => {
+    if (req.session.user) {
+        res.send({ currentUser: req.session.user});
+    } else {
+        res.status(401).send();
+    }
+});
+
+app.use(express.static(__dirname + "/client/build"));
+app.get("*", (req, res) => {
+    res.sendFile(__dirname + "/client/build/index.html");
+});
+
 
 //start server
 const port = process.env.PORT || 5000
