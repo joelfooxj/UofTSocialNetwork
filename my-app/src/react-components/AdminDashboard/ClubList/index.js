@@ -49,7 +49,7 @@ class ClubList extends React.Component {
                                 <ListItemSecondaryAction>
                                   <Link  
                                     to={{
-                                      pathname:"/ClubDashboard", //TODO: Add id here?  
+                                      pathname:`/ClubDashboard/${club.name}`, //TODO: Add id here?  
                                       state:{
                                         club: club
                                       }

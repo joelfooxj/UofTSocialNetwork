@@ -26,10 +26,10 @@ class ClubDashboard extends React.Component {
 			}	
 
 
-			if (!(passedInClub.execs.includes(this.props.currentUser.accountId) || this.props.currentUser.permission === 1)){
+			if (!(passedInClub.execs.includes(this.props.currentUser._id) || this.props.currentUser.permissions === 1)){
 				alert("Unauthorized access"); 
 				this.props.history.push('/');
-			}
+			} 
 		}
 		
 		componentDidMount(){
