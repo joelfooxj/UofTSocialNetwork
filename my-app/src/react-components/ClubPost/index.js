@@ -7,12 +7,12 @@ class ClubPost extends React.Component {
         return(
             <div class="post">
                 <div class="postIconContainer">
-                    <img src={this.props.profilePic} class="postIcon" alt="Failed to load"/>
+                    <img src={this.props.clubInfo.profilePicture} class="postIcon" alt="Failed to load"/>
                 </div>
 
                 <div class="postContent">
-                    <p><strong>{this.props.clubName}</strong></p>
-                    <p>{this.props.postContent}</p>
+                    <p><strong>{this.props.clubInfo.name}</strong></p>
+                    <p>{this.props.postInfo.content}</p>
                 </div>
 
                 {(this.props.isExec || this.props.isAdmin) &&
@@ -25,7 +25,7 @@ class ClubPost extends React.Component {
                             backgroundColor="lightgray"
                             border="1px gray solid"
                             margin="10px"
-                            onClick={() => this.props.removePost(this.props.timeline, this)}
+                            onClick={() => this.props.removePost(this.props.postInfo._id)}
                         />
                     </div>
                 }

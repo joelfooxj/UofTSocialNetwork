@@ -98,7 +98,6 @@ router.get('/get/:id', (req, res) => {
  */
 router.patch('/update/:id', (req, res) => {
     const id = req.params.id
-
     if (!ObjectID.isValid(id) || !req.body.attr || !req.body.nVal) {
         console.log(ObjectID.isValid(id), req.body.attr, req.body.nVal)
         res.status(400).send()
