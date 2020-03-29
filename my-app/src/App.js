@@ -113,55 +113,6 @@ class App extends React.Component{
                               <LogInPage logInContext={this}/>)}
             />
             {/*SOMETHING HAS TO BE DONE WITH THESE, WE CAN POTENTIALLY HAVE AN INDEFINITE NUMBER OF CLUBS*/ }
-<<<<<<< HEAD
-            <Route exact path='/csc309' render={() => 
-                            (this.state.loggedInUser ?
-                              <ClubProfilePage 
-                                clubInfo={info.Clubs[0]}
-                                userInfo={this.state.loggedInUser}
-                                addPost={this.makePost}
-                                getClubPosts={this.getClubPosts}
-                                followClub={this.followClub}
-                                unfollowClub={this.unfollowClub}
-                                removePost={this.removePost}
-                                joinClub={this.joinClub}
-                                leaveClub={this.leaveClub}
-                              /> :
-                              <LogInPage logInContext={this}/>)}
-            />
-            <Route exact path='/uoft' render={() => 
-                          (this.state.loggedInUser ?
-                            <ClubProfilePage 
-                              clubInfo={info.Clubs[1]}
-                              userInfo={this.state.loggedInUser}
-                              addPost={this.makePost}
-                              getClubPosts={this.getClubPosts}
-                              followClub={this.followClub}
-                              unfollowClub={this.unfollowClub}
-                              removePost={this.removePost}
-                              joinClub={this.joinClub}
-                              leaveClub={this.leaveClub}
-                            /> :
-                            <LogInPage logInContext={this}/>)}
-            />
-            <Route exact path='/team11' render={() => 
-                          (this.state.loggedInUser ? 
-                            <ClubProfilePage 
-                              clubInfo={info.Clubs[2]}
-                              userInfo={this.state.loggedInUser}
-                              addPost={this.makePost}
-                              getClubPosts={this.getClubPosts}
-                              followClub={this.followClub}
-                              unfollowClub={this.unfollowClub}
-                              removePost={this.removePost}
-                              joinClub={this.joinClub}
-                              leaveClub={this.leaveClub}
-                           /> : 
-                           <LogInPage logInContext={this}/>)}
-            />
-            <Route exact path='/ClubDashboard/:id' render={ () => 
-              (this.state.loggedInUser ? <ClubDashboard currentUser={this.state.loggedInUser}/> : <LogInPage logInContext={this}/>) }/>
-=======
             <Route path='/club/:id' render={(props) => 
               //(this.state.signedIn ?
                 <ClubProfilePage {...props} userInfo={this.state.loggedInUser}/> 
@@ -169,7 +120,6 @@ class App extends React.Component{
             }/>
             <Route exact path='/ClubDashboard' render={ () => 
               (this.state.loggedInUser ? <ClubDashboard users={info.Accs} posts={info.Posts} currentUser={this.state}/> : <LogInPage logInContext={this}/>) }/>
->>>>>>> dcf447a75749766615d73152fe6adc6e5ffecbbb
             <Route exact path='/AdminDashboard' render={() => 
               (this.state.loggedInUser && this.state.loggedInUser.permissions === 1 ? <AdminDashboard 
                 user={ this.state.loggedInUser} 
