@@ -103,12 +103,7 @@ class BrowseAllClubs extends React.Component {
                         {
                           club.execs.includes(this.props.userInfo._id) || this.props.userInfo.permissions === 1 ? 
                             <Link
-                            to={{
-                              pathname:`/Clubdashboard/${club._id}`, 
-                              state:{
-                                club:club
-                              }
-                            }}
+                            to={`/Clubdashboard/${club._id}`}
                             className="notUnderlined"> 
                               <Button size="small" edge="end"  variant="outlined" color="primary" className="button"> 
                                 edit
