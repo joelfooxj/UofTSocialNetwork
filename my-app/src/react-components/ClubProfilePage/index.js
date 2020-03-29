@@ -5,6 +5,7 @@ import ClubTimeline from "../ClubTimeline";
 import ClubProfilePicture from "../ClubProfilePicture";
 import ClubInfo from "../ClubInfo";
 import {getClub} from '../../actions/clubActions'
+import Navbar from '../Navbar/index'
 
 class ClubProfilePage extends React.Component {
     constructor(props) {
@@ -45,6 +46,10 @@ class ClubProfilePage extends React.Component {
         if (this.state.loaded) {
             return(
                 <div id="profilePage">
+                    <Navbar logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
+                        status={true} loggedInUser={this.props.userInfo}>
+                    </Navbar>
+
                     <ClubProfilePicture 
                         profilePic={this.state.clubInfo.profilePicture} 
                     />
