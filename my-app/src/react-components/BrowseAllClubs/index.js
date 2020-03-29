@@ -104,7 +104,7 @@ class BrowseAllClubs extends React.Component {
                           club.execs.includes(this.props.userInfo._id) || this.props.userInfo.permissions === 1 ? 
                             <Link
                             to={{
-                              pathname:`/Clubdashboard/${club.name}`, 
+                              pathname:`/Clubdashboard/${club._id}`, 
                               state:{
                                 club:club
                               }
