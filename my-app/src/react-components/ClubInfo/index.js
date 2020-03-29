@@ -1,12 +1,13 @@
 import React from "react";
 import './style.css';
 import CustomButton from "../CustomButton";
+import * as actions from './actions';
 
 class ClubInfo extends React.Component {
     constructor(props) {
+        console.log(props)
         super(props);
         this.state = {
-            userInfo: props.userInfo,
             clubInfo: props.clubInfo
         }
     }
@@ -18,40 +19,25 @@ class ClubInfo extends React.Component {
     // Functions for verifying permisisons of current user.
     // Returns true if the current user is an exec.
     isExec = function() {
-        let val = this.state.clubInfo.execs.includes(this.state.userInfo._id);
+        let val = this.state.clubInfo.execs.includes(this.props.userInfo._id);
         return val;
     }
     
     // Returns true if the current user is an executive of the club.
     isMember = function() {
-        let val = this.state.clubInfo.members.includes(this.state.userInfo._id);
+        let val = this.state.clubInfo.members.includes(this.props.userInfo._id);
         return val;
     }
 
     // Returns true if the current user has requested to join this club
     didRequest = function() {
-        let val = this.state.clubInfo.requests.includes(this.state.userInfo._id) 
+        let val = this.state.clubInfo.requested.includes(this.props.userInfo._id) 
         return val;
     }
 
     // Returns true if the current user is following this club.
     isFollowing = function() {
-        return this.state.userInfo.clubsFollowing.includes(this.state.clubInfo.clubID)
-        /*
-        let target = -1;
-        for (let i = 0; i < this.state.currUserInfo.accs.length; i++) {
-            if (this.state.currUserInfo.accs[i].id === this.state.userInfo._id) {
-                target = i;
-                break;
-            }
-        }
-
-        if ((target >= 0) && 
-            this.state.currUserInfo.accs[target].clubsFollowing.includes(this.state.clubInfo.clubID)) {
-            return true;
-        }
-        
-        return false;*/
+        return this.props.userInfo.clubsFollowing.includes(this.state.clubInfo._id)
     }
 
     render() {
@@ -71,7 +57,7 @@ class ClubInfo extends React.Component {
                                 backgroundColor="lightgray"
                                 border="1px gray solid"
                                 margin="5px"
-                                onClick={()=>(this.props.followClub(this, this.state.clubInfo.clubID))}
+                                onClick={()=>(actions.followClub(this))}
                             />
                         }
 
@@ -84,7 +70,7 @@ class ClubInfo extends React.Component {
                                 backgroundColor="lightgray"
                                 border="1px gray solid"
                                 margin="5px"
-                                onClick={() => this.props.unfollowClub(this, this.props.clubInfo.clubID)}
+                                onClick={() => actions.unfollowClub(this)}
                             />
                         }
 
@@ -97,7 +83,7 @@ class ClubInfo extends React.Component {
                                 backgroundColor="lightgray"
                                 border="1px gray solid"
                                 margin="5px"
-                                onClick={() => this.props.joinClub(this, this.props.clubInfo.clubID)}
+                                onClick={() => actions.joinClub(this)}
                             />
                         }
 
@@ -110,7 +96,7 @@ class ClubInfo extends React.Component {
                                 backgroundColor="lightgray"
                                 border="1px gray solid"
                                 margin="5px"
-                                onClick={() => this.props.leaveClub(this, this.props.clubInfo.clubID)}
+                                onClick={() => actions.leaveClub(this)}
                             />
                         }
 
@@ -123,11 +109,12 @@ class ClubInfo extends React.Component {
                             backgroundColor="lightgray"
                             border="1px gray solid"
                             margin="5px"
+                            onClick={() => actions.cancelRequest(this)}
                         />
                     }
                     </span>
                     <div id="ClubInfoText">
-                        {this.state.clubInfo.bioText}
+                        {this.state.clubInfo.clubInfo}
                     </div>
                 </div>
             </div>
