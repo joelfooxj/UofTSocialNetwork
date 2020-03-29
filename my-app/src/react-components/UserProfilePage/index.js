@@ -19,7 +19,7 @@ class UserProfilePage extends React.Component{
     render(){
 
         let userInfo; 
-        if (typeof(this.props.location.state.account) !== "undefined"){
+        if (typeof(this.props.location.state.account) !== "undefined" && this.props.userInfo.permissions === 1){
             userInfo = this.props.location.state.account; 
         } else {
             userInfo = this.props.userInfo;
