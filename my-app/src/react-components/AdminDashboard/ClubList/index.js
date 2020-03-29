@@ -15,7 +15,8 @@ class ClubList extends React.Component {
 
   delClub = (clubID) => {
     if (!this.state.clubs.some(club => club._id === clubID)){
-      alert(`${clubID} does not exist`); 
+      alert(`${clubID} does not exist`);
+      return; 
     }
     try {
       deleteClub(clubID).then(res => {
@@ -49,7 +50,7 @@ class ClubList extends React.Component {
                                 <ListItemSecondaryAction>
                                   <Link  
                                     to={{
-                                      pathname:`/ClubDashboard/${club.name}`, //TODO: Add id here?  
+                                      pathname:`/ClubDashboard/${club._id}`, 
                                       state:{
                                         club: club
                                       }

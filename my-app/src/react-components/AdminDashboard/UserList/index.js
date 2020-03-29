@@ -16,6 +16,7 @@ class UserList extends React.Component {
 	setBanned = (accountID, banState) => {
 		if (!this.state.accounts.some(account => account._id === accountID)){
 			alert(`${accountID} does not exist`); 
+			return;
 		}
 		
 		if (banState === 0){ 
@@ -57,6 +58,7 @@ class UserList extends React.Component {
 	delAccount = (accountID) => {
 		if (!this.state.accounts.some(account => account._id === accountID)){
 			alert(`${accountID} does not exist`); 
+			return;
 		}
 		try {
 			deleteUser(accountID).then(res => {
