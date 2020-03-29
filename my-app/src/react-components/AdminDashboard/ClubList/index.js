@@ -49,12 +49,7 @@ class ClubList extends React.Component {
                                 />
                                 <ListItemSecondaryAction>
                                   <Link  
-                                    to={{
-                                      pathname:`/ClubDashboard/${club._id}`, 
-                                      state:{
-                                        club: club
-                                      }
-                                    }}
+                                    to={`/ClubDashboard/${club._id}`}
                                     className="link">
                                     <Button 
                                       size="small"
