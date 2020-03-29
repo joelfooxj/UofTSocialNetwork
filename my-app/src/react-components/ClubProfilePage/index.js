@@ -4,37 +4,73 @@ import ClubProfileBanner from "../ClubBanner";
 import ClubTimeline from "../ClubTimeline";
 import ClubProfilePicture from "../ClubProfilePicture";
 import ClubInfo from "../ClubInfo";
+import {getClub} from '../../actions/clubActions'
 
 class ClubProfilePage extends React.Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            id: props.match.params.id,
+            clubInfo: {},
+            loaded: false
+
+        }
+
+        this.getClubInfo(this.state.id)
+    }
+
+    getClubInfo(id) {
+        getClub(id).then((result) => {
+            if (result.status) {
+                alert(`Something went wrong retrieving club information. Status: ${result.status}`)
+                return;
+            }
+            this.setState({
+                clubInfo: result,
+                loaded: true
+            })
+        }).catch((error) => {
+            console.log("Fatal error")
+            console.log(error)
+            throw new Error(error)
+        })
+    }
+
+    // componentWillMount() {
+    //     this.getClubInfo(this.state.id)
+    // }
+
     render() {
-        console.log(this.props)
-        return(
-            <div id="profilePage">
-                <ClubProfilePicture 
-                    profilePic={this.props.clubInfo.profilePic} 
-                />
-
-                <ClubProfileBanner 
-                    bannerImage={this.props.clubInfo.bannerImage}
-                />
-
-                <ClubInfo 
-                    clubInfo={this.props.clubInfo} 
-                    userInfo={this.props.userInfo}
-                    followClub={this.props.followClub}
-                    unfollowClub={this.props.unfollowClub}
-                    joinClub={this.props.joinClub}
-                    leaveClub={this.props.leaveClub}
-                />
-
-                <ClubTimeline 
-                    addPost={this.props.addPost}
-                    removePost={this.props.removePost}
-                    clubInfo={this.props.clubInfo}
-                    userInfo={this.props.userInfo}
-                />
-            </div>
-        )
+        if (this.state.loaded) {
+            return(
+                <div id="profilePage">
+                    <ClubProfilePicture 
+                        profilePic={this.state.clubInfo.profilePicture} 
+                    />
+    
+                    <ClubProfileBanner 
+                        bannerImage={this.state.clubInfo.bannerImage}
+                    />
+    
+                    <ClubInfo 
+                        clubInfo={this.state.clubInfo} 
+                        userInfo={this.props.userInfo}
+                    />
+    
+                    <ClubTimeline 
+                        clubInfo={this.state.clubInfo}
+                        userInfo={this.props.userInfo}
+                    />
+                </div>
+            )
+        } else {
+            return(
+                <div>
+                    Loading...
+                </div>
+            )
+        }
     }
 }
 
