@@ -38,29 +38,13 @@ class AdminDashboard extends React.Component {
 			let retAccounts = [];
 			let retClubs = []; 
 			let retPosts = []; 
-			 
-			try {
-				await getUsers().then(accounts => {
-					retAccounts = accounts;
-				}); 
-			} catch (error) {
-				alert(`${error}: There was an error retrieving all accounts`); 
-			}
-			
-			try {
-				await getAllClubs().then(clubs => {
-					retClubs = clubs;
-				}); 
-			} catch (error) {
-				alert(`${error}: There was an error retrieving all clubs`); 
-			}
 
-			try{
-				await getAllPosts().then(posts => {
-					retPosts = posts;
-				}); 
+			try {
+				retAccounts = await getUsers(); 
+				retClubs = await getAllClubs(); 
+				retPosts = await getAllPosts();
 			} catch (error) {
-				alert(`${error}: There was an error retrieving all posts`); 
+				alert(`${error}: There was an error retrieving some data`); 
 			}
 
 			return {retAccounts, retClubs, retPosts};

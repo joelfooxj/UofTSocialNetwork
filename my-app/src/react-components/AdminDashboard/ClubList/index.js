@@ -16,21 +16,19 @@ class ClubList extends React.Component {
   delClub = (clubID) => {
     if (!this.state.clubs.some(club => club._id === clubID)){
       alert(`${clubID} does not exist`);
-      return; 
+      return;
     }
-    try {
-      deleteClub(clubID).then(res => {
-        if(res !== 200){
-          alert(`${clubID} was not deleted. Please try again.`);
-        } else {
-          let clubsCopy = [...this.state.clubs]; 
-          clubsCopy.filter(club => club._id !== clubID);
-          this.setState({clubs: clubsCopy});
-        } 
-      });
-    } catch (error) {
+    
+    deleteClub(clubID).then(res => {
+      if(res !== 200){
+        alert(`${clubID} was not deleted. Please try again.`);
+      } else {
+        let clubsCopy = [...this.state.clubs];
+        this.setState({clubs: clubsCopy.filter(club => club._id !== clubID)});
+      } 
+    }, error => {
       alert(`${error}: ${clubID} was not deleted`);
-    }
+    });
   }
 
   render(){

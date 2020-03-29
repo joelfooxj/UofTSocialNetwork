@@ -66,8 +66,7 @@ class UserList extends React.Component {
 					alert(`${accountID} was not deleted. Please try again.`);
 				} else {
 					let accountsCopy = [...this.state.accounts]; 
-					accountsCopy = accountsCopy.filter(account => account._id !== accountID);
-					this.setState({accounts: accountsCopy});
+					this.setState({accounts: accountsCopy.filter(account => account._id !== accountID)});
 				}
 			});
 		} catch (error) {
