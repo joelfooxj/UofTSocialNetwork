@@ -7,6 +7,7 @@ import RequestList from './RequestList/index';
 import PostList from './PostList/index';
 import { Button } from '../../../node_modules/@material-ui/core'
 import { withRouter, Link } from '../../../node_modules/react-router-dom'
+import { getClub, updateClub } from '../../actions/clubActions'
 
 class ClubDashboard extends React.Component {
     constructor(props){
@@ -21,101 +22,67 @@ class ClubDashboard extends React.Component {
 				clubID: props.match.params.id, 
 				loading:true
 			}	
-
-			
 		}
 		
 		componentDidMount(){
-			this.fetchAll().then(retObj => {
-				const retClub = retObj.retClubs.find(club => club._id == this.state.clubID); 
-				this.setState({
-					clubPosts: retObj.retPosts.filter(post => post.posterID == this.state.clubID), 
-					thisClub: retClub,
-					members: retClub.members, 
-					execs: retClub.execs, 
-					posts: retClub.posts, 
-					loading:false
-				});
+			getClub(this.state.clubID).then(retObj => {
+				if (retObj.status !== 200){
+					alert(`Club ${this.state.clubID} does not exist`); 
+					this.props.history.goBack();
+				} else if (!(retObj.execs.includes(this.props.currentUser._id) || this.props.currentUser.permissions === 1)){
+					alert("Unauthorized access"); 
+					this.props.history.goBack();
+				} else { 
+					this.setState({ 
+						thisClub: retClub,
+						members: retClub.members, 
+						execs: retClub.execs, 
+						posts: retClub.posts, 
+						requests: retClub.requests,
+						loading:false
+					});
+				}
+			}, error => {
+				alert(`${error}: Cannot fetch club ${this.state.clubID}`); 
+				this.props.history.goBack();
 			});
-			if (!(passedInClub.execs.includes(this.props.currentUser._id) || this.props.currentUser.permissions === 1)){
-				alert("Unauthorized access"); 
-				this.props.history.push('/');
-			}
 		}
 
-		async fetchAll(){
-			let retClub = {}; 
-			let retPosts = []; 
-			 
+		deleteObject = async (inType, inID)  => {
+			//TODO: change the arguments for inType in the children - members, execs, posts, requests
 			try {
-				await getUsers().then(accounts => {
-					retAccounts = accounts;
-				}); 
+				const status = await updateClub(this.state.clubID, inType, this.state[inType].filter(o => o._id !== inID));
+				if (status === 200){ 
+					const objCopy = [...this.state[inType]]
+					this.setState({
+						[inType]: objCopy.filter(o => o._id !== inID)
+					});	
+				} else { 
+					alert(`Unable to delete ${inType}[${inID}]`)
+				}
 			} catch (error) {
-				alert(`${error}: There was an error retrieving all accounts`); 
+				alert(`${error}: Unable to delete ${inType}[${inID}]`);		
 			}
-			
-			try {
-				await getAllClubs().then(clubs => {
-					retClubs = clubs;
-				}); 
-			} catch (error) {
-				alert(`${error}: There was an error retrieving all clubs`); 
-			}
-
-			try{
-				await getAllPosts().then(posts => {
-					retPosts = posts;
-				}); 
-			} catch (error) {
-				alert(`${error}: There was an error retrieving all posts`); 
-			}
-
-			return {retAccounts, retClubs, retPosts};
-		}
-
-
-
-
-		deleteObject = (inType, inID)  => {
-			//TODO: delete object from database
-			
-			const thisClub = this.state.thisClub; 
-			
-			switch(inType){
-				case 'member': 
-					thisClub.members = this.state.members.filter(member => member !== inID);
-					thisClub.execs = this.state.execs.filter(exec => exec !== inID);
-					break; 
-				case 'exec': 
-					thisClub.execs = this.state.execs.filter(exec => exec !== inID);
-					break;
-				case 'request': 
-					thisClub.requests = this.state.requests.filter(request => request !== inID);
-					break;
-				case 'post': 
-					thisClub.posts = this.state.posts.filter(post => post !== inID);
-					break;
-				default: 
-					break;
-			}
-
-			this.setState({
-				members: thisClub.members, 
-				execs: thisClub.execs, 
-				requests: thisClub.requests, 
-				posts: thisClub.posts
-			});
 		}
 
 		onRequestApprove = (inUserID) => {
-			const thisClub = this.state.thisClub;
-			thisClub.requests = this.state.requests.filter(request => request !== inUserID);
-			thisClub.members.push(inUserID);
-			this.setState({
-				requests: thisClub.requests, 
-				members: thisClub.members, 
-			}); 
+			try {
+				const newRequests = this.state.requests.filter(r => r._id !== inUserID); 
+				const newMembers = [...this.state.members];
+				newMembers.push(inUserID);
+				const reqStatus = await updateClub(this.state.clubID, "requests", newRequests);
+				const memStatus = await updateClub(this.state.clubID, "members", newMembers);
+				if (reqStatus === 200 && memStatus === 200) {
+					this.setState({
+						requests: newRequests, 
+						members: newMembers
+					})
+				} else {
+					alert(`There has been an error updating approval for ${inUserID}`)
+				}
+			} catch (error) {
+				alert(`${error}: Unable to approve request for user ${inUserID}`)
+			} 
 		}
 
     render(){
@@ -125,7 +92,7 @@ class ClubDashboard extends React.Component {
 					returnPath = "/AdminDashboard";
 					returnText = "Return to Admin Dashboard";
 				} 
-				else if (this.state.execs.includes(this.props.currentUser.accountId)){
+				else if (this.state.execs.includes(this.props.currentUser._id)){
 					returnPath = '/Following';
 					returnText = 'Return to Following Clubs Page';
 				}  
@@ -133,9 +100,7 @@ class ClubDashboard extends React.Component {
             <div className="clubDashboardContainer"> 
 							<h1> {this.state.thisClub.name} Dashboard </h1> 
 							<Link  
-								to={{
-									pathname: this.state.thisClub.link
-								}}
+								to={`/club/${this.state.clubID}`}
 								style={{ textDecoration:'none' }}>
 								<Button 
 									size="small"
@@ -152,27 +117,25 @@ class ClubDashboard extends React.Component {
 									"No. of Members: " + this.state.members.length,
 									"No. of Requests: " + this.state.requests.length,
 									"No. of Posts: " + this.state.posts.length,
+									"No. of Executives: " + this.state.execs.length,
 								]}
 							/>
 							<MemberList 
-							users={this.state.allUsers.filter(user => this.state.members.includes(user.id))}
-							onDelete={this.deleteObject}/>
+							users={this.state.members}
+							onDelete={this.onDelete}/>
 							<ExecList 
-							users={this.state.allUsers.filter(user => this.state.execs.includes(user.id))}
-							onDelete={this.deleteObject}/>
+							users={this.state.execs}
+							onDelete={this.onDelete}/>
 							<RequestList 
-							users={this.state.allUsers.filter(user => this.state.requests.includes(user.id))}
-							onDelete={this.deleteObject}
+							users={this.state.requests}
+							onDelete={this.onDelete}
 							onApprove={this.onRequestApprove}/>
 							<PostList
-							posts={this.state.allPosts.filter(post => this.state.posts.includes(post.postID))}
-							thisClubLink={this.state.link}
-							onDelete={this.deleteObject}
-							/>
-							<Link  
-								to={{
-									pathname: returnPath
-								}}
+							posts={this.state.posts}
+							thisClubID={this.state.clubID}
+							onDelete={this.onDelete}/>
+							<Link
+								to={returnPath} 
 								style={{ textDecoration:'none' }}>
 								<Button 
 									size="small"
