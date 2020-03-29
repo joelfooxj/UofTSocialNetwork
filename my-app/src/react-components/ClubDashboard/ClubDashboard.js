@@ -11,34 +11,71 @@ import { withRouter, Link } from '../../../node_modules/react-router-dom'
 class ClubDashboard extends React.Component {
     constructor(props){
 			super(props);
-			let passedInClub = this.props.location.state.club;
-			
+
 			this.state={
-				allUsers: props.users, 
-				allPosts: props.posts,
-				thisClub: passedInClub,
-				members: passedInClub.members, 
-				execs: passedInClub.execs, 
-				posts: passedInClub.posts, 
-				requests: passedInClub.requests, 
-				clubID: passedInClub.clubID,
-				link: passedInClub.link
+				thisClub: {},
+				members: [], 
+				execs: [], 
+				posts: [], 
+				requests: [], 
+				clubID: props.match.params.id, 
+				loading:true
 			}	
 
-
-			if (!(passedInClub.execs.includes(this.props.currentUser._id) || this.props.currentUser.permissions === 1)){
-				alert("Unauthorized access"); 
-				this.props.history.push('/');
-			} 
+			
 		}
 		
 		componentDidMount(){
-			// this.fetchData();
+			this.fetchAll().then(retObj => {
+				const retClub = retObj.retClubs.find(club => club._id == this.state.clubID); 
+				this.setState({
+					clubPosts: retObj.retPosts.filter(post => post.posterID == this.state.clubID), 
+					thisClub: retClub,
+					members: retClub.members, 
+					execs: retClub.execs, 
+					posts: retClub.posts, 
+					loading:false
+				});
+			});
+			if (!(passedInClub.execs.includes(this.props.currentUser._id) || this.props.currentUser.permissions === 1)){
+				alert("Unauthorized access"); 
+				this.props.history.push('/');
+			}
 		}
 
-		fetchData(){ 
-			//TODO: fetch data from the DB here 
+		async fetchAll(){
+			let retClub = {}; 
+			let retPosts = []; 
+			 
+			try {
+				await getUsers().then(accounts => {
+					retAccounts = accounts;
+				}); 
+			} catch (error) {
+				alert(`${error}: There was an error retrieving all accounts`); 
+			}
+			
+			try {
+				await getAllClubs().then(clubs => {
+					retClubs = clubs;
+				}); 
+			} catch (error) {
+				alert(`${error}: There was an error retrieving all clubs`); 
+			}
+
+			try{
+				await getAllPosts().then(posts => {
+					retPosts = posts;
+				}); 
+			} catch (error) {
+				alert(`${error}: There was an error retrieving all posts`); 
+			}
+
+			return {retAccounts, retClubs, retPosts};
 		}
+
+
+
 
 		deleteObject = (inType, inID)  => {
 			//TODO: delete object from database
@@ -89,7 +126,7 @@ class ClubDashboard extends React.Component {
 					returnText = "Return to Admin Dashboard";
 				} 
 				else if (this.state.execs.includes(this.props.currentUser.accountId)){
-					returnPath = '/BrowseAllClubs';
+					returnPath = '/Following';
 					returnText = 'Return to Following Clubs Page';
 				}  
         return(
