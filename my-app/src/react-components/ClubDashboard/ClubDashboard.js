@@ -16,9 +16,8 @@ class ClubDashboard extends React.Component {
 			this.state={
 				thisClub: {},
 				members: [], 
-				execs: [], 
-				posts: [], 
-				requests: [], 
+				execs: [],
+				requested: [], 
 				clubID: props.match.params.id, 
 				loading:true
 			}	
@@ -26,19 +25,18 @@ class ClubDashboard extends React.Component {
 		
 		componentDidMount(){
 			getClub(this.state.clubID).then(retObj => {
-				if (retObj.status !== 200){
-					alert(`Club ${this.state.clubID} does not exist`); 
+				if (typeof(retObj.status) !== "undefined"){
+					alert(`Status ${retObj.status}: Club ${this.state.clubID} does not exist`); 
 					this.props.history.goBack();
 				} else if (!(retObj.execs.includes(this.props.currentUser._id) || this.props.currentUser.permissions === 1)){
 					alert("Unauthorized access"); 
 					this.props.history.goBack();
-				} else { 
+				} else { // the obj is returned, but I can't set the state
 					this.setState({ 
-						thisClub: retClub,
-						members: retClub.members, 
-						execs: retClub.execs, 
-						posts: retClub.posts, 
-						requests: retClub.requests,
+						thisClub: retObj,
+						members: retObj.members, 
+						execs: retObj.execs, 
+						requested: retObj.requested,
 						loading:false
 					});
 				}
@@ -49,8 +47,10 @@ class ClubDashboard extends React.Component {
 		}
 
 		deleteObject = async (inType, inID)  => {
-			//TODO: change the arguments for inType in the children - members, execs, posts, requests
 			try {
+				alert(`checking state: ${inType}`);
+				alert(`checking state: ${this.state["execs"]}`);
+				alert(`checking state: ${this.state.inType.filter(o => o !== inID)}`);
 				const status = await updateClub(this.state.clubID, inType, this.state[inType].filter(o => o._id !== inID));
 				if (status === 200){ 
 					const objCopy = [...this.state[inType]]
@@ -65,9 +65,9 @@ class ClubDashboard extends React.Component {
 			}
 		}
 
-		onRequestApprove = (inUserID) => {
+		onRequestApprove = async (inUserID) => {
 			try {
-				const newRequests = this.state.requests.filter(r => r._id !== inUserID); 
+				const newRequests = this.state.requested.filter(r => r._id !== inUserID); 
 				const newMembers = [...this.state.members];
 				newMembers.push(inUserID);
 				const reqStatus = await updateClub(this.state.clubID, "requests", newRequests);
@@ -86,68 +86,74 @@ class ClubDashboard extends React.Component {
 		}
 
     render(){
-				let returnPath = ''; 
-				let returnText ='';
-				if (this.props.currentUser.permission == 1){
-					returnPath = "/AdminDashboard";
-					returnText = "Return to Admin Dashboard";
-				} 
-				else if (this.state.execs.includes(this.props.currentUser._id)){
-					returnPath = '/Following';
-					returnText = 'Return to Following Clubs Page';
-				}  
-        return(
-            <div className="clubDashboardContainer"> 
-							<h1> {this.state.thisClub.name} Dashboard </h1> 
-							<Link  
-								to={`/club/${this.state.clubID}`}
-								style={{ textDecoration:'none' }}>
-								<Button 
-									size="small"
-									edge="end" 
-									aria-label="join" 
-									variant="outlined"
-									color='primary'																			
-									>																		
-									Go to club profile page
-								</Button>
-							</Link> 
-							<ClubStats 
-								statsList={[
-									"No. of Members: " + this.state.members.length,
-									"No. of Requests: " + this.state.requests.length,
-									"No. of Posts: " + this.state.posts.length,
-									"No. of Executives: " + this.state.execs.length,
-								]}
-							/>
-							<MemberList 
-							users={this.state.members}
-							onDelete={this.onDelete}/>
-							<ExecList 
-							users={this.state.execs}
-							onDelete={this.onDelete}/>
-							<RequestList 
-							users={this.state.requests}
-							onDelete={this.onDelete}
-							onApprove={this.onRequestApprove}/>
-							<PostList
-							posts={this.state.posts}
-							thisClubID={this.state.clubID}/>
-							<Link
-								to={returnPath} 
-								style={{ textDecoration:'none' }}>
-								<Button 
-									size="small"
-									edge="end" 
-									aria-label="join" 
-									variant="outlined"
-									color='primary'																			
-									>																		
-									{returnText}
-								</Button>
-							</Link>							
-            </div>
-        );
+			if (this.state.loading){
+				return(
+					<div> 
+						<h1 className="centeredText"> LOADING... </h1>
+					</div>
+				);
+			}
+
+			let returnPath = ''; 
+			let returnText ='';
+			if (this.props.currentUser.permissions === 1){
+				returnPath = "/AdminDashboard";
+				returnText = "Return to Admin Dashboard";
+			} 
+			if (this.state.execs.includes(this.props.currentUser._id)){
+				returnPath = '/Following';
+				returnText = 'Return to Following Clubs Page';
+			}
+			return(
+					<div className="clubDashboardContainer"> 
+						<h1> {this.state.thisClub.name} Dashboard </h1> 
+						<Link  
+							to={`/club/${this.state.clubID}`}
+							style={{ textDecoration:'none' }}>
+							<Button 
+								size="small"
+								edge="end" 
+								aria-label="join" 
+								variant="outlined"
+								color='primary'																			
+								>																		
+								Go to club profile page
+							</Button>
+						</Link> 
+						<ClubStats 
+							statsList={[
+								"No. of Members: " + this.state.members.length,
+								"No. of Requests: " + this.state.requested.length,
+								"No. of Executives: " + this.state.execs.length,
+							]}
+						/>
+						<MemberList 
+						users={this.state.members}
+						onDelete={this.deleteObject}/>
+						<ExecList 
+						users={this.state.execs}
+						onDelete={this.deleteObject}/>
+						<RequestList 
+						users={this.state.requested}
+						onDelete={this.deleteObject}
+						onApprove={this.onRequestApprove}/>
+						<PostList
+						thisClubID={this.deleteObject}/>
+						<Link
+							to={returnPath} 
+							style={{ textDecoration:'none' }}>
+							<Button 
+								size="small"
+								edge="end" 
+								aria-label="join" 
+								variant="outlined"
+								color='primary'
+								>																		
+								{returnText}
+							</Button>
+						</Link>							
+					</div>
+			);
     }
 }
 

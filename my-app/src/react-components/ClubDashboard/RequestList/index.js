@@ -2,6 +2,7 @@ import React from '../../../../node_modules/react';
 import { Grid, List, ListItem, ListItemText, Button, ListItemSecondaryAction, Paper} from '../../../../node_modules/@material-ui/core'
 import './index.css';
 import { Link } from '../../../../node_modules/react-router-dom'
+import { getUsers } from '../../../actions/accountActions'
 
 class RequestList extends React.Component{
 		constructor(props){ 
@@ -54,7 +55,7 @@ class RequestList extends React.Component{
 																			aria-label="delete" 
 																			variant="outlined"
 																			color="primary"
-																			onClick={() => props.onDelete('request', user._id)}
+																			onClick={() => this.props.onDelete('requested', user._id)}
 																			style={{ margin:'10px' }}>
 																			Deny
 																		</Button>

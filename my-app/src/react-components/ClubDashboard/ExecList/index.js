@@ -2,6 +2,7 @@ import React from '../../../../node_modules/react';
 import { Grid, List, ListItem, ListItemText, Button, ListItemSecondaryAction, Paper } from '../../../../node_modules/@material-ui/core'
 import './index.css';
 import { Link } from '../../../../node_modules/react-router-dom'
+import { getUsers } from '../../../actions/accountActions'
 
 class ExecList extends React.Component {
 	constructor(props){ 
