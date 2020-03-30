@@ -76,7 +76,7 @@ class ClubDashboard extends React.Component {
 					this.setState({
 						requests: newRequests, 
 						members: newMembers
-					})
+					});
 				} else {
 					alert(`There has been an error updating approval for ${inUserID}`)
 				}
