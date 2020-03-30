@@ -45,7 +45,7 @@ class ExecList extends React.Component {
 															aria-label="delete" 
 															variant="outlined"
 															color="primary"
-															onClick={() => props.onDelete('execs', user._id)}>
+															onClick={() => this.props.onDelete('execs', user._id)}>
 															Remove
 														</Button>
 													</ListItemSecondaryAction>

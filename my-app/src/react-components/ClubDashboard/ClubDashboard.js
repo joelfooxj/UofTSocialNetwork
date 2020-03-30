@@ -132,8 +132,7 @@ class ClubDashboard extends React.Component {
 							onApprove={this.onRequestApprove}/>
 							<PostList
 							posts={this.state.posts}
-							thisClubID={this.state.clubID}
-							onDelete={this.onDelete}/>
+							thisClubID={this.state.clubID}/>
 							<Link
 								to={returnPath} 
 								style={{ textDecoration:'none' }}>

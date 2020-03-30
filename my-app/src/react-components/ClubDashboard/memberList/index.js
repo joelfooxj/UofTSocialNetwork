@@ -45,7 +45,7 @@ class MemberList extends React.Component {
 																		aria-label="delete" 
 																		variant="outlined"
 																		color="primary"
-																		onClick={() => props.onDelete('members', user._id)}>
+																		onClick={() => this.props.onDelete('members', user._id)}>
 																		Remove
 																	</Button>
 																</ListItemSecondaryAction>
