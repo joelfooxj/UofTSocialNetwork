@@ -278,6 +278,7 @@ class App extends React.Component{
                             (this.state.loggedInUser ?
                               <UserProfilePage 
                                 userInfo={this.state.loggedInUser}
+                                context={this}
                                // userInfo={{accs: this.state.accounts,
                                 //            id: this.state.accountId,
                                //             }

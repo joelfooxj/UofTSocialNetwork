@@ -260,7 +260,7 @@ export const unbanUser = async (userID) => {
   }
 }
 
-export const updateUserRecord = async (userID, propName, propVal) => {
+export const updateUserRecord = async (userID, propName, propVal, context) => {
   let data = {
     id: userID,
     propertyName: propName,
@@ -276,6 +276,10 @@ export const updateUserRecord = async (userID, propName, propVal) => {
       },
       body: JSON.stringify(data)
   });
+
+  const updatedUser = context.state.loggedInUser
+  updatedUser[propName] = propVal
+  context.setState({loggedInUser: updatedUser})
 
   try{
     const res = await fetch(request)
@@ -324,7 +328,14 @@ export const readCookie = (app) => {
       })
       .then(json => {
           if (json && json.currentUser) {
-              app.setState({ loggedInUser: json.currentUser });
+            getUserById(json.currentUser).then((res) => {
+              if(!res){
+                console.log("Failed to update user from session data.")
+              }
+              else{
+                app.setState({ loggedInUser: res });
+              }
+            })
           }
       })
       .catch(error => {
