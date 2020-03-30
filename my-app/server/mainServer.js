@@ -86,7 +86,7 @@ app.post('/log_in', (req, res) => {
         } else {
             // Add the user's id to the session cookie.
             // We can check later if this exists to ensure we are logged in.
-            req.session.user = user;
+            req.session.user = user._id;
             res.status(200).send(user);
         }
     }).catch((error) => {
@@ -133,8 +133,9 @@ app.listen(port, () => {
 
 
 module.exports.auth = (req, res, next) => {
+    //req.session.user actually stores the user id
     if (req.session.user) {
-        User.findById(req.session.user._id).then((user) => {
+        User.findById(req.session.user).then((user) => {
             if (!user) {
                 return Promise.reject()
             } else {
@@ -148,9 +149,10 @@ module.exports.auth = (req, res, next) => {
         res.status(401).send("Unauthorized")
     }
 }
+
 module.exports.authAdmin = (req, res, next) => {
     if (req.session.user) {
-        User.findById(req.session.user._id).then((user) => {
+        User.findById(req.session.user).then((user) => {
             if (!user || (user && user.permissions === 0)) {
                 return Promise.reject()
             } else {
