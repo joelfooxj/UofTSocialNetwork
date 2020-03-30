@@ -25,6 +25,23 @@ class MemberList extends React.Component {
 		});
 	}
 
+	componentDidUpdate(prevProps, prevState){
+		if (this.props.users !== prevProps.users){
+			getUsers().then(res => { 
+				if(!res){ 
+					alert(`Unable to get members`);
+				} else { 
+					this.setState({
+						users: res.filter(u => this.props.users.includes(u._id)),
+						userIDs: this.props.users
+					});
+				}
+			}, error => {
+				alert(`${error}: Unable to get members`);
+			});
+		}
+	}
+
 	render(){
 		return (
 			<div className="itemListContainer">

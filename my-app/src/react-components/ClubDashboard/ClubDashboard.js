@@ -48,17 +48,19 @@ class ClubDashboard extends React.Component {
 
 		deleteObject = async (inType, inID)  => {
 			try {
-				alert(`checking state: ${inType}`);
-				alert(`checking state: ${this.state["execs"]}`);
-				alert(`checking state: ${this.state.inType.filter(o => o !== inID)}`);
-				const status = await updateClub(this.state.clubID, inType, this.state[inType].filter(o => o._id !== inID));
-				if (status === 200){ 
-					const objCopy = [...this.state[inType]]
-					this.setState({
-						[inType]: objCopy.filter(o => o._id !== inID)
-					});	
-				} else { 
-					alert(`Unable to delete ${inType}[${inID}]`)
+				let status = 0;
+				switch(inType){
+					case "members": 
+						break; 
+					case "execs": 
+						break; 
+					case "requested": 
+						break; 
+					default: 
+						break; 
+				}
+				if (status !== 200){ 
+					alert(`Status [${status}]: Unable to delete ${inType}[${inID}]`);		
 				}
 			} catch (error) {
 				alert(`${error}: Unable to delete ${inType}[${inID}]`);		
@@ -67,16 +69,18 @@ class ClubDashboard extends React.Component {
 
 		onRequestApprove = async (inUserID) => {
 			try {
-				const newRequests = this.state.requested.filter(r => r._id !== inUserID); 
-				const newMembers = [...this.state.members];
+				let newRequested = [...this.state.requested]; 
+				newRequested = newRequested.filter(r => r !== inUserID);
+				let newMembers = [...this.state.members];
 				newMembers.push(inUserID);
-				const reqStatus = await updateClub(this.state.clubID, "requests", newRequests);
+				const reqStatus = await updateClub(this.state.clubID, "requested", newRequested);
 				const memStatus = await updateClub(this.state.clubID, "members", newMembers);
 				if (reqStatus === 200 && memStatus === 200) {
+					console.log(newMembers, newRequested);
 					this.setState({
-						requests: newRequests, 
-						members: newMembers
-					});
+						members: newMembers, 
+						requested: newRequested
+					})
 				} else {
 					alert(`There has been an error updating approval for ${inUserID}`)
 				}
@@ -85,7 +89,31 @@ class ClubDashboard extends React.Component {
 			} 
 		}
 
+		// onRequestApprove(inUserID){
+		// 	let newRequested = [...this.state.requested]; 
+		// 	newRequested = newRequested.filter(r => r !== inUserID);
+		// 	let newMembers = [...this.state.members];
+		// 	newMembers.push(inUserID);
+		// 	this.setState({
+		// 		members: newMembers, 
+		// 		requested: newRequested
+		// 	})
+			
+
+			//state is being updated but not re-rendered... 
+		// }
+
+		// approveAndUpdate(inUserID){ 
+		// 	this.onRequestApprove(inUserID).then(ret => {
+		// 		this.setState({
+		// 			members: ret.newMembers, 
+		// 			requested: ret.newRequested
+		// 		});
+		// 	});
+		// }
+
     render(){
+			console.log(this.state); 
 			if (this.state.loading){
 				return(
 					<div> 
@@ -136,7 +164,7 @@ class ClubDashboard extends React.Component {
 						<RequestList 
 						users={this.state.requested}
 						onDelete={this.deleteObject}
-						onApprove={this.onRequestApprove}/>
+						onApprove={this.onRequestApprove.bind(this)}/>
 						<PostList
 						thisClubID={this.deleteObject}/>
 						<Link
