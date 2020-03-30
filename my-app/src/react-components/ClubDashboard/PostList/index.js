@@ -2,25 +2,20 @@ import React from '../../../../node_modules/react';
 import { Grid, List, ListItem, ListItemText, Button, ListItemSecondaryAction, Paper} from '../../../../node_modules/@material-ui/core'
 import './index.css';
 import { Link } from '../../../../node_modules/react-router-dom'
-import { getAllPosts, removePostByID } from '../../../actions/postActions'
+import { getPostByPosterID, removePostByID } from '../../../actions/postActions'
 
 class PostList extends React.Component {
 	constructor(props){ 
 		super(props); 
 		this.state = { 
-			postIDs: props.posts,
 			thisClubID: props.thisClubID, 
 			posts: []
 		}
 	}
 
 	componentDidMount(){ 
-		getAllPosts().then(res => { 
-			if(!res){ 
-				alert(`Unable to retrieve posts`);
-			} else { 
-				this.setState({posts: res.filter(p => p.posterID === this.state.thisClubID)});
-			}
+		getPostByPosterID(this.state.thisClubID).then(res => { 
+			this.setState({posts: res});
 		}, error => {
 			alert(`${error}: Unable to retrieve posts`)
 		});
