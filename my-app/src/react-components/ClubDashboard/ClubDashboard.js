@@ -31,7 +31,7 @@ class ClubDashboard extends React.Component {
 				} else if (!(retObj.execs.includes(this.props.currentUser._id) || this.props.currentUser.permissions === 1)){
 					alert("Unauthorized access"); 
 					this.props.history.goBack();
-				} else { // the obj is returned, but I can't set the state
+				} else { 
 					this.setState({ 
 						thisClub: retObj,
 						members: retObj.members, 
@@ -46,24 +46,23 @@ class ClubDashboard extends React.Component {
 			});
 		}
 
-		deleteObject = async (inType, inID)  => {
+		deleteObject = async (inType, inID) => { 
 			try {
-				let status = 0;
-				switch(inType){
-					case "members": 
-						break; 
-					case "execs": 
-						break; 
-					case "requested": 
-						break; 
-					default: 
-						break; 
-				}
-				if (status !== 200){ 
-					alert(`Status [${status}]: Unable to delete ${inType}[${inID}]`);		
-				}
+				let copy = [...this.state[inType]]; 
+				copy = copy.filter(o => o !== inID); 
+				const status = await updateClub(this.state.clubID, inType, copy); 
+				if (status === 200){ 
+					this.setState({ [inType]: copy});
+				} else { throw new Error(`Status [${status}]`)}
 			} catch (error) {
-				alert(`${error}: Unable to delete ${inType}[${inID}]`);		
+				alert(`${error}: Unable to delete ${inType}[${inID}]`);
+			}
+		}
+
+		deleteMember(inID){ 
+			this.deleteObject("members", inID); 
+			if (this.state.execs.includes(inID)){ 
+				this.deleteObject("execs", inID); 
 			}
 		}
 
@@ -76,7 +75,6 @@ class ClubDashboard extends React.Component {
 				const reqStatus = await updateClub(this.state.clubID, "requested", newRequested);
 				const memStatus = await updateClub(this.state.clubID, "members", newMembers);
 				if (reqStatus === 200 && memStatus === 200) {
-					console.log(newMembers, newRequested);
 					this.setState({
 						members: newMembers, 
 						requested: newRequested
@@ -89,31 +87,7 @@ class ClubDashboard extends React.Component {
 			} 
 		}
 
-		// onRequestApprove(inUserID){
-		// 	let newRequested = [...this.state.requested]; 
-		// 	newRequested = newRequested.filter(r => r !== inUserID);
-		// 	let newMembers = [...this.state.members];
-		// 	newMembers.push(inUserID);
-		// 	this.setState({
-		// 		members: newMembers, 
-		// 		requested: newRequested
-		// 	})
-			
-
-			//state is being updated but not re-rendered... 
-		// }
-
-		// approveAndUpdate(inUserID){ 
-		// 	this.onRequestApprove(inUserID).then(ret => {
-		// 		this.setState({
-		// 			members: ret.newMembers, 
-		// 			requested: ret.newRequested
-		// 		});
-		// 	});
-		// }
-
     render(){
-			console.log(this.state); 
 			if (this.state.loading){
 				return(
 					<div> 
@@ -157,16 +131,16 @@ class ClubDashboard extends React.Component {
 						/>
 						<MemberList 
 						users={this.state.members}
-						onDelete={this.deleteObject}/>
+						onDelete={this.deleteMember.bind(this)}/>
 						<ExecList 
 						users={this.state.execs}
-						onDelete={this.deleteObject}/>
+						onDelete={this.deleteObject.bind(this)}/>
 						<RequestList 
 						users={this.state.requested}
-						onDelete={this.deleteObject}
+						onDelete={this.deleteObject.bind(this)}
 						onApprove={this.onRequestApprove.bind(this)}/>
 						<PostList
-						thisClubID={this.deleteObject}/>
+						thisClubID={this.state.clubID}/>
 						<Link
 							to={returnPath} 
 							style={{ textDecoration:'none' }}>
