@@ -11,7 +11,7 @@ import UserProfilePage from './react-components/UserProfilePage';
 import ClubProfilePage from './react-components/ClubProfilePage';
 import ClubPost from './react-components/ClubPost';
 import info from "./tempInfo";
-//import {changeAccInfo, changeAccTimelineOpts, deleteAccount, changeSignInStatus} from './actions/accountActions';
+import {changeAccInfo, changeAccTimelineOpts, deleteAccount, changeSignInStatus} from './actions/accountActions';
 import ClubDashboard from './react-components/ClubDashboard/ClubDashboard';
 import AdminDashboard from './react-components/AdminDashboard/AdminDashboard';
 import BrowseAllClubs from "./react-components/BrowseAllClubs/index";
@@ -20,7 +20,7 @@ import BrowseAllClubs from "./react-components/BrowseAllClubs/index";
 import Navbar from './react-components/Navbar';
 import EventTimePlace from './react-components/EventTimePlace';
 // tempoary classes for storeing testing objects only 
-import {readCookie} from './actions/accountActions';
+import {readCookie, makeEventDecision} from './actions/accountActions';
 
 class userObject {
   constructor(type, name){
@@ -236,11 +236,6 @@ class App extends React.Component{
     })
   }
 
-  makeEventDecision = (account, postId, decision) =>{
-    if (decision in ['going','notgoing', 'interested']){
-      account.eventDecision[postId] = decision
-    }
-  }
 
   render(){
     return (
@@ -256,21 +251,30 @@ class App extends React.Component{
                             />)}/>
             <Route exact path='/FeedPage' render={({history}) => 
                             (this.state.loggedInUser && this.state.loggedInUser.permissions === 0 ?
-                              <FeedPage 
-                              appContext={this}
-                              loggedInUser={this.state.loggedInUser}
-                              history={history}
-                              allPosts={info.Posts}
-                              allClubs={info.Clubs}
-                              makeEventDecision={this.makeEventDecision} //import this from an action file
-                            /> :
+                                <FeedPage
+                                loggedInUser={this.state.loggedInUser}
+                                loggedInStatus={this.state.signedIn}
+                                makeEventDecision={makeEventDecision}
+                                changeSignInStatus={changeSignInStatus}
+                                appContext={this}
+                                /> :
+                            //   <FeedPage 
+                            //   appContext={this}
+                            //   loggedInUser={this.state.loggedInUser}
+                            //   history={history}
+                            //   allPosts={info.Posts}
+                            //   allClubs={info.Clubs}
+                            //   makeEventDecision={this.makeEventDecision} //import this from an action file
+                            // /> :
                             <LogInPage logInContext={this}/>)}
             />
             <Route exact path='/Following' render={() => 
                             (this.state.loggedInUser ?
                               <FollowingPage 
                               userInfo={this.state.loggedInUser}
-                              allClubs={info.Clubs} //TODO: REMOVE THIS, IT IS NOT NECESSARY ONCE WE START USING OUR DB
+                              loggedInStatus={this.state.signedIn}
+                              changeSignInStatus={changeSignInStatus}
+                              appContext={this}
                             /> :
                             <Redirect to='/'/>)}
             />

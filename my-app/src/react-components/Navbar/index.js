@@ -36,7 +36,7 @@ class Navbar extends React.Component{
 
 	render(){
 		console.log(this.props)
-		const { logoPic, loggedInUser} = this.props; 
+		const { logoPic, loggedInUser, appContext } = this.props; 
 		const userType = loggedInUser.permissions
 		const Links = () => {
 			if (userType){
@@ -62,7 +62,7 @@ class Navbar extends React.Component{
 		return (
 			<div>
 				<NavbarRB sticky="top" bg='dark' variant="dark" expand='md'>
-				<Container>
+				
 					<NavbarRB.Brand>
 						<Container>
 							<img className='navLogoPic' src={logoPic} alt='logo'/>
@@ -77,7 +77,7 @@ class Navbar extends React.Component{
 							 href='/'>Logout</NavRB.Link>
 						</NavRB>
 					</NavbarRB.Collapse>
-				</Container>
+				
 				</NavbarRB>
 			</div>
 			
