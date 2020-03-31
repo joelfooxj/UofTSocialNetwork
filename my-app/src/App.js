@@ -122,9 +122,8 @@ class App extends React.Component{
             <Route exact path='/ClubDashboard' render={ () => 
               (this.state.loggedInUser ? <ClubDashboard users={info.Accs} posts={info.Posts} currentUser={this.state}/> : <LogInPage logInContext={this}/>) }/>
             <Route exact path='/AdminDashboard' render={() => 
-              (this.state.loggedInUser && this.state.loggedInUser.permissions === 1 ? <AdminDashboard 
-                user={ this.state.loggedInUser} 
-                accounts={info.Accs} clubs={info.Clubs}/> : <LogInPage logInContext={this}/>) }/>
+              (this.state.loggedInUser && this.state.loggedInUser.permissions === 1 ? 
+              <AdminDashboard user={ this.state.loggedInUser } /> : <LogInPage logInContext={this}/>) }/>
             <Route exact path='/browseAllClubs' render={() => 
             (this.state.loggedInUser ? 
               <BrowseAllClubs allClubs={info.Clubs} userInfo={this.state.loggedInUser}/> : 

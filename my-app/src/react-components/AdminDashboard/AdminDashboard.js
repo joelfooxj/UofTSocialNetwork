@@ -7,36 +7,60 @@ import { Button } from '@material-ui/core';
 import { Link } from '../../../node_modules/react-router-dom'
 import Navbar from '../Navbar'
 import { withRouter } from 'react-router-dom';
+import { getAllClubs } from '../../actions/clubActions'
+import { getUsers } from '../../actions/accountActions'
+import { getAllPosts } from '../../actions/postActions'
+
 
 class AdminDashboard extends React.Component {
-	// props should contain Accounts and Clubs
     constructor(props){
 			super(props); 
 			this.state={
-				accounts: props.accounts, 
-				clubs: props.clubs,
-			}	
+				accounts: [],
+				clubs: [],
+				posts: [], 
+				loading: true
+			}
+		}
+
+		componentDidMount(){
+			this.fetchAll().then(retObj => {
+				this.setState({
+					accounts: retObj.retAccounts,
+					clubs: retObj.retClubs, 
+					posts: retObj.retPosts, 
+					loading:false
+				});
+			});
+		}
+
+		async fetchAll(){
+			let retAccounts = [];
+			let retClubs = []; 
+			let retPosts = []; 
+
+			try {
+				retAccounts = await getUsers(); 
+				retClubs = await getAllClubs(); 
+				retPosts = await getAllPosts();
+			} catch (error) {
+				alert(`${error}: There was an error retrieving some data`); 
+			}
+
+			return {retAccounts, retClubs, retPosts};
 		}
 		
-		componentDidMount(){
-			this.fetchData(); 
-		}
-
-		fetchData(){ 
-			//TODO: fetch data from the DB here 
-		}
-
-		deleteObject = (inType, inID)  => {
-			//TODO: delete object from database
-			this.setState(inType === 'user' ? 
-			{accounts: this.state.accounts.filter(user => user.id != inID)} : 
-			{clubs: this.state.clubs.filter(club => club.clubID != inID)});
-		}
-
     render(){
-				const totalPosts = this.state.clubs.map(club => club.posts.length).reduce((c, p) => c + p, 0)
-				const { changeSignInStatus, user, accounts, clubs } = this.props;
-				// const totalPosts = this.state.clubs.map((p, club) => p + club.posts.length, 0)
+				const { changeSignInStatus, user } = this.props;
+
+				if (this.state.loading){
+					return(
+						<div> 
+							<h1 className="centeredText"> LOADING... </h1>
+						</div>
+					);
+				}
+
         return(
         	<div>
         	<Navbar logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
@@ -46,32 +70,18 @@ class AdminDashboard extends React.Component {
                 <AdminStats 
                     numUsers={this.state.accounts.length}
                     numClubs={this.state.clubs.length}
-                    numPosts={totalPosts}
+                    numPosts={this.state.posts.length}
                 />
                 <UserList
 								usersArr={this.state.accounts}
-								onClick={this.goToObject}
 								/>
                 <ClubList
 								clubsArr={this.state.clubs}
-								onDelete={this.deleteObject}
 								/> 
-								<Link to="/" style={{ textDecoration:'none' }}> 
-									<Button
-										size="small"
-										edge="end" 
-										aria-label="join" 
-										variant="outlined"
-										color='primary'
-										>																		
-										LOGOUT
-									</Button>
-								</Link>
             </div>
-            </div>
+          </div>
         );
     }
-    
 }
 
 export default withRouter(AdminDashboard);
