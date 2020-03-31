@@ -61,6 +61,7 @@ class ClubProfilePage extends React.Component {
                     <ClubInfo 
                         clubInfo={this.state.clubInfo} 
                         userInfo={this.props.userInfo}
+                        rootContext={this.props.rootContext}
                     />
     
                     <ClubTimeline 

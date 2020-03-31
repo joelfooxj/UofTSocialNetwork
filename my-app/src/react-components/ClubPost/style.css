@@ -3,6 +3,7 @@
 	width: 80px;
 	height: 100px;
 	float: left;
+	margin-top: 5px;
 }
 
 .postIcon {
@@ -22,6 +23,7 @@
 	width: 85%;
 	display: inline-block;
 	overflow-x: hidden;
+	margin-top: 10px;
 }
 
 .post {
@@ -34,4 +36,9 @@
 	width: fit-content;
 	height: fit-content;
 	float: right;
+}
+
+.removePostButton{
+	margin-top: 3px;
+	margin-left: 3px;
 }
