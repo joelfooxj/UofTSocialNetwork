@@ -71,14 +71,6 @@ router.post('/create', (req, res, next) => {security.auth(req, res, next)}, asyn
         console.log(err)
         res.status(500).send()
     })
-
-    // try {
-    //     await newClub.save()
-    //     res.status(200).send(newClub)
-    // } catch (error) {
-    //     console.log(error)
-    //     res.status(500).send()
-    // }
 })
 
 // [GET] retrieve single club info by id
