@@ -10,7 +10,8 @@ class CreateClubPage extends React.Component {
     state = {
         nameInput: "",
         bioInput: "",
-        dupName: false
+        dupName: false,
+        clubCreated: false
     }
 
     fieldChange = (e, field) => {
@@ -30,19 +31,21 @@ class CreateClubPage extends React.Component {
             let creationResult = await createClub(this.state.nameInput, this.state.bioInput);
 
             if (creationResult.status === 200) {
-                this.props.history.goBack();
+                this.setState({
+                    clubCreated: true
+                })
             } else if (creationResult.status === 409) {
                 this.setState({
                     dupName: true
                 })
             } else {
                 alert("Could not create new club, please try again later.");
-                this.props.history.push('/')
+                this.props.history.goBack();
                 return;            
             }
         } catch (error) {
             console.log("Fatal error")
-            this.props.history.push('/')
+            this.props.history.goBack();
         }
     }
 
@@ -53,6 +56,10 @@ class CreateClubPage extends React.Component {
                     status={true} loggedInUser={this.props.userInfo}>
                 </Navbar>
                 
+                <div id="titleText">
+                    Create a Club
+                </div>
+
                 <form id="clubCreationForm">
                     <div className={"inputField"}>
                         <div>
@@ -100,8 +107,11 @@ class CreateClubPage extends React.Component {
                     left={"45%"}
                     onClick={this.formSubmit}
                 />
-
-                {(this.state.nameInput !== "" && this.state.dupName) ? <span className="dupNameErrorSpan">Club name already in use!</span> : null}
+                
+                <div id="messageDiv">
+                    {(this.state.nameInput !== "" && this.state.dupName) ? <span className="dupNameErrorSpan">Club name already in use!</span> : null}
+                    {(this.state.clubCreated) ? <span className="clubCreatedSpan">Successfully created club.</span> : null}
+                </div>
             </div>
         )
     }
