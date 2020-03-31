@@ -40,7 +40,7 @@ class UserProfilePage extends React.Component{
                         label={"Username"}
                         name={"username"}
                         type={"text"}
-                        defaultValue={context.state.loggedInUser.username}
+                        defaultValue={userInfo.username}
                         disabled={true}
                         userID={userInfo._id}
                         id={"usernameIn"}
