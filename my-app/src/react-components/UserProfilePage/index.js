@@ -25,7 +25,8 @@ class UserProfilePage extends React.Component{
             userInfo = this.props.userInfo;
         }
 
-        // const {userInfo} = this.props
+        const {context} = this.props;
+
         return (
             <div id="mainDiv">
                 <Navbar logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
@@ -39,10 +40,11 @@ class UserProfilePage extends React.Component{
                         label={"Username"}
                         name={"username"}
                         type={"text"}
-                        defaultValue={userInfo.username}
+                        defaultValue={context.state.loggedInUser.username}
                         disabled={true}
                         userID={userInfo._id}
                         id={"usernameIn"}
+                        context={context}
                     />
                     <UserProfileField
                         label={"Password"}
@@ -52,6 +54,7 @@ class UserProfilePage extends React.Component{
                         disabled={true}
                         userID={userInfo._id}
                         id={"passIn"}
+                        context={context}
                     />
                     <UserProfileField
                         label={"First Name"}
@@ -61,6 +64,7 @@ class UserProfilePage extends React.Component{
                         disabled={true}
                         userID={userInfo._id}
                         id={"fisrtNameIn"}
+                        context={context}
                     />
                     <UserProfileField
                         label={"Last Name"}
@@ -70,6 +74,7 @@ class UserProfilePage extends React.Component{
                         disabled={true}
                         userID={userInfo._id}
                         id={"lastNameIn"}
+                        context={context}
                     />
                     <UserProfileField
                         label={"Email"}
@@ -79,6 +84,7 @@ class UserProfilePage extends React.Component{
                         disabled={true}
                         userID={userInfo._id}
                         id={"emailIn"}
+                        context={context}
                     />
                 
                     <div id="checkboxDiv">
@@ -86,8 +92,8 @@ class UserProfilePage extends React.Component{
                         <Checkbox 
                                 color={"primary"}
                                 label={"Clubs I am a part of"}
-                                checked={this.state.displayTimelineOpts[0]}
-                                onChange={() => {userInfo.timelineOpts[0] = !userInfo.timelineOpts[0]; updateUserRecord(userInfo._id, "timelineOpts", userInfo.timelineOpts).then((res) => {console.log(res); this.setState({displayTimelineOpts: userInfo.timelineOpts})})}}
+                                checked={userInfo.timelineOpts[0]}
+                                onChange={() => {userInfo.timelineOpts[0] = !userInfo.timelineOpts[0]; updateUserRecord(userInfo._id, "timelineOpts", userInfo.timelineOpts, context).then((res) => {console.log(res); this.setState({displayTimelineOpts: userInfo.timelineOpts})})}}
                                 >
                         </Checkbox>
                         <span>Clubs I follow</span>
@@ -96,16 +102,16 @@ class UserProfilePage extends React.Component{
                         <Checkbox 
                                 color={"primary"}
                                 label={"Clubs I follow"}
-                                checked={this.state.displayTimelineOpts[1]}
-                                onChange={() => {userInfo.timelineOpts[1] = !userInfo.timelineOpts[1]; updateUserRecord(userInfo._id, "timelineOpts", userInfo.timelineOpts).then((res) => {console.log(res); this.setState({displayTimelineOpts: userInfo.timelineOpts})})}}
+                                checked={userInfo.timelineOpts[1]}
+                                onChange={() => {userInfo.timelineOpts[1] = !userInfo.timelineOpts[1]; updateUserRecord(userInfo._id, "timelineOpts", userInfo.timelineOpts, context).then((res) => {console.log(res); this.setState({displayTimelineOpts: userInfo.timelineOpts})})}}
                                 >
                         </Checkbox>
                         <span>Clubs I am a part of</span>
                         <br></br>
                         <Checkbox 
                                 color={"primary"}
-                                checked={this.state.displayTimelineOpts[2]}
-                                onChange={() => {userInfo.timelineOpts[2] = !userInfo.timelineOpts[2];  updateUserRecord(userInfo._id, "timelineOpts", userInfo.timelineOpts).then((res) => {console.log(res); this.setState({displayTimelineOpts: userInfo.timelineOpts})})}}
+                                checked={userInfo.timelineOpts[2]}
+                                onChange={() => {userInfo.timelineOpts[2] = !userInfo.timelineOpts[2];  updateUserRecord(userInfo._id, "timelineOpts", userInfo.timelineOpts, context).then((res) => {console.log(res); this.setState({displayTimelineOpts: userInfo.timelineOpts})})}}
                                 >
                         </Checkbox>
                         <span>Clubs I am an executive of</span>

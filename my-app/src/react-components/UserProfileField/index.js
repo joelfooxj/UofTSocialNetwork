@@ -78,11 +78,11 @@ class UserProfileField extends React.Component{
                             left={"200px"}
                             fontSize={"10px"}
                             onClick={() => {this.saveButtonOnClick();
-                                            if(name === "password"){
-                                                updatePassword(userID, document.getElementById(id).value).then((res) => {console.log(res)})
+                                                if(name === "password"){
+                                                    updatePassword(userID, document.getElementById(id).value).then((res) => {console.log(res)})
                                                     
                                                 } 
-                                                else{updateUserRecord(userID, name, document.getElementById(id).value)
+                                                else{updateUserRecord(userID, name, document.getElementById(id).value, this.props.context)
                                                     .then((res) => {console.log(res)})
                                                 }
                                             }
