@@ -1,0 +1,11 @@
+#clubCreationForm {
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+    margin-top: 250px;
+    margin-left: 45%;
+}
+
+.dupNameErrorSpan {
+    color:red;
+}

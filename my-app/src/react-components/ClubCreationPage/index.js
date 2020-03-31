@@ -14,7 +14,7 @@ class CreateClubPage extends React.Component {
     }
 
     fieldChange = (e, field) => {
-        if (e.target.value === "" && field === "nameInput") {
+        if (e.target.value === "") {
             this.setState({
                 [field]: null
             })
@@ -48,37 +48,43 @@ class CreateClubPage extends React.Component {
 
     render() {
         return(
-            <div>
+            <div id="clubCreationContainer">
                 <Navbar logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
                     status={true} loggedInUser={this.props.userInfo}>
                 </Navbar>
                 
-                <form>
+                <form id="clubCreationForm">
                     <div className={"inputField"}>
-                        <TextField 
-                            name={"nameInput"}
-                            type={"text"}
-                            label={"Club Name"}
-                            id="margin-normal"
-                            className="nameInput"
-                            margin="normal"
-                            onChange={(e) => {this.fieldChange(e, 'nameInput')}}
-                            onClick={(e) => {this.fieldChange(e, 'nameInput')}}
-                            error={this.state.nameInput === null}
-                            helperText={(this.state.nameInput === null) ? "Field Must Not Be Empty" : ""}
-                        />
+                        <div>
+                            <TextField 
+                                name={"nameInput"}
+                                type={"text"}
+                                label={"Club Name"}
+                                id="margin-normal"
+                                className="nameInput"
+                                margin="normal"
+                                onChange={(e) => {this.fieldChange(e, 'nameInput')}}
+                                onClick={(e) => {this.fieldChange(e, 'nameInput')}}
+                                error={this.state.nameInput === null}
+                                helperText={(this.state.nameInput === null) ? "Field Must Not Be Empty" : ""}
+                            />
+                        </div>
 
-                        <TextField 
-                            name={"bioInput"}
-                            type={"text"}
-                            label={"Club Bio"}
-                            id="margin-normal"
-                            className="bioInput"
-                            margin="normal"
-                            multiline
-                            onChange={(e) => {this.fieldChange(e, 'bioInput')}}
-                            onClick={(e) => {this.fieldChange(e, 'bioInput')}}
-                        />
+                        <div>
+                            <TextField 
+                                name={"bioInput"}
+                                type={"text"}
+                                label={"Club Bio"}
+                                id="margin-normal"
+                                className="bioInput"
+                                margin="normal"
+                                multiline
+                                onChange={(e) => {this.fieldChange(e, 'bioInput')}}
+                                onClick={(e) => {this.fieldChange(e, 'bioInput')}}
+                                error={this.state.bioInput === null}
+                                helperText={(this.state.bioInput === null) ? "Field Must Not Be Empty" : ""}
+                            />
+                        </div>
                     </div>
                 </form>
 
@@ -91,7 +97,7 @@ class CreateClubPage extends React.Component {
                     buttonText={"Done"}
                     variant={"outlined"}
                     top={"20px"}
-                    left={"48%"}
+                    left={"45%"}
                     onClick={this.formSubmit}
                 />
 
