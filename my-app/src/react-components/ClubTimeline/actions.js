@@ -2,8 +2,14 @@ import {removePostByID, getPostByPosterID, createPost} from '../../actions/postA
 
 export function getPosts(context) {
     getPostByPosterID(context.state.clubInfo._id).then((result) => {
+        let sortedPosts = result
+        sortedPosts = sortedPosts.sort(function(a, b){
+            let dateA = new Date(a.date), dateB = new Date(b.date)
+            return dateB - dateA;
+        })
+
         context.setState({
-            posts: result,
+            posts: sortedPosts,
             loaded: true
         })
     }).catch((error) => {

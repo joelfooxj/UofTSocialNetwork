@@ -4,7 +4,6 @@ import ClubPost from "../ClubPost";
 import CustomButton from "../CustomButton";
 import info from '../../tempInfo';
 import * as actions from './actions'
-import {removePostByID, getPostByPosterID, collectPosts, createPost} from '../../actions/postActions'
 
 class ClubTimeline extends React.Component {
     cPosts = info.Posts.filter((p) => p.authorID === this.props.clubInfo.clubID);
