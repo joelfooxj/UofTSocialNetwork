@@ -8,7 +8,8 @@ const ClubSchema = new mongoose.Schema({
         type: String, 
         required: true,
         minlength: 1,
-        trim: true
+        trim: true,
+        unique: true
     },
     clubInfo: {
         type: String,
