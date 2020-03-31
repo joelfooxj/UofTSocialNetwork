@@ -34,7 +34,6 @@ async function getAllClubs() {
  *
  */
 async function createClub(name, clubInfo) {
-    // todo: change undefined to default images here?
     const url = '/clubs/create'
     const data = {
         name: name,
@@ -55,7 +54,7 @@ async function createClub(name, clubInfo) {
 
     try {
         const response = await fetch(request)
-        return response.status
+        return response
     } catch (error) {
         throw new Error(error);
     }

@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { Club } = require('../../models/Club')
 const { ObjectID } = require('mongodb')
+const security = require('../mainServer')
 
 // multipart middleware: allows access to uploaded files from req.file
 const multipart = require('connect-multiparty')
@@ -56,13 +57,28 @@ router.post('/create', (req, res, next) => {security.auth(req, res, next)}, asyn
         bannerImageID: DEF_BANNER_ID
     })
 
-    try {
-        await newClub.save()
+    newClub.save().then(() => {
         res.status(200).send(newClub)
-    } catch (error) {
-        console.log(error)
+    }, (err) => {
+        if (err.code === 11000) {
+            const dupField = err.message.split('{')[1].split(":")[0]
+            res.statusMessage = dupField.trim()
+            res.status(409).send()
+        } else {
+            res.status(400).send(err)
+        }
+    }).catch(err => {
+        console.log(err)
         res.status(500).send()
-    }
+    })
+
+    // try {
+    //     await newClub.save()
+    //     res.status(200).send(newClub)
+    // } catch (error) {
+    //     console.log(error)
+    //     res.status(500).send()
+    // }
 })
 
 // [GET] retrieve single club info by id
@@ -138,6 +154,8 @@ router.patch('/updateImg/:id/:attr', (req, res, next) => {security.auth(req, res
 
     let obj = {}
     let img_id = -1;
+
+    console.log(req)
 
     cloudinary.uploader.upload(
         req.files.image.path,
