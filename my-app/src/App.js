@@ -258,14 +258,7 @@ class App extends React.Component{
                                 changeSignInStatus={changeSignInStatus}
                                 appContext={this}
                                 /> :
-                            //   <FeedPage 
-                            //   appContext={this}
-                            //   loggedInUser={this.state.loggedInUser}
-                            //   history={history}
-                            //   allPosts={info.Posts}
-                            //   allClubs={info.Clubs}
-                            //   makeEventDecision={this.makeEventDecision} //import this from an action file
-                            // /> :
+                            
                             <LogInPage logInContext={this}/>)}
             />
             <Route exact path='/Following' render={() => 
@@ -282,15 +275,7 @@ class App extends React.Component{
                             (this.state.loggedInUser ?
                               <UserProfilePage 
                                 userInfo={this.state.loggedInUser}
-                               // userInfo={{accs: this.state.accounts,
-                                //            id: this.state.accountId,
-                               //             }
-                                //        }
-                                //changeSignInStatus={this.changeSignInStatus.bind(this)}
-                                //changeAccInfo={(accId, attrName, attrVal) => {changeAccInfo(this, info.Accs, accId, attrName, attrVal)}}
-                                //changeAccTimelineOpts={(accId, optionIndex) => {changeAccTimelineOpts(this, info.Accs, optionIndex, accId)}}
-                                //deleteAcc={(accId) => {deleteAccount(this, accId, info.Accs)}}
-                              /> : 
+                             /> : 
                               <LogInPage logInContext={this}/>)}
             />
             {/*SOMETHING HAS TO BE DONE WITH THESE, WE CAN POTENTIALLY HAVE AN INDEFINITE NUMBER OF CLUBS*/ }

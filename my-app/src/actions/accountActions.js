@@ -333,7 +333,7 @@ export const readCookie = (app) => {
 };
 
 export const makeEventDecision = async function makeEventDecision(id, postId, decision) {
-    const url = '/users/updatePass'
+    const url = '/users/updateEventDecision'
     if (decision in ['going','notgoing', 'interested']){
         const data = {
             user: id,
@@ -342,7 +342,7 @@ export const makeEventDecision = async function makeEventDecision(id, postId, de
         }
 
         const request = new Request(url, {
-            method: 'PUT', 
+            method: 'PATCH', 
             headers: {
               'Accept': 'application/json, text/plain, */*',
               'Content-Type': 'application/json'
