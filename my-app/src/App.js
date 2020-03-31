@@ -15,6 +15,7 @@ import info from "./tempInfo";
 import ClubDashboard from './react-components/ClubDashboard/ClubDashboard';
 import AdminDashboard from './react-components/AdminDashboard/AdminDashboard';
 import BrowseAllClubs from "./react-components/BrowseAllClubs/index";
+import CreateClubPage from './react-components/ClubCreationPage/index'
 
 //
 import Navbar from './react-components/Navbar';
@@ -115,9 +116,15 @@ class App extends React.Component{
             />
             {/*SOMETHING HAS TO BE DONE WITH THESE, WE CAN POTENTIALLY HAVE AN INDEFINITE NUMBER OF CLUBS*/ }
             <Route path='/club/:id' render={(props) => 
-              //(this.state.signedIn ?
-                <ClubProfilePage {...props} userInfo={this.state.loggedInUser}/> 
-                //<Redirect to='/'/>)
+              (this.state.signedIn ?
+                <ClubProfilePage {...props} userInfo={this.state.loggedInUser} rootContext={this}/> :
+                <Redirect to='/'/>)
+            }/>
+            <Route path='/createClub' render={ () => 
+              (this.state.loggedInUser ? 
+                <CreateClubPage userInfo={this.state.loggedInUser}/> : 
+                <Redirect to='/'/>
+              )
             }/>
             <Route exact path='/ClubDashboard/:id' render={ () => 
               (this.state.loggedInUser ? <ClubDashboard currentUser={this.state.loggedInUser}/> : <LogInPage logInContext={this}/>) }/>

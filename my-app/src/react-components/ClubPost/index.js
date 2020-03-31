@@ -1,6 +1,7 @@
 import React from "react";
 import './style.css';
 import CustomButton from "../CustomButton";
+import Button from '@material-ui/core/Button';
 
 class ClubPost extends React.Component {
     render() {
@@ -17,16 +18,15 @@ class ClubPost extends React.Component {
 
                 {(this.props.isExec || this.props.isAdmin) &&
                     <div id="removePost">
-                        <CustomButton
-                            height="50px"
-                            width="60px"
-                            variant="outline"
-                            buttonText="Remove"
-                            backgroundColor="lightgray"
-                            border="1px gray solid"
-                            margin="10px"
+                        <span className="removePostButton">
+                            <Button
                             onClick={() => this.props.removePost(this.props.postInfo._id)}
-                        />
+                            variant='contained'
+                            disableElevation
+                            >
+                                Remove
+                            </Button>
+                        </span>
                     </div>
                 }
             </div>

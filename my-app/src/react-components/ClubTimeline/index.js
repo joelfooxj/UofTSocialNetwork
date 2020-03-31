@@ -4,7 +4,6 @@ import ClubPost from "../ClubPost";
 import CustomButton from "../CustomButton";
 import info from '../../tempInfo';
 import * as actions from './actions'
-import {removePostByID, getPostByPosterID, collectPosts, createPost} from '../../actions/postActions'
 
 class ClubTimeline extends React.Component {
     cPosts = info.Posts.filter((p) => p.authorID === this.props.clubInfo.clubID);
@@ -41,8 +40,7 @@ class ClubTimeline extends React.Component {
                                         height="75px"
                                         variant="outline"
                                         buttonText="Make Post"
-                                        backgroundColor="lightgray"
-                                        border="1px gray solid"
+                                        backgroundColor="#E0E0E0"
                                         margin="10px"
                                         onClick={(e) => actions.onClickAddPost(this, e)}
                                     />
