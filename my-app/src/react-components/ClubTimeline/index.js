@@ -41,8 +41,7 @@ class ClubTimeline extends React.Component {
                                         height="75px"
                                         variant="outline"
                                         buttonText="Make Post"
-                                        backgroundColor="lightgray"
-                                        border="1px gray solid"
+                                        backgroundColor="#E0E0E0"
                                         margin="10px"
                                         onClick={(e) => actions.onClickAddPost(this, e)}
                                     />

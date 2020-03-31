@@ -62,6 +62,7 @@ export function addPost(context, postContent) {
 export function onClickAddPost(context, e) {
     e.preventDefault();
     let form = e.target;
+    e.target.value = ""
 
     // where button is clicked may change parents, use while loop
     while (form && form.id !== "makePost") {
