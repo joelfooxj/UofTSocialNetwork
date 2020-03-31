@@ -15,21 +15,20 @@ class ClubList extends React.Component {
 
   delClub = (clubID) => {
     if (!this.state.clubs.some(club => club._id === clubID)){
-      alert(`${clubID} does not exist`); 
+      alert(`${clubID} does not exist`);
+      return;
     }
-    try {
-      deleteClub(clubID).then(res => {
-        if(res !== 200){
-          alert(`${clubID} was not deleted. Please try again.`);
-        } else {
-          let clubsCopy = [...this.state.clubs]; 
-          clubsCopy.filter(club => club._id !== clubID);
-          this.setState({clubs: clubsCopy});
-        } 
-      });
-    } catch (error) {
+    
+    deleteClub(clubID).then(res => {
+      if(res !== 200){
+        alert(`${clubID} was not deleted. Please try again.`);
+      } else {
+        let clubsCopy = [...this.state.clubs];
+        this.setState({clubs: clubsCopy.filter(club => club._id !== clubID)});
+      } 
+    }, error => {
       alert(`${error}: ${clubID} was not deleted`);
-    }
+    });
   }
 
   render(){
@@ -48,12 +47,16 @@ class ClubList extends React.Component {
                                 />
                                 <ListItemSecondaryAction>
                                   <Link  
+<<<<<<< HEAD
                                     to={{
                                       pathname:`/ClubDashboard/${club._id}`, //TODO: Add id here?  
                                       state:{
                                         club: club
                                       }
                                     }}
+=======
+                                    to={`/ClubDashboard/${club._id}`}
+>>>>>>> 245e6be7f65a88cca3231f9b5eddf161295ffc22
                                     className="link">
                                     <Button 
                                       size="small"

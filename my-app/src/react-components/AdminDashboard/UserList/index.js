@@ -16,6 +16,7 @@ class UserList extends React.Component {
 	setBanned = (accountID, banState) => {
 		if (!this.state.accounts.some(account => account._id === accountID)){
 			alert(`${accountID} does not exist`); 
+			return;
 		}
 		
 		if (banState === 0){ 
@@ -57,6 +58,7 @@ class UserList extends React.Component {
 	delAccount = (accountID) => {
 		if (!this.state.accounts.some(account => account._id === accountID)){
 			alert(`${accountID} does not exist`); 
+			return;
 		}
 		try {
 			deleteUser(accountID).then(res => {
@@ -64,8 +66,7 @@ class UserList extends React.Component {
 					alert(`${accountID} was not deleted. Please try again.`);
 				} else {
 					let accountsCopy = [...this.state.accounts]; 
-					accountsCopy = accountsCopy.filter(account => account._id !== accountID);
-					this.setState({accounts: accountsCopy});
+					this.setState({accounts: accountsCopy.filter(account => account._id !== accountID)});
 				}
 			});
 		} catch (error) {
