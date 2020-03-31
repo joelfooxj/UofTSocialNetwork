@@ -147,8 +147,6 @@ router.patch('/updateImg/:id/:attr', (req, res, next) => {security.auth(req, res
     let obj = {}
     let img_id = -1;
 
-    console.log(req)
-
     cloudinary.uploader.upload(
         req.files.image.path,
         function (result) {
