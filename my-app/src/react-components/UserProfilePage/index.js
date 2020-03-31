@@ -25,7 +25,7 @@ class UserProfilePage extends React.Component{
             userInfo = this.props.userInfo;
         }
 
-        // const {userInfo} = this.props
+        const {context} = this.props
         return (
             <div id="mainDiv">
                 <Navbar logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
