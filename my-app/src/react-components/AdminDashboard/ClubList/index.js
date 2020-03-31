@@ -47,16 +47,7 @@ class ClubList extends React.Component {
                                 />
                                 <ListItemSecondaryAction>
                                   <Link  
-<<<<<<< HEAD
-                                    to={{
-                                      pathname:`/ClubDashboard/${club._id}`, //TODO: Add id here?  
-                                      state:{
-                                        club: club
-                                      }
-                                    }}
-=======
                                     to={`/ClubDashboard/${club._id}`}
->>>>>>> 245e6be7f65a88cca3231f9b5eddf161295ffc22
                                     className="link">
                                     <Button 
                                       size="small"
