@@ -116,9 +116,9 @@ class App extends React.Component{
             />
             {/*SOMETHING HAS TO BE DONE WITH THESE, WE CAN POTENTIALLY HAVE AN INDEFINITE NUMBER OF CLUBS*/ }
             <Route path='/club/:id' render={(props) => 
-              //(this.state.signedIn ?
-                <ClubProfilePage {...props} userInfo={this.state.loggedInUser}/> 
-                //<Redirect to='/'/>)
+              (this.state.signedIn ?
+                <ClubProfilePage {...props} userInfo={this.state.loggedInUser} rootContext={this}/> :
+                <Redirect to='/'/>)
             }/>
             <Route path='/createClub' render={ () => 
               (this.state.loggedInUser ? 

@@ -5,6 +5,11 @@
     border-radius: 5px;
 }
 
+.spacingSpan {
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
 #ClubInfoText {
     margin-top: 10px;
     padding-left: 10px;

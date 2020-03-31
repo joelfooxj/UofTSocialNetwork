@@ -1,9 +1,9 @@
 import { updateUserRecord } from '../../actions/accountActions';
 import { updateClub } from '../../actions/clubActions';
 
-export const followClub = (context) => {
+export const followClub = (context, rootContext) => {
     context.props.userInfo.clubsFollowing.push(context.state.clubInfo._id)
-    updateUserRecord(context.props.userInfo._id, 'clubsFollowing', context.props.userInfo.clubsFollowing).then((result) => {
+    updateUserRecord(context.props.userInfo._id, 'clubsFollowing', context.props.userInfo.clubsFollowing, rootContext).then((result) => {
         if (result === 200) {
             context.forceUpdate()
         } else {
@@ -15,7 +15,7 @@ export const followClub = (context) => {
     })
 }
 
-export const unfollowClub = (context) => {
+export const unfollowClub = (context, rootContext) => {
     let clubID = context.state.clubInfo._id
     let target = -1
     let clubsFollowing = context.props.userInfo.clubsFollowing
@@ -28,7 +28,7 @@ export const unfollowClub = (context) => {
 
     if (target >= 0) {
         context.props.userInfo.clubsFollowing.splice(target, 1)
-        updateUserRecord(context.props.userInfo._id, 'clubsFollowing', context.props.userInfo.clubsFollowing).then((result) => {
+        updateUserRecord(context.props.userInfo._id, 'clubsFollowing', context.props.userInfo.clubsFollowing, rootContext).then((result) => {
             if (result === 200) {
                 context.forceUpdate()
             } else {
