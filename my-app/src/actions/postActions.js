@@ -158,3 +158,4 @@ async function updatePost(id, updateField, updateContent) {
 }
 
 export {createPost, getPostByPosterID, collectPosts, removePostByID, updatePost, getAllPosts}
+

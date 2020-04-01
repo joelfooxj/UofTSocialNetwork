@@ -110,8 +110,10 @@ class UserProfilePage extends React.Component{
                         <br></br>
                         <Checkbox 
                                 color={"primary"}
-                                checked={userInfo.timelineOpts[2]}
-                                onChange={() => {userInfo.timelineOpts[2] = !userInfo.timelineOpts[2];  updateUserRecord(userInfo._id, "timelineOpts", userInfo.timelineOpts, context).then((res) => {console.log(res); this.setState({displayTimelineOpts: userInfo.timelineOpts})})}}
+                                label={"Clubs I am an exec of"}
+                                checked={this.state.displayTimelineOpts[2]}
+                                onChange={() => {userInfo.timelineOpts[2] = !userInfo.timelineOpts[2];  updateUserRecord(userInfo._id, "timelineOpts", userInfo.timelineOpts).then((res) => {console.log(res); this.setState({displayTimelineOpts: userInfo.timelineOpts})})}}
+
                                 >
                         </Checkbox>
                         <span>Clubs I am an executive of</span>

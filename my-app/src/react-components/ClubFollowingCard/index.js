@@ -1,5 +1,5 @@
 import React from 'react'
-import {Row, Col, Image, Card, Container} from 'react-bootstrap'
+import {Row, Col, Image, Card, Container, Button} from 'react-bootstrap'
 
 class ClubFollowingCard extends React.Component{
 
@@ -9,15 +9,17 @@ class ClubFollowingCard extends React.Component{
 
 	delete(){
         this.setState({ deleted: true });
+
     }
 
 
 
+
 	render(){
-		const { clubProfile, clubName, clubFollowing } = this.props;
+		const { clubProfile, clubName, clubFollowing, type } = this.props;
 		const deleteThis = this.state.deleted ? {display:'none'} : {}
 		return (
-		<Container onClick={this.deleteThis}>
+		<Container>
 		<Row><Col xl={1} lg={1}></Col><Col>
 		<Card  className="text-center" border="dark">
 		<Card.Body>
@@ -30,9 +32,14 @@ class ClubFollowingCard extends React.Component{
 						<h5>{clubName}</h5>
 					</Col>
 					<Col>
-						<p>Follower: {clubFollowing}</p>
+						<p>Followers: {clubFollowing}</p>
 					</Col>
-					
+					<Col>
+						<p>Member Type: {type}</p>
+					</Col>
+					<Col >
+						<Button onclick={this.state.deleted}>unfollow</Button>
+					</Col>
 				</Row>
 
 			</Container>

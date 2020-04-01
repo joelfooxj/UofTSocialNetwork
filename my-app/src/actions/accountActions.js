@@ -343,7 +343,32 @@ export const readCookie = (app) => {
       });
 };
 
+export const makeEventDecision = async function makeEventDecision(id, postId, decision) {
+    const url = '/users/updateEventDecision'
+    if (decision in ['going','notgoing', 'interested']){
+        const data = {
+            user: id,
+            postID: postId,
+            decision: decision
+        }
 
+        const request = new Request(url, {
+            method: 'PATCH', 
+            headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+
+        try {
+            const response = await fetch(request)
+            return response.status
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
+}
 
 
 

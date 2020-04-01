@@ -1,25 +1,82 @@
 import React from 'react';
 import Navbar from '../Navbar';
 import FeedCard from '../FeedCard';
-import { withRouter } from 'react-router-dom';
 import './style.css';
-import { Container, Row, Col } from 'react-bootstrap'
-import Jumbotron from 'react-bootstrap/Jumbotron'
-
+import { getClub} from '../../actions/clubActions.js'
+import { getPostByPosterID } from '../../actions/postActions.js'
 
 class FeedPage extends React.Component{
 
-  render() {
-    const { changeSignInStatus, loggedInUser, allPosts, allClubs, makeEventDecision, appContext} = this.props;
-    
-      var feeds = []
-      for (let i=0;i<allPosts.length;i++){
-        feeds.push(<FeedCard posterPic={allPosts[i].poster} eventTime={allPosts[i].date} 
-        eventPlace={allPosts[i].place} eventTitle={allPosts[i].title} 
-        eventDetail={allPosts[i].content} eventClubName={allClubs[allPosts[i].clubID-1].name}>
-          </FeedCard>)
-      }
+  state = {
+    posts: [],
+    feeds: []
+  }
+
+mergeArrsWithoutDuplicates = (arr1, arr2) => {
+  let res = arr1.concat(arr2)
+  res = res.filter(function(item, pos) {return res.indexOf(item) === pos})
+  return res;
+}
+
+collectIds = () => {
+  let ids = []
+  let timelineOpts = this.props.loggedInUser.timelineOpts;
+ 
+
+  if (timelineOpts[0]) {
+      ids = this.mergeArrsWithoutDuplicates(ids, this.props.loggedInUser.clubsMemberOf)
+  }
+
+  if (timelineOpts[1]) {
+      ids = this.mergeArrsWithoutDuplicates(ids, this.props.loggedInUser.clubsFollowing)
+  }
+
+  if (timelineOpts[2]) {
+      ids = this.mergeArrsWithoutDuplicates(ids, this.props.loggedInUser.clubsExecOf)
+  }
+
+  return ids;
+}
+
+  componentDidMount = () => {
+    let tempPosts = []
+    let clubIds = this.collectIds()
+    for(let i = 0; i < clubIds.length; i++){
+      getPostByPosterID(clubIds[i]).then(clubPosts => {
+        for(let j = 0; j < clubPosts.length; j++){
+          tempPosts.push(clubPosts[i])
+        }
+        this.setState({
+          posts: tempPosts
+        }, () => {
+          let tempFeeds = []
+          for(let i = 0; i < this.state.posts.length; i++){
       
+            let pic = null 
+            let postClub = null
+            getClub(this.state.posts[i].posterID).then(club => {
+              postClub = club
+              pic = postClub.profilePicture
+      
+              tempFeeds.push(<FeedCard posterPic={pic} eventTime={this.state.posts[i].date} 
+                                 eventPlace={this.state.posts[i].location} eventTitle={this.state.posts[i].title} 
+                                 eventDetail={this.state.posts[i].content} eventClubName={postClub.name}>
+                         </FeedCard>)
+                         
+              this.setState({
+                feeds: tempFeeds
+              })
+            }, err => console.log(err))
+          }
+        })
+      }, err => console.log(err))
+    }
+
+    
+  }
+
+  render() {
+    const { loggedInUser, appContext } = this.props
 
     return (
       <div>
@@ -27,15 +84,7 @@ class FeedPage extends React.Component{
            loggedInUser={loggedInUser} appContext={appContext}>
         </Navbar>
         <div className='feedsContainer'>
-        
-          <FeedCard posterPic='https://cdn4.vectorstock.com/i/1000x1000/13/63/abstract-poster-event-template-vector-26151363.jpg' 
-            eventTime='2020-2-29' eventPlace='Bahen Information Center' eventTitle='Pub night with xxx' eventDetail='    Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' eventClubName="xxx" >
-          </FeedCard>
-          
-          <FeedCard posterPic='https://d1csarkz8obe9u.cloudfront.net/posterpreviews/landscape-polygon-dance-night-club-event-poster-template-7b992b14f8645fc966ef0288b6c30ed5_screen.jpg?ts=1561728036' 
-            eventTime='2020-2-29' eventPlace='Bahen Information Center' eventTitle='Pub night with xxx' eventDetail='    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' eventClubName="xxx" >
-          </FeedCard>
-          {feeds}
+          {this.state.feeds}
         </div>
       </div>
       )
