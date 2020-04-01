@@ -27,7 +27,7 @@ class MemberList extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState){
-		if (this.props.users !== prevProps.users || this.props.execs !== prevProps.execs){]
+		if (this.props.users !== prevProps.users || this.props.execs !== prevProps.execs){
 			getUsers().then(res => { 
 				if(!res){ 
 					alert(`Unable to get members`);

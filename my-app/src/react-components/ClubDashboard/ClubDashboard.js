@@ -8,6 +8,7 @@ import PostList from './PostList/index';
 import { Button, Paper} from '../../../node_modules/@material-ui/core'
 import { withRouter, Link } from '../../../node_modules/react-router-dom'
 import { getClub, updateClub, updateClubImage } from '../../actions/clubActions'
+import Navbar from '../Navbar'
 
 class ClubDashboard extends React.Component {
     constructor(props){
@@ -142,6 +143,10 @@ class ClubDashboard extends React.Component {
 				returnText = 'Return to Following Clubs Page';
 			}
 			return(
+				<div>
+					<Navbar logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
+	          loggedInUser={this.props.currentUser}>
+	        </Navbar>
 					<div className="clubDashboardContainer"> 
 						<h1> {this.state.thisClub.name} Dashboard </h1> 
 						<Link  
@@ -229,6 +234,7 @@ class ClubDashboard extends React.Component {
 						
 
 					</div>
+				</div>
 			);
     }
 }
