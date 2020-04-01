@@ -104,6 +104,21 @@ class ClubDashboard extends React.Component {
 			}
 		}
 
+		makeExec = async (inUserID) => {
+			try {
+				let newExecs = [...this.state.execs]; 
+				newExecs.push(inUserID); 
+				const reqStatus = await updateClub(this.state.clubID, "execs", newExecs);
+					if (reqStatus === 200) {
+						this.setState({ execs: newExecs });
+					} else {
+						alert(`There has been an error executizing for ${inUserID}`)
+					}
+			} catch (error) {
+				alert(`${error}: Unable to executize member ${inUserID}`)
+			} 
+		}
+
     render(){
 			if (this.state.loading){
 				return(
@@ -183,7 +198,8 @@ class ClubDashboard extends React.Component {
 						</span>
 						<MemberList 
 						users={this.state.members}
-						onDelete={this.deleteMember.bind(this)}/>
+						onDelete={this.deleteMember.bind(this)}
+						makeExec={this.makeExec.bind(this)}/>
 						<ExecList 
 						users={this.state.execs}
 						onDelete={this.deleteObject.bind(this)}/>

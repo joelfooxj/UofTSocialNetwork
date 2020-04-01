@@ -56,12 +56,22 @@ class MemberList extends React.Component {
 																	primary={user.firstName + ' ' + user.lastName}
 																/>
 																<ListItemSecondaryAction>
+																<Button 
+																		size="small"
+																		edge="end" 
+																		aria-label="delete" 
+																		variant="outlined"
+																		color="primary"
+																		onClick={() => this.props.makeExec(user._id)}>
+																		Executize
+																	</Button>
 																	<Button 
 																		size="small"
 																		edge="end" 
 																		aria-label="delete" 
 																		variant="outlined"
 																		color="primary"
+																		m="5px"
 																		onClick={() => this.props.onDelete(user._id)}>
 																		Remove
 																	</Button>
