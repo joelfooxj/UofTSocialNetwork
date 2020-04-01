@@ -129,6 +129,7 @@ class FollowingPage extends React.Component{
 			return(
 				<Spinner animation="border"/>
 			)
+
 		}
 	}
 }
