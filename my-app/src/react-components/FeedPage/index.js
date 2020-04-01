@@ -1,12 +1,8 @@
 import React from 'react';
 import Navbar from '../Navbar';
 import FeedCard from '../FeedCard';
-import { withRouter } from 'react-router-dom';
 import './style.css';
-import { Container, Row, Col } from 'react-bootstrap'
-import Jumbotron from 'react-bootstrap/Jumbotron'
-import { getAllPosts } from '../../actions/postActions.js'
-import { getClub, getAllClubs} from '../../actions/clubActions.js'
+import { getClub} from '../../actions/clubActions.js'
 import { getPostByPosterID } from '../../actions/postActions.js'
 
 class FeedPage extends React.Component{
@@ -15,48 +11,6 @@ class FeedPage extends React.Component{
     posts: [],
     feeds: []
   }
-  /*
-  getAllClubsIDInFeed = function(user){
-    const followClubs = user.timelineOpts[0]
-    const partOf = user.timelineOpts[1]
-    const exeOf = user.timelineOpts[2]
-    let clubsID = []
-    if (followClubs){
-      clubsID = clubsID.concat(user.clubsFollowing)
-    }
-    if (partOf){
-      clubsID = clubsID.concat(user.clubsMemberOf)
-    }
-    if (exeOf){
-      clubsID = clubsID.concat(user.ExecOf)
-    }
-    return clubsID
-  }
-
-  getAllPostsInFeed = function(clubIDs){
-    getAllPosts().then((posts)=>{
-    let feedPosts = []
-        for (let i=0;i<posts.length;i++){
-          if (clubIDs.includes(posts[i].posterID)){
-            feedPosts.push(posts[i])
-          }
-        }
-        return feedPosts
-    }).catch((e)=>{
-        return
-    })
-    clubsExecOf: {
-		type: Array
-	},
-	clubsMemberOf: {
-		type: Array
-	},
-	clubsFollowing: {
-		type: Array
-	},
-	clubsAwaitingJoin: {
-  }
-*/
 
 mergeArrsWithoutDuplicates = (arr1, arr2) => {
   let res = arr1.concat(arr2)
@@ -108,7 +62,7 @@ collectIds = () => {
                                  eventPlace={this.state.posts[i].location} eventTitle={this.state.posts[i].title} 
                                  eventDetail={this.state.posts[i].content} eventClubName={postClub.name}>
                          </FeedCard>)
-              console.log(tempFeeds)
+                         
               this.setState({
                 feeds: tempFeeds
               })
@@ -122,33 +76,8 @@ collectIds = () => {
   }
 
   render() {
-    const { loggedInUser, loggedInStatus, makeEventDecision, changeSignInStatus, appContext } = this.props
+    const { loggedInUser, appContext } = this.props
 
-    
-     
-
-    //console.log(clubIds)
-    //console.log(this.state.posts) //TODO: REMOVE
-    
-    
-    
-
-    /*
-    const { loggedInUser, loggedInStatus, makeEventDecision, changeSignInStatus, appContext } = this.props
-    const allClubs = this.getAllClubsIDInFeed(loggedInUser)
-    const allPosts = this.getAllPostsInFeed(allClubs)
-    let feeds = []
-    for (let i=0;i<allPosts.length;i++){
-      getClub(allPosts[i].posterID).then((post)=>{
-        feeds.push(<FeedCard posterPic={allPosts[i].image} eventTime={allPosts[i].date} 
-      eventPlace={allPosts[i].location} eventTitle={allPosts[i].title} 
-      eventDetail={allPosts[i].content} eventClubName={post.name}>
-        </FeedCard>)
-      }).catch((e)=>{})
-      
-    }*/
-
-    //console.log(this.state.feeds)
     return (
       <div>
         <Navbar  logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
