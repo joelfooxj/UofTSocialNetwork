@@ -20,7 +20,8 @@ class ClubDashboard extends React.Component {
 				requested: [], 
 				clubID: props.match.params.id, 
 				loading:true, 
-				selectedImage: null
+				selectedBannerImg:null, 
+				selectedProfileImg:null
 			}	
 		}
 		
@@ -88,15 +89,17 @@ class ClubDashboard extends React.Component {
 			} 
 		}
 
-		fileSelectedHandler = event => {
+		fileSelectedHandler = (event, img) => {
 			this.setState({
-					selectedImage: event.target.files[0]
+					[img]: event.target.files[0]
 			})
 		}
 
 		handler(id, attr, formdat) {
-			if (!this.state.selectedImage) {
-					alert("Select an image.")
+			if (attr === "profilePicture" && !this.state.selectedProfileImg) {
+					alert("Select a profile picture file.")
+			} else if (attr === "bannerImage" && !this.state.selectedProfileImg) {
+				alert("Select a banner picture file.") 
 			} else {
 					updateClubImage(id, attr, formdat).then((result) => {
 							console.log(result)
@@ -170,12 +173,12 @@ class ClubDashboard extends React.Component {
 									}}
 									onChange={(e) => {
 												e.preventDefault()
-												this.fileSelectedHandler(e)
+												this.fileSelectedHandler(e, 'selectedProfileImg')
 									}}>
 									<div>
 										<input name="image" type="file" accepts="image/*"/>
 									</div>
-										<Button variant='outlined' color='primary' type="submit">Upload Image</Button>
+										<Button variant='outlined' color='primary' size="small" type="submit">Upload</Button>
 								</form>
 							</div>
 							<div>
@@ -187,17 +190,18 @@ class ClubDashboard extends React.Component {
 									}}
 									onChange={(e) => {
 												e.preventDefault()
-												this.fileSelectedHandler(e)
+												this.fileSelectedHandler(e, 'selectedBannerImg')
 									}}>
 									<div>
 										<input name="image" type="file" accepts="image/*"/>
 									</div>
-										<Button variant='outlined' color='primary' type="submit">Upload Image</Button>
+										<Button variant='outlined' color='primary' size="small" type="submit">Upload</Button>
 								</form>
 							</div>
 						</span>
 						<MemberList 
 						users={this.state.members}
+						execs={this.state.execs}
 						onDelete={this.deleteMember.bind(this)}
 						makeExec={this.makeExec.bind(this)}/>
 						<ExecList 

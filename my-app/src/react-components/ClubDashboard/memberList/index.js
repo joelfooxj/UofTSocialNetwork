@@ -9,6 +9,7 @@ class MemberList extends React.Component {
 		super(props); 
 		this.state = { 
 			userIDs: props.users, 
+			execIDs: props.execs,
 			users:[]
 		}
 	}
@@ -26,14 +27,15 @@ class MemberList extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState){
-		if (this.props.users !== prevProps.users){
+		if (this.props.users !== prevProps.users || this.props.execs !== prevProps.execs){]
 			getUsers().then(res => { 
 				if(!res){ 
 					alert(`Unable to get members`);
 				} else { 
 					this.setState({
 						users: res.filter(u => this.props.users.includes(u._id)),
-						userIDs: this.props.users
+						userIDs: this.props.users, 
+						execIDs: this.props.execs
 					});
 				}
 			}, error => {
@@ -56,12 +58,13 @@ class MemberList extends React.Component {
 																	primary={user.firstName + ' ' + user.lastName}
 																/>
 																<ListItemSecondaryAction>
-																<Button 
+																	<Button 
 																		size="small"
 																		edge="end" 
 																		aria-label="delete" 
 																		variant="outlined"
 																		color="primary"
+																		disabled={this.state.execIDs.includes(user._id)}
 																		onClick={() => this.props.makeExec(user._id)}>
 																		Executize
 																	</Button>
