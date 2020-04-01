@@ -16,7 +16,6 @@ class ClubFollowingCard extends React.Component{
 
 
 	render(){
-		console.log(this.props)
 		const { clubProfile, clubName, clubFollowing, type } = this.props;
 		const deleteThis = this.state.deleted ? {display:'none'} : {}
 		return (
