@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const { Post } = require('../../models/Post.js')
 const { ObjectID } = require('mongodb')
+const security = require('../mainServer')
+
 
 /* post request for adding a new post
  *
@@ -9,7 +11,7 @@ const { ObjectID } = require('mongodb')
  *     - posterID: id of poster
  *     - content: post content
 */
-router.post('/create', (req, res) => {
+router.post('/create', (req, res, next) => {security.auth(req, res, next)}, (req, res) => {
     if (!req.body.posterID || !req.body.content) {
         res.status(400).send()
         return;
@@ -56,7 +58,7 @@ router.get('/all', (req, res) => {
  * req body expects:
  *     - nothing
 */
-router.get('/get/:id', (req, res) => {
+router.get('/get/:id', (req, res, next) => {security.auth(req, res, next)}, (req, res) => {
     const id = req.params.id
 
     if (!ObjectID.isValid(id)) {
@@ -77,7 +79,7 @@ router.get('/get/:id', (req, res) => {
  * req body expects:
  *     - nothing
 */
-router.delete('/remove/:id', (req, res) => {
+router.delete('/remove/:id', (req, res, next) => {security.auth(req, res, next)}, (req, res) => {
     const id = req.params.id;
 
     if (!ObjectID.isValid(id)) {
@@ -103,7 +105,7 @@ router.delete('/remove/:id', (req, res) => {
  *     - attr: attribute we wish to update
  *     - nVal: new value of attribute
 */
-router.patch('/update/:id', (req, res) => {
+router.patch('/update/:id', (req, res, next) => {security.auth(req, res, next)}, (req, res) => {
     const id = req.params.id
     if (!ObjectID.isValid(id)) {
         res.status(400).send()

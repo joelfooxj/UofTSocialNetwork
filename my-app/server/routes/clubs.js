@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { Club } = require('../../models/Club')
 const { ObjectID } = require('mongodb')
+const security = require('../mainServer')
 
 // multipart middleware: allows access to uploaded files from req.file
 const multipart = require('connect-multiparty')
@@ -38,7 +39,7 @@ router.get('/all', (req, res) => {
  *     - name: name of the new club
  *     - clubInfo: info text of this club
 */
-router.post('/create', async (req, res) => {
+router.post('/create', (req, res, next) => {security.auth(req, res, next)}, async (req, res) => {
     if (!req.body.name) {
         res.status(400).send()
         return;
@@ -56,17 +57,24 @@ router.post('/create', async (req, res) => {
         bannerImageID: DEF_BANNER_ID
     })
 
-    try {
-        await newClub.save()
+    newClub.save().then(() => {
         res.status(200).send(newClub)
-    } catch (error) {
-        console.log(error)
+    }, (err) => {
+        if (err.code === 11000) {
+            const dupField = err.message.split('{')[1].split(":")[0]
+            res.statusMessage = dupField.trim()
+            res.status(409).send()
+        } else {
+            res.status(400).send(err)
+        }
+    }).catch(err => {
+        console.log(err)
         res.status(500).send()
-    }
+    })
 })
 
 // [GET] retrieve single club info by id
-router.get('/get/:id', (req, res) => {
+router.get('/get/:id', (req, res, next) => {security.auth(req, res, next)}, (req, res) => {
     const id = req.params.id;
 
     if (!ObjectID.isValid(id)) {
@@ -96,9 +104,8 @@ router.get('/get/:id', (req, res) => {
  * update attributes that are *NOT* images. Use the 
  * /updateImg/:id route for that purpose.
  */
-router.patch('/update/:id', (req, res) => {
+router.patch('/update/:id', (req, res, next) => {security.auth(req, res, next)}, (req, res) => {
     const id = req.params.id
-
     if (!ObjectID.isValid(id) || !req.body.attr || !req.body.nVal) {
         console.log(ObjectID.isValid(id), req.body.attr, req.body.nVal)
         res.status(400).send()
@@ -128,7 +135,7 @@ router.patch('/update/:id', (req, res) => {
  *     - attr: attribute to update
  *     - nVal: new value to set attribute to
  */
-router.patch('/updateImg/:id/:attr', multipartMiddleware, (req, res) => {
+router.patch('/updateImg/:id/:attr', (req, res, next) => {security.auth(req, res, next)}, multipartMiddleware, (req, res) => {
     const id = req.params.id
     const attr = req.params.attr
 
@@ -170,7 +177,7 @@ router.patch('/updateImg/:id/:attr', multipartMiddleware, (req, res) => {
 })
 
 // [DELETE] delete a club 
-router.delete('/remove/:id', (req, res) => {
+router.delete('/remove/:id', (req, res, next) => {security.auth(req, res, next)}, (req, res) => {
     const id = req.params.id
 
     if (!ObjectID.isValid(id)) {

@@ -34,7 +34,6 @@ async function getAllClubs() {
  *
  */
 async function createClub(name, clubInfo) {
-    // todo: change undefined to default images here?
     const url = '/clubs/create'
     const data = {
         name: name,
@@ -55,7 +54,7 @@ async function createClub(name, clubInfo) {
 
     try {
         const response = await fetch(request)
-        return response.status
+        return response
     } catch (error) {
         throw new Error(error);
     }
@@ -93,11 +92,11 @@ async function getClub(id) {
  *
  */
 async function updateClub(id, attr, new_val) {
-    const url = `clubs/update/${id}`
+    const url = `/clubs/update/${id}`
     const data = {
         attr: attr,
         nVal: new_val
-    }
+    }   
 
     const request = new Request(url, {
         method: 'PATCH',
@@ -121,10 +120,7 @@ async function updateClub(id, attr, new_val) {
  *
  */
 async function updateClubImage(id, attr, formData) {
-    const url = `clubs/updateImg/${id}/${attr}`
-
-    console.log(formData)
-
+    const url = `/clubs/updateImg/${id}/${attr}`
     const request = new Request(url, {
         method: 'PATCH',
         body: formData
@@ -143,7 +139,7 @@ async function updateClubImage(id, attr, formData) {
  *
  */
 async function deleteClub(id) {
-    const url = `clubs/remove/${id}`
+    const url = `/clubs/remove/${id}`
     const request = new Request(url, {
         method: 'DELETE',
         headers: {

@@ -1,33 +1,77 @@
 import React from '../../../../node_modules/react'; 
 import { Grid, List, ListItem, ListItemText, IconButton, ListItemSecondaryAction, Paper, Button } from '../../../../node_modules/@material-ui/core'
 import DeleteIcon from  '../../../../node_modules/@material-ui/icons/Delete' 
-
 import { Link } from '../../../../node_modules/react-router-dom'
+import { banUser, unbanUser, deleteUser } from '../../../actions/accountActions'
+import './index.css'
 
 class UserList extends React.Component {
 	constructor(props){ 
 		super(props);
 		this.state={
-			users: props.usersArr, 
-			accounts: props.usersArr, 
-			accountsId: 0
+			accounts: props.usersArr
 		}
 	}
 
-	banUser = (inID, banState) => {
-		this.props.usersArr.find(user => user.id === inID).banned = banState;
-		this.setState({
-			users: this.props.usersArr
-		});
+	setBanned = (accountID, banState) => {
+		if (!this.state.accounts.some(account => account._id === accountID)){
+			alert(`${accountID} does not exist`); 
+			return;
+		}
+		
+		if (banState === 0){ 
+			// Ban account
+			try {
+				banUser(accountID).then(res => {
+					if (res !== 200){
+						alert(`Failed to ban ${accountID}.`);
+					}	else {
+						let accountsCopy = [...this.state.accounts]; 
+						accountsCopy.find(account => account._id === accountID).status = banState;
+						this.setState({accounts: accountsCopy});
+					}
+				})
+			} catch (error) {
+				alert(`${error}: cannot ban account`)
+			}
+		}
+
+		if (banState === 1){ 
+			// Unban account
+			try {
+				unbanUser(accountID).then(res => {
+					if (res !== 200){
+						alert(`Failed to unban ${accountID}.`);
+					}	else {
+						let accountsCopy = [...this.state.accounts]; 
+						accountsCopy.find(account => account._id === accountID).status = banState;
+						this.setState({accounts: accountsCopy});
+					}
+				});
+			} catch (error) {
+				alert(`${error}: cannot unban account`)
+			}
+		}
+
 	}
 
-	onDelete = (userID) => {
-		const getUser = this.props.usersArr.find(user => user.id == userID); 
-		const getUserIndex = this.props.usersArr.indexOf(getUser); 
-		this.props.usersArr.splice(getUserIndex, 1); 
-		this.setState({
-			users: this.props.usersArr
-		});
+	delAccount = (accountID) => {
+		if (!this.state.accounts.some(account => account._id === accountID)){
+			alert(`${accountID} does not exist`); 
+			return;
+		}
+		try {
+			deleteUser(accountID).then(res => {
+				if (res !== 200){
+					alert(`${accountID} was not deleted. Please try again.`);
+				} else {
+					let accountsCopy = [...this.state.accounts]; 
+					this.setState({accounts: accountsCopy.filter(account => account._id !== accountID)});
+				}
+			});
+		} catch (error) {
+			alert(`${error}: The user was not deleted`);
+		}
 	}
 
 	render(){
@@ -37,38 +81,36 @@ class UserList extends React.Component {
 					<Grid container spacing={2}>
 						<Grid item xs={12} md={6}> 
 							<List dense={true}> 
-									{this.state.users.map(user =>
+									{this.state.accounts.map(account =>
 										{
-											let banState = false;
+											// 0 - banned, 1 - not banned
 											let buttonColor = 'secondary'; 
 											let buttonText = ''; 
-											if (user.banned) {
+											if (account.status === 0) {
 												buttonColor = 'primary' 
-												buttonText = 'Unban'; 
-												banState = false;
+												buttonText = 'Unban';
 											} else {
 												buttonColor = 'secondary';
 												buttonText = 'Ban';
-												banState = true; 
 											}
+
+											if(account.permissions === 1) return null; 
+
 											return(
-													<Paper elevation={0} variant='outlined' key={user.id} style={{ margin:'10px'}}>
+													<Paper elevation={0} variant='outlined' key={account._id} className="listItem">
 														<ListItem> 
 																<ListItemText
-																	primary={user.firstName + ' ' + user.lastName}
+																	primary={account.firstName + ' ' + account.lastName}
 																/>
 																<ListItemSecondaryAction>
 																	<Link 
 																		to={{
-																			pathname: "/UserProfilePage", 
+																			pathname: `/UserProfilePage`, 
 																			state: {
-																				accounts: this.state.users,
-																				accountId: user.id
+																				account: account
 																			}
 																		}}
-																		style={{ textDecoration:'none' }}
-																		key={user.id}												
-																	>
+																		className="notUnderlined">
 																		<Button 
 																			size="small"
 																			edge="end" 
@@ -80,17 +122,16 @@ class UserList extends React.Component {
 																		</Button>
 																	</Link> 
 																	<Button 
-																		id={user.id}
 																		size="small"
 																		edge="end" 
 																		aria-label="join" 
 																		variant="outlined"
 																		color={buttonColor}
-																		onClick={() => this.banUser(user.id, banState)}
+																		onClick={() => this.setBanned(account._id, account.status === 0 ? 1 : 0)}
 																		>																		
 																		{buttonText}
 																	</Button>
-																	<IconButton edge="end" aria-label="delete" onClick={() => this.onDelete(user.id)}>
+																	<IconButton edge="end" aria-label="delete" onClick={() => this.delAccount(account._id)}>
 																		<DeleteIcon fontSize="small" color="primary"/>
 																	</IconButton>																			
 																</ListItemSecondaryAction>
