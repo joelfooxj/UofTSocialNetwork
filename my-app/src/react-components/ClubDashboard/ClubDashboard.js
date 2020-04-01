@@ -5,9 +5,9 @@ import MemberList from './memberList/index';
 import ExecList from './ExecList/index';
 import RequestList from './RequestList/index';
 import PostList from './PostList/index';
-import { Button } from '../../../node_modules/@material-ui/core'
+import { Button, Paper} from '../../../node_modules/@material-ui/core'
 import { withRouter, Link } from '../../../node_modules/react-router-dom'
-import { getClub, updateClub } from '../../actions/clubActions'
+import { getClub, updateClub, updateClubImage } from '../../actions/clubActions'
 
 class ClubDashboard extends React.Component {
     constructor(props){
@@ -19,7 +19,8 @@ class ClubDashboard extends React.Component {
 				execs: [],
 				requested: [], 
 				clubID: props.match.params.id, 
-				loading:true
+				loading:true, 
+				selectedImage: null
 			}	
 		}
 		
@@ -87,6 +88,22 @@ class ClubDashboard extends React.Component {
 			} 
 		}
 
+		fileSelectedHandler = event => {
+			this.setState({
+					selectedImage: event.target.files[0]
+			})
+		}
+
+		handler(id, attr, formdat) {
+			if (!this.state.selectedImage) {
+					alert("Select an image.")
+			} else {
+					updateClubImage(id, attr, formdat).then((result) => {
+							console.log(result)
+					})
+			}
+		}
+
     render(){
 			if (this.state.loading){
 				return(
@@ -123,12 +140,47 @@ class ClubDashboard extends React.Component {
 							</Button>
 						</Link> 
 						<ClubStats 
-							statsList={[
+							statsList={[ 
 								"No. of Members: " + this.state.members.length,
 								"No. of Requests: " + this.state.requested.length,
 								"No. of Executives: " + this.state.execs.length,
-							]}
-						/>
+							]}/>
+						<span> 
+							<div>
+								<h2> Profile Picture </h2>
+								<img src={this.state.thisClub.profilePicture} className="picture"/>
+								<form onSubmit={(e) => {
+									e.preventDefault()
+									this.handler(this.state.clubID, 'profilePicture', new FormData(e.target))
+									}}
+									onChange={(e) => {
+												e.preventDefault()
+												this.fileSelectedHandler(e)
+									}}>
+									<div>
+										<input name="image" type="file" accepts="image/*"/>
+									</div>
+										<Button variant='outlined' color='primary' type="submit">Upload Image</Button>
+								</form>
+							</div>
+							<div>
+								<h2> Banner Picture </h2>
+								<img src={this.state.thisClub.bannerImage} className="picture"/>
+								<form onSubmit={(e) => {
+									e.preventDefault()
+									this.handler(this.state.clubID, 'bannerImage', new FormData(e.target))
+									}}
+									onChange={(e) => {
+												e.preventDefault()
+												this.fileSelectedHandler(e)
+									}}>
+									<div>
+										<input name="image" type="file" accepts="image/*"/>
+									</div>
+										<Button variant='outlined' color='primary' type="submit">Upload Image</Button>
+								</form>
+							</div>
+						</span>
 						<MemberList 
 						users={this.state.members}
 						onDelete={this.deleteMember.bind(this)}/>
@@ -153,7 +205,9 @@ class ClubDashboard extends React.Component {
 								>																		
 								{returnText}
 							</Button>
-						</Link>							
+						</Link>	
+						
+
 					</div>
 			);
     }
