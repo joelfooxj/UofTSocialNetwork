@@ -31,13 +31,12 @@ class FollowingPage extends React.Component{
     collectIds = () => {
         let ids = []
         let timelineOpts = this.props.userInfo.timelineOpts;
-
         if (timelineOpts[0]) {
             ids = this.mergeArrsWithoutDuplicates(ids, this.props.userInfo.clubsMemberOf)
         }
 
         if (timelineOpts[1]) {
-            ids = this.mergeArrsWithoutDuplicates(ids, this.props.userInfo.clubFollowing)
+            ids = this.mergeArrsWithoutDuplicates(ids, this.props.userInfo.clubsFollowing)
         }
 
         if (timelineOpts[2]) {
@@ -49,6 +48,7 @@ class FollowingPage extends React.Component{
 
 	clubToCardMap = (club) => {
 		let type = ""
+
 		if (this.props.userInfo.clubsFollowing.includes(club._id)) {
 			if (type === "") {
 				type = "Follower"
@@ -126,13 +126,19 @@ class FollowingPage extends React.Component{
 						loggedInUser={this.props.userInfo} 
 						appContext={this.props.appContext}
 					/>
+
 					<div className='clublist'>
-						{this.state.elements}
+						{(this.state.elements.length === 0) ? 
+							<span>You're not following any clubs yet.</span> :
+							this.state.elements
+						}
 					</div>
 				</div>
 			)
 		} else {
-			<Spinner animation="border"/>
+			return(
+				<Spinner animation="border"/>
+			)
 		}
 	}
 
