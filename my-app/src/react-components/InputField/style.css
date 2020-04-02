@@ -4,6 +4,6 @@
     justify-content: center;
     align-items: center;
 }
-.logInInput{
-	background-color: black;
+.logInInput .MuiInputBase-input{
+	color: white;
 }

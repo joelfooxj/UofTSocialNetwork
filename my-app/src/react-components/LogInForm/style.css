@@ -43,7 +43,10 @@
     color: red;
     align-self: center;
 }
-.MuiGrid-container{
+.logInForm_username .MuiGrid-container{
+    height: 72px;
+}
+.logInForm_pswd .MuiGrid-container{
     height: 72px;
 }
 .logInFormBackground{
@@ -53,7 +56,7 @@
 .logInForm::after {
   content: "";
   background: url(https://lh3.googleusercontent.com/proxy/ospiO7SULRd0knHzy6clBbB_RKHRJTFe4u6MYcr3tsHCJt_uKH_AK3EOugFAvKwsmNkzQyQrnFo2Byoci8GdKRZnNqui82ljTrFPObL_G8KPRhBuvIQDXMGif-I9aQdizZTBe7jT753l60lZ);
-  opacity: 0.3;
+  opacity: 0.6;
   top: 0;
   left: 0;
   bottom: 0;
