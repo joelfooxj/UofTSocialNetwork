@@ -103,7 +103,6 @@ class UserProfileField extends React.Component{
             field = editField
         }
 
-        console.log(this.state.duplicateField)
         return (
             <div className="infoField">
                 {field}
