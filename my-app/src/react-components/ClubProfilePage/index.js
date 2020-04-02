@@ -6,6 +6,7 @@ import ClubProfilePicture from "../ClubProfilePicture";
 import ClubInfo from "../ClubInfo";
 import {getClub} from '../../actions/clubActions'
 import Navbar from '../Navbar/index'
+import Spinner from 'react-bootstrap/Spinner';
 
 class ClubProfilePage extends React.Component {
     constructor(props) {
@@ -38,45 +39,40 @@ class ClubProfilePage extends React.Component {
         })
     }
 
-    // componentWillMount() {
-    //     this.getClubInfo(this.state.id)
-    // }
-
     render() {
-        if (this.state.loaded) {
-            return(
-                <div id="profilePage">
-                    <Navbar logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
-                        status={true} loggedInUser={this.props.userInfo}>
-                    </Navbar>
+        return(
+            <div id="profilePage">
+                <Navbar logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
+                    status={true} loggedInUser={this.props.userInfo}>
+                </Navbar>
 
-                    <ClubProfilePicture 
-                        profilePic={this.state.clubInfo.profilePicture} 
-                    />
-    
-                    <ClubProfileBanner 
-                        bannerImage={this.state.clubInfo.bannerImage}
-                    />
-    
-                    <ClubInfo 
-                        clubInfo={this.state.clubInfo} 
-                        userInfo={this.props.userInfo}
-                        rootContext={this.props.rootContext}
-                    />
-    
-                    <ClubTimeline 
-                        clubInfo={this.state.clubInfo}
-                        userInfo={this.props.userInfo}
-                    />
-                </div>
-            )
-        } else {
-            return(
-                <div>
-                    Loading...
-                </div>
-            )
-        }
+                {this.state.loaded ? 
+                    <React.Fragment>
+                        <ClubProfilePicture 
+                            profilePic={this.state.clubInfo.profilePicture} 
+                        />
+
+                        <ClubProfileBanner 
+                            bannerImage={this.state.clubInfo.bannerImage}
+                        />
+
+                        <ClubInfo 
+                            clubInfo={this.state.clubInfo} 
+                            userInfo={this.props.userInfo}
+                            rootContext={this.props.rootContext}
+                        />
+
+                        <ClubTimeline 
+                            clubInfo={this.state.clubInfo}
+                            userInfo={this.props.userInfo}
+                        />
+                    </React.Fragment> :
+                    <div id="loadingDiv">
+                        <Spinner animation="border"/>
+                    </div>
+                }
+            </div>
+        )
     }
 }
 

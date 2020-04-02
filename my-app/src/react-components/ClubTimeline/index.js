@@ -28,47 +28,61 @@ class ClubTimeline extends React.Component {
     }
 
     render() {
-        console.log(this.isExec())
+        let timeline = 
+        this.state.posts.map(p => (
+            <ClubPost 
+                clubInfo={this.props.clubInfo}
+                userInfo={this.props.userInfo}
+                postInfo={p}
+                timeline={this}
+                removePost={(postID) => actions.removePost(this, postID)}
+                isExec={this.isExec()}
+                isAdmin={this.props.userInfo.permissions === 1}
+            />        
+        ))
+
         if (this.state.loaded) {
             return(
                 <div id="timeline">
-                        {(this.isExec() || this.props.userInfo.permissions === 1) && 
-                            <div id="makePost">
-                                <div id="postButton">
-                                    <CustomButton
-                                        width="125px"
-                                        height="75px"
-                                        variant="outline"
-                                        buttonText="Make Post"
-                                        backgroundColor="#E0E0E0"
-                                        margin="10px"
-                                        onClick={(e) => actions.onClickAddPost(this, e)}
-                                    />
-                                </div>
-                                <div id="makePostTextArea">
-                                    <textarea id="makePostText" placeholder="What's on your mind?"/>
-                                </div>
+                    {(this.isExec() || this.props.userInfo.permissions === 1) && 
+                        <div id="makePost">
+                            <div id="postButton">
+                                <CustomButton
+                                    width="125px"
+                                    height="75px"
+                                    variant="outline"
+                                    buttonText="Make Post"
+                                    backgroundColor="#E0E0E0"
+                                    margin="10px"
+                                    onClick={(e) => actions.onClickAddPost(this, e)}
+                                />
                             </div>
-                        }
-                    {this.state.posts.map(p => (
-                        <ClubPost 
-                            clubInfo={this.props.clubInfo}
-                            userInfo={this.props.userInfo}
-                            postInfo={p}
-                            timeline={this}
-                            removePost={(postID) => actions.removePost(this, postID)}
-                            isExec={this.isExec()}
-                            isAdmin={this.props.userInfo.permissions === 1}
-                        />
-                    ))}
+                            <div id="makePostTextArea">
+                                <textarea id="makePostText" placeholder="What's on your mind?"/>
+                            </div>
+                        </div>
+                    }
+
+                    {(timeline.length === 0) ?
+                        <div id="noPosts">
+                            <p id="noPostsText">{this.props.clubInfo.name} hasn't made any posts yet.</p>
+                        </div> :
+                        this.state.posts.map(p => (
+                            <ClubPost 
+                                clubInfo={this.props.clubInfo}
+                                userInfo={this.props.userInfo}
+                                postInfo={p}
+                                timeline={this}
+                                removePost={(postID) => actions.removePost(this, postID)}
+                                isExec={this.isExec()}
+                                isAdmin={this.props.userInfo.permissions === 1}
+                            />        
+                        ))
+                    }
                 </div>
             )
         } else {
-            return(
-                <div>
-                    Loading...
-                </div>
-            )
+            return(<div/>)
         }
     }
 }

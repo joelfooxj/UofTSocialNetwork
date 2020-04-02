@@ -108,29 +108,27 @@ class FollowingPage extends React.Component{
 	}
 
 	render() {
-		if (this.state.loaded) {
-			return(
-				<div>
-					<Navbar 
-						logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png'
-						loggedInUser={this.props.userInfo} 
-						appContext={this.props.appContext}
-					/>
+		return(
+			<div>
+				<Navbar 
+					logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png'
+					loggedInUser={this.props.userInfo} 
+					appContext={this.props.appContext}
+				/>
 
+				{this.state.loaded ? 
 					<div className='clublist'>
 						{(this.state.elements.length === 0) ? 
 							<span>You're not following any clubs yet.</span> :
 							this.state.elements
 						}
+					</div> : 
+					<div id="loadingDiv">
+						<Spinner animation="border"/>
 					</div>
-				</div>
-			)
-		} else {
-			return(
-				<Spinner animation="border"/>
-			)
-
-		}
+				}
+			</div>
+		) 
 	}
 }
 
