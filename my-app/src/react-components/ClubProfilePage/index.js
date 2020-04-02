@@ -28,7 +28,7 @@ class ClubProfilePage extends React.Component {
                 console.log(`Something went wrong retrieving club information. Status: ${result.status}`)
 
                 if (result.status === 401) {
-                    alert("Your session has timed out. Please log back in.");
+                    alert('Your session has timed out. Please log back in.')
                     this.props.history.push('/')
                 } else {
                     this.props.history.goBack()
