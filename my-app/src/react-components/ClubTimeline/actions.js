@@ -31,7 +31,10 @@ export function removePost(context, postID) {
     if (target >= 0) {
         newPosts.splice(target, 1)
         removePostByID(postID).then((result) => {
-            if (result === 200) {
+            if (result === 401){ 
+                alert("Your session has timed out. Please log back in.");
+                this.props.history.push('/');
+            } else if (result === 200) {
                 context.setState({
                     posts: newPosts
                 })
@@ -52,8 +55,13 @@ export function addPost(context, postContent) {
         return result
     }).then((result) => {
         if (result.status) {
-            console.log(`There was a problem adding a post. Status: ${result.status}`)
-            context.props.history.push('/')
+            if (result.status === 401){ 
+                alert("Your session has timed out. Please log back in.");
+                this.props.history.push('/');
+            } else {
+                console.log(`There was a problem adding a post. Status: ${result.status}`)
+                context.props.history.push('/')
+            }
         } else {
             newPosts.push(result)
             context.setState({
