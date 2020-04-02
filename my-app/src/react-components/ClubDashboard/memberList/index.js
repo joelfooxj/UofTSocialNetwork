@@ -18,6 +18,7 @@ class MemberList extends React.Component {
 		getUsers().then(res => { 
 			if(!res){ 
 				alert(`Unable to get members`);
+				this.props.history.goBack(); 
 			} else { 
 				this.setState({users: res.filter(u => this.state.userIDs.includes(u._id))});
 			}
@@ -31,6 +32,7 @@ class MemberList extends React.Component {
 			getUsers().then(res => { 
 				if(!res){ 
 					alert(`Unable to get members`);
+					this.props.history.goBack(); 
 				} else { 
 					this.setState({
 						users: res.filter(u => this.props.users.includes(u._id)),

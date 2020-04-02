@@ -15,6 +15,10 @@ class PostList extends React.Component {
 
 	componentDidMount(){ 
 		getPostByPosterID(this.state.thisClubID).then(res => { 
+			if (res === 401){ 
+				alert("You're session has timed out. Please log back in."); 
+				this.props.history.push('/');
+			}	
 			this.setState({posts: res});
 		}, error => {
 			alert(`${error}: Unable to retrieve posts`)
@@ -24,6 +28,10 @@ class PostList extends React.Component {
 	delPost = async (postID) => {
 		try {
 			const status = await removePostByID(postID); 
+			if (status === 401){ 
+				alert("You're session has timed out. Please log back in."); 
+				this.props.history.push('/');
+			}	
 			if (status === 200){
 				let postsCopy = [...this.state.posts]; 
 				this.setState({posts: postsCopy.filter(p => p._id !== postID)});
