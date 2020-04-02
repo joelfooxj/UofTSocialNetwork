@@ -38,6 +38,18 @@ class ClubList extends React.Component {
           <Grid container spacing={2}>
                   <Grid item xs={12} md={6}> 
                     <List dense={true}> 
+                        <ListItem> 
+                          <Link to="/createClub"> 
+                            <Button 
+                              size="small"
+                              edge="end" 
+                              aria-label="join" 
+                              variant="outlined"
+                              color='primary'>																		
+                              create new club
+                            </Button>
+                          </Link>
+                        </ListItem>
                         {this.state.clubs.map(club =>                           
                           <Paper elevation={0} variant='outlined' key={club._id} className="listItem">
                             <ListItem> 
