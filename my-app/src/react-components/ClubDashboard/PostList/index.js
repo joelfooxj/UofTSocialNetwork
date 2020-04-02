@@ -15,10 +15,12 @@ class PostList extends React.Component {
 
 	componentDidMount(){ 
 		getPostByPosterID(this.state.thisClubID).then(res => { 
-			if (res === 401){ 
+			if(res.status && res.status === 401){
 				alert("You're session has timed out. Please log back in."); 
 				this.props.history.push('/');
-			}	
+				return
+			}
+			
 			this.setState({posts: res});
 		}, error => {
 			alert(`${error}: Unable to retrieve posts`)
