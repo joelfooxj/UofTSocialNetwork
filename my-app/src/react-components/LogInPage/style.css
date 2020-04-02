@@ -4,9 +4,22 @@
 }
 
 #logInVideo{
-	position: fixed;
+	position: absolute;
 	right: 0;
 	top: 0;
 	width: 100vw;
 	height: 100vh;
+	object-fit: fill; 
+	/*z-index: -2;   */
+}
+#logInVideo::after{
+content: "";
+  background: "welcome.mp4";
+  opacity: 0.6;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1; 
 }

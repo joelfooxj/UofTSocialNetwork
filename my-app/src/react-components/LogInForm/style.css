@@ -4,10 +4,12 @@
     position: fixed;
     top: 52vh;
     left: 8vw;
+    /*z-index: 3;*/
 }
 .logInForm{
     padding: 1vw;
     height: 20vh;
+    /*z-index: 4;*/
 }
 .logInForm_username{
     position: relative;
@@ -49,13 +51,10 @@
 .logInForm_pswd .MuiGrid-container{
     height: 72px;
 }
-.logInFormBackground{
-    height: 100%;
-    width: 100%;
-}
-.logInForm::after {
+
+.logInForm::before {
   content: "";
-  background: url(https://lh3.googleusercontent.com/proxy/ospiO7SULRd0knHzy6clBbB_RKHRJTFe4u6MYcr3tsHCJt_uKH_AK3EOugFAvKwsmNkzQyQrnFo2Byoci8GdKRZnNqui82ljTrFPObL_G8KPRhBuvIQDXMGif-I9aQdizZTBe7jT753l60lZ);
+  background: url(http://firehallartscentre.ca/wp/wp-content/uploads/2017/07/white-square-for-shit.jpg);
   opacity: 0.6;
   top: 0;
   left: 0;
