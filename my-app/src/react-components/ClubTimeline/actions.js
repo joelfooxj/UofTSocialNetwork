@@ -36,7 +36,8 @@ export function removePost(context, postID) {
                     posts: newPosts
                 })
             } else {
-                alert(`There was a problem removing the post. Status: ${result}`)
+                console.log(`There was a problem removing the post. Status: ${result}`)
+                context.props.history.push('/')
             }
         }).catch((error) => {
             console.log("Fatal error")
@@ -51,7 +52,8 @@ export function addPost(context, postContent) {
         return result
     }).then((result) => {
         if (result.status) {
-            alert(`There was a problem adding a post. Status: ${result.status}`)
+            console.log(`There was a problem adding a post. Status: ${result.status}`)
+            context.props.history.push('/')
         } else {
             newPosts.push(result)
             context.setState({

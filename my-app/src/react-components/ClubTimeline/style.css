@@ -41,3 +41,15 @@
     width: 90%;
     height: 100px;
 }
+
+#noPosts {
+    position: relative;
+    min-width: inherit;
+    height:100px;
+    margin-top: 3%;
+    margin-left: 40%;
+}
+
+#noPostsText {
+    font-size: 14pt;
+}

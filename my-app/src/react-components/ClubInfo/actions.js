@@ -7,7 +7,8 @@ export const followClub = (context, rootContext) => {
         if (result === 200) {
             context.forceUpdate()
         } else {
-            alert(`There was a problem updating the user. Status: ${result.status}`)
+            console.log(`There was a problem updating the user. Status: ${result.status}`)
+            context.props.history.push('/')
         }
     }).catch((error) => {
         console.log("Fatal Error")
@@ -32,7 +33,8 @@ export const unfollowClub = (context, rootContext) => {
             if (result === 200) {
                 context.forceUpdate()
             } else {
-                alert(`There was a problem updating the user. Status: ${result.status}`)
+                console.log(`There was a problem updating the user. Status: ${result.status}`)
+                context.props.history.push('/')
             }
         }).catch((error) => {
             console.log("Fatal Error")
@@ -56,7 +58,8 @@ export const joinClub = (context) => {
                 clubInfo: context.state.clubInfo
             })
         } else {
-            alert(`There was a problem updating the user. Status: ${result}`)
+            console.log(`There was a problem updating the user. Status: ${result}`)
+            context.props.history.push('/')
         }
     }).catch((error) => {
         console.log("Fatal error")
@@ -83,7 +86,8 @@ export const cancelRequest = (context) => {
                     clubInfo: context.state.clubInfo
                 })
             } else {
-                alert(`There was a problem updating the user. Status: ${result.status}`)
+                console.log(`There was a problem updating the user. Status: ${result.status}`)
+                context.props.history.push('/')
             }
         }).catch((error) => {
             console.log("Fatal error")
@@ -113,7 +117,8 @@ export const leaveClub = (context) => {
                     clubInfo: context.state.clubInfo
                 })
             } else {
-                alert(`There was a problem updating the user. Status: ${result.status}`)
+                console.log(`There was a problem updating the user. Status: ${result.status}`)
+                context.props.history.push('/')
             }
         }).catch((error) => {
             console.log("Fatal error")

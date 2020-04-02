@@ -82,8 +82,14 @@ class FollowingPage extends React.Component{
 				let club = await getClub(ids[i]);
 
 				if (club.status) {
-					alert(`There was a problem retrieving clubs. Status: ${club.status}`)
-					this.props.history.goBack()
+					console.log(`There was a problem retrieving clubs. Status: ${club.status}`)
+					
+					if (club.status === 401) {
+						this.props.history.push('/')
+					} else {
+						this.props.history.goBack()
+					}
+
 					return;
 				} else {
 					newElements.push(club)
@@ -108,29 +114,29 @@ class FollowingPage extends React.Component{
 	}
 
 	render() {
-		if (this.state.loaded) {
-			return(
-				<div>
-					<Navbar 
-						logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png'
-						loggedInUser={this.props.userInfo} 
-						appContext={this.props.appContext}
-					/>
+		return(
+			<div>
+				<Navbar 
+					logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png'
+					loggedInUser={this.props.userInfo} 
+					appContext={this.props.appContext}
+				/>
 
-					<div className='clublist'>
-						{(this.state.elements.length === 0) ? 
-							<span>You're not following any clubs yet.</span> :
-							this.state.elements
-						}
+				{this.state.loaded ?
+					<React.Fragment>
+						<div className='clublist'>
+							{(this.state.elements.length === 0) ? 
+								<div id="noFollowing">You're not following any clubs yet.</div> :
+								this.state.elements
+							}
+						</div>
+					</React.Fragment> :
+					<div id="loadingDiv">
+						<Spinner animation="border"/>
 					</div>
-				</div>
-			)
-		} else {
-			return(
-				<Spinner animation="border"/>
-			)
-
-		}
+				}
+			</div>
+		) 
 	}
 }
 
