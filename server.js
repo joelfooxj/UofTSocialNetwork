@@ -112,7 +112,7 @@ app.delete('/logout', (req, res) => {
 //GET - for checking if user is logged in
 app.get("/users/check-session", (req, res) => {
     if (req.session.user) {
-        res.send({ currentUser: req.session.user});
+        res.status(200).send({ currentUser: req.session.user});
     } else {
         res.status(401).send();
     }
@@ -125,7 +125,7 @@ app.get("*", (req, res) => {
 
 
 //start server
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 3000
 app.listen(port, () => {
 	log(`Listening on port ${port}...`)
 })
