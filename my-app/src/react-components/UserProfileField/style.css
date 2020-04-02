@@ -2,3 +2,7 @@
 .changeFieldButton span {
     font-size: 8px;
 }
+
+.dupSpan{
+    color: red;
+}

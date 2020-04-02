@@ -9,7 +9,8 @@ class UserProfileField extends React.Component{
 
     state = {
         beingChanged: false,
-        disableSaveButton: false
+        disableSaveButton: false,
+        duplicateField: false
     }
 
     editButtonOnClick = () => {
@@ -83,7 +84,7 @@ class UserProfileField extends React.Component{
                                                     
                                                 } 
                                                 else{updateUserRecord(userID, name, document.getElementById(id).value, this.props.context)
-                                                    .then((res) => {console.log(res)})
+                                                    .then((res) => {console.log(res); if(res === 409){this.setState({duplicateField: true, beingChanged: true})}else{this.setState({duplicateField: false, beingChanged: false})}})
                                                 }
                                             }
                                     }
@@ -102,10 +103,12 @@ class UserProfileField extends React.Component{
             field = editField
         }
 
+        console.log(this.state.duplicateField)
         return (
             <div className="infoField">
                 {field}
                 {button}
+                {this.state.duplicateField ? <span className='dupSpan'>Field value already in use, please try a different one.</span> : null}
             </div>
         );
     }
