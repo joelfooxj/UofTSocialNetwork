@@ -1,49 +1,63 @@
-.logInForm_signInHeader{
-    text-align: center;
-    position: relative;
-    top: 18px;
+.logInFormContainer{
+    width: 35vw;
+    height: 20vh;
+    position: fixed;
+    top: 52vh;
+    left: 8vw;
 }
-
-.logInForm_logInFormGrid{
-    position: relative;
-}
-
 .logInForm{
-    left: 50%;
-    top: 50%;
+    padding: 1vw;
+    height: 20vh;
 }
-
-.logInForm_buttonDiv{
-    position: static;
-    display: block;
-    align-self: center;
+.logInForm_username{
+    position: relative;
+    top: -1vh;
 }
-
+.logInForm_pswd{
+    position: relative;
+    top: -1vh;
+}
 .logInForm_buttonDiv_signInButton{
     font-size: small;
     width: 166px;
 }
-
-.logInForm_buttonDiv_CreateAccLink{
-    font-size: small;
-    top: 10px;
+.logInForm_buttons{
+    position: relative;
+    top:-7vh;
+    left: 1vw;
 }
+.logInForm_username{
 
-.logInForm_link{
-    text-decoration: none;
 }
-
 #logInForm_incorrectCredPrompt{
+    position: relative;
+    top: -3vh;
+    right: -1vw;
     color: red;
     align-self: center;
-    position: absolute;
-    top: 150px;
 }
-
 #logInForm_bannedPrompt{
+    position: relative;
+    top: -3vh;
+    right: -1vw;
     color: red;
     align-self: center;
-    position: absolute;
-    top: 150px;
 }
-
+.MuiGrid-container{
+    height: 72px;
+}
+.logInFormBackground{
+    height: 100%;
+    width: 100%;
+}
+.logInForm::after {
+  content: "";
+  background: url(https://lh3.googleusercontent.com/proxy/ospiO7SULRd0knHzy6clBbB_RKHRJTFe4u6MYcr3tsHCJt_uKH_AK3EOugFAvKwsmNkzQyQrnFo2Byoci8GdKRZnNqui82ljTrFPObL_G8KPRhBuvIQDXMGif-I9aQdizZTBe7jT753l60lZ);
+  opacity: 0.3;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;   
+}

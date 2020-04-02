@@ -3,7 +3,7 @@ import LogInForm from "./../LogInForm"
 import LogInPageBanner from "./../LogInPageBanner"
 import "./style.css"
 import { withRouter } from 'react-router-dom';
-
+import video from './welcome.mp4'
 
 class LogInPage extends React.Component{
 
@@ -39,8 +39,10 @@ class LogInPage extends React.Component{
     
     render(){
         return (
-            <div className="LogInPage">
-                <LogInPageBanner id="logInPage_banner"/>
+            <div>
+                <video autoPlay muted loop id="logInVideo">
+                 <source src={video} type="video/mp4"/>
+                </video>
                 <LogInForm id="logInPage_logInForm"
                     username={this.state.usernameInput}
                     password={this.state.passwordInput}
@@ -52,8 +54,8 @@ class LogInPage extends React.Component{
                     banned={this.state.banned}
                     logInContext={this}
                 />
-
             </div>
+
         )
     }
 }

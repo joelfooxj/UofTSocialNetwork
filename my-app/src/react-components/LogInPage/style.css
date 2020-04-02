@@ -2,7 +2,11 @@
     display: block;
     margin-bottom: 50px;
 }
-#logInPage_logInForm{
-    display: block;
-}
 
+#logInVideo{
+	position: fixed;
+	right: 0;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+}

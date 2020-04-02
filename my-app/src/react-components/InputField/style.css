@@ -1,6 +1,9 @@
 .logInGrid{
     height: 100%;
-    display: flex;
+    display: inline;
     justify-content: center;
     align-items: center;
+}
+.logInInput{
+	background-color: black;
 }

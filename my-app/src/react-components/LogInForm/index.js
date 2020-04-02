@@ -1,9 +1,7 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-
+import {Row, Col, Form, Button } from 'react-bootstrap'
 import InputField from "./../InputField";
-
 import "./style.css"
 import PasswordInputField from "./../PasswordInputField";
 import { Link } from "react-router-dom";
@@ -18,63 +16,70 @@ class LogInForm extends React.Component{
         window.addEventListener('keydown', (e) => {if(e.key === "Enter"){attemptSignIn(this.props.logInContext, 0)}})
     }
 
+
     render(){
         const {username, password, onInputChange, signInFailed, changeButtonColor,
             onButtonAnimationEnd, banned} = this.props;
-
+        
         return (
-            
-            <div className="logInForm">
-                <h1 className="logInForm_signInHeader">
-                    Welcome!
-                </h1>
-                <Grid className="logInForm_logInFormGrid" container spacing={2} direction="column">
-                    <InputField
-                        name="usernameInput"
-                        label="Username"
-                        value={username}
-                        onInputChange={onInputChange}
-                        type="text"
-                    />
-                    <PasswordInputField
-                        name="passwordInput"
-                        label="Password"
-                        value={password}
-                        onInputChange={onInputChange}
-                    />
-                    <div className="logInForm_buttonDiv">
-                        <Button className="logInForm_buttonDiv_signInButton"
+            <div className="logInFormContainer">
+                <image className="logInFormBackground" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Black_square.jpg"/>
+                
+                <Form className="logInForm">
+                <Row>
+                    <Col className="logInForm_username" xs={12} sm={6} lg={6} xl={6}>
+                        <InputField className="logInForm_username"
+                                name="usernameInput"
+                                label="Username"
+                                value={username}
+                                onInputChange={onInputChange}
+                                type="text"
+                        />
+                    </Col>
+                    <Col className="logInForm_pswd" item xs={12} sm={6} lg={6} xl={6}>
+                        <PasswordInputField className="logInForm_pswd"
+                                name="passwordInput"
+                                label="Password"
+                                value={password}
+                                onInputChange={onInputChange}
+                            />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                    <Button className="logInForm_buttons"
                             onClick={() => {attemptSignIn(this.props.logInContext, 1)}}
                             onAnimationEnd={onButtonAnimationEnd}
-                            variant={"outlined"}
-                            color={changeButtonColor ? "secondary" : "primary"}
-                            disableElevation={false}
+                            variant={changeButtonColor? "danger": "dark"}
+                            size="sm"
                         >
-                            Sign In 
+                            Log In 
                         </Button>
-                        <br></br>
-                        <Link className="logInForm_link" to={"./../CreateAccPage"}>
-                            <Button className="logInForm_buttonDiv_CreateAccLink"
-                                variant={"outlined"}
-                                color={"primary"}
-                                disableElevation={false}
-                            >
-                                Create Account
+                    </Col>
+                    <Col>
+                    <Link className="logInForm_link" to={"./../CreateAccPage"}>
+                            <Button className="logInForm_buttons"
+                                variant="dark"
+                                size="sm"
+                                >
+                                New User 
                             </Button>
                         </Link>
-                    </div>
-                    
-                    {signInFailed && !banned ? <span id="logInForm_incorrectCredPrompt">Incorrect Credentials</span> : null}
+                    </Col>
+                </Row>
+            </Form>
+            <div className="logInForm_fail">
+                {signInFailed && !banned ? <span id="logInForm_incorrectCredPrompt">Incorrect Credentials</span> : null}
                     {banned ? <span id="logInForm_bannedPrompt">Account Banned</span> : null}
-                </Grid>
-                
-                
-                
             </div>
+            </div>
+            
            
         )
         
     }
 }
+
+
 
 export default LogInForm;
