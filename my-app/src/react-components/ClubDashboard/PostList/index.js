@@ -31,8 +31,7 @@ class PostList extends React.Component {
 			if (status === 401){ 
 				alert("You're session has timed out. Please log back in."); 
 				this.props.history.push('/');
-			}	
-			if (status === 200){
+			}	else if (status === 200){
 				let postsCopy = [...this.state.posts]; 
 				this.setState({posts: postsCopy.filter(p => p._id !== postID)});
 			} else { 

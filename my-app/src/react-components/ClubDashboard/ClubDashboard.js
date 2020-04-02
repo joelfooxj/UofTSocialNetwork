@@ -61,8 +61,7 @@ class ClubDashboard extends React.Component {
 				if (status === 401){ 
 					alert("You're session has timed out. Please log back in."); 
 					this.props.history.push('/');
-				} 
-				if (status === 200){ 
+				} else if (status === 200){ 
 					this.setState({ [inType]: copy});
 				} else { throw new Error(`Status [${status}]`)}
 			} catch (error) {
@@ -88,8 +87,7 @@ class ClubDashboard extends React.Component {
 				if (reqStatus === 401 || memStatus === 401){ 
 					alert("You're session has timed out. Please log back in."); 
 					this.props.history.push('/');
-				}
-				if (reqStatus === 200 && memStatus === 200) {
+				}else if (reqStatus === 200 && memStatus === 200) {
 					this.setState({
 						members: newMembers, 
 						requested: newRequested
@@ -131,8 +129,7 @@ class ClubDashboard extends React.Component {
 					if (reqStatus === 401){ 
 						alert("You're session has timed out. Please log back in."); 
 						this.props.history.push('/');
-					}
-					if (reqStatus === 200) {
+					} else if (reqStatus === 200) {
 						this.setState({ execs: newExecs });
 					} else {
 						alert(`There has been an error executizing for ${inUserID}`)

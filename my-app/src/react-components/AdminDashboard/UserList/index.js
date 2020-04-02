@@ -26,8 +26,7 @@ class UserList extends React.Component {
 					if (res === 401){ 
 						alert("You're session has timed out. Please log back in."); 
 						this.props.history.push('/');
-					}	
-					if (res !== 200){
+					}	else if (res !== 200){
 						alert(`Failed to ban ${accountID}.`);
 					}	else {
 						let accountsCopy = [...this.state.accounts]; 
@@ -47,8 +46,7 @@ class UserList extends React.Component {
 					if (res === 401){ 
 						alert("You're session has timed out. Please log back in."); 
 						this.props.history.push('/');
-					}	
-					if (res !== 200){
+					}	else if (res !== 200){
 						alert(`Failed to unban ${accountID}.`);
 					}	else {
 						let accountsCopy = [...this.state.accounts]; 
@@ -73,8 +71,7 @@ class UserList extends React.Component {
 				if (res === 401){ 
 					alert("You're session has timed out. Please log back in."); 
 					this.props.history.push('/');
-				}	
-				if (res !== 200){
+				}	else if (res !== 200){
 					alert(`${accountID} was not deleted. Please try again.`);
 				} else {
 					let accountsCopy = [...this.state.accounts]; 

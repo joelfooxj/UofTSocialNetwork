@@ -17,7 +17,6 @@ class BrowseAllClubs extends React.Component {
   // user this.props.userInfo for the currently logged in user
   
   componentDidMount(){
-    console.log("starting component"); 
     try {
       getAllClubs().then(clubs => {
         this.setState({
@@ -50,8 +49,7 @@ class BrowseAllClubs extends React.Component {
           if (res === 401){ 
             alert("You're session has timed out. Please log back in."); 
             this.props.history.push('/');
-          }	
-          if (res !== 200){
+          }	else if (res !== 200){
             alert(`Failed to update club ${getClub.name}`)
             retRequested.pop();
           }
