@@ -17,11 +17,14 @@ navbar {
 	style={{display:'block'}}
 }
 
+.navbarStyle{
+	height: 10vh;
+}
 
 .navbar{
 	/* dimension, position, font, background color, border */
 	width: 100vw;
-	/*height: 12vh;*/
+	height: 10vh;
 	position: fixed;
 	top: 0;
 	background-color: rgb(102, 102, 153);
@@ -31,15 +34,14 @@ navbar {
 .navLogo .navLogoPic{
 	/* dimemsion, shape, position, frame*/
 	margin-left: 5vw;
-	width: 10vh;
-	/*padding: none;*/
+	height: 8vh;
 
 }
 
 .navLogoPic, .navProfilePic{
 	/* border */
 	border-radius: 50%;
-	width: 10vh;
+	width: 8vh;
 }
 
 .navLink{

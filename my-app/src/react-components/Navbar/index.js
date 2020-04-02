@@ -61,7 +61,7 @@ class Navbar extends React.Component{
 	
 		return (
 			<div>
-				<NavbarRB sticky="top" bg='dark' variant="dark" expand='md'>
+				<NavbarRB className="navbarStyle" sticky="top" bg='dark' variant="dark" expand='md'>
 				
 					<NavbarRB.Brand>
 						<Container>
