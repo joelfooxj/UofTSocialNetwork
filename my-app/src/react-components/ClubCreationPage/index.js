@@ -38,6 +38,8 @@ class CreateClubPage extends React.Component {
                 this.setState({
                     dupName: true
                 })
+            } else if (creationResult.status === 401) {
+                this.props.history.push('/')
             } else {
                 alert("Could not create new club, please try again later.");
                 this.props.history.goBack();

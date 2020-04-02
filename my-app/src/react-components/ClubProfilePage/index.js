@@ -25,7 +25,14 @@ class ClubProfilePage extends React.Component {
     getClubInfo(id) {
         getClub(id).then((result) => {
             if (result.status) {
-                alert(`Something went wrong retrieving club information. Status: ${result.status}`)
+                console.log(`Something went wrong retrieving club information. Status: ${result.status}`)
+
+                if (result.status === 401) {
+                    this.props.history.push('/')
+                } else {
+                    this.props.history.goBack()
+                }
+                
                 return;
             }
             this.setState({
