@@ -4,7 +4,6 @@ import "./style.css"
 import Checkbox from '@material-ui/core/Checkbox';
 import { withRouter } from 'react-router-dom';
 import CustomButton from "./../CustomButton"
-import UserProfileImage from "./../UserProfileImage"
 import Navbar from './../Navbar'
 
 //actions
@@ -33,7 +32,6 @@ class UserProfilePage extends React.Component{
                   status={true} loggedInUser={userInfo}>
                 </Navbar>
                 <img id="bannerImgDiv" src={require("./static/headingBanner.png")} alt="Heading Banner"/>
-                <UserProfileImage id={"profileImg"}/>
                 <div id="userProfilePageInfo">
                     <h1>General Info</h1>
                     <UserProfileField

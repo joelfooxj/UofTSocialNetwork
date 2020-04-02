@@ -200,9 +200,17 @@ router.patch('/update', (req, res, next) => {security.auth(req, res, next)}, (re
         else{
             res.status(200).send(result)
         }
-    }).catch((error) => {
-        console.log(error) //FOR DEV PURPOSES ONLY
-		res.status(500).send()
+    }).catch((err) => {
+        if(err.code === 11000){
+            const dupField = err.message.split("{")[1].split(":")[0]
+            res.statusMessage = dupField.trim()
+            res.status(409).send()
+
+            return
+        }else{
+            res.status(500).send(err)
+            return
+        }
     })
 })
 
