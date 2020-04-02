@@ -61,9 +61,10 @@ export const attemptSignIn = (context, callLoc) => {
                 "Content-Type": "application/json"
             }
         });
-    
+        
         fetch(request)
         .then((res) => {
+          console.log(res)
             if (res.status === 200) {
                 context.setState({
                     signInFailed: false,
