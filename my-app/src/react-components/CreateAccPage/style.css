@@ -1,0 +1,60 @@
+#mainDiv{
+    height: 1000px;
+    width: fit-content
+}
+
+#mainDiv #mainHeader{
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    top: 3%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-bottom: 20px;
+    display: block;
+}
+
+#mainDiv #banner{
+    display: block;
+}
+
+#mainDiv #infoDiv{
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+    transform: translate(-50%, 0%);
+    left: 50%;
+    display: block;
+    
+}
+
+.emailErrorSpan{
+    color: red;
+    width: 525px;
+    height: 10px;
+    position: relative;
+    left: 35%;
+    top: 10%;
+    display: block;
+}
+
+.dupUserErrorSpan{
+    color: red;
+    width: 525px;
+    height: 10px;
+    position: relative;
+    left: 45%;
+    top: 10%;
+    display: block;
+}
+
+.dupEmailErrorSpan{
+    color: red;
+    width: 525px;
+    height: 10px;
+    position: relative;
+    left: 45%;
+    top: 10%;
+    display: block;
+}
+
