@@ -2,6 +2,8 @@ import React from 'react';
 import TextField from "@material-ui/core/TextField";
 import "./style.css"
 import CustomButton from "./../CustomButton"
+import { withRouter } from 'react-router-dom';
+
 
 import {updateUserRecord, updatePassword} from '../../actions/accountActions';
 
@@ -47,7 +49,14 @@ class UserProfileField extends React.Component{
                             className="infoFieldText"
                             margin="normal"
                             disabled={false}
-                            onChange={(e) => {if(e.target.value === ""){this.setState({disableSaveButton: true})} else{this.setState({disableSaveButton: false})}}}
+                            onChange={(e) => {
+                                if(e.target.value === ""){
+                                    this.setState({disableSaveButton: true})
+                                } 
+                                else{
+                                    this.setState({disableSaveButton: false})
+                                }
+                            }}
                         />
         let editButton = <CustomButton id="editButton"
                         color={"primary"}
@@ -80,11 +89,35 @@ class UserProfileField extends React.Component{
                             fontSize={"10px"}
                             onClick={() => {this.saveButtonOnClick();
                                                 if(name === "password"){
-                                                    updatePassword(userID, document.getElementById(id).value).then((res) => {console.log(res)})
+                                                    updatePassword(userID, document.getElementById(id).value)
+                                                    .then((res) => {
+                                                        if(res === 401){
+                                                            alert('Your session has timed out. Please log back in.')
+                                                            this.props.history.push('/')
+                                                        }
+                                                        else{
+                                                            alert(`An error occurred, status code: ${res}`)
+                                                        }
+                                                    })
                                                     
                                                 } 
-                                                else{updateUserRecord(userID, name, document.getElementById(id).value, this.props.context)
-                                                    .then((res) => {console.log(res); if(res === 409){this.setState({duplicateField: true, beingChanged: true})}else{this.setState({duplicateField: false, beingChanged: false})}})
+                                                else{
+                                                    updateUserRecord(userID, name, document.getElementById(id).value, this.props.context)
+                                                    .then((res) => {
+                                                        if(res === 409){
+                                                            this.setState({duplicateField: true, beingChanged: true})
+                                                        }
+                                                        else if(res === 401){
+                                                            alert('Your session has timed out. Please log back in.')
+                                                            this.props.history.push('/')
+                                                        }
+                                                        else if(res === 200){
+                                                            this.setState({duplicateField: false, beingChanged: false})
+                                                        }
+                                                        else{
+                                                            alert(`An error occurred, status code: ${res}`)
+                                                        }
+                                                    })
                                                 }
                                             }
                                     }
@@ -114,4 +147,4 @@ class UserProfileField extends React.Component{
 }
   
 
-export default UserProfileField;
+export default withRouter(UserProfileField);
