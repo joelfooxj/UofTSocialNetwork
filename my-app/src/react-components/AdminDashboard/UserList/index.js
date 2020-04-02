@@ -23,6 +23,10 @@ class UserList extends React.Component {
 			// Ban account
 			try {
 				banUser(accountID).then(res => {
+					if (res === 401){ 
+						alert("You're session has timed out. Please log back in."); 
+						this.props.history.push('/');
+					}	
 					if (res !== 200){
 						alert(`Failed to ban ${accountID}.`);
 					}	else {
@@ -40,6 +44,10 @@ class UserList extends React.Component {
 			// Unban account
 			try {
 				unbanUser(accountID).then(res => {
+					if (res === 401){ 
+						alert("You're session has timed out. Please log back in."); 
+						this.props.history.push('/');
+					}	
 					if (res !== 200){
 						alert(`Failed to unban ${accountID}.`);
 					}	else {
@@ -62,6 +70,10 @@ class UserList extends React.Component {
 		}
 		try {
 			deleteUser(accountID).then(res => {
+				if (res === 401){ 
+					alert("You're session has timed out. Please log back in."); 
+					this.props.history.push('/');
+				}	
 				if (res !== 200){
 					alert(`${accountID} was not deleted. Please try again.`);
 				} else {
