@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { Club } = require('./../models/Club')
+const { Club } = require('../models/Club')
 const { ObjectID } = require('mongodb')
 const security = require('../server')
 

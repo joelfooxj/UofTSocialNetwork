@@ -246,5 +246,3 @@ router.put('/updatePass', (req, res, next) => {security.auth(req, res, next)}, (
 })
 
 module.exports = router
-
-
