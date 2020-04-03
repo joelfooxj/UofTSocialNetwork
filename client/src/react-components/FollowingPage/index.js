@@ -20,17 +20,55 @@ class FollowingPage extends React.Component{
 
     collectIds = () => {
         let ids = []
-		let timelineOpts = this.props.userInfo.timelineOpts;
-        ids = this.mergeArrsWithoutDuplicates(ids, this.props.userInfo.clubsFollowing)
+        let timelineOpts = this.props.userInfo.timelineOpts;
+        if (timelineOpts[0]) {
+            ids = this.mergeArrsWithoutDuplicates(ids, this.props.userInfo.clubsMemberOf)
+        }
+
+        if (timelineOpts[1]) {
+            ids = this.mergeArrsWithoutDuplicates(ids, this.props.userInfo.clubsFollowing)
+        }
+
+        if (timelineOpts[2]) {
+            ids = this.mergeArrsWithoutDuplicates(ids, this.props.userInfo.clubsExecOf)
+        }
+
         return ids;
     }
 
 	clubToCardMap = (club) => {
+		let type = ""
+
+		if (this.props.userInfo.clubsFollowing.includes(club._id)) {
+			if (type === "") {
+				type = "Follower"
+			} else {
+				type = type.concat('/Follower')
+			}
+		}
+
+		if (this.props.userInfo.clubsMemberOf.includes(club._id)) {
+			if (type === "") {
+				type = "Member"
+			} else {
+				type = type.concat('/Member')
+			}
+		}
+
+		if (this.props.userInfo.clubsExecOf.includes(club._id)) {
+			if (type === "") {
+				type = "Executive"
+			} else {
+				type = type.concat('/Executive')
+			}
+		}
+
 		return(
 			<ClubFollowingCard
 				clubProfile={club.profilePicture}
 				clubName={club.name}
-				clubID={club._id}
+				clubFollowing={club.members.length - club.execs.length}
+				type={type}
 			/>
 		)
 	}
@@ -58,6 +96,7 @@ class FollowingPage extends React.Component{
 					newElements.push(club)
 				}
 			}
+
 			newElements = newElements.map(this.clubToCardMap)
 
 			this.setState({
