@@ -56,7 +56,7 @@ class CreateClubPage extends React.Component {
         return(
             <div id="clubCreationContainer">
                 <Navbar logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
-                    status={true} loggedInUser={this.props.userInfo}>
+                    status={true} loggedInUser={this.props.userInfo} context={this.props.context}>
                 </Navbar>
                 
                 <div id="titleText">

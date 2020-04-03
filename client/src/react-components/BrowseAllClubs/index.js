@@ -66,7 +66,7 @@ class BrowseAllClubs extends React.Component {
     return (
       <div> 
         <Navbar logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
-                loggedInUser={this.props.userInfo}>
+                loggedInUser={this.props.userInfo}  context={this.props.context}>
         </Navbar>
         <Container id="container" maxWidth="md">
           <h1 className="mainTitle"> CLUBS </h1> 

@@ -55,7 +55,7 @@ class AdminDashboard extends React.Component {
 		}
 		
     render(){
-				const { changeSignInStatus, user } = this.props;
+				const { user, context } = this.props;
 
 				if (this.state.loading){
 					return(
@@ -68,7 +68,7 @@ class AdminDashboard extends React.Component {
         return(
         	<div>
         	<Navbar logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
-	          loggedInUser={user}>
+	          loggedInUser={user} context={context}>
 	        </Navbar>
             <div className="adminDashboardContainer"> 
                 <AdminStats 
@@ -78,9 +78,11 @@ class AdminDashboard extends React.Component {
                 />
                 <UserList
 								usersArr={this.state.accounts}
+								context={context}
 								/>
                 <ClubList
 								clubsArr={this.state.clubs}
+								context={context}
 								/> 
             </div>
           </div>
