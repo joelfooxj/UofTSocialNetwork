@@ -166,7 +166,6 @@ module.exports.authAdmin = (req, res, next) => {
     }
 }
 
-/*** Webpage routes below **********************************/
 // Serve the build
 app.use(express.static(__dirname + "/client/build"));
 
