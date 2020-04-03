@@ -132,7 +132,7 @@ class ClubDashboard extends React.Component {
 			try {
 				let newExecs = [...this.state.execs]; 
 				newExecs.push(inUserID); 
-				let newClubsExecOf = [...this.props.currentUser.newClubsExecOf]
+				let newClubsExecOf = [...this.props.currentUser.clubsExecOf]
 				newClubsExecOf.push(this.state.clubID)
 				const reqStatus = await updateClub(this.state.clubID, "execs", newExecs);
 				const updStatus = await updateUserRecord(inUserID, 'clubsExecOf', newClubsExecOf, this.props.rootContext)
