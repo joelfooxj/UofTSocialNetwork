@@ -1,0 +1,13 @@
+.clubDashboardContainer{
+    padding: 50px; 
+}
+
+.centeredText{
+    text-align:center; 
+    margin: 0 auto; 
+}
+
+.picture{ 
+    margin: 10px;
+    height:100px;
+}
