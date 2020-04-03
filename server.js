@@ -54,6 +54,10 @@ const { User } = require('./models/SessionUser')
 // to validate object IDs
 const { ObjectID } = require('mongodb')
 
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('client/build'));
+}
+
 
 //----------------------------------------------------------------------
 
