@@ -95,6 +95,9 @@ class UserProfileField extends React.Component{
                                                             alert('Your session has timed out. Please log back in.')
                                                             this.props.history.push('/')
                                                         }
+                                                        else if(res === 200){
+                                                            console.log("Password changed successfully.")
+                                                        }
                                                         else{
                                                             alert(`An error occurred, status code: ${res}`)
                                                         }
