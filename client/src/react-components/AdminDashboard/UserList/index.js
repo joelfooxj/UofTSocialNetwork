@@ -24,7 +24,7 @@ class UserList extends React.Component {
 			try {
 				banUser(accountID).then(res => {
 					if (res === 401){ 
-						alert("You're session has timed out. Please log back in."); 
+						alert("Your session has timed out. Please log back in."); 
 						this.props.history.push('/');
 					}	else if (res !== 200){
 						alert(`Failed to ban ${accountID}.`);
