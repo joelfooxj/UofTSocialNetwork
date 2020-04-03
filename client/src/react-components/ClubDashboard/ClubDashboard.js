@@ -114,7 +114,7 @@ class ClubDashboard extends React.Component {
 			} else {
 					updateClubImage(id, attr, formdat).then((result) => {
 						if (result === 401){ 
-							alert("You're session has timed out. Please log back in."); 
+							alert("Your session has timed out. Please log back in."); 
 							this.props.history.push('/');
 						}	
 					});
