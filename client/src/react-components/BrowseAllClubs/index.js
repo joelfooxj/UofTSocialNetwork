@@ -68,7 +68,7 @@ class BrowseAllClubs extends React.Component {
         <Navbar logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
                 loggedInUser={this.props.userInfo}>
         </Navbar>
-        <Container id="container" maxWidth="xs">
+        <Container id="container" maxWidth="md">
           <h1 className="mainTitle"> CLUBS </h1> 
           <form onChange={this.filterClubs}> 
             <TextField 
@@ -100,7 +100,8 @@ class BrowseAllClubs extends React.Component {
                 <Paper elevation={0} variant='outlined' key={club._id}> 
                   <ListItem variant="outlined">
                     <ListItemText
-                    primary={club.name}/>
+                    primary={club.name}
+                    />
                       <ListItemSecondaryAction>
                         {
                           club.execs.includes(this.props.userInfo._id) || this.props.userInfo.permissions === 1 ? 
