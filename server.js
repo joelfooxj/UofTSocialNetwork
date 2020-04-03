@@ -2,6 +2,7 @@
 'use strict';
 
 const log = console.log
+const path = require('path')
 
 //.env file load
 require('dotenv').config()
@@ -54,10 +55,13 @@ const { User } = require('./models/SessionUser')
 // to validate object IDs
 const { ObjectID } = require('mongodb')
 
-if (process.env.NODE_ENV === 'production') {
-	app.use(express.static('client/build'));
-}
-
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", '*');
+    res.header("Access-Control-Allow-Credentials", true);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+    next();
+});
 
 //----------------------------------------------------------------------
 
@@ -127,15 +131,6 @@ app.get("*", (req, res) => {
     res.sendFile(__dirname + "/client/build/index.html");
 });
 
-
-//start server
-const port = process.env.PORT || 5000
-app.listen(port, () => {
-	log(`Listening on port ${port}...`)
-})
-
-
-
 module.exports.auth = (req, res, next) => {
     //req.session.user actually stores the user id
     if (req.session.user) {
@@ -170,3 +165,9 @@ module.exports.authAdmin = (req, res, next) => {
         res.status(401).send("Unauthorized")
     }
 }
+
+//start server
+const port = process.env.PORT || 5000
+app.listen(port, () => {
+	log(`Listening on port ${port}...`)
+})
