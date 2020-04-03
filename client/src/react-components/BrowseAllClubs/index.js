@@ -47,7 +47,7 @@ class BrowseAllClubs extends React.Component {
       try {
         updateClub(getClub._id, "requested", retRequested).then(res => {
           if (res === 401){ 
-            alert("You're session has timed out. Please log back in."); 
+            alert("Your session has timed out. Please log back in."); 
             this.props.history.push('/');
           }	else if (res !== 200){
             alert(`Failed to update club ${getClub.name}`)
