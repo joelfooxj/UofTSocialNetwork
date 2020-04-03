@@ -127,7 +127,7 @@ class ClubDashboard extends React.Component {
 				newExecs.push(inUserID); 
 				const reqStatus = await updateClub(this.state.clubID, "execs", newExecs);
 					if (reqStatus === 401){ 
-						alert("You're session has timed out. Please log back in."); 
+						alert("Your session has timed out. Please log back in."); 
 						this.props.history.push('/');
 					} else if (reqStatus === 200) {
 						this.setState({ execs: newExecs });
