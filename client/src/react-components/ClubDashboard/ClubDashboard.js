@@ -5,9 +5,10 @@ import MemberList from './memberList/index';
 import ExecList from './ExecList/index';
 import RequestList from './RequestList/index';
 import PostList from './PostList/index';
-import { Button, Paper} from '@material-ui/core'
-import { withRouter, Link } from 'react-router-dom'
-import { getClub, updateClub, updateClubImage } from '../../actions/clubActions'
+import { Button, Paper} from '@material-ui/core';
+import { withRouter, Link } from 'react-router-dom';
+import { getClub, updateClub, updateClubImage } from '../../actions/clubActions';
+import { updateUserRecord } from '../../actions/accountActions';
 import Navbar from '../Navbar'
 
 class ClubDashboard extends React.Component {
@@ -82,12 +83,16 @@ class ClubDashboard extends React.Component {
 				newRequested = newRequested.filter(r => r !== inUserID);
 				let newMembers = [...this.state.members];
 				newMembers.push(inUserID);
+				let newUserMembers = [...this.props.currentUser.clubsMemberOf]
+				newUserMembers.push(this.state.clubID)
 				const reqStatus = await updateClub(this.state.clubID, "requested", newRequested);
 				const memStatus = await updateClub(this.state.clubID, "members", newMembers);
-				if (reqStatus === 401 || memStatus === 401){ 
+				const userStatus = await updateUserRecord(inUserID, 'clubsMemberOf', newUserMembers, this.props.rootContext);
+
+				if (reqStatus === 401 || memStatus === 401 || userStatus === 401){ 
 					alert("Your session has timed out. Please log back in."); 
 					this.props.history.push('/');
-				}else if (reqStatus === 200 && memStatus === 200) {
+				}else if (reqStatus === 200 && memStatus === 200 && userStatus === 200) {
 					this.setState({
 						members: newMembers, 
 						requested: newRequested
@@ -95,6 +100,8 @@ class ClubDashboard extends React.Component {
 				} else {
 					alert(`There has been an error updating approval for ${inUserID}`)
 				}
+
+
 			} catch (error) {
 				alert(`${error}: Unable to approve request for user ${inUserID}`)
 			} 
