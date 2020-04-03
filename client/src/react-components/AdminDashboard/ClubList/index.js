@@ -1,7 +1,7 @@
-import React from '../../../../node_modules/react'; 
-import { Grid, List, ListItem, ListItemText, IconButton, ListItemSecondaryAction, Paper, Button } from '../../../../node_modules/@material-ui/core'
-import DeleteIcon from '../../../../node_modules/@material-ui/icons/Delete' 
-import { Link } from '../../../../node_modules/react-router-dom'
+import React from 'react'; 
+import { Grid, List, ListItem, ListItemText, IconButton, ListItemSecondaryAction, Paper, Button } from '@material-ui/core'
+import DeleteIcon from '@material-ui/icons/Delete' 
+import { Link } from 'react-router-dom'
 import './index.css'
 import { deleteClub } from '../../../actions/clubActions'
 

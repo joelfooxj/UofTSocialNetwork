@@ -5,8 +5,8 @@ import MemberList from './memberList/index';
 import ExecList from './ExecList/index';
 import RequestList from './RequestList/index';
 import PostList from './PostList/index';
-import { Button, Paper} from '../../../node_modules/@material-ui/core'
-import { withRouter, Link } from '../../../node_modules/react-router-dom'
+import { Button, Paper} from '@material-ui/core'
+import { withRouter, Link } from 'react-router-dom'
 import { getClub, updateClub, updateClubImage } from '../../actions/clubActions'
 import Navbar from '../Navbar'
 

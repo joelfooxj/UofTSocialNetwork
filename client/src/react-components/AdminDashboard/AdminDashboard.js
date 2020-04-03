@@ -4,7 +4,7 @@ import AdminStats from './AdminStats/index';
 import UserList from './UserList/index';
 import ClubList from './ClubList/index';
 import { Button } from '@material-ui/core';
-import { Link } from '../../../node_modules/react-router-dom'
+import { Link } from 'react-router-dom'
 import Navbar from '../Navbar'
 import { withRouter } from 'react-router-dom';
 import { getAllClubs } from '../../actions/clubActions'

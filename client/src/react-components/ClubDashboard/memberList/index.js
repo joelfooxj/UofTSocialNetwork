@@ -1,7 +1,7 @@
-import React from '../../../../node_modules/react'; 
-import { Grid, List, ListItem, ListItemText, Button, ListItemSecondaryAction, Paper} from '../../../../node_modules/@material-ui/core'
+import React from 'react'; 
+import { Grid, List, ListItem, ListItemText, Button, ListItemSecondaryAction, Paper} from '@material-ui/core'
 import './index.css';
-import { Link } from '../../../../node_modules/react-router-dom'
+import { Link } from 'react-router-dom'
 import { getUsers } from '../../../actions/accountActions'
 
 class MemberList extends React.Component {
