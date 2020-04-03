@@ -87,7 +87,11 @@ async function getPostByPosterID(posterID){
         const response = await fetch(request)
         if (response.status === 200) {
             return await response.json()
-        } else {
+        }
+        else if(response.status === 401){
+            return {"status": response.status}
+        } 
+        else {
             return []
         }
     } catch (error) {

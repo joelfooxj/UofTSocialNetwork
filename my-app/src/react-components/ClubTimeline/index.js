@@ -4,6 +4,8 @@ import ClubPost from "../ClubPost";
 import CustomButton from "../CustomButton";
 import info from '../../tempInfo';
 import * as actions from './actions'
+import { withRouter } from 'react-router-dom';
+
 
 class ClubTimeline extends React.Component {
     cPosts = info.Posts.filter((p) => p.authorID === this.props.clubInfo.clubID);
@@ -87,4 +89,4 @@ class ClubTimeline extends React.Component {
     }
 }
 
-export default ClubTimeline;
+export default withRouter(ClubTimeline);

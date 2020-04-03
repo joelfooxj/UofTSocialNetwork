@@ -2,6 +2,15 @@ import {removePostByID, getPostByPosterID, createPost} from '../../actions/postA
 
 export function getPosts(context) {
     getPostByPosterID(context.state.clubInfo._id).then((result) => {
+        if(result.status){
+            if(result.status === 401){
+                alert('Your session has timed out. Please log back in.')
+            }
+            else{
+                alert('Something went wrong.')
+            }
+            return
+        }
         let sortedPosts = result
         sortedPosts = sortedPosts.sort(function(a, b){
             let dateA = new Date(a.date), dateB = new Date(b.date)
@@ -35,8 +44,14 @@ export function removePost(context, postID) {
                 context.setState({
                     posts: newPosts
                 })
-            } else {
+            } 
+            else if(result === 401){
+                alert('Your session has timed out. Please log back in.')
+                context.props.history.push('/')
+            }
+            else {
                 console.log(`There was a problem removing the post. Status: ${result}`)
+                alert(`An error occurred, status: ${result}`)
                 context.props.history.push('/')
             }
         }).catch((error) => {
@@ -52,8 +67,16 @@ export function addPost(context, postContent) {
         return result
     }).then((result) => {
         if (result.status) {
-            console.log(`There was a problem adding a post. Status: ${result.status}`)
-            context.props.history.push('/')
+            if(result.status === 401){
+                alert('Your session has timed out. Please log back in.')
+                context.props.history.push('/')
+            }
+            else{
+                console.log(`There was a problem adding a post. Status: ${result.status}`)
+                alert(`An error occurred, status: ${result}`)
+                context.props.history.push('/')
+            }
+            
         } else {
             newPosts.push(result)
             context.setState({

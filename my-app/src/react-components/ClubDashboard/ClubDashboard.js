@@ -29,6 +29,10 @@ class ClubDashboard extends React.Component {
 		componentDidMount(){
 			getClub(this.state.clubID).then(retObj => {
 				if (typeof(retObj.status) !== "undefined"){
+					if (retObj.status === 401){ 
+						alert("You're session has timed out. Please log back in."); 
+						this.props.history.push('/');
+					}
 					alert(`Status ${retObj.status}: Club ${this.state.clubID} does not exist`); 
 					this.props.history.goBack();
 				} else if (!(retObj.execs.includes(this.props.currentUser._id) || this.props.currentUser.permissions === 1)){
@@ -53,8 +57,11 @@ class ClubDashboard extends React.Component {
 			try {
 				let copy = [...this.state[inType]]; 
 				copy = copy.filter(o => o !== inID); 
-				const status = await updateClub(this.state.clubID, inType, copy); 
-				if (status === 200){ 
+				const status = await updateClub(this.state.clubID, inType, copy);
+				if (status === 401){ 
+					alert("You're session has timed out. Please log back in."); 
+					this.props.history.push('/');
+				} else if (status === 200){ 
 					this.setState({ [inType]: copy});
 				} else { throw new Error(`Status [${status}]`)}
 			} catch (error) {
@@ -77,7 +84,10 @@ class ClubDashboard extends React.Component {
 				newMembers.push(inUserID);
 				const reqStatus = await updateClub(this.state.clubID, "requested", newRequested);
 				const memStatus = await updateClub(this.state.clubID, "members", newMembers);
-				if (reqStatus === 200 && memStatus === 200) {
+				if (reqStatus === 401 || memStatus === 401){ 
+					alert("You're session has timed out. Please log back in."); 
+					this.props.history.push('/');
+				}else if (reqStatus === 200 && memStatus === 200) {
 					this.setState({
 						members: newMembers, 
 						requested: newRequested
@@ -103,8 +113,11 @@ class ClubDashboard extends React.Component {
 				alert("Select a banner picture file.") 
 			} else {
 					updateClubImage(id, attr, formdat).then((result) => {
-							console.log(result)
-					})
+						if (result === 401){ 
+							alert("You're session has timed out. Please log back in."); 
+							this.props.history.push('/');
+						}	
+					});
 			}
 		}
 
@@ -113,7 +126,10 @@ class ClubDashboard extends React.Component {
 				let newExecs = [...this.state.execs]; 
 				newExecs.push(inUserID); 
 				const reqStatus = await updateClub(this.state.clubID, "execs", newExecs);
-					if (reqStatus === 200) {
+					if (reqStatus === 401){ 
+						alert("You're session has timed out. Please log back in."); 
+						this.props.history.push('/');
+					} else if (reqStatus === 200) {
 						this.setState({ execs: newExecs });
 					} else {
 						alert(`There has been an error executizing for ${inUserID}`)

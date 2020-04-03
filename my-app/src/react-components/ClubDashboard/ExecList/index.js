@@ -14,9 +14,10 @@ class ExecList extends React.Component {
 	}
 
 	componentDidMount(){ 
-		getUsers().then(res => { 
+		getUsers().then(res => {
 			if(!res){ 
 				alert(`Unable to get members`);
+				this.props.history.goBack(); 
 			} else { 
 				this.setState({users: res.filter(u => this.state.userIDs.includes(u._id))});
 			}
@@ -27,9 +28,11 @@ class ExecList extends React.Component {
 
 	componentDidUpdate(prevProps, prevState){
 		if (this.props.users !== prevProps.users){
-			getUsers().then(res => { 
+			getUsers().then(res => {
+
 				if(!res){ 
 					alert(`Unable to get members`);
+					this.props.history.goBack(); 
 				} else { 
 					this.setState({
 						users: res.filter(u => this.props.users.includes(u._id)),

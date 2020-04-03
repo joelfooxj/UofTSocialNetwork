@@ -91,7 +91,22 @@ class UserProfilePage extends React.Component{
                                 color={"primary"}
                                 label={"Clubs I am a part of"}
                                 checked={userInfo.timelineOpts[0]}
-                                onChange={() => {userInfo.timelineOpts[0] = !userInfo.timelineOpts[0]; updateUserRecord(userInfo._id, "timelineOpts", userInfo.timelineOpts, context).then((res) => {console.log(res); this.setState({displayTimelineOpts: userInfo.timelineOpts})})}}
+                                onChange={() => {
+                                    userInfo.timelineOpts[0] = !userInfo.timelineOpts[0];
+                                    updateUserRecord(userInfo._id, "timelineOpts", userInfo.timelineOpts, context)
+                                    .then((res) => {
+                                        if(res === 200){
+                                            this.setState({displayTimelineOpts: userInfo.timelineOpts})
+                                        }
+                                        else if(res === 401){
+                                            alert('Your session has timed out. Please log back in.')
+                                            this.props.history.push('/')
+                                        }
+                                        else{
+                                            alert(`An error occurred, status code: ${res}`)
+                                        }
+                                    })
+                                }}
                                 >
                         </Checkbox>
                         <span>Clubs I follow</span>
@@ -101,7 +116,22 @@ class UserProfilePage extends React.Component{
                                 color={"primary"}
                                 label={"Clubs I follow"}
                                 checked={userInfo.timelineOpts[1]}
-                                onChange={() => {userInfo.timelineOpts[1] = !userInfo.timelineOpts[1]; updateUserRecord(userInfo._id, "timelineOpts", userInfo.timelineOpts, context).then((res) => {console.log(res); this.setState({displayTimelineOpts: userInfo.timelineOpts})})}}
+                                onChange={() => {
+                                    userInfo.timelineOpts[1] = !userInfo.timelineOpts[1];
+                                    updateUserRecord(userInfo._id, "timelineOpts", userInfo.timelineOpts, context)
+                                    .then((res) => {
+                                        if(res === 200){
+                                            this.setState({displayTimelineOpts: userInfo.timelineOpts})
+                                        }
+                                        else if(res === 401){
+                                            alert('Your session has timed out. Please log back in.')
+                                            this.props.history.push('/')
+                                        }
+                                        else{
+                                            alert(`An error occurred, status code: ${res}`)
+                                        }
+                                    })
+                                }}
                                 >
                         </Checkbox>
                         <span>Clubs I am a part of</span>
@@ -110,7 +140,22 @@ class UserProfilePage extends React.Component{
                                 color={"primary"}
                                 label={"Clubs I am an exec of"}
                                 checked={this.state.displayTimelineOpts[2]}
-                                onChange={() => {userInfo.timelineOpts[2] = !userInfo.timelineOpts[2];  updateUserRecord(userInfo._id, "timelineOpts", userInfo.timelineOpts, context).then((res) => {console.log(res); this.setState({displayTimelineOpts: userInfo.timelineOpts})})}}
+                                onChange={() => {
+                                    userInfo.timelineOpts[2] = !userInfo.timelineOpts[2];
+                                    updateUserRecord(userInfo._id, "timelineOpts", userInfo.timelineOpts, context)
+                                    .then((res) => {
+                                        if(res === 200){
+                                            this.setState({displayTimelineOpts: userInfo.timelineOpts})
+                                        }
+                                        else if(res === 401){
+                                            alert('Your session has timed out. Please log back in.')
+                                            this.props.history.push('/')
+                                        }
+                                        else{
+                                            alert(`An error occurred, status code: ${res}`)
+                                        }
+                                    })
+                                }}
 
                                 >
                         </Checkbox>
@@ -131,7 +176,19 @@ class UserProfilePage extends React.Component{
                     top={"-75px"}
                     left={"555px"}
                     fontSize={"10px"}
-                    onClick={() => {this.props.history.push("/"); deleteUser(userInfo._id).then((res) => {console.log(res)})}}
+                    onClick={() => {
+                        this.props.history.push("/");
+                        deleteUser(userInfo._id)
+                        .then((res) => {
+                            if(res === 401){
+                                alert('Your session has timed out. Please log back in.')
+                                this.props.history.push('/')
+                            }
+                            else{
+                                console.log(res)
+                            }
+                        })
+                    }}
                 >
                     
                 </CustomButton>
