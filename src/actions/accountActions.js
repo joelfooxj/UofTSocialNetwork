@@ -320,8 +320,15 @@ export const updatePassword = async (id, newPass) => {
 // A function to check if a user is logged in on the session cookie
 export const readCookie = (app) => {
   const url = "/users/check-session";
-
-  fetch(url)
+  const request = new Request(url, {
+    method:'GET',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    }
+  })
+  
+  fetch(request)
       .then(res => {
           if (res.status === 200) {
               return res.json();
