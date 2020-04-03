@@ -37,37 +37,11 @@ class FollowingPage extends React.Component{
     }
 
 	clubToCardMap = (club) => {
-		let type = ""
-
-		if (this.props.userInfo.clubsFollowing.includes(club._id)) {
-			if (type === "") {
-				type = "Follower"
-			} else {
-				type = type.concat('/Follower')
-			}
-		}
-
-		if (this.props.userInfo.clubsMemberOf.includes(club._id)) {
-			if (type === "") {
-				type = "Member"
-			} else {
-				type = type.concat('/Member')
-			}
-		}
-
-		if (this.props.userInfo.clubsExecOf.includes(club._id)) {
-			if (type === "") {
-				type = "Executive"
-			} else {
-				type = type.concat('/Executive')
-			}
-		}
 
 		return(
 			<ClubFollowingCard
 				clubProfile={club.profilePicture}
 				clubName={club.name}
-				type={type}
 			/>
 		)
 	}
