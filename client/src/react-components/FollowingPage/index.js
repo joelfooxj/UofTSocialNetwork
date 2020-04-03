@@ -20,19 +20,16 @@ class FollowingPage extends React.Component{
 
     collectIds = () => {
         let ids = []
-        let timelineOpts = this.props.userInfo.timelineOpts;
-        if (timelineOpts[0]) {
-            ids = this.mergeArrsWithoutDuplicates(ids, this.props.userInfo.clubsMemberOf)
-        }
+		let timelineOpts = this.props.userInfo.timelineOpts;
+        ids = this.mergeArrsWithoutDuplicates(ids, this.props.userInfo.clubsFollowing)
 
         if (timelineOpts[1]) {
-            ids = this.mergeArrsWithoutDuplicates(ids, this.props.userInfo.clubsFollowing)
+            ids = this.mergeArrsWithoutDuplicates(ids, this.props.userInfo.clubsMemberOf)
         }
 
         if (timelineOpts[2]) {
             ids = this.mergeArrsWithoutDuplicates(ids, this.props.userInfo.clubsExecOf)
         }
-
         return ids;
     }
 
@@ -47,7 +44,7 @@ class FollowingPage extends React.Component{
 			}
 		}
 
-		if (this.props.userInfo.clubsMemberOf.includes(club._id)) {
+		if (club.members.includes(this.props.userInfo._id)) {
 			if (type === "") {
 				type = "Member"
 			} else {
@@ -55,7 +52,7 @@ class FollowingPage extends React.Component{
 			}
 		}
 
-		if (this.props.userInfo.clubsExecOf.includes(club._id)) {
+		if (club.execs.includes(this.props.userInfo._id)) {
 			if (type === "") {
 				type = "Executive"
 			} else {
@@ -96,7 +93,6 @@ class FollowingPage extends React.Component{
 					newElements.push(club)
 				}
 			}
-
 			newElements = newElements.map(this.clubToCardMap)
 
 			this.setState({
