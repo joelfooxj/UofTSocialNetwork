@@ -4,6 +4,7 @@ import FeedCard from '../FeedCard';
 import './style.css';
 import { getClub} from '../../actions/clubActions.js'
 import { getPostByPosterID } from '../../actions/postActions.js'
+import { withRouter } from 'react-router-dom';
 
 class FeedPage extends React.Component{
 
@@ -43,6 +44,18 @@ collectIds = () => {
     let clubIds = this.collectIds()
     for(let i = 0; i < clubIds.length; i++){
       getPostByPosterID(clubIds[i]).then(clubPosts => {
+
+        if(clubPosts.status){
+          if(clubPosts.status === 401){
+            alert('Your session has timed out. Please log back in.')
+            this.props.history.push("/")
+          }
+          else{
+            alert("An error has occurred.")
+          }
+          return
+        }
+
         for(let j = 0; j < clubPosts.length; j++){
           tempPosts.push(clubPosts[i])
         }
@@ -51,10 +64,10 @@ collectIds = () => {
         }, () => {
           let tempFeeds = []
           for(let i = 0; i < this.state.posts.length; i++){
-      
             let pic = null 
             let postClub = null
             getClub(this.state.posts[i].posterID).then(club => {
+
               postClub = club
               pic = postClub.profilePicture
       
@@ -78,6 +91,7 @@ collectIds = () => {
   render() {
     const { loggedInUser, appContext } = this.props
 
+
     return (
       <div>
         <Navbar  logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
@@ -92,4 +106,4 @@ collectIds = () => {
   }
 }
 
-export default FeedPage;
+export default withRouter(FeedPage);

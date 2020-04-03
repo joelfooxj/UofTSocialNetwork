@@ -4,7 +4,10 @@ import { updateClub } from '../../actions/clubActions';
 export const followClub = (context, rootContext) => {
     context.props.userInfo.clubsFollowing.push(context.state.clubInfo._id)
     updateUserRecord(context.props.userInfo._id, 'clubsFollowing', context.props.userInfo.clubsFollowing, rootContext).then((result) => {
-        if (result === 200) {
+        if (result === 401){ 
+            alert("Your session has timed out. Please log back in.");
+            this.props.history.push('/');
+        } else if (result === 200) {
             context.forceUpdate()
         } else {
             console.log(`There was a problem updating the user. Status: ${result.status}`)
@@ -30,7 +33,10 @@ export const unfollowClub = (context, rootContext) => {
     if (target >= 0) {
         context.props.userInfo.clubsFollowing.splice(target, 1)
         updateUserRecord(context.props.userInfo._id, 'clubsFollowing', context.props.userInfo.clubsFollowing, rootContext).then((result) => {
-            if (result === 200) {
+            if (result === 401){ 
+                alert("Your session has timed out. Please log back in.");
+                this.props.history.push('/');
+            } else if (result === 200) {
                 context.forceUpdate()
             } else {
                 console.log(`There was a problem updating the user. Status: ${result.status}`)
@@ -53,7 +59,10 @@ export const joinClub = (context) => {
 
     context.state.clubInfo.requested.push(context.props.userInfo._id)
     updateClub(context.state.clubInfo._id, 'requested', context.state.clubInfo.requested).then((result) => {
-        if (result === 200) {
+        if (result === 401){ 
+            alert("Your session has timed out. Please log back in.");
+            this.props.history.push('/');
+        } else if (result === 200) {
             context.setState({
                 clubInfo: context.state.clubInfo
             })
@@ -81,7 +90,10 @@ export const cancelRequest = (context) => {
     if (target >= 0) {
         context.state.clubInfo.requested.splice(target, 1)
         updateClub(context.state.clubInfo._id, 'requested', context.state.clubInfo.requested).then((result) => {
-            if (result === 200) {
+            if (result === 401){ 
+                alert("Your session has timed out. Please log back in.");
+                this.props.history.push('/');
+            } else if (result === 200) {
                 context.setState({
                     clubInfo: context.state.clubInfo
                 })
@@ -112,7 +124,10 @@ export const leaveClub = (context) => {
     if (target >= 0) {
         context.state.clubInfo.members.splice(target, 1)
         updateClub(context.state.clubInfo._id, 'members', context.state.clubInfo.members).then((result) => {
-            if (result === 200) {
+            if (result === 401){ 
+                alert("Your session has timed out. Please log back in.");
+                this.props.history.push('/');
+            } else if (result === 200) {
                 context.setState({
                     clubInfo: context.state.clubInfo
                 })

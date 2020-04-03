@@ -55,7 +55,10 @@ class CreateAccPage extends React.Component{
           onClick={() => {
             createAccount(this.state.usernameInput, this.state.permissions, this.state.passwordInput, this.state.firstNameInput, this.state.lastNameInput, this.state.emailInput)
             .then((result) => {
-              if(result.status === 200){
+              if (result.status === 401){ 
+                alert("Your session has timed out. Please log back in.");
+                this.props.history.push('/');
+            } else if(result.status === 200){
                 this.props.history.push("/"); 
               }
               else if(result.status === 409){

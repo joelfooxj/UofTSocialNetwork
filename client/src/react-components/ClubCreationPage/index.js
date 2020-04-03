@@ -39,6 +39,7 @@ class CreateClubPage extends React.Component {
                     dupName: true
                 })
             } else if (creationResult.status === 401) {
+                alert("Your session has timed out. Please log back in.");
                 this.props.history.push('/')
             } else {
                 alert("Could not create new club, please try again later.");

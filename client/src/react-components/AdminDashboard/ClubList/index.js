@@ -20,7 +20,10 @@ class ClubList extends React.Component {
     }
     
     deleteClub(clubID).then(res => {
-      if(res !== 200){
+      if (res === 401){ 
+        alert("You're session has timed out. Please log back in."); 
+        this.props.history.push('/');
+      }	else if(res !== 200){
         alert(`${clubID} was not deleted. Please try again.`);
       } else {
         let clubsCopy = [...this.state.clubs];

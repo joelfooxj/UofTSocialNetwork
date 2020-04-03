@@ -85,6 +85,7 @@ class FollowingPage extends React.Component{
 					console.log(`There was a problem retrieving clubs. Status: ${club.status}`)
 					
 					if (club.status === 401) {
+						alert('Your session has timed out. Please log back in.')
 						this.props.history.push('/')
 					} else {
 						this.props.history.goBack()
