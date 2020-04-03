@@ -132,11 +132,14 @@ class ClubDashboard extends React.Component {
 			try {
 				let newExecs = [...this.state.execs]; 
 				newExecs.push(inUserID); 
+				let newClubsExecOf = [...this.props.currentUser.newClubsExecOf]
+				newClubsExecOf.push(this.state.clubID)
 				const reqStatus = await updateClub(this.state.clubID, "execs", newExecs);
-					if (reqStatus === 401){ 
+				const updStatus = await updateUserRecord(inUserID, 'clubsExecOf', newClubsExecOf, this.props.rootContext)
+					if (reqStatus === 401 || updStatus === 401){ 
 						alert("Your session has timed out. Please log back in."); 
 						this.props.history.push('/');
-					} else if (reqStatus === 200) {
+					} else if (reqStatus === 200 && updStatus === 200) {
 						this.setState({ execs: newExecs });
 					} else {
 						alert(`There has been an error executizing for ${inUserID}`)
