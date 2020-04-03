@@ -78,7 +78,7 @@ export function addPost(context, postContent) {
             }
             
         } else {
-            newPosts.splice(0, 0, result)
+            newPosts.push(result)
             context.setState({
                 posts: newPosts
             })
