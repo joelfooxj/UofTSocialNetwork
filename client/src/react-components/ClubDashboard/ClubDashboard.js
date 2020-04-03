@@ -30,7 +30,7 @@ class ClubDashboard extends React.Component {
 			getClub(this.state.clubID).then(retObj => {
 				if (typeof(retObj.status) !== "undefined"){
 					if (retObj.status === 401){ 
-						alert("You're session has timed out. Please log back in."); 
+						alert("Your session has timed out. Please log back in."); 
 						this.props.history.push('/');
 					}
 					alert(`Status ${retObj.status}: Club ${this.state.clubID} does not exist`); 
@@ -59,7 +59,7 @@ class ClubDashboard extends React.Component {
 				copy = copy.filter(o => o !== inID); 
 				const status = await updateClub(this.state.clubID, inType, copy);
 				if (status === 401){ 
-					alert("You're session has timed out. Please log back in."); 
+					alert("Your session has timed out. Please log back in."); 
 					this.props.history.push('/');
 				} else if (status === 200){ 
 					this.setState({ [inType]: copy});
@@ -85,7 +85,7 @@ class ClubDashboard extends React.Component {
 				const reqStatus = await updateClub(this.state.clubID, "requested", newRequested);
 				const memStatus = await updateClub(this.state.clubID, "members", newMembers);
 				if (reqStatus === 401 || memStatus === 401){ 
-					alert("You're session has timed out. Please log back in."); 
+					alert("Your session has timed out. Please log back in."); 
 					this.props.history.push('/');
 				}else if (reqStatus === 200 && memStatus === 200) {
 					this.setState({
