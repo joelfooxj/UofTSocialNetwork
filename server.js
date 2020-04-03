@@ -167,11 +167,12 @@ module.exports.authAdmin = (req, res, next) => {
 }
 
 // Serve the build
-app.use(express.static(__dirname + "/client/build"));
+app.use(express.static(__dirname + "/client/public"));
 
-route.get("/", function(request, response) {
-    response.sendFile(__dirname + "/client/index.html");
-  });
+// All routes other than above will go to index.html
+app.get("*", (req, res) => {
+    res.sendFile(__dirname + "/client/public/index.html");
+});
 
 //start server
 const port = process.env.PORT || 5000
