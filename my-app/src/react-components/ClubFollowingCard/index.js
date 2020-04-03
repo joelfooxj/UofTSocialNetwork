@@ -16,7 +16,7 @@ class ClubFollowingCard extends React.Component{
 
 
 	render(){
-		const { clubProfile, clubName, clubFollowing, type } = this.props;
+		const { clubProfile, clubName, type } = this.props;
 		const deleteThis = this.state.deleted ? {display:'none'} : {}
 		return (
 		<Container>
@@ -26,19 +26,16 @@ class ClubFollowingCard extends React.Component{
 			<Container>
 				<Row>
 					<Col lg={1} xl={1}>
-						<Image width={"50px"} height={"50px"} src={clubProfile}/>
+						<Image width={"5vh"} height={"5vh"} src={clubProfile}/>
 					</Col>
-					<Col lg={2} xl={2}>
+					<Col lg={3} xl={3}>
 						<h5>{clubName}</h5>
 					</Col>
-					<Col>
-						<p>Followers: {clubFollowing}</p>
-					</Col>
-					<Col>
+					<Col lg="auto" xl="auto">
 						<p>Member Type: {type}</p>
 					</Col>
-					<Col >
-						<Button onclick={this.state.deleted}>unfollow</Button>
+					<Col lg={1} xl={1} >
+						<Button className="float-right" onclick={this.state.deleted}>unfollow</Button>
 					</Col>
 				</Row>
 

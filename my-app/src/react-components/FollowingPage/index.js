@@ -67,7 +67,6 @@ class FollowingPage extends React.Component{
 			<ClubFollowingCard
 				clubProfile={club.profilePicture}
 				clubName={club.name}
-				clubFollowing={club.members.length - club.execs.length}
 				type={type}
 			/>
 		)
