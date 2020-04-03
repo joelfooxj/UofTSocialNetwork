@@ -23,7 +23,6 @@ class LogInForm extends React.Component{
         
         return (
             <div className="logInFormContainer">
-                <image className="logInFormBackground" src="https://lh3.googleusercontent.com/proxy/ospiO7SULRd0knHzy6clBbB_RKHRJTFe4u6MYcr3tsHCJt_uKH_AK3EOugFAvKwsmNkzQyQrnFo2Byoci8GdKRZnNqui82ljTrFPObL_G8KPRhBuvIQDXMGif-I9aQdizZTBe7jT753l60lZ"/>
                 <Form className="logInForm">
                 <Row>
                     <Col className="logInForm_username" xs={12} sm={6} lg={6} xl={6}>
