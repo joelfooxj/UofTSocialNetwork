@@ -25,11 +25,11 @@ collectIds = () => {
  
 
   if (timelineOpts[0]) {
-      ids = this.mergeArrsWithoutDuplicates(ids, this.props.loggedInUser.clubsMemberOf)
+      ids = this.mergeArrsWithoutDuplicates(ids, this.props.loggedInUser.clubsFollowing)
   }
 
   if (timelineOpts[1]) {
-      ids = this.mergeArrsWithoutDuplicates(ids, this.props.loggedInUser.clubsFollowing)
+      ids = this.mergeArrsWithoutDuplicates(ids, this.props.loggedInUser.clubsMemberOf)
   }
 
   if (timelineOpts[2]) {
@@ -90,7 +90,7 @@ collectIds = () => {
 
   render() {
     const { loggedInUser, appContext } = this.props
-
+    console.log(this.state.feeds)
 
     return (
       <div>
@@ -99,6 +99,7 @@ collectIds = () => {
         </Navbar>
         <div className='feedsContainer'>
           {this.state.feeds}
+          {this.state.feeds.length === 0 ? <span className='msgSpan'>Either there are no posts from any of your clubs, or you have them disabled in timeline options.</span> : null}
         </div>
       </div>
       )
