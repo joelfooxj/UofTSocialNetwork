@@ -1,12 +1,10 @@
-firstFeed {
-    position: relative;
-    top: 80px;
-}
 
 .feedsContainer{
     width: fit-content;
     height: fit-content;
     min-height: 400px;
+    position: absolute;
+    top: 200px;
 }
 
 .msgSpan{
@@ -16,4 +14,8 @@ firstFeed {
     left: 50%;
     transform: translate(-50%, -50%);
     color: black;
+}
+
+.listElement{
+    list-style-type: none;
 }

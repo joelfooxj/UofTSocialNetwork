@@ -12,45 +12,58 @@ import Card from 'react-bootstrap/Card'
 
 class FeedCard extends React.Component{
 	render(){
-		const { posterPic, eventTime, eventPlace, eventTitle, eventDetail, eventClubName } = this.props;
-		return (
-	<div className='feedcard'>
-	<Container>
-	<Jumbotron>
-			<Row>
-			</Row>
-			<Row>
-				<Col className='eventPosterContainer' xs={6} md={4} xl={4}>
-					<Image className='eventPoster' src={posterPic} fluid thumbnail alt='no pic'/>
-				</Col>
-				<Col>
-					<Container>
-						<Row>
-							<Col>
-								<EventDescriptionCard title={eventTitle} detail={eventDetail} clubName={eventClubName}>
-								</EventDescriptionCard>
-							</Col>
-						</Row>
-						<Row>
-							<Col>
-								<EventTimePlace eventTime={eventTime} eventPlace={eventPlace}>
-								</EventTimePlace>
-							</Col>
-						</Row>
-						<Row>
-							<div className='eventDecisionList'>
-								<EventDecision></EventDecision>
-							</div>
-						</Row>
-					</Container>
-				</Col>
-			</Row>
-		</Jumbotron>
-	</Container>
-	</div>);
-		}
+		const { clubImage, postTime, postClubName, postContent} = this.props;
+
+		return(
+			<div id='feedCardMainDiv'>
+				<div id='clubProfileImgContainer'>
+					<img id='clubImage' src={clubImage} alt='Failed to load image'></img>
+				</div>
+				<div id='postContentContainer'>
+					<h2 id='clubNameSpan'>{postClubName}</h2>
+					<span id='postTestSpan'></span>
+				</div>
+			</div>
+
+		)
+	}
 
 
 }
 
 export default FeedCard;
+/*
+render(){
+	const { posterPic, eventTime, eventPlace, eventTitle, eventDetail, eventClubName } = this.props;
+	return (
+<div className='feedcard'>
+<Container id='primaryContainer'>
+<Jumbotron>
+		<Row>
+		</Row>
+		<Row>
+			<Col className='eventPosterContainer' xs={6} md={4} xl={4}>
+				<Image className='eventPoster' src={posterPic} fluid thumbnail alt='no pic'/>
+			</Col>
+			<Col>
+				<Container>
+					<Row>
+						<Col>
+							<EventDescriptionCard title={eventTitle} detail={eventDetail} clubName={eventClubName}>
+							</EventDescriptionCard>
+						</Col>
+					</Row>
+					<Row>
+						<Col>
+							<EventTimePlace eventTime={eventTime} eventPlace={eventPlace}>
+							</EventTimePlace>
+						</Col>
+					</Row>
+
+				</Container>
+			</Col>
+		</Row>
+	</Jumbotron>
+</Container>
+</div>);
+	}*/

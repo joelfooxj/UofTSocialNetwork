@@ -1,6 +1,29 @@
-.feedcard {
+#feedCardMainDiv{
+	min-height: 150px;
+	min-width: 300px;
+	max-width: 50%;
+	max-height: 250px;
 	display: block;
-	position: relative;
-	top: 80px
-	
+	margin-top: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px;
 }
+
+#clubProfileImgContainer{
+	width: 100px;
+	height: 100px;
+	margin-top: 5px;
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+}
+
+#clubImage{
+	max-height: 100px;
+	min-height: 100px;
+	max-width: 100px;
+	min-width: 100px;
+	border-radius: 50%;
+}
+

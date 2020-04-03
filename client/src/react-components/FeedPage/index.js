@@ -5,6 +5,8 @@ import './style.css';
 import { getClub} from '../../actions/clubActions.js'
 import { getPostByPosterID } from '../../actions/postActions.js'
 import { withRouter } from 'react-router-dom';
+import { uid } from "react-uid";
+
 
 class FeedPage extends React.Component{
 
@@ -71,11 +73,9 @@ collectIds = () => {
               postClub = club
               pic = postClub.profilePicture
       
-              tempFeeds.push(<FeedCard posterPic={pic} eventTime={this.state.posts[i].date} 
-                                 eventPlace={this.state.posts[i].location} eventTitle={this.state.posts[i].title} 
-                                 eventDetail={this.state.posts[i].content} eventClubName={postClub.name}>
+              tempFeeds.push(<FeedCard clubImage={pic} postTime={this.state.posts[i].date} 
+                                 postContent={this.state.posts[i].content} postClubName={postClub.name}>
                          </FeedCard>)
-                         
               this.setState({
                 feeds: tempFeeds
               })
@@ -91,6 +91,9 @@ collectIds = () => {
   render() {
     const { loggedInUser, appContext } = this.props
 
+    const displayFeeds = this.state.feeds.map(feedCard => <li className='listElement' key={uid(feedCard)}>{feedCard}</li>)
+
+
     return (
       <div>
         <Navbar  logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
@@ -99,7 +102,7 @@ collectIds = () => {
         <div className='feedsContainer'>
         {(this.state.feeds.length === 0) ? 
           <div id="noFollowing">You're not following any clubs yet.</div> :
-          this.state.feeds
+          displayFeeds
         }
         </div>
       </div>
