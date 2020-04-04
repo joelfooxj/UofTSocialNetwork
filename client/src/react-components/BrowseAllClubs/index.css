@@ -4,7 +4,7 @@
 
 #container{
 	position: relative;
-	top:100px;
+	top:120px;
 }	
 
 .notUnderlined{
@@ -13,4 +13,9 @@
 
 .button{
 	margin: 5px; 
+}
+
+.clubText {
+	margin-right: 15px;
+	position: relative;
 }

@@ -171,8 +171,8 @@ class ClubDashboard extends React.Component {
 			return(
 				<div>
 					<Navbar logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
-	          loggedInUser={this.props.currentUser}>
-	        </Navbar>
+					loggedInUser={this.props.currentUser} appContext={this.props.rootContext}>
+					</Navbar>
 					<div className="clubDashboardContainer"> 
 						<h1> {this.state.thisClub.name} Dashboard </h1> 
 						<Link  
