@@ -48,7 +48,7 @@ class AdminDashboard extends React.Component {
 					this.props.history.push('/')
 				} 
 			} catch (error) {
-				console(`${error}: There was an error retrieving some data`); 
+				console.log(`${error}: There was an error retrieving some data`); 
 			}
 
 			return {retAccounts, retClubs, retPosts};
