@@ -56,7 +56,7 @@ class ClubList extends React.Component {
                         {this.state.clubs.map(club =>                           
                           <Paper elevation={0} variant='outlined' key={club._id} className="listItem">
                             <ListItem> 
-                                <ListItemText
+                                <ListItemText className="clubText"
                                   primary={club.name}
                                   secondary={club.clubInfo}
                                 />
