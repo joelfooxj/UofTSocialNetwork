@@ -25,11 +25,13 @@
 #timelineHeader{
     width: fit-content;
     height: fit-content;
-    top: 20%;
+    top: 15%;
     left: 53%;
     transform: translate(-50%, 0%);
     display: block;
     position: absolute;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 #loadingDiv{
