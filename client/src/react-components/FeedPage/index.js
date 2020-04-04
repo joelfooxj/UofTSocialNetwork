@@ -110,15 +110,13 @@ collectIds = () => {
            loggedInUser={loggedInUser} appContext={appContext}>
         </Navbar>
         {this.state.loaded ?
-          <div>
-            <h1 id='timelineHeader'>Timeline</h1>
             <div className='feedsContainer'>
+              <h1 id='timelineHeader'>Timeline</h1>
               {(this.state.feeds.length === 0) ? 
                 <div id="notFollowingTxt">You're not following any clubs yet.</div> :
                 displayFeeds
               }
             </div>
-          </div>
            :
           <div id='loadingDiv'><Spinner animation='border'/></div>
         }
