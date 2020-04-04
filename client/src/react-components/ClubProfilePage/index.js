@@ -51,7 +51,7 @@ class ClubProfilePage extends React.Component {
         return(
             <div id="profilePage">
                 <Navbar logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
-                    status={true} loggedInUser={this.props.userInfo}>
+                    status={true} loggedInUser={this.props.userInfo} appContext={this.props.rootContext}>
                 </Navbar>
 
                 {this.state.loaded ? 

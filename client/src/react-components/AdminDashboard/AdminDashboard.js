@@ -68,7 +68,7 @@ class AdminDashboard extends React.Component {
         return(
         	<div>
         	<Navbar logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
-	          loggedInUser={user} context={context}>
+	          loggedInUser={user} appContext={context}>
 	        </Navbar>
             <div className="adminDashboardContainer"> 
                 <AdminStats 
