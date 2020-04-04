@@ -24,7 +24,7 @@ const DEF_BANNER_ID = process.env.DEF_BANNER_ID
 
 // routes here
 // [GET] get all clubs
-router.get('/all', (req, res) => {
+router.get('/all', (req, res, next) => {security.auth(req, res, next)}, (req, res) => {
     Club.find().then((clubs) => {
         res.send(clubs)
     }).catch((err) => {

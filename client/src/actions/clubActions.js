@@ -21,6 +21,8 @@ async function getAllClubs() {
         const response = await fetch(request)
         if (response.status === 200) {
             return await response.json()
+        } else if (response.status === 401) { 
+            return {'status': 401}
         } else {
             return []
         }
