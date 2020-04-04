@@ -1,6 +1,7 @@
 import React from 'react'
 import './style.css';
 import ClubFollowingCard from '../ClubFollowingCard'
+import {CardColumns, Container} from 'react-bootstrap'
 import Navbar from '../Navbar'
 import { withRouter } from 'react-router-dom';
 import { getClub } from '../../actions/clubActions.js'
@@ -89,7 +90,7 @@ class FollowingPage extends React.Component{
 						<div className='clublist'>
 							{(this.state.elements.length === 0) ? 
 								<div id="noFollowing">You're not following any clubs yet.</div> :
-								this.state.elements
+								<Container><CardColumns>{this.state.elements}</CardColumns></Container>
 							}
 						</div>
 					</React.Fragment> :
