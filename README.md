@@ -32,11 +32,16 @@ On this page the user is able to change profile information such as username, pa
 This page shows the profile icons of all clubs that the user is a member of or an executive of or a follower of. The user can press the view button on each club's card to view that club's profile and dashboard.
 
 ### Explore Page
-This page lists all the clubs in our application. From here the user can click 'View' to view the club's page or click 'Request to join' to request to join the club. Requests have to be approved by the admin so you would have to log in as them, more information abut how to do this is in later pages that relate to the admin. There is also a search bar at the top that searches the club list by club name.
+This page lists all the clubs in our application. From here the user can click 'View' to view the club's page or click 'Request to join' to request to join the club. Requests have to be approved by the admin or the club executive so you would have to log in as one of them to do this. More information about admin  functions will be provided later in the document. There is also a search bar at the top that searches the club list by club name. If you are an executive of any club, those clubs will also have an 'Edit' button on their listing. You can click that to edit your club's page.
 
+### Club Profile Page
 
+### Club Dashboard
+(the one you navigate to if you click Edit on Explore)
 
+### Amin Dashboard
 
+### Create New Club
 
 
 
