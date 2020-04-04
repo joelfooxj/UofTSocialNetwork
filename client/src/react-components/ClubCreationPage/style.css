@@ -2,14 +2,13 @@
     width: fit-content;
     height: fit-content;
     position: relative;
-    margin-left: 45%;
-    margin-top: 20px;
+    margin-left: 42vw;
 }
 
 #titleText {
     color: black;
-    margin-top: 8%;
-    margin-left: 42%;
+    margin-top: 12vh;
+    margin-left: 38vw;
     font-size: 35pt;
     font-weight: bold;
 }
