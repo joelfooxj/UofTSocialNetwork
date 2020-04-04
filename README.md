@@ -2,38 +2,44 @@
 ## Project Description:
 This project is aimed at creating a social space for students to discover new clubs around UofT.
 
-## How to Download and Run our Project:
-* git clone 
-* cd team11
-* npm install
-* npm install @material-ui/core
-* npm install @material-ui/icons
-* npm install react-boostrap
-* npm install react-router-dom
-* cd my-app/my-app
-* npm start
+## How to Run our Project:
+Navigate to https://limitless-caverns-98642.herokuapp.com/, the project should be deployed on Heroku and there is no local set up necessary. __The timeout is set to 10 minutes after logging in. You will have to reloging after 10 minutes if you timeout.__
 
-
+## Log In Credentials (username, password)
+Regular User: (user, user) </br>
+Administrator: (admin, admin) </br>
 
 ## Description and Instructions
 ### Log In Page
 This is the first page the user (both a regular user and an admin) will see upon navigating to our website. Here the user is able to enter their credentials and log into their account. If they do not have an account, they can press the "Create Account" button to navigate to the account creation page. <br/>
 <br/>
-If the log in was successful, the user will be navigated to their feed page where they can see events and posts from clubs that they follow.
-However, if the log in was not successful, either of two messages will appear: "Account Banned" if the account was banned by an admin or "Incorrect Credentials" if the user mistyped their username or password. If the user wishes to see their password while typing it, they can click the visibility icon next to the password field. Please note that the only way to recover access t your account after being banned is to contact the admin directly. <br/>
+If the log in was successful, the user will be navigated to their feed page where they can see posts from clubs that they follow, are an executive of or a member of depending on their timeline options set in User Center.</br>
+However, if the log in was not successful, either of the two messages will appear: "Account Banned" if the account was banned by an admin or "Incorrect Credentials" if the user mistyped their username or password. If the user wishes to see their password while typing it, they can click the visibility icon next to the password field. Please note that the only way to recover access t your account after being banned is to contact the admin directly. <br/>
 <br/>
-__Working Credentials Include:__
-* (user, user)
-* (admin, admin)
-* (mike1995, password (banned account))
-<br/>
-The format is (username, password).
 
 ### Create Account Page
-This page is meant for regular users who wish to create an account. Admin accounts are created internally by the system administrator of the website. Here the user can fill in the appropriate fields to create an account. Note that the fields have to be non-empty. Once the account is created, you will be redirected to the log in page and will be able to log in with your new credentials.
+This page is meant for regular users who wish to create an account. Admin accounts are created internally by the system administrator of the website. Here the user can fill in the appropriate fields to create an account. Note that the fields have to be non-empty. In addition, if a user tries to enter a username or email that is already in use, the website will let them know that it is already taken and they have to use a different one. We also have a simple regex for checking email format and telling whether an email has valid structure for our website. Once the account is created, you will be redirected to the log in page and will be able to log in with your new credentials.
 
-### User Profile Settings Page
-On this page the user is able to change profile information such as username, password, email, etc. The user is also able to upload a profile picture to be used for their account. Please note that for now the profile picture will change only on this page as we are going to be using a database in phase 2 to support image file uploads so that all our views could display the profile picture as necessary. In addition, the image will revert back to default when you leave the page. Again, this will not be the case once the image is actually uploaded to a database and we can check if this account already has an image, for now the interaction is completely hardcoded. Lastly, on this page the user can delete their account. This action cannot be reverted and therefore this feature should be used only with absolute certainty. 
+### Feed Page
+This is the page the user sees right after logging in. On this page the user can see posts from the following categories of clubs: clubs they are following, clubs they are an executive of and clubs they are a member of. The clubs the user sees posts from depend on what options the user has set in their User Center under 'Receive timeline updates from'. __Please note that by default all options are disabled.__ From this page you can also use the Navbar at the top of the page to navigate to other pages. </br>
+
+The posts themselves display what club's page the post was made on, what time and the content of the post. __Please note we never meant to display the user who made the post, in our application posts are made by the clubs' members and are displayed as posts made by the club itself and not any individual user.__
+
+### User Profile Settings Page (User Center on Navbar)
+On this page the user is able to change profile information such as username, password, email, etc. The user is not allowed to change their username or email to one that already exists and they will be prevented from doing so. The email field does not display the current password and just says 'New Password' as an indication of where the new password has to be entered. Be careful, if you click edit and do not change the password it will be set to whatever is in the input field when you click save, so if you just click Edit and then Save, it will be set to 'New Password'. Lastly, on this page the user can delete their account. This action cannot be reverted and therefore this feature should be used only with absolute certainty. 
+
+### Following Page
+This page shows the profile icons of all clubs that the user is a member of or an executive of or a follower of. The user can press the view button on each club's card to view that club's profile and dashboard.
+
+### Explore Page
+This page lists all the clubs in our application. From here the user can click 'View' to view the club's page or click 'Request to join' to request to join the club. Requests have to be approved by the admin so you would have to log in as them, more information abut how to do this is in later pages that relate to the admin. There is also a search bar at the top that searches the club list by club name.
+
+
+
+
+
+
+
 
 ### Club Profile Page
 This page is the view for any club. It displays a selected banner image and profile photo based on the club. Also displayed is a bio and posts that the club has made. A user is able to perform several different actions depending on their permissions. Executives will be able to make posts and delete existing ones. Club members are able to All users are able to follow and unfollow, and request to join a club if they are not a part of it already. This request must be approved by an admin before a user is actually a part of the club.
