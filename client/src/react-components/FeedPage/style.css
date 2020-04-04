@@ -2,7 +2,7 @@
 .feedsContainer{
     width: fit-content;
     height: fit-content;
-    min-width: 800px;
+    min-width: 100%;
     min-height: 400px;
     position: absolute;
     top: 200px;
@@ -29,8 +29,6 @@
     transform: translate(-50%, -50%);
     display: block;
     position: absolute;
-    margin-top: 20px;
-    margin-bottom: 20px;
 }
 
 #loadingDiv{
@@ -46,15 +44,4 @@
     min-width: 200px;
     min-height: 50px;
     transform: translate(-50%, -50%)
-}
-
-#mainDiv{
-    width: fit-content;
-    height: fit-content;
-    max-width: 90%;
-    margin-right: 0px;
-    margin-top: 0px;
-    margin-left: 0px;
-    margin-bottom: 0px;
-    min-width: 800px;
 }
