@@ -27,8 +27,7 @@ class UserProfilePage extends React.Component{
 
         try{
             const res = await fetch(req)
-            
-            if(!res.currentUser){
+            if(res.status === 401){
                 alert('Your session has timed out. Please log back in.')
                 this.props.history.push('/')
             }
