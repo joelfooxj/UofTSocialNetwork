@@ -1,13 +1,14 @@
 #feedCardMainDiv{
 	min-height: 150px;
-	min-width: 300px;
+	min-width: 700px;
 	max-width: 50%;
-	max-height: 250px;
+	max-height: 400px;
 	display: block;
 	margin-top: 10px;
 	margin-left: 10px;
 	margin-right: 10px;
 	margin-bottom: 10px;
+	background-color: grey;
 }
 
 #clubProfileImgContainer{
@@ -17,6 +18,8 @@
 	margin-left: 5px;
 	margin-right: 5px;
 	margin-bottom: 5px;
+	display: block;
+	float: left;
 }
 
 #clubImage{
@@ -25,5 +28,9 @@
 	max-width: 100px;
 	min-width: 100px;
 	border-radius: 50%;
+}
+
+#postContentContainer{
+	display: inline-block;
 }
 

@@ -20,8 +20,9 @@ class FeedCard extends React.Component{
 					<img id='clubImage' src={clubImage} alt='Failed to load image'></img>
 				</div>
 				<div id='postContentContainer'>
-					<h2 id='clubNameSpan'>{postClubName}</h2>
-					<span id='postTestSpan'></span>
+					<h2 id='clubName'>{postClubName}</h2>
+					<h6 id='postDate'>{postTime}</h6>
+					<span id='postTestSpan'>{postContent}</span>
 				</div>
 			</div>
 
