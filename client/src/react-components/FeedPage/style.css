@@ -2,7 +2,7 @@
 .feedsContainer{
     width: fit-content;
     height: fit-content;
-    min-width: 100%;
+    min-width: 800px;
     min-height: 400px;
     position: absolute;
     top: 200px;
@@ -45,4 +45,11 @@
     min-width: 200px;
     min-height: 50px;
     transform: translate(-50%, -50%)
+}
+
+#mainDiv{
+    width: fit-content;
+    height: fit-content;
+    max-width: 90%;
+    
 }

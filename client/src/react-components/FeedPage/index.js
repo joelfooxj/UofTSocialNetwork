@@ -110,7 +110,7 @@ collectIds = () => {
            loggedInUser={loggedInUser} appContext={appContext}>
         </Navbar>
         {this.state.loaded ?
-          <div>
+          <div id='mainDiv'>
             <h1 id='timelineHeader'>Timeline</h1>
             <div className='feedsContainer'>
               {(this.state.feeds.length === 0) ? 
