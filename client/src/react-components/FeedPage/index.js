@@ -7,7 +7,6 @@ import { getPostByPosterID } from '../../actions/postActions.js'
 import { withRouter } from 'react-router-dom';
 import { uid } from "react-uid";
 
-
 class FeedPage extends React.Component{
 
   state = {
@@ -98,7 +97,6 @@ collectIds = () => {
 
   render() {
     const { loggedInUser, appContext } = this.props
-
     const displayFeeds = this.state.feeds.map(feedCard => <li className='listElement' key={uid(feedCard)}>{feedCard}</li>)
 
 
