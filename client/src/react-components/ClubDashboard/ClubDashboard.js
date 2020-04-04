@@ -31,11 +31,7 @@ class ClubDashboard extends React.Component {
 			getClub(this.state.clubID).then(retObj => {
 				if (typeof(retObj.status) !== "undefined"){
 					if (retObj.status === 401){ 
-<<<<<<< HEAD:client/src/react-components/ClubDashboard/ClubDashboard.js
 						alert("Your session has timed out. Please log back in."); 
-=======
-						alert("You're session has timed out. Please log back in."); 
->>>>>>> master:my-app/src/react-components/ClubDashboard/ClubDashboard.js
 						this.props.history.push('/');
 					}
 					alert(`Status ${retObj.status}: Club ${this.state.clubID} does not exist`); 
@@ -64,11 +60,7 @@ class ClubDashboard extends React.Component {
 				copy = copy.filter(o => o !== inID); 
 				const status = await updateClub(this.state.clubID, inType, copy);
 				if (status === 401){ 
-<<<<<<< HEAD:client/src/react-components/ClubDashboard/ClubDashboard.js
 					alert("Your session has timed out. Please log back in."); 
-=======
-					alert("You're session has timed out. Please log back in."); 
->>>>>>> master:my-app/src/react-components/ClubDashboard/ClubDashboard.js
 					this.props.history.push('/');
 				} else if (status === 200){ 
 					this.setState({ [inType]: copy});
@@ -130,11 +122,7 @@ class ClubDashboard extends React.Component {
 			} else {
 					updateClubImage(id, attr, formdat).then((result) => {
 						if (result === 401){ 
-<<<<<<< HEAD:client/src/react-components/ClubDashboard/ClubDashboard.js
 							alert("Your session has timed out. Please log back in."); 
-=======
-							alert("You're session has timed out. Please log back in."); 
->>>>>>> master:my-app/src/react-components/ClubDashboard/ClubDashboard.js
 							this.props.history.push('/');
 						}	
 					});
@@ -148,18 +136,11 @@ class ClubDashboard extends React.Component {
 				let newClubsExecOf = [...this.props.currentUser.clubsExecOf]
 				newClubsExecOf.push(this.state.clubID)
 				const reqStatus = await updateClub(this.state.clubID, "execs", newExecs);
-<<<<<<< HEAD:client/src/react-components/ClubDashboard/ClubDashboard.js
 				const updStatus = await updateUserRecord(inUserID, 'clubsExecOf', newClubsExecOf, this.props.rootContext)
 					if (reqStatus === 401 || updStatus === 401){ 
 						alert("Your session has timed out. Please log back in."); 
 						this.props.history.push('/');
 					} else if (reqStatus === 200 && updStatus === 200) {
-=======
-					if (reqStatus === 401){ 
-						alert("You're session has timed out. Please log back in."); 
-						this.props.history.push('/');
-					} else if (reqStatus === 200) {
->>>>>>> master:my-app/src/react-components/ClubDashboard/ClubDashboard.js
 						this.setState({ execs: newExecs });
 					} else {
 						alert(`There has been an error executizing for ${inUserID}`)
