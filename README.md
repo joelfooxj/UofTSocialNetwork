@@ -36,13 +36,28 @@ This page lists all the clubs in our application. From here the user can click '
 
 ### Club Profile Page
 
-### Club Dashboard
-(the one you navigate to if you click Edit on Explore)
+This page is the view for any club. It displays a selected banner image and profile photo based on the club. Also displayed is a bio and posts that the club has made. A user is able to perform several different actions depending on their permissions. Executives will be able to make posts and delete existing ones. All users are able to follow and unfollow, and request to join a club if they are not a part of it already. This request must be approved by an admin before a user is actually a part of the club.
 
-### Amin Dashboard
+### Club Dashboard
+This page lists the functions for editing the various aspects of the club. The GO TO CLUB PROFILE PAGE directs the user to the club's Club Profile Page. 
+The Profile Picture and Banner Picture allows the user to upload a new picture for the club's profile image and banner image, respectively. The Choose File button will open the file upload dialog from the user's operating system, which allows them to select a JPG or PNG image, which will be reflected in the text next to that button. The UPLOAD button will set that picture, and will alert the user if successful. 
+The Members section contains users that are members of the club. The REMOVE button removes that member from the club, and also removes them from the Executives list if they are executives as well. The EXECUTIZE button adds a member as an executive of the club. 
+The Executives section contains executives of the club. The REMOVE button removes that member as an executive. 
+The Requests section contains users that have requested to join the club. The APPROVE button adds the user to the members list, and the DENY button removes them. 
+The Posts section contains posts made by this club. The VIEW button directs the user to the club's Club Profile Page. The DELETE button removes that post from the club timeline.  
+
+### Admin Dashboard
+This page lists the functions for editing the various aspects of the app. 
+The Users section contains a list of all users created, as well as the functions to edit each user. The trashbin icon deletes that user from the database. The BAN button sets the status of the user to banned, and the user will not be able to log in to the app. Clicking on the BAN button toggles it to the UNBAN button, which does the reverse. 
+The Clubs section contains a list of clubs created, as well as functions to edit each club. The CREATE NEW CLUB directs the admin to the Create New Club page. The trashbin icon deletes the club from the database. The VIEW button directs the admin to that club's Club Profile Page. The EDIT button directs the admin to that club's Club Dashboard page. 
+
+### Browse All Clubs 
+
+This page lists all clubs. At the top is a search bar that filters for clubs by name, where subset of the name matches the input text. There are several options for each club. The VIEW button directs the user to the club's Club Profile Page. The EDIT button appears only if the user is an admin or is an executive in the club. The REQUEST TO JOIN button adds the user to the list of requests to join the club. Upon making the request, the REQUEST button will toggle to a REQUESTED state, indicating the user has been added to the list of requests. Upon approval to join, the button will toggle to a JOINED state, and adds the user to the club's member list. 
 
 ### Create New Club
 
+This page is where new clubs are created. Only users with admin level permissions are able to access this page as it is a part of the admin dashboard as discussed above. Here the admin can enter the name and bio text of the new club. Clubs are created with a default profile picture and banner image, which can be changed later on the club/admin dashboard.
 
 
 # OLD DESCRIPTIONS
