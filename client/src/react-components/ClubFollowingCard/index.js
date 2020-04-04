@@ -1,6 +1,7 @@
 import React from 'react'
-import {Row, Col, Image, Card, Container} from 'react-bootstrap'
-import { Button } from '@material-ui/core'
+import {Row, Col, Image, Card, Button, Container} from 'react-bootstrap'
+import './style.css';
+
 import { withRouter } from 'react-router-dom'
  
 class ClubFollowingCard extends React.Component{
@@ -11,28 +12,12 @@ class ClubFollowingCard extends React.Component{
 
 	render(){
 		return (
-			<Container>
-			<Row><Col xl={1} lg={1}></Col><Col>
-			<Card  className="text-center" border="dark">
-			<Card.Body>
-				<Container>
-					<Row>
-						<Col lg={1} xl={1}>
-							<Image width={"50px"} height={"50px"} src={this.props.clubProfile}/>
-						</Col>
-						<Col lg={2} xl={2}>
-							<h5>{this.props.clubName}</h5>
-						</Col>
-						<Col >
-							<Button variant='contained' color='primary' onClick={this.goToClub.bind(this)}>View</Button>
-						</Col>
-					</Row>
-
-				</Container>
-			</Card.Body>
-			</Card></Col>
-			<Col xl={1} lg={1}></Col></Row>
-			</Container>
+			<Card className="clubFollowingCard">
+			  <Card.Img className="clubFollowingCardImg" variant="top" src={this.props.clubProfile} />
+			  <Card.Body>
+			    <Card.Title onClick={this.goToClub.bind(this)} className="text-center"><Button variant="outline-info">{this.props.clubName}</Button></Card.Title>
+			  </Card.Body>
+			</Card>
 		);
 	}
 }
