@@ -59,8 +59,9 @@ collectIds = () => {
         }
 
         for(let j = 0; j < clubPosts.length; j++){
-          tempPosts.push(clubPosts[i])
+          tempPosts.push(clubPosts[j])
         }
+
         this.setState({
           posts: tempPosts
         }, () => {
