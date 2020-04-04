@@ -19,10 +19,20 @@ class BrowseAllClubs extends React.Component {
   componentDidMount(){
     try {
       getAllClubs().then(clubs => {
-        this.setState({
-          allClubs: clubs, 
-          displayedClubs: clubs
-        })
+        console.log(clubs)
+        if (clubs.status) {
+          if (clubs.status === 401) {
+            alert("You have been logged out.")
+          } else {
+            console.log("error")
+          }
+          this.props.history.push('/')
+        } else {
+          this.setState({
+            allClubs: clubs, 
+            displayedClubs: clubs
+          })
+        }
       });
     } catch (error) {
       alert(error);

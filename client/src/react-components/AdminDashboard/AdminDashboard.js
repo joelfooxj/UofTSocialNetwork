@@ -44,9 +44,9 @@ class AdminDashboard extends React.Component {
 				retClubs = await getAllClubs(); 
 				retPosts = await getAllPosts();
 
-				if (retAccounts === null || retClubs === null || retPosts === null){
+				if (retAccounts === null || retClubs.status || retPosts === null){
 					this.props.history.push('/')
-				}
+				} 
 			} catch (error) {
 				console(`${error}: There was an error retrieving some data`); 
 			}
