@@ -56,7 +56,7 @@ class PostList extends React.Component {
 														<ListItem> 
 																<ListItemText
 																	primary={post.content}
-																	secondary={post.date}
+																	secondary={post.date.split('(')[0]}
 																/>
 																<ListItemSecondaryAction>
 																	<Link 
