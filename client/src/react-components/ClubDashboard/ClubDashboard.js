@@ -114,18 +114,25 @@ class ClubDashboard extends React.Component {
 			})
 		}
 
-		handler(id, attr, formdat) {
+		async handler(id, attr, formdat) {
 			if (attr === "profilePicture" && !this.state.selectedProfileImg) {
-					alert("Select a profile picture file.")
-			} else if (attr === "bannerImage" && !this.state.selectedProfileImg) {
+				alert("Select a profile picture file.")
+			} else if (attr === "bannerImage" && !this.state.selectedBannerImg) {
 				alert("Select a banner picture file.") 
 			} else {
-					updateClubImage(id, attr, formdat).then((result) => {
-						if (result === 401){ 
-							alert("Your session has timed out. Please log back in."); 
-							this.props.history.push('/');
-						}	
-					});
+				try {
+					let result = await updateClubImage(id, attr, formdat)
+					if (result === 401){ 
+						alert("Your session has timed out. Please log back in."); 
+						this.props.history.push('/');
+					} else if (result !== 200) {
+						alert("There was a problem uploading your image. Please try again later.")
+					} else {
+						alert("Successfully uploaded your image.")					}
+				} catch (error) {
+					console.log(error, "There was an error")
+					this.props.history.push()
+				}
 			}
 		}
 

@@ -15,6 +15,29 @@ class UserProfilePage extends React.Component{
     state = {
         displayTimelineOpts: this.props.userInfo.timelineOpts
     }
+
+    componentDidMount = async () => {
+        let req = new Request('/users/check-session', {
+            method: 'GET', 
+            headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+            }
+        })
+
+        try{
+            const res = await fetch(req)
+            if(res.status === 401){
+                alert('Your session has timed out. Please log back in.')
+                this.props.history.push('/')
+            }
+            
+          }
+          catch(err){
+            throw new Error(err)
+          }
+    }
+
     render(){
         let userInfo = this.props.userInfo
 
