@@ -113,7 +113,7 @@ collectIds = () => {
           <div className='feedsContainer'>
             <h1 id='timelineHeader'>Timeline</h1>
             {(this.state.feeds.length === 0) ? 
-              <div id="noFollowing">You're not following any clubs yet.</div> :
+              <div id="notFollowingTxt">You're not following any clubs yet.</div> :
               displayFeeds
             }
           </div> :
