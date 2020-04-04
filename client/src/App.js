@@ -111,7 +111,9 @@ class App extends React.Component{
             }/>
             <Route path='/createClub' render={ () => 
               (this.state.loggedInUser ? 
-                <CreateClubPage userInfo={this.state.loggedInUser}/> : 
+                <CreateClubPage 
+                  userInfo={this.state.loggedInUser}
+                  context={this}/> : 
                 <Redirect to='/'/>
               )
             }/>
@@ -119,10 +121,10 @@ class App extends React.Component{
               (this.state.loggedInUser ? <ClubDashboard currentUser={this.state.loggedInUser} rootContext={this}/> : <LogInPage logInContext={this}/>) }/>
             <Route exact path='/AdminDashboard' render={() => 
               (this.state.loggedInUser && this.state.loggedInUser.permissions === 1 ? 
-              <AdminDashboard user={ this.state.loggedInUser } /> : <LogInPage logInContext={this}/>) }/>
+              <AdminDashboard user={ this.state.loggedInUser } rootContex={this}/> : <LogInPage logInContext={this}/>) }/>
             <Route exact path='/browseAllClubs' render={() => 
             (this.state.loggedInUser ? 
-              <BrowseAllClubs allClubs={info.Clubs} userInfo={this.state.loggedInUser}/> : 
+              <BrowseAllClubs allClubs={info.Clubs} userInfo={this.state.loggedInUser} context={this}/> : 
               <LogInPage logInContext={this}/>) }/>
             
             

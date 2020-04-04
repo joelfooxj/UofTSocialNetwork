@@ -62,6 +62,13 @@ collectIds = () => {
           tempPosts.push(clubPosts[j])
         }
 
+        tempPosts = tempPosts.sort(function(a, b) {
+          let aDate = new Date(a.date)
+          let bDate = new Date(b.date)
+          return bDate - aDate;
+        })
+
+
         this.setState({
           posts: tempPosts
         }, () => {

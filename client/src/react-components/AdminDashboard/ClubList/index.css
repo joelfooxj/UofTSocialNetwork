@@ -5,3 +5,7 @@ link {
 .listItem{
   margin: 10px; 
 }
+
+.clubText{
+  max-width: 72%;
+}
