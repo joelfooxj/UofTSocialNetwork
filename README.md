@@ -8,6 +8,8 @@ Navigate to https://limitless-caverns-98642.herokuapp.com/, the project should b
 ## Log In Credentials (username, password)
 Regular User: (user, user) </br>
 Administrator: (admin, admin) </br>
+Banned User: (banned, banned) </br>
+Executive of Club: (exec, exec)</br>
 
 ## Description and Instructions
 ### Log In Page
@@ -38,31 +40,14 @@ This page lists all the clubs in our application. From here the user can click '
 
 This page is the view for any club. It displays a selected banner image and profile photo based on the club. Also displayed is a bio and posts that the club has made. A user is able to perform several different actions depending on their permissions. Executives will be able to make posts and delete existing ones. All users are able to follow and unfollow, and request to join a club if they are not a part of it already. This request must be approved by an admin before a user is actually a part of the club.
 
-### Club Dashboard
-(the one you navigate to if you click Edit on Explore)
+### Admin Dashboard
+This is the page that the admin sees on log in. Here the admin can ban users, unban users, change users' profile information, edit club profiles and delete users and clubs. The admin can also create a new club from this page. __Only an admin can make a new club and it has to be done from this page.__ If the admin presses the 'View' button on a user profile, they will be redirected to the User Profile Page where they can edit the user information. If they press 'Edit' on a club profile, they are redirected to the Club Dashboard described below. 
 
-### Amin Dashboard
+### Club Dashboard
+This page allows admins and club executives to edit their club. You can select the profile image and the banner image of your club. You can also see the members, followers and executives of the club as well as view posts and delete posts. Lastly, admins and executives can approve club join requests on this page.
 
 ### Create New Club
 
 This page is where new clubs are created. Only users with admin level permissions are able to access this page as it is a part of the admin dashboard as discussed above. Here the admin can enter the name and bio text of the new club. Clubs are created with a default profile picture and banner image, which can be changed later on the club/admin dashboard.
 
 
-# OLD DESCRIPTIONS
-### Club Profile Page
-This page is the view for any club. It displays a selected banner image and profile photo based on the club. Also displayed is a bio and posts that the club has made. A user is able to perform several different actions depending on their permissions. Executives will be able to make posts and delete existing ones. Club members are able to All users are able to follow and unfollow, and request to join a club if they are not a part of it already. This request must be approved by an admin before a user is actually a part of the club.
-
-### MainPage/Feed Page
-This page is the main page of the app, it has a navbar that integrated multiple functionality. If the user type is admin, then the admin will be able to access the admin dashboard page. If the user type is user, then the user will be able to access hotposts, all feeds, club following manage and user profile page. Both user contains a search page which searches across all the posts and clubs, this will be implemented in pharse 2. The first two feeds on this page is a sample of posts with full description, those will be delete later. The posts following are the postes from all the clubs that the current user is following.
-
-### Club Following Page
-This page is for the purpose of showing clubs that the user is following. The clubs are ordered by the following order with the information of the club profile, club name, club followers. 
-
-### Navigation 
-Explore - Goes to a list of all clubs that exist on our website.
-Feeds   - Goes to the main feed page for this user.
-Following - Goes to a page displaying a list of clubs that the user is following.
-UserCenter - Goes to the user profile.
-
-### Browse All Clubs Page 
-This page allows the user to view all clubs. 
