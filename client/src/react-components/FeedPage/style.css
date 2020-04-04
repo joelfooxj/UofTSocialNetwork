@@ -19,3 +19,12 @@
 .listElement{
     list-style-type: none;
 }
+
+#timelineHeader{
+    width: fit-content;
+    height: fit-content;
+    top: -50px;
+    left: 51%;
+    display: block;
+    position: absolute;
+}

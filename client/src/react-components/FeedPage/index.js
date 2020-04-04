@@ -101,10 +101,11 @@ collectIds = () => {
            loggedInUser={loggedInUser} appContext={appContext}>
         </Navbar>
         <div className='feedsContainer'>
-        {(this.state.feeds.length === 0) ? 
-          <div id="noFollowing">You're not following any clubs yet.</div> :
-          displayFeeds
-        }
+          <h1 id='timelineHeader'>Timeline</h1>
+          {(this.state.feeds.length === 0) ? 
+            <div id="noFollowing">You're not following any clubs yet.</div> :
+              displayFeeds
+          }
         </div>
       </div>
       )
