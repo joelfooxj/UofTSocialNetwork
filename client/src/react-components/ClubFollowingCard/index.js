@@ -15,7 +15,7 @@ class ClubFollowingCard extends React.Component{
 			<Card className="clubFollowingCard">
 			  <Card.Img className="clubFollowingCardImg" variant="top" src={this.props.clubProfile} />
 			  <Card.Body>
-			    <Card.Title onClick={this.goToClub.bind(this)} className="text-center"><Button variant="outline-info">{this.props.clubName}</Button></Card.Title>
+			    <Card.Title onClick={this.goToClub.bind(this)} className="text-center"><Button variant="outline-info">View {this.props.clubName}</Button></Card.Title>
 			  </Card.Body>
 			</Card>
 		);
