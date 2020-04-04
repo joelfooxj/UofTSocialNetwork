@@ -196,12 +196,12 @@ class ClubDashboard extends React.Component {
 								Go to club profile page
 							</Button>
 						</Link> 
-						<ClubStats 
+						{/* <ClubStats 
 							statsList={[ 
 								"No. of Members: " + this.state.members.length,
 								"No. of Requests: " + this.state.requested.length,
 								"No. of Executives: " + this.state.execs.length,
-							]}/>
+							]}/> */}
 						<span> 
 							<div>
 								<h2> Profile Picture </h2>
