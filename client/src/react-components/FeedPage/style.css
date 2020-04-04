@@ -6,6 +6,7 @@
     min-height: 400px;
     position: absolute;
     top: 200px;
+    left: 30%;
 }
 
 .msgSpan{
@@ -24,9 +25,9 @@
 #timelineHeader{
     width: fit-content;
     height: fit-content;
-    top: -50px;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 20%;
+    left: 53%;
+    transform: translate(-50%, 0%);
     display: block;
     position: absolute;
 }
