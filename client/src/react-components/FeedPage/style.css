@@ -1,0 +1,30 @@
+
+.feedsContainer{
+    width: fit-content;
+    height: fit-content;
+    min-height: 400px;
+    position: absolute;
+    top: 200px;
+}
+
+.msgSpan{
+    position: absolute;
+    display: inline-block;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+}
+
+.listElement{
+    list-style-type: none;
+}
+
+#timelineHeader{
+    width: fit-content;
+    height: fit-content;
+    top: -50px;
+    left: 51%;
+    display: block;
+    position: absolute;
+}

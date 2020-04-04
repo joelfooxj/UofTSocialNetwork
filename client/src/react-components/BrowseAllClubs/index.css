@@ -1,0 +1,21 @@
+.mainTitle{
+  text-align: center;
+}
+
+#container{
+	position: relative;
+	top:120px;
+}	
+
+.notUnderlined{
+	text-decoration: none;
+}
+
+.button{
+	margin: 5px; 
+}
+
+.clubText {
+	margin-right: 15px;
+	position: relative;
+}
