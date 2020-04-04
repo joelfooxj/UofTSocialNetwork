@@ -14,15 +14,21 @@ class FeedCard extends React.Component{
 	render(){
 		const { clubImage, postTime, postClubName, postContent} = this.props;
 
+		let dateSplit = postTime.split(' ')
+		let date = dateSplit[0] + ' ' + dateSplit[1] + ' ' + dateSplit[2] + ' ' + dateSplit[3] + ' ' + dateSplit[4]
+
 		return(
 			<div id='feedCardMainDiv'>
 				<div id='clubProfileImgContainer'>
 					<img id='clubImage' src={clubImage} alt='Failed to load image'></img>
 				</div>
-				<div id='postContentContainer'>
+				<div id='headerContainer'>
 					<h2 id='clubName'>{postClubName}</h2>
-					<h6 id='postDate'>{postTime}</h6>
-					<span id='postTestSpan'>{postContent}</span>
+					<h6 id='postDate'>{date}</h6>
+				</div>
+				<br/>
+				<div id='postContentContainer'>
+					<p id='postText'>{postContent}</p>
 				</div>
 			</div>
 

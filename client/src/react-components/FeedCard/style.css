@@ -1,4 +1,6 @@
 #feedCardMainDiv{
+	height: fit-content;
+	width: fit-content;
 	min-height: 150px;
 	min-width: 700px;
 	max-width: 50%;
@@ -8,11 +10,12 @@
 	margin-left: 10px;
 	margin-right: 10px;
 	margin-bottom: 10px;
+	padding-bottom: 10px;
+	padding-top: 10px;
 	background-color: #C3C3C3;
 	border-radius: 25px;
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%, -50%);
 	position: relative;
 }
 
@@ -36,6 +39,14 @@
 }
 
 #postContentContainer{
+	display: inline-block;
+	background-color: #e8e6e6;
+	width: 500px;
+	min-height: 60px;
+	border-radius: 10px;
+}
+
+#headerContainer{
 	display: inline-block;
 }
 
