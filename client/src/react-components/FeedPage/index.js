@@ -6,6 +6,7 @@ import { getClub} from '../../actions/clubActions.js'
 import { getPostByPosterID } from '../../actions/postActions.js'
 import { withRouter } from 'react-router-dom';
 import { uid } from "react-uid";
+import Spinner from 'react-bootstrap/Spinner';
 
 class FeedPage extends React.Component{
 
@@ -40,21 +41,21 @@ collectIds = () => {
   return ids;
 }
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     let tempPosts = []
+    let tempFeeds = []
     let clubIds = this.collectIds()
-    for(let i = 0; i < clubIds.length; i++){
-      getPostByPosterID(clubIds[i]).then(clubPosts => {
-
-        if(clubPosts.status){
-          if(clubPosts.status === 401){
+    for (let i = 0; i < clubIds.length; i++) {
+      try{
+        let clubPosts = await getPostByPosterID(clubIds[i])
+        if (clubPosts.status) {
+          if (clubPosts.status === 401) {
             alert('Your session has timed out. Please log back in.')
             this.props.history.push("/")
-          }
-          else{
+          } else {
             alert("An error has occurred.")
           }
-          return
+          return;
         }
 
         for(let j = 0; j < clubPosts.length; j++){
@@ -66,33 +67,36 @@ collectIds = () => {
           let bDate = new Date(b.date)
           return bDate - aDate;
         })
-
-
-        this.setState({
-          posts: tempPosts
-        }, () => {
-          let tempFeeds = []
-          for(let i = 0; i < this.state.posts.length; i++){
-            let pic = null 
-            let postClub = null
-            getClub(this.state.posts[i].posterID).then(club => {
-
-              postClub = club
-              pic = postClub.profilePicture
-      
-              tempFeeds.push(<FeedCard clubImage={pic} postTime={this.state.posts[i].date} 
-                                 postContent={this.state.posts[i].content} postClubName={postClub.name}>
-                         </FeedCard>)
-              this.setState({
-                feeds: tempFeeds
-              })
-            }, err => console.log(err))
-          }
-        })
-      }, err => console.log(err))
+      } catch (error) {
+        console.log(error)
+        console.log("An error occurred")
+        this.props.history.push('/')
+      }
     }
 
-    
+    try {
+      for (let k = 0; k < tempPosts.length; k++) {
+        let pic = null 
+        let postClub = null 
+        let club = await getClub(tempPosts[k].posterID)
+        postClub = club
+        pic = postClub.profilePicture
+
+        tempFeeds.push(<FeedCard clubImage={pic} postTime={tempPosts[k].date} 
+                        postContent={tempPosts[k].content} postClubName={postClub.name}>
+                       </FeedCard>)
+      }
+    } catch (error) {
+      console.log(error)
+      console.log("An error occurred")
+      this.props.history.push('/')
+    }
+
+    this.setState({
+      posts: tempPosts,
+      feeds: tempFeeds,
+      loaded: true
+    })
   }
 
   render() {
@@ -105,13 +109,16 @@ collectIds = () => {
         <Navbar  logoPic='https://pngimage.net/wp-content/uploads/2018/06/logo-placeholder-png-6.png' 
            loggedInUser={loggedInUser} appContext={appContext}>
         </Navbar>
-        <div className='feedsContainer'>
-          <h1 id='timelineHeader'>Timeline</h1>
-          {(this.state.feeds.length === 0) ? 
-            <div id="noFollowing">You're not following any clubs yet.</div> :
+        {this.state.loaded ?
+          <div className='feedsContainer'>
+            <h1 id='timelineHeader'>Timeline</h1>
+            {(this.state.feeds.length === 0) ? 
+              <div id="noFollowing">You're not following any clubs yet.</div> :
               displayFeeds
-          }
-        </div>
+            }
+          </div> :
+          <div id='loadingDiv'><Spinner animation='border'/></div>
+        }
       </div>
       )
   
