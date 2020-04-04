@@ -3,6 +3,7 @@ import { Grid, List, ListItem, ListItemText, IconButton, ListItemSecondaryAction
 import DeleteIcon from  '@material-ui/icons/Delete' 
 import { Link } from 'react-router-dom'
 import { banUser, unbanUser, deleteUser } from '../../../actions/accountActions'
+import { getAllClubs, updateClub } from '../../../actions/clubActions'
 import './index.css'
 
 class UserList extends React.Component {
@@ -74,13 +75,28 @@ class UserList extends React.Component {
 				}	else if (res !== 200){
 					alert(`${accountID} was not deleted. Please try again.`);
 				} else {
+					this.removeFromClubs(accountID);
 					let accountsCopy = [...this.state.accounts]; 
 					this.setState({accounts: accountsCopy.filter(account => account._id !== accountID)});
 				}
 			});
 		} catch (error) {
-			alert(`${error}: The user was not deleted`);
+			alert(`${error}`);
 		}
+	}
+
+	async removeFromClubs(accountID){ 
+		try {
+			const clubs = await getAllClubs();
+			let club;
+			for (club of clubs){ 
+				await updateClub(club._id, 'requested', club.requested.filter(r => r !== accountID));
+				await updateClub(club._id, 'execs', club.members.filter(m => m !== accountID));
+				await updateClub(club._id, 'members', club.execs.filter(e => e !== accountID));
+			}
+		} catch (error) {
+			console.log(`${error}`)
+		} 
 	}
 
 	render(){
