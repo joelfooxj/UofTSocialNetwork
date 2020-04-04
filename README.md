@@ -36,6 +36,8 @@ This page lists all the clubs in our application. From here the user can click '
 
 ### Club Profile Page
 
+This page is the view for any club. It displays a selected banner image and profile photo based on the club. Also displayed is a bio and posts that the club has made. A user is able to perform several different actions depending on their permissions. Executives will be able to make posts and delete existing ones. All users are able to follow and unfollow, and request to join a club if they are not a part of it already. This request must be approved by an admin before a user is actually a part of the club.
+
 ### Club Dashboard
 (the one you navigate to if you click Edit on Explore)
 
@@ -43,6 +45,7 @@ This page lists all the clubs in our application. From here the user can click '
 
 ### Create New Club
 
+This page is where new clubs are created. Only users with admin level permissions are able to access this page as it is a part of the admin dashboard as discussed above. Here the admin can enter the name and bio text of the new club. Clubs are created with a default profile picture and banner image, which can be changed later on the club/admin dashboard.
 
 
 # OLD DESCRIPTIONS
