@@ -1,11 +1,10 @@
-
 .feedsContainer{
     width: fit-content;
     height: fit-content;
     min-width: 100%;
     min-height: 400px;
     position: absolute;
-    margin-top: 12vh;
+    top: 200px;
 }
 
 .msgSpan{
@@ -24,9 +23,11 @@
 #timelineHeader{
     width: fit-content;
     height: fit-content;
-    left: 43vw;
+    top: -50px;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: block;
-    position: relative;
+    position: absolute;
 }
 
 #loadingDiv{
