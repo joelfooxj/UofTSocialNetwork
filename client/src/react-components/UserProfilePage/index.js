@@ -190,7 +190,7 @@ class UserProfilePage extends React.Component{
                     width={"150px"}
                     height={"30px"}
                     padding={"0px"}
-                    top={"-75px"}
+                    top={"-20vh"}
                     left={"555px"}
                     fontSize={"10px"}
                     onClick={() => {
