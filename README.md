@@ -56,5 +56,3 @@ This page lists all clubs. At the top is a search bar that filters for clubs by 
 ### Create New Club Page
 
 This page is where new clubs are created. Only users with admin level permissions are able to access this page as it is a part of the admin dashboard as discussed above. Here the admin can enter the name and bio text of the new club. Clubs are created with a default profile picture and banner image, which can be changed later on the club/admin dashboard.
-
-
