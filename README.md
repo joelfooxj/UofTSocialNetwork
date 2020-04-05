@@ -3,7 +3,7 @@
 This project is aimed at creating a social space for students to discover new clubs around UofT.
 
 ## How to Run our Project:
-Navigate to https://limitless-caverns-98642.herokuapp.com/, the project should be deployed on Heroku and there is no local set up necessary. __The timeout is set to 10 minutes after logging in. You will have to re-login after 10 minutes if you timeout.__
+Navigate to https://lit-taiga-79526.herokuapp.com/, the project should be deployed on Heroku and there is no local set up necessary. __The timeout is set to 10 minutes after logging in. You will have to re-login after 10 minutes if you timeout.__
 
 ## Log In Credentials (username, password)
 Regular User: (user, user) </br>
