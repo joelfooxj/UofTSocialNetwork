@@ -9,7 +9,11 @@ Navigate to https://lit-taiga-79526.herokuapp.com/, the project should be deploy
 Regular User: (user, user) </br>
 Administrator: (admin, admin) </br>
 Banned User: (banned, banned) </br>
-Executive of Club: (exec, exec)</br>
+</br>
+The regular user is following TestClub1, is an executive of DefaultClub and is a member of the Slayer club. This user also has a pending join request for Victor's Test Club. 
+</br>
+The banned user should be banned and not be able to log in. You should see a prompt saying this if you try those credentials. You can unban the user by going to the admin dashboard as an admin.
+
 
 ## Description and Instructions
 ### Log In Page
