@@ -1,9 +1,8 @@
 import React from 'react'; 
 import { Grid, List, ListItem, ListItemText, Button, ListItemSecondaryAction, Paper} from '@material-ui/core'
-import './index.css';
 import { Link } from 'react-router-dom'
 import { getPostByPosterID, removePostByID } from '../../../actions/postActions'
-
+import './style.css'
 class PostList extends React.Component {
 	constructor(props){ 
 		super(props); 
@@ -55,6 +54,7 @@ class PostList extends React.Component {
 													<Paper elevation={0} variant='outlined' key={post._id}>
 														<ListItem> 
 																<ListItemText
+																	className="clubDashBoardPosts"
 																	primary={post.content}
 																	secondary={post.date.split('(')[0]}
 																/>
