@@ -8,6 +8,8 @@ Navigate to https://limitless-caverns-98642.herokuapp.com/, the project should b
 ## Log In Credentials (username, password)
 Regular User: (user, user) </br>
 Administrator: (admin, admin) </br>
+Banned User: (banned, banned) </br>
+Executive of Club: (exec, exec)</br>
 
 ## Description and Instructions
 ### Log In Page
@@ -31,35 +33,28 @@ On this page the user is able to change profile information such as username, pa
 ### Following Page
 This page shows the profile icons of all clubs that the user is a member of or an executive of or a follower of. The user can press the view button on each club's card to view that club's profile and dashboard.
 
+### Club Profile Page
+This page is the view for any club. It displays a selected banner image and profile photo based on the club. Also displayed is a bio and posts that the club has made. A user is able to perform several different actions depending on their permissions. Executives will be able to make posts and delete existing ones. All users are able to follow and unfollow, and request to join a club if they are not a part of it already. This request must be approved by an admin before a user is actually a part of the club.
+
+### Club Dashboard Page
+This page lists the functions for editing the various aspects of the club. The GO TO CLUB PROFILE PAGE directs the user to the club's Club Profile Page. 
+The Profile Picture and Banner Picture allows the user to upload a new picture for the club's profile image and banner image, respectively. The Choose File button will open the file upload dialog from the user's operating system, which allows them to select a JPG or PNG image, which will be reflected in the text next to that button. The UPLOAD button will set that picture, and will alert the user if successful. 
+The Members section contains users that are members of the club. The REMOVE button removes that member from the club, and also removes them from the Executives list if they are executives as well. The EXECUTIZE button adds a member as an executive of the club. 
+The Executives section contains executives of the club. The REMOVE button removes that member as an executive. 
+The Requests section contains users that have requested to join the club. The APPROVE button adds the user to the members list, and the DENY button removes them. 
+The Posts section contains posts made by this club. The VIEW button directs the user to the club's Club Profile Page. The DELETE button removes that post from the club timeline.  
+
+### Admin Dashboard Page
+This page lists the functions for editing the various aspects of the app. 
+The Users section contains a list of all users created, as well as the functions to edit each user. The trashbin icon deletes that user from the database. The BAN button sets the status of the user to banned, and the user will not be able to log in to the app. Clicking on the BAN button toggles it to the UNBAN button, which does the reverse. 
+The Clubs section contains a list of clubs created, as well as functions to edit each club. The CREATE NEW CLUB directs the admin to the Create New Club page. The trashbin icon deletes the club from the database. The VIEW button directs the admin to that club's Club Profile Page. The EDIT button directs the admin to that club's Club Dashboard page. 
+
 ### Explore Page
-This page lists all the clubs in our application. From here the user can click 'View' to view the club's page or click 'Request to join' to request to join the club. Requests have to be approved by the admin or the club executive so you would have to log in as one of them to do this. More information about admin  functions will be provided later in the document. There is also a search bar at the top that searches the club list by club name. If you are an executive of any club, those clubs will also have an 'Edit' button on their listing. You can click that to edit your club's page.
 
-### Club Profile Page
+This page lists all clubs. At the top is a search bar that filters for clubs by name, where subset of the name matches the input text. There are several options for each club. The VIEW button directs the user to the club's Club Profile Page. The EDIT button appears only if the user is an admin or is an executive in the club. The REQUEST TO JOIN button adds the user to the list of requests to join the club. Upon making the request, the REQUEST button will toggle to a REQUESTED state, indicating the user has been added to the list of requests. Upon approval to join, the button will toggle to a JOINED state, and adds the user to the club's member list. 
 
-### Club Dashboard
-(the one you navigate to if you click Edit on Explore)
+### Create New Club Page
 
-### Amin Dashboard
-
-### Create New Club
+This page is where new clubs are created. Only users with admin level permissions are able to access this page as it is a part of the admin dashboard as discussed above. Here the admin can enter the name and bio text of the new club. Clubs are created with a default profile picture and banner image, which can be changed later on the club/admin dashboard.
 
 
-
-# OLD DESCRIPTIONS
-### Club Profile Page
-This page is the view for any club. It displays a selected banner image and profile photo based on the club. Also displayed is a bio and posts that the club has made. A user is able to perform several different actions depending on their permissions. Executives will be able to make posts and delete existing ones. Club members are able to All users are able to follow and unfollow, and request to join a club if they are not a part of it already. This request must be approved by an admin before a user is actually a part of the club.
-
-### MainPage/Feed Page
-This page is the main page of the app, it has a navbar that integrated multiple functionality. If the user type is admin, then the admin will be able to access the admin dashboard page. If the user type is user, then the user will be able to access hotposts, all feeds, club following manage and user profile page. Both user contains a search page which searches across all the posts and clubs, this will be implemented in pharse 2. The first two feeds on this page is a sample of posts with full description, those will be delete later. The posts following are the postes from all the clubs that the current user is following.
-
-### Club Following Page
-This page is for the purpose of showing clubs that the user is following. The clubs are ordered by the following order with the information of the club profile, club name, club followers. 
-
-### Navigation 
-Explore - Goes to a list of all clubs that exist on our website.
-Feeds   - Goes to the main feed page for this user.
-Following - Goes to a page displaying a list of clubs that the user is following.
-UserCenter - Goes to the user profile.
-
-### Browse All Clubs Page 
-This page allows the user to view all clubs. 
