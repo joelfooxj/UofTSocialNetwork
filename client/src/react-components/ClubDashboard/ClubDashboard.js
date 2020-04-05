@@ -242,16 +242,20 @@ class ClubDashboard extends React.Component {
 						users={this.state.members}
 						execs={this.state.execs}
 						onDelete={this.deleteMember.bind(this)}
-						makeExec={this.makeExec.bind(this)}/>
+						makeExec={this.makeExec.bind(this)}
+						context={this}/>
 						<ExecList 
 						users={this.state.execs}
-						onDelete={this.deleteObject.bind(this)}/>
+						onDelete={this.deleteObject.bind(this)}
+						context={this}/>
 						<RequestList 
 						users={this.state.requested}
 						onDelete={this.deleteObject.bind(this)}
-						onApprove={this.onRequestApprove.bind(this)}/>
+						onApprove={this.onRequestApprove.bind(this)}
+						context={this}/>
 						<PostList
-						thisClubID={this.state.clubID}/>
+						thisClubID={this.state.clubID}
+						context={this}/>
 						<Link
 							to={returnPath} 
 							style={{ textDecoration:'none' }}>
@@ -265,8 +269,6 @@ class ClubDashboard extends React.Component {
 								{returnText}
 							</Button>
 						</Link>	
-						
-
 					</div>
 				</div>
 			);

@@ -3,8 +3,6 @@ import './AdminDashboard.css';
 import AdminStats from './AdminStats/index';
 import UserList from './UserList/index';
 import ClubList from './ClubList/index';
-import { Button } from '@material-ui/core';
-import { Link } from 'react-router-dom'
 import Navbar from '../Navbar'
 import { withRouter } from 'react-router-dom';
 import { getAllClubs } from '../../actions/clubActions'
@@ -78,11 +76,11 @@ class AdminDashboard extends React.Component {
                 />
                 <UserList
 								usersArr={this.state.accounts}
-								context={context}
+								context={this}
 								/>
                 <ClubList
 								clubsArr={this.state.clubs}
-								context={context}
+								context={this}
 								/> 
             </div>
           </div>
