@@ -33,9 +33,9 @@ class ClubDashboard extends React.Component {
 					if (retObj.status === 401){ 
 						alert("Your session has timed out. Please log back in."); 
 						this.props.history.push('/');
+					} else {
+						alert(`Status ${retObj.status}: Club ${this.state.clubID} does not exist`); 
 					}
-					alert(`Status ${retObj.status}: Club ${this.state.clubID} does not exist`); 
-					this.props.history.goBack();
 				} else if (!(retObj.execs.includes(this.props.currentUser._id) || this.props.currentUser.permissions === 1)){
 					alert("Unauthorized access"); 
 					this.props.history.goBack();
