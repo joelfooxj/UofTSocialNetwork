@@ -33,9 +33,9 @@ class ClubDashboard extends React.Component {
 					if (retObj.status === 401){ 
 						alert("Your session has timed out. Please log back in."); 
 						this.props.history.push('/');
+					} else {
+						alert(`Status ${retObj.status}: Club ${this.state.clubID} does not exist`); 
 					}
-					alert(`Status ${retObj.status}: Club ${this.state.clubID} does not exist`); 
-					this.props.history.goBack();
 				} else if (!(retObj.execs.includes(this.props.currentUser._id) || this.props.currentUser.permissions === 1)){
 					alert("Unauthorized access"); 
 					this.props.history.goBack();
@@ -242,16 +242,20 @@ class ClubDashboard extends React.Component {
 						users={this.state.members}
 						execs={this.state.execs}
 						onDelete={this.deleteMember.bind(this)}
-						makeExec={this.makeExec.bind(this)}/>
+						makeExec={this.makeExec.bind(this)}
+						context={this}/>
 						<ExecList 
 						users={this.state.execs}
-						onDelete={this.deleteObject.bind(this)}/>
+						onDelete={this.deleteObject.bind(this)}
+						context={this}/>
 						<RequestList 
 						users={this.state.requested}
 						onDelete={this.deleteObject.bind(this)}
-						onApprove={this.onRequestApprove.bind(this)}/>
+						onApprove={this.onRequestApprove.bind(this)}
+						context={this}/>
 						<PostList
-						thisClubID={this.state.clubID}/>
+						thisClubID={this.state.clubID}
+						context={this}/>
 						<Link
 							to={returnPath} 
 							style={{ textDecoration:'none' }}>
@@ -265,8 +269,6 @@ class ClubDashboard extends React.Component {
 								{returnText}
 							</Button>
 						</Link>	
-						
-
 					</div>
 				</div>
 			);

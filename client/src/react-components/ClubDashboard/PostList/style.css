@@ -1,0 +1,9 @@
+.clubDashBoardPosts .MuiTypography-displayBlock{
+	width:33vw;
+}
+
+@media only screen and (max-width: 950px) {
+  	.clubDashBoardPosts .MuiTypography-displayBlock{
+		width: 65vw;
+	}
+}

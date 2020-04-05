@@ -1,9 +1,8 @@
 import React from 'react'; 
 import { Grid, List, ListItem, ListItemText, Button, ListItemSecondaryAction, Paper} from '@material-ui/core'
-import './index.css';
 import { Link } from 'react-router-dom'
 import { getPostByPosterID, removePostByID } from '../../../actions/postActions'
-
+import './style.css'
 class PostList extends React.Component {
 	constructor(props){ 
 		super(props); 
@@ -17,7 +16,7 @@ class PostList extends React.Component {
 		getPostByPosterID(this.state.thisClubID).then(res => { 
 			if(res.status && res.status === 401){
 				alert("You're session has timed out. Please log back in."); 
-				this.props.history.push('/');
+				this.props.context.props.history.push('/');
 				return
 			}
 			
@@ -32,7 +31,7 @@ class PostList extends React.Component {
 			const status = await removePostByID(postID); 
 			if (status === 401){ 
 				alert("You're session has timed out. Please log back in."); 
-				this.props.history.push('/');
+				this.props.context.props.history.push('/');
 			}	else if (status === 200){
 				let postsCopy = [...this.state.posts]; 
 				this.setState({posts: postsCopy.filter(p => p._id !== postID)});
@@ -55,6 +54,7 @@ class PostList extends React.Component {
 													<Paper elevation={0} variant='outlined' key={post._id}>
 														<ListItem> 
 																<ListItemText
+																	className="clubDashBoardPosts"
 																	primary={post.content}
 																	secondary={post.date.split('(')[0]}
 																/>
