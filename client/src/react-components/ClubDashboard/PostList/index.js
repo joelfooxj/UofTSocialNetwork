@@ -16,7 +16,7 @@ class PostList extends React.Component {
 		getPostByPosterID(this.state.thisClubID).then(res => { 
 			if(res.status && res.status === 401){
 				alert("You're session has timed out. Please log back in."); 
-				this.props.history.push('/');
+				this.props.context.props.history.push('/');
 				return
 			}
 			
@@ -31,7 +31,7 @@ class PostList extends React.Component {
 			const status = await removePostByID(postID); 
 			if (status === 401){ 
 				alert("You're session has timed out. Please log back in."); 
-				this.props.history.push('/');
+				this.props.context.props.history.push('/');
 			}	else if (status === 200){
 				let postsCopy = [...this.state.posts]; 
 				this.setState({posts: postsCopy.filter(p => p._id !== postID)});
